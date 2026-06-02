@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food | Shubham</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+}
+
+/* NAVBAR */
+
+nav{
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(15,23,42,0.9);
+    position:fixed;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#38bdf8;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    transition:.3s;
+}
+
+nav ul li a:hover{
+    color:#38bdf8;
+}
+
+/* HERO */
+
+.hero{
+    min-height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:140px 8% 80px;
+    background:linear-gradient(to right,#0f172a,#111827,#1e293b);
+}
+
+.hero h1{
+    font-size:65px;
+    margin-bottom:20px;
+}
+
+.hero span{
+    color:#38bdf8;
+}
+
+.hero p{
+    max-width:800px;
+    color:#cbd5e1;
+    line-height:1.8;
+    margin:auto;
+}
+
+/* SECTION */
+
+section{
+    padding:90px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:42px;
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:#cbd5e1;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    background:rgba(56,189,248,0.1);
+}
+
+.card h3{
+    color:#38bdf8;
+    margin-bottom:15px;
+}
+
+.card p{
+    color:#d1d5db;
+    line-height:1.8;
+}
+
+/* FACT SECTION */
+
+.fact-box{
+    background:#111827;
+    padding:50px;
+    border-radius:30px;
+    text-align:center;
+}
+
+.fact-box h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+button{
+    padding:14px 28px;
+    border:none;
+    border-radius:50px;
+    background:#38bdf8;
+    color:#0f172a;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#fact{
+    margin-top:20px;
+    color:#cbd5e1;
+    font-size:18px;
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+    border-top:1px solid rgba(255,255,255,0.1);
+}
+
+@media(max-width:768px){
+
+.hero h1{
+    font-size:45px;
+}
+
+nav{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Shubham</div>
+
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="travel.html">Travel</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div>
+<h1>My <span>Food</span> World 🍕</h1>
+
+<p>
+Food is one of my favorite things in life.
+I enjoy trying new dishes, cooking recipes,
+exploring different flavors and creating delicious memories.
+</p>
+
+</div>
+
+</section>
+
+<!-- FOOD CARDS -->
+
+<section>
+
+<div class="section-title">
+<h2>Food Categories 🍽️</h2>
+<p>Things I love eating and exploring</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>🍕 Favorite Foods</h3>
+<p>
+Pizza, Burger, Biryani, Momos, Paneer Butter Masala
+and Pasta are some of my favorite foods.
+</p>
+</div>
+
+<div class="card">
+<h3>🥗 Daily Food</h3>
+<p>
+Roti, Rice, Dal, Vegetables, Fruits and Milk
+are part of my regular healthy diet.
+</p>
+</div>
+
+<div class="card">
+<h3>🍔 Fast Food</h3>
+<p>
+I enjoy burgers, fries, noodles,
+sandwiches and pizza occasionally.
+</p>
+</div>
+
+<div class="card">
+<h3>🍹 Different Juices</h3>
+<p>
+Orange Juice, Mango Juice, Apple Juice,
+Pineapple Juice and Watermelon Juice.
+</p>
+</div>
+
+<div class="card">
+<h3>👨‍🍳 Cooking</h3>
+<p>
+I love trying new recipes and learning
+different cooking styles.
+</p>
+</div>
+
+<div class="card">
+<h3>🍰 Desserts</h3>
+<p>
+Ice Cream, Cake, Brownies and Chocolates
+make every day sweeter.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOD FACT -->
+
+<section>
+
+<div class="fact-box">
+
+<h2>Random Food Fact 🍽️</h2>
+
+<button onclick="showFact()">Show Fact</button>
+
+<p id="fact"></p>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 Shubham | Food Page 🍕
+</footer>
+
+<script>
+
+const facts = [
+
+"🍯 Honey never spoils.",
+
+"🍎 Apples float because they contain air.",
+
+"🍕 Pizza is one of the most loved foods in the world.",
+
+"🥕 Carrots were originally purple.",
+
+"🍫 Chocolate was once used as money."
+
+];
+
+function showFact(){
+
+let random = Math.floor(Math.random()*facts.length);
+
+document.getElementById("fact").innerHTML = facts[random];
+
+}
+
+const cards = document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+card.addEventListener("mouseenter",()=>{
+
+card.style.transform="translateY(-10px)";
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="translateY(0px)";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
