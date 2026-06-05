@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flappy Drone | Gaming World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(17, 24, 39, 0.6);
+      --primary: #10b981;
+      --primary-glow: rgba(16, 185, 129, 0.5);
+      --accent-magenta: #ec4899;
+      --accent-magenta-glow: rgba(236, 72, 153, 0.5);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+      overflow-x: hidden;
+      padding-bottom: 40px;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .back-btn {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .logo {
+      color: var(--primary);
+      font-size: 24px;
+      font-weight: 700;
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .game-container {
+      max-width: 500px;
+      width: 95%;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 25px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      background: linear-gradient(135deg, var(--primary), var(--accent-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    /* GAME PANEL */
+    .game-canvas-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      background: #020617;
+      margin-bottom: 20px;
+      aspect-ratio: 4 / 5;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* OVERLAYS */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(9, 13, 22, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .overlay h2 {
+      font-size: 32px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .overlay p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .overlay button {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--accent-magenta));
+      color: #090d16;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: all 0.3s ease;
+    }
+
+    .overlay button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--accent-magenta-glow);
+    }
+
+    /* DASHBOARD */
+    .dashboard {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 12px 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .score-val {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    .hi-val {
+      color: var(--accent-magenta);
+      text-shadow: 0 0 8px var(--accent-magenta-glow);
+    }
+
+    .instructions {
+      margin-top: 15px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Main Hub</a>
+    <div class="logo">Gaming Hub 🎮</div>
+  </header>
+
+  <!-- GAME BOX -->
+  <div class="game-container">
+    <h1>Flappy Drone 🛸💥</h1>
+    <div class="subtitle">navigate cyber-towers in the grid</div>
+
+    <!-- SCOREBOARD -->
+    <div class="dashboard">
+      <div class="stat">
+        <span class="stat-label">Score:</span>
+        <span class="stat-value score-val" id="score">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">High Score:</span>
+        <span class="stat-value hi-val" id="high-score">0</span>
+      </div>
+    </div>
+
+    <!-- CANVAS WRAPPER -->
+    <div class="game-canvas-wrapper" id="canvas-wrapper">
+      <!-- START OVERLAY -->
+      <div class="overlay" id="start-overlay">
+        <h2>Launch Drone</h2>
+        <p>Press SPACE or TAP to boost drone. Avoid towers.</p>
+        <button onclick="startGame()">Start Game</button>
+      </div>
+
+      <!-- GAME OVER OVERLAY -->
+      <div class="overlay" id="gameover-overlay" style="display: none;">
+        <h2>System Crash</h2>
+        <p id="gameover-msg">You cleared 0 gates.</p>
+        <button onclick="startGame()">Relaunch</button>
+      </div>
+
+      <canvas id="game-canvas" width="400" height="500"></canvas>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="instructions">
+      <p><strong>Controls:</strong> Press **SPACEBAR** / **UP Arrow** or click/tap anywhere on the canvas to pulse thrusters.</p>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+    const startOverlay = document.getElementById('start-overlay');
+    const gameoverOverlay = document.getElementById('gameover-overlay');
+    const scoreVal = document.getElementById('score');
+    const highScoreVal = document.getElementById('high-score');
+
+    // HIGH SCORE
+    let highScore = localStorage.getItem('flappy_highscore') || 0;
+    highScoreVal.innerText = highScore;
+
+    // WEB AUDIO SYNTHESIZER
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      const now = audioCtx.currentTime;
+
+      if (type === 'boost') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(200, now);
+        osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.1);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      } else if (type === 'point') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, now); // D5
+        osc.frequency.setValueAtTime(880, now + 0.08); // A5
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.linearRampToValueAtTime(0.08, now + 0.08);
+        gain.gain.linearRampToValueAtTime(0, now + 0.16);
+        osc.start(now);
+        osc.stop(now + 0.16);
+      } else if (type === 'crash') {
+        // White noise crash sound
+        const bufferSize = audioCtx.sampleRate * 0.35;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+        
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(600, now);
+        filter.frequency.linearRampToValueAtTime(50, now + 0.35);
+
+        const noiseGain = audioCtx.createGain();
+        noiseGain.gain.setValueAtTime(0.25, now);
+        noiseGain.gain.linearRampToValueAtTime(0, now + 0.35);
+
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(audioCtx.destination);
+        noise.start(now);
+        noise.stop(now + 0.35);
+      }
+    }
+
+    // GAME STATE VARIABLES
+    let isPlaying = false;
+    let score = 0;
+    let drone = { x: 80, y: 200, radius: 14, velocity: 0, gravity: 0.35, lift: -6.5 };
+    let towers = [];
+    let particles = [];
+    let towerInterval = 100;
+    let timer = 0;
+
+    class Tower {
+      constructor() {
+        this.width = 50;
+        this.gap = 125;
+        // Random placement of gap
+        this.topHeight = Math.random() * (canvas.height - this.gap - 100) + 40;
+        this.bottomHeight = canvas.height - this.topHeight - this.gap;
+        this.x = canvas.width;
+        this.passed = false;
+      }
+      
+      update() {
+        this.x -= 2.6; // Scroll speed
+      }
+      
+      draw() {
+        ctx.save();
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ec4899';
+        ctx.fillStyle = '#ec4899';
+        
+        // Top column
+        ctx.beginPath();
+        ctx.roundRect(this.x, 0, this.width, this.topHeight, [0, 0, 8, 8]);
+        ctx.fill();
+        
+        // Bottom column
+        ctx.beginPath();
+        ctx.roundRect(this.x, canvas.height - this.bottomHeight, this.width, this.bottomHeight, [8, 8, 0, 0]);
+        ctx.fill();
+        
+        ctx.restore();
+      }
+    }
+
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = -1.5 - Math.random() * 2;
+        this.vy = Math.random() * 2 - 1;
+        this.size = Math.random() * 4 + 1;
+        this.alpha = 1;
+        this.color = color;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.04;
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // TRIGGER FLY ACTION
+    function triggerFly() {
+      if (!isPlaying) return;
+      drone.velocity = drone.lift;
+      playSound('boost');
+      
+      // Spawn exhaust particles
+      for (let i = 0; i < 5; i++) {
+        particles.push(new Particle(drone.x - 10, drone.y, '#10b981'));
+      }
+    }
+
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Space' || e.code === 'ArrowUp') {
+        triggerFly();
+        e.preventDefault();
+      }
+    });
+
+    canvas.addEventListener('mousedown', triggerFly);
+    canvas.addEventListener('touchstart', e => {
+      triggerFly();
+      e.preventDefault();
+    }, { passive: false });
+
+    // START / RESET
+    function startGame() {
+      startOverlay.style.display = 'none';
+      gameoverOverlay.style.display = 'none';
+      
+      score = 0;
+      scoreVal.innerText = 0;
+      
+      drone.y = 200;
+      drone.velocity = 0;
+      
+      towers = [];
+      particles = [];
+      timer = 0;
+      
+      isPlaying = true;
+      
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      requestAnimationFrame(gameLoop);
+    }
+
+    // GAME OVER
+    function gameOver() {
+      isPlaying = false;
+      playSound('crash');
+      
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('flappy_highscore', highScore);
+        highScoreVal.innerText = highScore;
+      }
+      
+      document.getElementById('gameover-msg').innerHTML = `You navigated <strong>${score} gates</strong>.`;
+      gameoverOverlay.style.display = 'flex';
+    }
+
+    // COLLISION DETECTION
+    function checkCollision(drone, tower) {
+      // Circle vs Rectangle detection
+      const testX1 = Math.max(tower.x, Math.min(drone.x, tower.x + tower.width));
+      const testY1 = Math.max(0, Math.min(drone.y, tower.topHeight));
+      const dist1 = Math.hypot(drone.x - testX1, drone.y - testY1);
+      
+      const testX2 = Math.max(tower.x, Math.min(drone.x, tower.x + tower.width));
+      const testY2 = Math.max(canvas.height - tower.bottomHeight, Math.min(drone.y, canvas.height));
+      const dist2 = Math.hypot(drone.x - testX2, drone.y - testY2);
+      
+      return dist1 < drone.radius || dist2 < drone.radius;
+    }
+
+    // MAIN GAME LOOP
+    function gameLoop() {
+      if (!isPlaying) return;
+
+      // Clear Screen
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Background Matrix grid lines
+      ctx.strokeStyle = 'rgba(16, 185, 129, 0.05)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < canvas.width; i += 40) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+      }
+      for (let j = 0; j < canvas.height; j += 40) {
+        ctx.beginPath();
+        ctx.moveTo(0, j);
+        ctx.lineTo(canvas.width, j);
+        ctx.stroke();
+      }
+
+      // Drone physics
+      drone.velocity += drone.gravity;
+      drone.y += drone.velocity;
+
+      // Bottom / Top bounds checks
+      if (drone.y + drone.radius > canvas.height || drone.y - drone.radius < 0) {
+        gameOver();
+        return;
+      }
+
+      // Draw Drone (Glowing cyber sphere)
+      ctx.save();
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = '#10b981';
+      ctx.fillStyle = '#10b981';
+      ctx.beginPath();
+      ctx.arc(drone.x, drone.y, drone.radius, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Drone thruster light
+      ctx.fillStyle = '#38bdf8';
+      ctx.beginPath();
+      ctx.arc(drone.x - 8, drone.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Spawn Towers
+      timer++;
+      if (timer >= towerInterval) {
+        towers.push(new Tower());
+        timer = 0;
+      }
+
+      // Update & Draw Towers
+      for (let i = towers.length - 1; i >= 0; i--) {
+        const tw = towers[i];
+        tw.update();
+        tw.draw();
+
+        // Collision Check
+        if (checkCollision(drone, tw)) {
+          gameOver();
+          return;
+        }
+
+        // Count Score
+        if (!tw.passed && tw.x + tw.width < drone.x) {
+          score++;
+          scoreVal.innerText = score;
+          tw.passed = true;
+          playSound('point');
+        }
+
+        // Cleanup
+        if (tw.x + tw.width < 0) {
+          towers.splice(i, 1);
+        }
+      }
+
+      // Update & Draw Exhaust particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        p.draw();
+        if (p.alpha <= 0) particles.splice(i, 1);
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+  </script>
+</body>
+</html>
