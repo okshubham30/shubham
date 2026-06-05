@@ -3,601 +3,929 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Shubham | Personal Space</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-      scroll-behavior:smooth;
+    :root {
+      --bg-dark: #050814;
+      --bg-surface: rgba(10, 17, 36, 0.6);
+      --bg-input: #0f172a;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.4);
+      --secondary: #6366f1;
+      --secondary-glow: rgba(99, 102, 241, 0.4);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-glass: rgba(255, 255, 255, 0.06);
     }
 
-    body{
-      background:#0f172a;
-      color:white;
-      overflow-x:hidden;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
     }
 
-    /* NAVBAR */
-
-    nav{
-      width:100%;
-      padding:20px 8%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:fixed;
-      top:0;
-      z-index:1000;
-      background:rgba(15,23,42,0.9);
-      backdrop-filter:blur(10px);
+    h1, h2, h3, .logo {
+      font-family: 'Outfit', sans-serif;
     }
 
-    nav h1{
-      color:#38bdf8;
-      font-size:28px;
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
     }
 
-    nav ul{
-      display:flex;
-      list-style:none;
-      gap:25px;
-      flex-wrap:wrap;
+    /* SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
     }
 
-    nav ul li a{
-      text-decoration:none;
-      color:white;
-      transition:0.3s;
+    /* NAVBAR - Hides on scroll down, reveals on scroll up */
+    nav {
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      background: rgba(5, 8, 20, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-glass);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
     }
 
-    nav ul li a:hover{
-      color:#38bdf8;
+    nav.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    nav h1 {
+      color: var(--primary);
+      font-size: 26px;
+      font-weight: 800;
+      text-shadow: 0 0 10px var(--primary-glow);
+      cursor: pointer;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+      align-items: center;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary);
+    }
+
+    .auth-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #050814;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .auth-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
     }
 
     /* HERO */
-
-    .hero{
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:60px;
-      padding:140px 8% 80px;
-      flex-wrap:wrap;
-      background:linear-gradient(to right,#0f172a,#111827,#1e293b);
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      padding: 140px 8% 80px;
+      position: relative;
+      background-image: radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.2) 0%, transparent 80%);
     }
 
-    .hero-text{
-      flex:1;
-      min-width:300px;
+    .hero-text {
+      flex: 1.2;
+      min-width: 320px;
     }
 
-    .hero-text h3{
-      color:#38bdf8;
-      margin-bottom:15px;
-      letter-spacing:2px;
+    .hero-text h3 {
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
     }
 
-    .hero-text h1{
-      font-size:65px;
-      line-height:1.1;
-      margin-bottom:20px;
+    .hero-text h1 {
+      font-size: 60px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      font-weight: 800;
     }
 
-    .hero-text span{
-      color:#38bdf8;
+    .hero-text span {
+      color: var(--primary);
+      text-shadow: 0 0 15px var(--primary-glow);
     }
 
-    .hero-text p{
-      color:#cbd5e1;
-      line-height:1.9;
-      margin-bottom:30px;
-      max-width:650px;
+    .hero-text p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 35px;
+      font-size: 17px;
     }
 
-    .buttons{
-      display:flex;
-      gap:20px;
-      flex-wrap:wrap;
+    .buttons {
+      display: flex;
+      gap: 20px;
     }
 
-    .btn{
-      padding:14px 28px;
-      border-radius:40px;
-      text-decoration:none;
-      font-weight:600;
-      transition:0.3s;
-      display:inline-block;
+    .btn {
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .primary{
-      background:#38bdf8;
-      color:black;
+    .btn.primary {
+      background: var(--primary);
+      color: #050814;
+      box-shadow: 0 4px 15px var(--primary-glow);
     }
 
-    .secondary{
-      border:2px solid #38bdf8;
-      color:#38bdf8;
+    .btn.primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px var(--primary);
     }
 
-    .btn:hover{
-      transform:translateY(-5px);
+    .btn.secondary {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      background: transparent;
     }
 
-    .hero-image img{
-      width:340px;
-      height:340px;
-      object-fit:cover;
-      border-radius:50%;
-      border:5px solid #38bdf8;
-      box-shadow:0 0 40px rgba(56,189,248,0.4);
+    .btn.secondary:hover {
+      background: rgba(56, 189, 248, 0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px var(--primary-glow);
     }
 
-    /* COMMON */
-
-    section{
-      padding:100px 8%;
+    .hero-image {
+      flex: 0.8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 280px;
     }
 
-    .title{
-      text-align:center;
-      margin-bottom:60px;
+    .image-frame {
+      position: relative;
+      border-radius: 50%;
+      padding: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
+      width: 320px;
+      height: 320px;
     }
 
-    .title h2{
-      color:#38bdf8;
-      font-size:42px;
-      margin-bottom:10px;
+    .image-frame::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      border: 2px dashed rgba(56, 189, 248, 0.3);
+      animation: spin 30s linear infinite;
     }
 
-    .title p{
-      color:#cbd5e1;
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #0b132b;
+    }
+
+    .avatar-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+      font-size: 84px;
+      color: var(--primary);
+      font-weight: 800;
+      text-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 8%;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .title h2 {
+      color: var(--primary);
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .title p {
+      color: var(--text-muted);
+      font-size: 16px;
     }
 
     /* CARDS */
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:30px;
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 35px;
     }
 
-    .card{
-      background:rgba(255,255,255,0.05);
-      padding:30px;
-      border-radius:25px;
-      transition:0.4s;
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      padding: 30px;
+      border-radius: 24px;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
-    .card:hover{
-      transform:translateY(-10px);
-      background:rgba(56,189,248,0.1);
+    .card:hover {
+      transform: translateY(-8px);
+      background: rgba(10, 17, 36, 0.8);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.15);
     }
 
-    .card img{
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      border-radius:15px;
-      margin-bottom:20px;
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 25px;
+      filter: brightness(0.85);
+      transition: filter 0.3s ease;
     }
 
-    .card h3{
-      color:#38bdf8;
-      margin-bottom:10px;
+    .card:hover img {
+      filter: brightness(1);
     }
 
-    .card p{
-      color:#d1d5db;
-      line-height:1.8;
-      font-size:14px;
-      margin-bottom:20px;
+    .card h3 {
+      color: var(--text-main);
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 14px;
+      margin-bottom: 25px;
+      flex-grow: 1;
+    }
+
+    .card .btn {
+      width: 100%;
+      justify-content: center;
     }
 
     /* GALLERY */
-
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px;
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
     }
 
-    .gallery img{
-      width:100%;
-      height:250px;
-      object-fit:cover;
-      border-radius:20px;
-      transition:0.4s;
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--border-glass);
+      aspect-ratio: 4/3;
+      position: relative;
     }
 
-    .gallery img:hover{
-      transform:scale(1.05);
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08) rotate(2deg);
+      filter: brightness(1.05);
     }
 
     /* CONTACT */
-
-    .contact-box{
-      max-width:700px;
-      margin:auto;
-      background:rgba(255,255,255,0.05);
-      padding:40px;
-      border-radius:25px;
+    .contact-box {
+      max-width: 600px;
+      margin: auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-glass);
+      padding: 40px;
+      border-radius: 28px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     }
 
-    .contact-box form{
-      display:flex;
-      flex-direction:column;
-      gap:20px;
+    .contact-box form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
     .contact-box input,
-    .contact-box textarea{
-      padding:15px;
-      border:none;
-      outline:none;
-      border-radius:15px;
-      background:#1e293b;
-      color:white;
+    .contact-box textarea {
+      padding: 15px 20px;
+      border: 1px solid var(--border-glass);
+      outline: none;
+      border-radius: 16px;
+      background: var(--bg-input);
+      color: white;
+      font-size: 15px;
+      transition: all 0.3s ease;
     }
 
-    .contact-box button{
-      background:#38bdf8;
-      color:black;
-      padding:15px;
-      border:none;
-      border-radius:15px;
-      font-weight:600;
-      cursor:pointer;
+    .contact-box input:focus,
+    .contact-box textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+    }
+
+    .contact-box button {
+      background: var(--primary);
+      color: #050814;
+      padding: 16px;
+      border: none;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px var(--primary-glow);
+    }
+
+    .contact-box button:hover {
+      background: #7dd3fc;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--primary);
     }
 
     /* FOOTER */
-
-    footer{
-      text-align:center;
-      padding:30px;
-      border-top:1px solid rgba(255,255,255,0.1);
-      color:#94a3b8;
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 14px;
     }
 
-    /* MOBILE */
-
-    @media(max-width:768px){
-
-      nav{
-        flex-direction:column;
-        gap:15px;
-      }
-
-      nav ul{
-        justify-content:center;
-      }
-
-      .hero-text h1{
-        font-size:45px;
-      }
-
-      .hero-image img{
-        width:280px;
-        height:280px;
-      }
-
+    /* AUTH MODAL POPUP */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 4, 10, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-box {
+      background: rgba(10, 17, 36, 0.95);
+      border: 1px solid var(--border-glass);
+      width: 90%;
+      max-width: 440px;
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .modal-box {
+      transform: scale(1);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    .modal-tab-group {
+      display: flex;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .modal-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .modal-tab.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .auth-form {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .auth-form.active {
+      display: flex;
+    }
+
+    .auth-form input {
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border-glass);
+      background: var(--bg-input);
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .auth-form input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
+    }
+
+    .auth-submit-btn {
+      background: var(--primary);
+      color: #050814;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--primary-glow);
+      transition: all 0.3s ease;
+    }
+
+    .auth-submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--primary);
+    }
+
+    /* SPIN ANIMATION */
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* MOBILE / TABLET VIEWS */
+    @media(max-width: 992px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 160px;
+        gap: 40px;
+      }
+
+      .hero-text {
+        order: 2;
+      }
+
+      .hero-image {
+        order: 1;
+      }
+
+      .hero-text h1 {
+        font-size: 48px;
+      }
+
+      .buttons {
+        justify-content: center;
+      }
+    }
+
+    @media(max-width: 768px) {
+      nav {
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+      }
+
+      nav ul {
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+      }
+
+      nav ul li a {
+        font-size: 14px;
+      }
+
+      .auth-btn {
+        width: 100%;
+        max-width: 250px;
+      }
+
+      section {
+        padding: 80px 6%;
+      }
+
+      .title h2 {
+        font-size: 32px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+      }
+
+      .image-frame {
+        width: 250px;
+        height: 250px;
+      }
+      
+      .hero-text h1 {
+        font-size: 38px;
+      }
+    }
   </style>
 </head>
-
 <body>
 
   <!-- NAVBAR -->
-
-  <nav>
-
+  <nav id="navbar">
     <h1>Shubham</h1>
-
-    <ul>
-
-      <li><a href="index.html">Home</a></li>
-
-      <li><a href="about.html">About</a></li>
-
-      <li><a href="life.html">Life</a></li>
-
-      <li><a href="travel.html">Travel</a></li>
-
-      <li><a href="contact.html">Contact</a></li>
-
-    </ul>
-
+    <div class="nav-container">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#life">Life</a></li>
+        <li><a href="#travel">Travel</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="auth-btn" onclick="openAuthModal('login')">Sign In</button>
+    </div>
   </nav>
 
   <!-- HERO -->
-
   <section class="hero" id="home">
-
     <div class="hero-text">
-
       <h3>WELCOME TO MY SPACE ✨</h3>
-
       <h1>
         Hi, I'm <span>Shubham</span><br>
         Living, Learning & Exploring 🌍
       </h1>
-
       <p>
         I enjoy travelling to new places, exploring nature, listening to music,
-        playing games and creating beautiful memories.
+        playing games, and creating beautiful memories.
         I love peaceful vibes and enjoying every small moment of life ✨
       </p>
-
       <div class="buttons">
-
-        <a href="about.html" class="btn primary">
-          Explore More
+        <a href="#about" class="btn primary">
+          Explore More <i class="fa-solid fa-arrow-right"></i>
         </a>
-
         <a href="#contact" class="btn secondary">
-          Connect
+          Connect <i class="fa-solid fa-paper-plane"></i>
         </a>
-
       </div>
-
     </div>
 
     <div class="hero-image">
-
-      <img src="images/myimages (3).png" alt="profile">
-
+      <div class="image-frame">
+        <img src="images/myimages (3).png" alt="profile" id="profile-pic" onerror="loadFallbackAvatar()">
+      </div>
     </div>
-
   </section>
 
   <!-- ABOUT -->
-
   <section id="about">
-
     <div class="title">
-
       <h2>About Me</h2>
-
-      <p>Some things that describe me ✨</p>
-
+      <p>Some elements that describe my character ✨</p>
     </div>
-
     <div class="cards">
-
       <!-- CARD 1 -->
-
       <div class="card">
-
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop">
-
-        <h3>Nature Lover</h3>
-
-        <p>
-          I enjoy peaceful places, nature views and relaxing environments.
-        </p>
-
-        <a href="nature.html" class="btn primary">
-          Explore More
-        </a>
-
+        <div>
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" alt="Nature view">
+          <h3>Nature Lover</h3>
+          <p>I enjoy peaceful environments, scenic hiking paths, panoramic nature views, and relaxing outdoors.</p>
+        </div>
+        <a href="#travel" class="btn primary">Explore Memories</a>
       </div>
 
       <!-- CARD 2 -->
-
       <div class="card">
-
-        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop">
-
-        <h3>Music</h3>
-
-        <p>
-          Music makes every moment more beautiful and relaxing.
-        </p>
-
-        <a href="music.html" class="btn primary">
-          Explore More
-        </a>
-
+        <div>
+          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop" alt="Music vibe">
+          <h3>Music Vibe</h3>
+          <p>Listening to melodic tunes and relaxing ambient tracks makes every moment more beautiful.</p>
+        </div>
+        <a href="music.html" class="btn primary">Open Player</a>
       </div>
 
       <!-- CARD 3 -->
-
       <div class="card">
-
-        <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=1200&auto=format&fit=crop">
-
-        <h3>Gaming</h3>
-
-        <p>
-          I enjoy gaming and spending fun time with friends.
-        </p>
-
-        <a href="gaming.html" class="btn primary">
-          Explore More
-        </a>
-
+        <div>
+          <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?q=80&w=1200&auto=format&fit=crop" alt="Gaming console">
+          <h3>Gaming Hub</h3>
+          <p>I play a variety of digital arcade games and enjoy competitive multiplayer duels with friends.</p>
+        </div>
+        <a href="gaming.html" class="btn primary">Play Games</a>
       </div>
-
     </div>
-
   </section>
 
   <!-- LIFE -->
-
   <section id="life">
-
     <div class="title">
-
       <h2>Things I Love ❤️</h2>
-
-      <p>Small things that make me happy</p>
-
+      <p>Activities that bring joy to my daily routine</p>
     </div>
-
     <div class="cards">
-
       <div class="card">
-
-        <h3>Travelling</h3>
-
-        <p>
-          I love exploring beautiful places and cities.
-        </p>
-
-        <a href="travel.html" class="btn primary">
-          Explore More
-        </a>
-
+        <h3>Travelling 🌍</h3>
+        <p>I absolutely love visiting scenic regions, exploring diverse historical cities, and capturing high-contrast photography.</p>
       </div>
 
       <div class="card">
-
-    <h3>Food</h3>
-
-    <p>
-        I love exploring different foods, trying new recipes, and creating delicious dishes. Cooking and tasting unique flavors is one of my favorite hobbies.
-    </p>
-
-    <a href="food.html" class="btn primary">
-        Explore More
-    </a>
-
-</div>
-      <div class="card">
-
-        <h3>Learning</h3>
-
-        <p>
-          I enjoy learning new things and exploring ideas.
-        </p>
-
-        <a href="travel.html" class="btn primary">
-          Explore More
-        </a>
-
+        <h3>Food Exploration 🍔</h3>
+        <p>I enjoy tasting regional foods, testing unique homemade recipes, and mixing new flavorful ingredients.</p>
       </div>
 
       <div class="card">
-
-        <h3>Creativity</h3>
-
-        <p>
-          I enjoy creative ideas and making cool things.
-        </p>
-
-        <a href="travel.html" class="btn primary">
-          Explore More
-        </a>
-
+        <h3>Constant Learning 📚</h3>
+        <p>I like analyzing new topics, researching digital tools, and developing creative coding projects.</p>
       </div>
 
+      <div class="card">
+        <h3>Design Creativity 🎨</h3>
+        <p>Creating beautiful, dynamic user interfaces and styling premium interactive web layouts.</p>
+      </div>
     </div>
-
   </section>
 
   <!-- TRAVEL -->
-
   <section id="travel">
-
     <div class="title">
-
       <h2>Travel Memories 🌍</h2>
-
-      <p>Beautiful places and moments ✨</p>
-
+      <p>Snapshots of gorgeous destinations I have visited ✨</p>
     </div>
-
     <div class="gallery">
-
-      <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&auto=format&fit=crop">
-
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop">
-
-      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop">
-
-      <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1200&auto=format&fit=crop">
-
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&auto=format&fit=crop" alt="Taj Mahal">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" alt="Sunny beach">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop" alt="Mountain lake">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=1200&auto=format&fit=crop" alt="Red rocks canyon">
+      </div>
     </div>
-
-    <br><br>
-
-    <center>
-
-      <a href="travel.html" class="btn primary">
-        Open Travel Page
-      </a>
-
-    </center>
-
   </section>
 
   <!-- CONTACT -->
-
   <section id="contact">
-
     <div class="title">
-
       <h2>Contact Me</h2>
-
-      <p>Let's connect together 🤝</p>
-
+      <p>Let's stay connected 🤝</p>
     </div>
-
     <div class="contact-box">
-
       <form id="contactForm">
-
         <input type="text" placeholder="Your Name" required>
-
         <input type="email" placeholder="Your Email" required>
-
         <textarea rows="6" placeholder="Write your message..." required></textarea>
-
         <button type="submit">
-          Send Message
+          Send Message <i class="fa-solid fa-paper-plane"></i>
         </button>
-
       </form>
-
     </div>
-
   </section>
 
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-box">
+      <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div class="modal-tab-group">
+        <button class="modal-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="modal-tab" id="tab-register" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form class="auth-form active" id="form-login" onsubmit="handleAuthSubmit(event, 'login')">
+        <input type="email" placeholder="Email Address" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" class="auth-submit-btn">Login to Account</button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form class="auth-form" id="form-register" onsubmit="handleAuthSubmit(event, 'register')">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Email Address" required>
+        <input type="password" placeholder="Create Password" required>
+        <button type="submit" class="auth-submit-btn">Create Free Account</button>
+      </form>
+    </div>
+  </div>
+
   <!-- FOOTER -->
-
   <footer>
-
-    © 2026 Shubham | Made with ❤️ and good vibes ✨
-
+    &copy; 2026 Shubham | Made with ❤️ and good vibes ✨
   </footer>
 
   <!-- JAVASCRIPT -->
-
   <script>
+    // 1. SCROLL-HIDE NAVBAR LOGIC
+    let lastScrollY = window.scrollY;
+    const navbar = document.getElementById("navbar");
 
-    const form = document.getElementById("contactForm");
-
-    form.addEventListener("submit", function(e){
-
-      e.preventDefault();
-
-      alert("Thank You! Your message has been sent ✨");
-
-      form.reset();
-
+    window.addEventListener("scroll", () => {
+      const currentScrollY = window.scrollY;
+      
+      // If scrolling down, hide navbar. If scrolling up, show navbar.
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        navbar.classList.add("nav-hidden");
+      } else {
+        navbar.classList.remove("nav-hidden");
+      }
+      
+      // Update scrolling position
+      lastScrollY = currentScrollY;
     });
 
-  </script>
+    // 2. AUTH MODAL TOGGLE & FUNCTIONS
+    const authModal = document.getElementById("authModal");
 
+    function openAuthModal(tab) {
+      authModal.classList.add("active");
+      switchTab(tab);
+    }
+
+    function closeAuthModal() {
+      authModal.classList.remove("active");
+    }
+
+    // Close modal when clicking on backdrop
+    authModal.addEventListener("click", (e) => {
+      if (e.target === authModal) {
+        closeAuthModal();
+      }
+    });
+
+    function switchTab(tab) {
+      const tabLogin = document.getElementById("tab-login");
+      const tabRegister = document.getElementById("tab-register");
+      const formLogin = document.getElementById("form-login");
+      const formRegister = document.getElementById("form-register");
+
+      if (tab === 'login') {
+        tabLogin.classList.add("active");
+        tabRegister.classList.remove("active");
+        formLogin.classList.add("active");
+        formRegister.classList.remove("active");
+      } else {
+        tabLogin.classList.remove("active");
+        tabRegister.classList.add("active");
+        formLogin.classList.remove("active");
+        formRegister.classList.add("active");
+      }
+    }
+
+    function handleAuthSubmit(e, type) {
+      e.preventDefault();
+      alert(`Success! You have logged in/registered via ${type} form ✨`);
+      closeAuthModal();
+      e.target.reset();
+    }
+
+    // 3. CONTACT FORM SUBMISSION
+    const contactForm = document.getElementById("contactForm");
+    contactForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Thank You! Your message has been sent ✨");
+      contactForm.reset();
+    });
+
+    // 4. IMAGE FALLBACK (IF USER IMAGE DOES NOT EXIST)
+    function loadFallbackAvatar() {
+      const img = document.getElementById("profile-pic");
+      const parent = img.parentElement;
+      parent.innerHTML = `<div class="avatar-fallback">S</div>`;
+    }
+  </script>
 </body>
 </html>
