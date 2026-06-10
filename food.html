@@ -1,365 +1,1916 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Food | Shubham</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Food World | Shubham</title>
+  <meta name="description" content="Explore Shubham's food world – from favourite dishes and street food to cooking experiments and desserts." />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
 
-<style>
+  <style>
+    /* ===========================
+       RESET & VARIABLES
+    =========================== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-    scroll-behavior:smooth;
-}
+    :root {
+      --bg: #0a0f1e;
+      --bg2: #0f172a;
+      --bg3: #111827;
+      --accent: #f97316;
+      --accent2: #fb923c;
+      --sky: #38bdf8;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --radius: 20px;
+      --radius-lg: 32px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
 
-body{
-    background:#0f172a;
-    color:white;
-}
+    html { scroll-behavior: smooth; }
 
-/* NAVBAR */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
 
-nav{
-    width:100%;
-    padding:20px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(15,23,42,0.9);
-    position:fixed;
-    top:0;
-    z-index:1000;
-    backdrop-filter:blur(10px);
-}
+    /* ===========================
+       NAVBAR
+    =========================== */
+    nav {
+      width: 100%;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10,15,30,0.85);
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: padding 0.3s;
+    }
 
-.logo{
-    font-size:28px;
-    font-weight:700;
-    color:#38bdf8;
-}
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f97316, #fb923c, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
 
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
-}
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+      align-items: center;
+    }
 
-nav ul li a{
-    color:white;
-    text-decoration:none;
-    transition:.3s;
-}
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.3s;
+      position: relative;
+    }
 
-nav ul li a:hover{
-    color:#38bdf8;
-}
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.3s;
+    }
 
-/* HERO */
+    .nav-links a:hover { color: white; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { width: 100%; }
 
-.hero{
-    min-height:70vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:140px 8% 80px;
-    background:linear-gradient(to right,#0f172a,#111827,#1e293b);
-}
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
 
-.hero h1{
-    font-size:65px;
-    margin-bottom:20px;
-}
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
 
-.hero span{
-    color:#38bdf8;
-}
+    /* ===========================
+       HERO
+    =========================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 140px 8% 80px;
+    }
 
-.hero p{
-    max-width:800px;
-    color:#cbd5e1;
-    line-height:1.8;
-    margin:auto;
-}
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249,115,22,0.18) 0%, transparent 70%),
+        linear-gradient(180deg, #0a0f1e 0%, #0f172a 100%);
+    }
 
-/* SECTION */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-section{
-    padding:90px 8%;
-}
+    .hero-text { text-align: left; }
 
-.section-title{
-    text-align:center;
-    margin-bottom:50px;
-}
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.3);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      animation: fadeInDown 0.8s ease;
+    }
 
-.section-title h2{
-    font-size:42px;
-    color:#38bdf8;
-    margin-bottom:10px;
-}
+    .veg-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34,197,94,0.13);
+      border: 1px solid rgba(34,197,94,0.35);
+      color: #4ade80;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      animation: fadeInDown 0.8s 0.1s both;
+      letter-spacing: 0.3px;
+    }
 
-.section-title p{
-    color:#cbd5e1;
-}
+    .veg-dot {
+      width: 12px;
+      height: 12px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid #16a34a;
+      box-shadow: 0 0 8px rgba(34,197,94,0.6);
+      flex-shrink: 0;
+    }
 
-/* CARDS */
+    /* Pure Veg Section */
+    #pureveg {
+      background: var(--bg);
+    }
 
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
+    .veg-section-banner {
+      background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(16,185,129,0.06));
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: var(--radius-lg);
+      padding: 40px 36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
 
-.card{
-    background:rgba(255,255,255,0.05);
-    padding:30px;
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,0.08);
-    transition:.4s;
-}
+    .veg-big-symbol {
+      width: 70px;
+      height: 70px;
+      border: 3px solid #22c55e;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(34,197,94,0.1);
+    }
 
-.card:hover{
-    transform:translateY(-10px);
-    background:rgba(56,189,248,0.1);
-}
+    .veg-big-dot {
+      width: 28px;
+      height: 28px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(34,197,94,0.5);
+    }
 
-.card h3{
-    color:#38bdf8;
-    margin-bottom:15px;
-}
+    .veg-banner-text h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #4ade80;
+      margin-bottom: 8px;
+    }
 
-.card p{
-    color:#d1d5db;
-    line-height:1.8;
-}
+    .veg-banner-text p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 600px;
+    }
 
-/* FACT SECTION */
+    .veg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
 
-.fact-box{
-    background:#111827;
-    padding:50px;
-    border-radius:30px;
-    text-align:center;
-}
+    .veg-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(34,197,94,0.15);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.4s;
+      position: relative;
+    }
 
-.fact-box h2{
-    color:#38bdf8;
-    margin-bottom:20px;
-}
+    .veg-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(34,197,94,0.15);
+      border-color: rgba(34,197,94,0.35);
+    }
 
-button{
-    padding:14px 28px;
-    border:none;
-    border-radius:50px;
-    background:#38bdf8;
-    color:#0f172a;
-    font-weight:600;
-    cursor:pointer;
-    margin-top:20px;
-}
+    .veg-card-img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
 
-button:hover{
-    transform:scale(1.05);
-}
+    .veg-card:hover .veg-card-img { transform: scale(1.07); }
+    .veg-card-img-wrap { overflow: hidden; position: relative; }
 
-#fact{
-    margin-top:20px;
-    color:#cbd5e1;
-    font-size:18px;
-}
+    .veg-symbol-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #22c55e;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-/* FOOTER */
+    .veg-symbol-badge .dot {
+      width: 10px;
+      height: 10px;
+      background: #22c55e;
+      border-radius: 50%;
+    }
 
-footer{
-    text-align:center;
-    padding:30px;
-    color:#94a3b8;
-    border-top:1px solid rgba(255,255,255,0.1);
-}
+    .veg-card-body {
+      padding: 18px 20px;
+    }
 
-@media(max-width:768px){
+    .veg-card-body h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
 
-.hero h1{
-    font-size:45px;
-}
+    .veg-card-body p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
-nav{
-    flex-direction:column;
-    gap:15px;
-}
+    .veg-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.2);
+      color: #4ade80;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-top: 10px;
+    }
 
-nav ul{
-    flex-wrap:wrap;
-    justify-content:center;
-}
+    .hero-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s 0.2s both;
+    }
 
-}
+    .hero-text h1 .highlight {
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-</style>
+    .hero-text p {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.8s 0.4s both;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      animation: fadeInUp 0.8s 0.6s both;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-visual {
+      position: relative;
+      animation: fadeInRight 0.9s 0.3s both;
+    }
+
+    .hero-img-main {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 30px 80px rgba(249,115,22,0.25);
+      border: 1px solid rgba(249,115,22,0.2);
+    }
+
+    .hero-img-float {
+      position: absolute;
+      bottom: -20px;
+      left: -30px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 3px solid var(--bg);
+      animation: floatAnim 3s ease-in-out infinite;
+    }
+
+    .hero-img-float2 {
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: var(--shadow);
+      border: 3px solid var(--bg);
+      animation: floatAnim 3.5s ease-in-out infinite reverse;
+    }
+
+    /* ===========================
+       SECTION BASE
+    =========================== */
+    section { padding: 100px 8%; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 50px);
+      font-weight: 800;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 560px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    /* ===========================
+       CATEGORIES (BENTO GRID)
+    =========================== */
+    #categories {
+      background: var(--bg2);
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 20px;
+    }
+
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(249,115,22,0.15);
+      border-color: rgba(249,115,22,0.3);
+    }
+
+    .bento-card.large {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    .bento-card.tall {
+      grid-row: span 2;
+    }
+
+    .bento-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+
+    .bento-card.large .bento-img { height: 260px; }
+    .bento-card.tall .bento-img { height: 340px; }
+
+    .bento-card:hover .bento-img { transform: scale(1.05); }
+
+    .bento-body {
+      padding: 22px;
+    }
+
+    .bento-emoji {
+      font-size: 26px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .bento-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: white;
+    }
+
+    .bento-body p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .bento-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.2);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    /* ===========================
+       FAVORITES SECTION
+    =========================== */
+    #favorites { background: var(--bg); }
+
+    .fav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .fav-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.4s;
+      position: relative;
+    }
+
+    .fav-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(249,115,22,0.2);
+      border-color: rgba(249,115,22,0.25);
+    }
+
+    .fav-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .fav-card:hover .fav-img { transform: scale(1.08); }
+
+    .fav-img-wrap { overflow: hidden; position: relative; }
+
+    .fav-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(249,115,22,0.9);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 50px;
+    }
+
+    .fav-body {
+      padding: 20px;
+    }
+
+    .fav-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .fav-body p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .fav-rating {
+      display: flex;
+      gap: 3px;
+      margin-top: 12px;
+    }
+
+    .star { color: #fbbf24; font-size: 14px; }
+
+    /* ===========================
+       GALLERY STRIP
+    =========================== */
+    #gallery {
+      background: var(--bg3);
+      padding: 100px 0;
+    }
+
+    #gallery .section-header { padding: 0 8%; }
+
+    .gallery-strip {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 10px 8% 20px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-snap-type: x mandatory;
+    }
+
+    .gallery-strip::-webkit-scrollbar { display: none; }
+
+    .gallery-item {
+      flex: 0 0 280px;
+      height: 340px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover { transform: scale(1.03); }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img { transform: scale(1.1); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .gallery-label {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* ===========================
+       COOKING SECTION
+    =========================== */
+    #cooking {
+      background: var(--bg2);
+    }
+
+    .cooking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .cooking-visual { position: relative; }
+
+    .cooking-img-main {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .cooking-img-small {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 3px solid var(--bg2);
+      box-shadow: var(--shadow);
+      animation: floatAnim 3s ease-in-out infinite;
+    }
+
+    .cooking-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 46px);
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .cooking-text h2 span {
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cooking-text p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+
+    .recipe-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .recipe-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px 20px;
+      border-radius: var(--radius);
+      transition: all 0.3s;
+    }
+
+    .recipe-item:hover {
+      border-color: rgba(249,115,22,0.3);
+      background: rgba(249,115,22,0.07);
+    }
+
+    .recipe-icon {
+      font-size: 28px;
+      width: 50px;
+      height: 50px;
+      background: rgba(249,115,22,0.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .recipe-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+    .recipe-info p { font-size: 12px; color: var(--muted); }
+
+    /* ===========================
+       FACT SECTION
+    =========================== */
+    #facts {
+      background: var(--bg);
+    }
+
+    .fact-container {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .fact-display {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 50px 40px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fact-display::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 30px;
+      font-size: 150px;
+      color: rgba(249,115,22,0.07);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    #fact-text {
+      font-size: 20px;
+      color: var(--text);
+      line-height: 1.8;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+      min-height: 60px;
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    .fact-emoji {
+      font-size: 48px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #fact-counter {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .fact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      color: #0a0f1e;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 32px;
+      transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(249,115,22,0.35);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .fact-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 40px rgba(249,115,22,0.45);
+    }
+
+    .fact-btn:active { transform: scale(0.97); }
+
+    /* ===========================
+       DESSERT SECTION
+    =========================== */
+    #desserts {
+      background: var(--bg3);
+    }
+
+    .dessert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .dessert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-align: center;
+      transition: all 0.4s;
+    }
+
+    .dessert-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(249,115,22,0.18);
+      border-color: rgba(249,115,22,0.3);
+    }
+
+    .dessert-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .dessert-card:hover .dessert-img { transform: scale(1.08); }
+    .dessert-img-wrap { overflow: hidden; }
+
+    .dessert-body {
+      padding: 18px 16px;
+    }
+
+    .dessert-body .d-emoji { font-size: 28px; }
+    .dessert-body h3 { font-size: 15px; font-weight: 700; margin-top: 8px; }
+    .dessert-body p { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+
+    /* ===========================
+       JUICES SECTION
+    =========================== */
+    #drinks {
+      background: var(--bg2);
+    }
+
+    .drinks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+
+    .drink-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drink-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--drink-color, #38bdf8);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .drink-card:hover::before { transform: scaleX(1); }
+
+    .drink-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .drink-emoji { font-size: 42px; margin-bottom: 14px; display: block; }
+    .drink-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .drink-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    .drink-bar {
+      margin-top: 16px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .drink-bar-fill {
+      height: 100%;
+      background: var(--drink-color, #38bdf8);
+      border-radius: 50px;
+      width: 0;
+      transition: width 1.2s ease;
+    }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 48px 8% 32px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .footer-logo {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-copy {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ===========================
+       ANIMATIONS
+    =========================== */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes floatAnim {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+
+    /* TABLET */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .hero-text { text-align: center; }
+
+      .hero-stats { justify-content: center; }
+
+      .hero-visual { max-width: 500px; margin: auto; }
+
+      .hero-img-main { height: 360px; }
+
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .bento-card.large { grid-column: span 2; }
+
+      .bento-card.tall { grid-row: span 1; }
+      .bento-card.tall .bento-img { height: 200px; }
+
+      .cooking-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .cooking-img-main { height: 340px; }
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      section { padding: 70px 5%; }
+
+      nav { padding: 16px 5%; }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 260px;
+        background: rgba(10,15,30,0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 36px;
+        transition: right 0.4s;
+        border-left: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .nav-links.open { right: 0; }
+
+      .nav-links a { font-size: 18px; }
+
+      .hamburger { display: flex; z-index: 1100; }
+
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .hero { min-height: auto; padding: 120px 5% 60px; }
+
+      .hero-img-float, .hero-img-float2 { display: none; }
+
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.large { grid-column: span 1; }
+
+      .cooking-img-small { display: none; }
+
+      .hero-stats { gap: 20px; }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+      .gallery-item { flex: 0 0 220px; height: 270px; }
+
+      .drinks-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .dessert-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats { flex-direction: column; gap: 10px; }
+      .dessert-grid { grid-template-columns: 1fr; }
+      .drinks-grid { grid-template-columns: 1fr; }
+      .fav-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">Shubham</div>
+  <!-- ========================
+       NAVBAR
+  ========================= -->
+  <nav id="navbar">
+    <div class="logo">Shubham 🍽️</div>
 
-    <ul>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="travel.html">Travel</a></li>
+      <li><a href="food.html" class="active">Food</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ========================
+       HERO
+  ========================= -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <div class="hero-badge">🍕 Food Lover Since Birth</div>
+        <div class="veg-badge"><span class="veg-dot"></span> 100% Pure Vegetarian 🌿</div>
+        <h1>My <span class="highlight">Food</span><br/>World 🌍</h1>
+        <p>Food is not just fuel — it's culture, memory, and joy. As a proud vegetarian, I explore plant-based flavours, recreate beloved veg recipes, and savour every colourful, cruelty-free bite of this delicious journey.</p>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Dishes Tried</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">12+</div>
+            <div class="stat-label">Recipes Made</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Food Love</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img
+          class="hero-img-main"
+          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80"
+          alt="Delicious food spread"
+        />
+        <img
+          class="hero-img-float"
+          src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=80"
+          alt="Pizza"
+        />
+        <img
+          class="hero-img-float2"
+          src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300&q=80"
+          alt="Dessert"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       CATEGORIES (BENTO)
+  ========================= -->
+  <section id="categories">
+    <div class="section-header reveal">
+      <div class="section-tag">Explore</div>
+      <h2>Food Categories 🍽️</h2>
+      <p>Everything I love eating, cooking, and dreaming about</p>
+    </div>
+
+    <div class="bento-grid">
+
+      <div class="bento-card large reveal">
+        <img class="bento-img"
+          src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=900&q=80"
+          alt="Street Food" />
+        <div class="bento-body">
+          <span class="bento-emoji">🛺</span>
+          <h3>Street Food Culture</h3>
+          <p>From chaat to momos, Indian street food is a world of bold, irresistible flavors.</p>
+          <div class="bento-tags">
+            <span class="tag">Chaat</span>
+            <span class="tag">Momos</span>
+            <span class="tag">Pav Bhaji</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card tall reveal">
+        <img class="bento-img"
+          src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&q=80"
+          alt="Veg Biryani" />
+        <div class="bento-body">
+          <span class="bento-emoji">🍛</span>
+          <h3>Main Course</h3>
+          <p>Veg Biryani, paneer dishes and dal are the heart of my daily food journey — all purely vegetarian.</p>
+          <div class="bento-tags">
+            <span class="tag">Veg Biryani</span>
+            <span class="tag">Dal</span>
+            <span class="tag">🌿 Pure Veg</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card reveal">
+        <img class="bento-img"
+          src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500&q=80"
+          alt="Burger" />
+        <div class="bento-body">
+          <span class="bento-emoji">🍔</span>
+          <h3>Fast Food</h3>
+          <p>Burgers, fries and noodles for those fun weekends.</p>
+          <div class="bento-tags">
+            <span class="tag">Burger</span>
+            <span class="tag">Fries</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card reveal">
+        <img class="bento-img"
+          src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&q=80"
+          alt="Healthy food" />
+        <div class="bento-body">
+          <span class="bento-emoji">🥗</span>
+          <h3>Healthy Eating</h3>
+          <p>Fruits, vegetables and wholesome meals keep me energised every day.</p>
+          <div class="bento-tags">
+            <span class="tag">Fruits</span>
+            <span class="tag">Salad</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card large reveal">
+        <img class="bento-img"
+          src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80"
+          alt="Restaurant" />
+        <div class="bento-body">
+          <span class="bento-emoji">🏮</span>
+          <h3>Restaurant Experiences</h3>
+          <p>I love discovering new restaurants and experiencing different cuisines from around the world.</p>
+          <div class="bento-tags">
+            <span class="tag">Indian</span>
+            <span class="tag">Italian</span>
+            <span class="tag">Chinese</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       FAVORITES
+  ========================= -->
+  <section id="favorites">
+    <div class="section-header reveal">
+      <div class="section-tag">Top Picks</div>
+      <h2>My All-Time Favourites ❤️</h2>
+      <p>Dishes that make me smile no matter the mood</p>
+    </div>
+
+    <div class="fav-grid">
+
+      <div class="fav-card reveal">
+        <div class="fav-img-wrap">
+          <img class="fav-img"
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&q=80"
+            alt="Pizza" />
+          <div class="fav-badge">⭐ #1</div>
+        </div>
+        <div class="fav-body">
+          <h3>🍕 Pizza</h3>
+          <p>Crispy crust, melted cheese and perfect toppings — pizza is life.</p>
+          <div class="fav-rating">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fav-card reveal">
+        <div class="fav-img-wrap">
+          <img class="fav-img"
+            src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500&q=80"
+            alt="Veg Biryani" />
+          <div class="fav-badge">⭐ #2</div>
+        </div>
+        <div class="fav-body">
+          <h3>🍛 Veg Biryani</h3>
+          <p>Aromatic basmati rice with garden vegetables and warm spices — pure vegetarian bliss.</p>
+          <div class="fav-rating">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fav-card reveal">
+        <div class="fav-img-wrap">
+          <img class="fav-img"
+            src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&q=80"
+            alt="Veg Momos" />
+          <div class="fav-badge">⭐ #3</div>
+        </div>
+        <div class="fav-body">
+          <h3>🥟 Veg Momos</h3>
+          <p>Steamed veg momos stuffed with cabbage & paneer, served with fiery chutney — totally addictive.</p>
+          <div class="fav-rating">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fav-card reveal">
+        <div class="fav-img-wrap">
+          <img class="fav-img"
+            src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500&q=80"
+            alt="Paneer Butter Masala" />
+          <div class="fav-badge">⭐ #4</div>
+        </div>
+        <div class="fav-body">
+          <h3>🧀 Paneer Butter Masala</h3>
+          <p>Rich, creamy tomato-based curry with soft paneer cubes — every vegetarian's ultimate comfort food.</p>
+          <div class="fav-rating">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       GALLERY
+  ========================= -->
+  <section id="gallery">
+    <div class="section-header reveal">
+      <div class="section-tag">Visual Feast</div>
+      <h2>Food Gallery 📸</h2>
+      <p>A scroll through deliciousness — swipe or drag to explore</p>
+    </div>
+
+    <div class="gallery-strip" id="galleryStrip">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Fine dining" />
+        <div class="gallery-overlay"><span class="gallery-label">Fine Dining 🕯️</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=500&q=80" alt="Pasta" />
+        <div class="gallery-overlay"><span class="gallery-label">Pasta Love 🍝</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&q=80" alt="Pizza" />
+        <div class="gallery-overlay"><span class="gallery-label">Pizza Night 🍕</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=500&q=80" alt="Cake" />
+        <div class="gallery-overlay"><span class="gallery-label">Sweet Treats 🎂</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=500&q=80" alt="Breakfast" />
+        <div class="gallery-overlay"><span class="gallery-label">Breakfast Goals 🍳</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80" alt="Pancakes" />
+        <div class="gallery-overlay"><span class="gallery-label">Fluffy Pancakes 🥞</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       COOKING
+  ========================= -->
+  <section id="cooking">
+    <div class="cooking-grid">
+      <div class="cooking-visual reveal">
+        <img class="cooking-img-main"
+          src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80"
+          alt="Cooking" />
+        <img class="cooking-img-small"
+          src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=300&q=80"
+          alt="Spices" />
+      </div>
+
+      <div class="cooking-text reveal">
+        <div class="section-tag">Chef Mode</div>
+        <h2>I Love <span>Cooking</span> Too! 👨‍🍳</h2>
+        <p>There's something magical about creating a vegetarian dish from scratch. I experiment with spices, try plant-based techniques, and love recreating restaurant-style veg favourites right at home — no meat, all flavour!</p>
+
+        <div class="recipe-list">
+          <div class="recipe-item">
+            <div class="recipe-icon">🍳</div>
+            <div class="recipe-info">
+              <h4>Breakfast Specials</h4>
+              <p>Omelettes, parathas and smoothie bowls</p>
+            </div>
+          </div>
+          <div class="recipe-item">
+            <div class="recipe-icon">🍲</div>
+            <div class="recipe-info">
+              <h4>Indian Curries</h4>
+              <p>Dal makhani, paneer dishes and gravies</p>
+            </div>
+          </div>
+          <div class="recipe-item">
+            <div class="recipe-icon">🍝</div>
+            <div class="recipe-info">
+              <h4>Quick Pasta & Noodles</h4>
+              <p>Creamy white sauce pasta and stir-fried noodles</p>
+            </div>
+          </div>
+          <div class="recipe-item">
+            <div class="recipe-icon">🧁</div>
+            <div class="recipe-info">
+              <h4>Baking Experiments</h4>
+              <p>Mug cakes, cookies and banana bread</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       PURE VEGETARIAN SECTION
+  ========================= -->
+  <section id="pureveg">
+    <div class="section-header reveal">
+      <div class="section-tag" style="color:#4ade80;">My Lifestyle</div>
+      <h2 style="color:#4ade80;">Proud to be <span style="background:linear-gradient(135deg,#22c55e,#4ade80,#86efac);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Vegetarian</span> 🌿</h2>
+      <p>Being vegetarian is more than a diet — it's a way of life. Here are my all-time favourite pure veg dishes.</p>
+    </div>
+
+    <div class="veg-section-banner reveal">
+      <div class="veg-big-symbol">
+        <div class="veg-big-dot"></div>
+      </div>
+      <div class="veg-banner-text">
+        <h3>🌱 100% Pure Vegetarian</h3>
+        <p>I have been vegetarian all my life and I am proud of it! Every dish I eat and cook is 100% plant-based. I believe vegetarian food is not just healthy — it's incredibly delicious, colourful, and full of flavour.</p>
+      </div>
+    </div>
+
+    <div class="veg-grid">
+
+      <div class="veg-card reveal">
+        <div class="veg-card-img-wrap">
+          <img class="veg-card-img"
+            src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&q=80"
+            alt="Masala Dosa" />
+          <div class="veg-symbol-badge"><div class="dot"></div></div>
+        </div>
+        <div class="veg-card-body">
+          <h3>🫓 Masala Dosa</h3>
+          <p>Crispy golden dosa stuffed with spiced potato filling — a South Indian legend.</p>
+          <span class="veg-tag">🌿 Veg</span>
+        </div>
+      </div>
+
+      <div class="veg-card reveal">
+        <div class="veg-card-img-wrap">
+          <img class="veg-card-img"
+            src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500&q=80"
+            alt="Paneer Tikka" />
+          <div class="veg-symbol-badge"><div class="dot"></div></div>
+        </div>
+        <div class="veg-card-body">
+          <h3>🍢 Paneer Tikka</h3>
+          <p>Marinated paneer grilled to smoky perfection — the king of veg starters.</p>
+          <span class="veg-tag">🌿 Veg</span>
+        </div>
+      </div>
+
+      <div class="veg-card reveal">
+        <div class="veg-card-img-wrap">
+          <img class="veg-card-img"
+            src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=500&q=80"
+            alt="Chole Bhature" />
+          <div class="veg-symbol-badge"><div class="dot"></div></div>
+        </div>
+        <div class="veg-card-body">
+          <h3>🫘 Chole Bhature</h3>
+          <p>Spicy chickpea curry with fluffy fried bread — a North Indian weekend staple.</p>
+          <span class="veg-tag">🌿 Veg</span>
+        </div>
+      </div>
+
+      <div class="veg-card reveal">
+        <div class="veg-card-img-wrap">
+          <img class="veg-card-img"
+            src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=500&q=80"
+            alt="Pav Bhaji" />
+          <div class="veg-symbol-badge"><div class="dot"></div></div>
+        </div>
+        <div class="veg-card-body">
+          <h3>🍞 Pav Bhaji</h3>
+          <p>Buttery mashed vegetable curry served with soft toasted pav — Mumbai street magic.</p>
+          <span class="veg-tag">🌿 Veg</span>
+        </div>
+      </div>
+
+      <div class="veg-card reveal">
+        <div class="veg-card-img-wrap">
+          <img class="veg-card-img"
+            src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=500&q=80"
+            alt="Dal Makhani" />
+          <div class="veg-symbol-badge"><div class="dot"></div></div>
+        </div>
+        <div class="veg-card-body">
+          <h3>🫕 Dal Makhani</h3>
+          <p>Slow-cooked black lentils in a rich, buttery tomato gravy — pure comfort in a bowl.</p>
+          <span class="veg-tag">🌿 Veg</span>
+        </div>
+      </div>
+
+      <div class="veg-card reveal">
+        <div class="veg-card-img-wrap">
+          <img class="veg-card-img"
+            src="https://images.unsplash.com/photo-1528736235302-52922df5c122?w=500&q=80"
+            alt="Veg Thali" />
+          <div class="veg-symbol-badge"><div class="dot"></div></div>
+        </div>
+        <div class="veg-card-body">
+          <h3>🍱 Veg Thali</h3>
+          <p>A complete platter of roti, rice, dal, sabzi, raita and pickle — the perfect balanced meal.</p>
+          <span class="veg-tag">🌿 Veg</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       DESSERTS
+  ========================= -->
+  <section id="desserts">
+    <div class="section-header reveal">
+      <div class="section-tag">Sweet Side</div>
+      <h2>Desserts & Sweets 🍰</h2>
+      <p>Life is short, eat dessert first!</p>
+    </div>
+
+    <div class="dessert-grid">
+      <div class="dessert-card reveal">
+        <div class="dessert-img-wrap">
+          <img class="dessert-img"
+            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80"
+            alt="Ice Cream" />
+        </div>
+        <div class="dessert-body">
+          <div class="d-emoji">🍦</div>
+          <h3>Ice Cream</h3>
+          <p>Chocolate, vanilla, mango — all flavours welcome.</p>
+        </div>
+      </div>
+
+      <div class="dessert-card reveal">
+        <div class="dessert-img-wrap">
+          <img class="dessert-img"
+            src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&q=80"
+            alt="Cake" />
+        </div>
+        <div class="dessert-body">
+          <div class="d-emoji">🎂</div>
+          <h3>Cake</h3>
+          <p>Every occasion deserves a beautiful, moist cake.</p>
+        </div>
+      </div>
+
+      <div class="dessert-card reveal">
+        <div class="dessert-img-wrap">
+          <img class="dessert-img"
+            src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&q=80"
+            alt="Brownies" />
+        </div>
+        <div class="dessert-body">
+          <div class="d-emoji">🍫</div>
+          <h3>Brownies</h3>
+          <p>Fudgy, chocolatey and absolutely irresistible.</p>
+        </div>
+      </div>
+
+      <div class="dessert-card reveal">
+        <div class="dessert-img-wrap">
+          <img class="dessert-img"
+            src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80"
+            alt="Waffles" />
+        </div>
+        <div class="dessert-body">
+          <div class="d-emoji">🧇</div>
+          <h3>Waffles</h3>
+          <p>Crispy waffles with syrup and fresh berries.</p>
+        </div>
+      </div>
+
+      <div class="dessert-card reveal">
+        <div class="dessert-img-wrap">
+          <img class="dessert-img"
+            src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80"
+            alt="Donuts" />
+        </div>
+        <div class="dessert-body">
+          <div class="d-emoji">🍩</div>
+          <h3>Donuts</h3>
+          <p>Glazed, sprinkled, or filled — always a treat.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================
+       DRINKS
+  ========================= -->
+  <section id="drinks">
+    <div class="section-header reveal">
+      <div class="section-tag">Refreshments</div>
+      <h2>Juices & Drinks 🍹</h2>
+      <p>Fresh, natural, and full of goodness</p>
+    </div>
+
+    <div class="drinks-grid">
+      <div class="drink-card reveal" style="--drink-color:#f97316;">
+        <span class="drink-emoji">🍊</span>
+        <h3>Orange Juice</h3>
+        <p>Fresh squeezed, sweet and tangy — a morning favourite.</p>
+        <div class="drink-bar"><div class="drink-bar-fill" data-width="90%"></div></div>
+      </div>
+
+      <div class="drink-card reveal" style="--drink-color:#fbbf24;">
+        <span class="drink-emoji">🥭</span>
+        <h3>Mango Juice</h3>
+        <p>Thick, sweet mango goodness — tropical bliss in a glass.</p>
+        <div class="drink-bar"><div class="drink-bar-fill" data-width="95%"></div></div>
+      </div>
+
+      <div class="drink-card reveal" style="--drink-color:#86efac;">
+        <span class="drink-emoji">🍎</span>
+        <h3>Apple Juice</h3>
+        <p>Crisp and refreshing — one a day keeps the doctor away.</p>
+        <div class="drink-bar"><div class="drink-bar-fill" data-width="80%"></div></div>
+      </div>
+
+      <div class="drink-card reveal" style="--drink-color:#facc15;">
+        <span class="drink-emoji">🍍</span>
+        <h3>Pineapple Juice</h3>
+        <p>Sweet and tangy — perfect for a hot summer day.</p>
+        <div class="drink-bar"><div class="drink-bar-fill" data-width="75%"></div></div>
+      </div>
+
+      <div class="drink-card reveal" style="--drink-color:#f472b6;">
+        <span class="drink-emoji">🍉</span>
+        <h3>Watermelon Juice</h3>
+        <p>Light and hydrating — summer in every sip.</p>
+        <div class="drink-bar"><div class="drink-bar-fill" data-width="85%"></div></div>
+      </div>
+
+      <div class="drink-card reveal" style="--drink-color:#a78bfa;">
+        <span class="drink-emoji">🍇</span>
+        <h3>Grape Juice</h3>
+        <p>Rich, dark and full of antioxidants for good health.</p>
+        <div class="drink-bar"><div class="drink-bar-fill" data-width="70%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOD FACT
+  ========================= -->
+  <section id="facts">
+    <div class="fact-container">
+      <div class="section-header reveal">
+        <div class="section-tag">Did You Know?</div>
+        <h2>Random Food Facts 🧠</h2>
+        <p>Surprising things you might not know about your favourite foods</p>
+      </div>
+
+      <div class="fact-display reveal">
+        <div class="fact-emoji" id="fact-emoji">🍽️</div>
+        <p id="fact-text">Click the button below to discover an amazing food fact!</p>
+        <p id="fact-counter"></p>
+      </div>
+
+      <div style="text-align:center;">
+        <button class="fact-btn" id="factBtn" onclick="showFact()">
+          ✨ Reveal a Food Fact
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOTER
+  ========================= -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Shubham 🍽️</div>
+      <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="travel.html">Travel</a></li>
+        <li><a href="food.html">Food</a></li>
         <li><a href="contact.html">Contact</a></li>
-    </ul>
-</nav>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      © 2026 Shubham · Built with ❤️ and lots of food 🍕
+    </div>
+  </footer>
 
-<!-- HERO -->
+  <!-- ========================
+       JAVASCRIPT
+  ========================= -->
+  <script>
 
-<section class="hero">
+    /* ------- HAMBURGER MENU ------- */
+    function toggleMenu() {
+      const nav = document.getElementById('nav-links');
+      const ham = document.getElementById('hamburger');
+      nav.classList.toggle('open');
+      ham.classList.toggle('active');
+    }
 
-<div>
-<h1>My <span>Food</span> World 🍕</h1>
+    // Close menu on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('active');
+      });
+    });
 
-<p>
-Food is one of my favorite things in life.
-I enjoy trying new dishes, cooking recipes,
-exploring different flavors and creating delicious memories.
-</p>
+    /* ------- SCROLL REVEAL ------- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
 
-</div>
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-</section>
+    /* ------- DRINK BARS ANIMATION ------- */
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.drink-bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width;
+          });
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
 
-<!-- FOOD CARDS -->
+    document.querySelectorAll('#drinks').forEach(el => barObserver.observe(el));
 
-<section>
+    /* ------- FOOD FACTS ------- */
+    const facts = [
+      { emoji: '🍯', text: 'Honey never spoils. Archaeologists found 3,000-year-old honey in Egyptian tombs that was still edible!' },
+      { emoji: '🍎', text: 'Apples float in water because they are 25% air — that\'s why they\'re used in bobbing for apples!' },
+      { emoji: '🥕', text: 'Carrots were originally purple! Orange carrots were bred in the 17th century by Dutch farmers.' },
+      { emoji: '🍕', text: 'Americans eat approximately 3 billion pizzas per year — that\'s 23 pounds of pizza per person!' },
+      { emoji: '🍫', text: 'It takes 400 cocoa beans to make just one pound of chocolate, and one tree produces only 2,500 beans per year.' },
+      { emoji: '🍌', text: 'Bananas are slightly radioactive due to their potassium content — but completely safe to eat!' },
+      { emoji: '🥑', text: 'Avocados ripen faster when placed in a brown paper bag with a banana. The ethylene gas speeds it up!' },
+      { emoji: '🍓', text: 'Strawberries are the only fruit with seeds on the outside, and they\'re technically not even true berries!' },
+      { emoji: '🧅', text: 'Onions make you cry because they release a sulfur compound that reacts with your eye moisture to form acid.' },
+      { emoji: '🍦', text: 'Ice cream was once a luxury only for the very rich — refrigeration didn\'t exist, so ice had to be shipped from mountains.' },
+    ];
 
-<div class="section-title">
-<h2>Food Categories 🍽️</h2>
-<p>Things I love eating and exploring</p>
-</div>
+    let factIndex = 0;
+    let usedFacts = [];
 
-<div class="cards">
+    function showFact() {
+      const btn = document.getElementById('factBtn');
+      const textEl = document.getElementById('fact-text');
+      const emojiEl = document.getElementById('fact-emoji');
+      const counterEl = document.getElementById('fact-counter');
 
-<div class="card">
-<h3>🍕 Favorite Foods</h3>
-<p>
-Pizza, Burger, Biryani, Momos, Paneer Butter Masala
-and Pasta are some of my favorite foods.
-</p>
-</div>
+      // Reset if all shown
+      if (usedFacts.length === facts.length) usedFacts = [];
 
-<div class="card">
-<h3>🥗 Daily Food</h3>
-<p>
-Roti, Rice, Dal, Vegetables, Fruits and Milk
-are part of my regular healthy diet.
-</p>
-</div>
+      let available = facts.filter((_, i) => !usedFacts.includes(i));
+      let randIdx = Math.floor(Math.random() * available.length);
+      let globalIdx = facts.indexOf(available[randIdx]);
+      usedFacts.push(globalIdx);
 
-<div class="card">
-<h3>🍔 Fast Food</h3>
-<p>
-I enjoy burgers, fries, noodles,
-sandwiches and pizza occasionally.
-</p>
-</div>
+      const fact = available[randIdx];
 
-<div class="card">
-<h3>🍹 Different Juices</h3>
-<p>
-Orange Juice, Mango Juice, Apple Juice,
-Pineapple Juice and Watermelon Juice.
-</p>
-</div>
+      // Animate out
+      textEl.style.opacity = '0';
+      textEl.style.transform = 'translateY(12px)';
+      emojiEl.style.opacity = '0';
 
-<div class="card">
-<h3>👨‍🍳 Cooking</h3>
-<p>
-I love trying new recipes and learning
-different cooking styles.
-</p>
-</div>
+      setTimeout(() => {
+        textEl.textContent = fact.text;
+        emojiEl.textContent = fact.emoji;
+        textEl.style.opacity = '1';
+        textEl.style.transform = 'translateY(0)';
+        emojiEl.style.opacity = '1';
+        counterEl.textContent = `Fact ${usedFacts.length} of ${facts.length}`;
+      }, 300);
 
-<div class="card">
-<h3>🍰 Desserts</h3>
-<p>
-Ice Cream, Cake, Brownies and Chocolates
-make every day sweeter.
-</p>
-</div>
+      btn.textContent = '🎲 Another Fact!';
+    }
 
-</div>
+    /* ------- GALLERY DRAG SCROLL ------- */
+    const strip = document.getElementById('galleryStrip');
+    let isDown = false, startX, scrollLeft;
 
-</section>
+    strip.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - strip.offsetLeft;
+      scrollLeft = strip.scrollLeft;
+    });
 
-<!-- FOOD FACT -->
+    strip.addEventListener('mouseleave', () => isDown = false);
+    strip.addEventListener('mouseup', () => isDown = false);
+    strip.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - strip.offsetLeft;
+      strip.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    });
 
-<section>
+    /* ------- NAVBAR SHRINK ON SCROLL ------- */
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 80) {
+        nav.style.padding = '12px 8%';
+      } else {
+        nav.style.padding = '18px 8%';
+      }
+    });
 
-<div class="fact-box">
-
-<h2>Random Food Fact 🍽️</h2>
-
-<button onclick="showFact()">Show Fact</button>
-
-<p id="fact"></p>
-
-</div>
-
-</section>
-
-<footer>
-© 2026 Shubham | Food Page 🍕
-</footer>
-
-<script>
-
-const facts = [
-
-"🍯 Honey never spoils.",
-
-"🍎 Apples float because they contain air.",
-
-"🍕 Pizza is one of the most loved foods in the world.",
-
-"🥕 Carrots were originally purple.",
-
-"🍫 Chocolate was once used as money."
-
-];
-
-function showFact(){
-
-let random = Math.floor(Math.random()*facts.length);
-
-document.getElementById("fact").innerHTML = facts[random];
-
-}
-
-const cards = document.querySelectorAll(".card");
-
-cards.forEach(card=>{
-
-card.addEventListener("mouseenter",()=>{
-
-card.style.transform="translateY(-10px)";
-
-});
-
-card.addEventListener("mouseleave",()=>{
-
-card.style.transform="translateY(0px)";
-
-});
-
-});
-
-</script>
-
+  </script>
 </body>
 </html>

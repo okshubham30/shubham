@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact | Shubham</title>
 
-  <!-- GOOGLE FONT -->
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- FONT AWESOME -->
-
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
   <style>
+    :root{
+      --bg1:#020617;
+      --bg2:#0f172a;
+      --bg3:#111827;
+      --card:rgba(255,255,255,0.08);
+      --card2:rgba(255,255,255,0.12);
+      --border:rgba(255,255,255,0.12);
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --accent:#38bdf8;
+      --accent2:#22c55e;
+      --shadow:0 20px 60px rgba(0,0,0,0.35);
+      --radius:24px;
+    }
 
     *{
       margin:0;
@@ -28,380 +34,1158 @@
       font-family:'Poppins',sans-serif;
     }
 
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
-      background:#0f172a;
-      color:white;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,0.12), transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+      color:var(--text);
       overflow-x:hidden;
     }
 
-    /* NAVBAR */
-
-    nav{
-      width:100%;
-      padding:20px 8%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    .bg-blobs{
       position:fixed;
-      top:0;
-      z-index:1000;
-      background:rgba(15,23,42,0.9);
-      backdrop-filter:blur(10px);
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      overflow:hidden;
     }
 
-    nav h1{
-      color:#38bdf8;
-      font-size:28px;
+    .blob{
+      position:absolute;
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      filter:blur(60px);
+      opacity:0.25;
+      animation:float 12s ease-in-out infinite;
+    }
+
+    .blob.one{
+      top:-80px;
+      left:-100px;
+      background:#38bdf8;
+    }
+
+    .blob.two{
+      bottom:30px;
+      right:-120px;
+      background:#22c55e;
+      animation-delay:-4s;
+    }
+
+    .blob.three{
+      top:45%;
+      left:55%;
+      width:220px;
+      height:220px;
+      background:#a855f7;
+      animation-delay:-8s;
+    }
+
+    @keyframes float{
+      0%,100%{ transform:translateY(0px) translateX(0px) scale(1); }
+      50%{ transform:translateY(-25px) translateX(20px) scale(1.08); }
+    }
+
+    .grid-lines{
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size:80px 80px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 85%);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    nav{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      padding:18px 8%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background:rgba(2,6,23,0.55);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      z-index:1000;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:0.3px;
+    }
+
+    .brand-badge{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, rgba(56,189,248,0.24), rgba(34,197,94,0.24));
+      border:1px solid rgba(255,255,255,0.15);
+      box-shadow:0 10px 30px rgba(56,189,248,0.15);
+      color:white;
+    }
+
+    .brand h1{
+      font-size:22px;
+      color:white;
+    }
+
+    .brand span{
+      color:var(--accent);
     }
 
     nav ul{
       display:flex;
+      gap:18px;
       list-style:none;
-      gap:25px;
       flex-wrap:wrap;
     }
 
-    nav ul li a{
+    nav a{
       text-decoration:none;
-      color:white;
-      transition:0.3s;
+      color:var(--text);
+      font-weight:500;
+      font-size:14px;
+      padding:10px 14px;
+      border-radius:999px;
+      transition:0.25s ease;
     }
 
-    nav ul li a:hover{
-      color:#38bdf8;
+    nav a:hover,
+    nav a.active{
+      background:rgba(56,189,248,0.14);
+      color:#fff;
+      transform:translateY(-1px);
     }
-
-    /* HERO */
 
     .hero{
-      min-height:60vh;
-      display:flex;
-      justify-content:center;
+      padding:140px 8% 70px;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+    }
+
+    .hero-inner{
+      width:100%;
+      max-width:1200px;
+      display:grid;
+      grid-template-columns:1.15fr 0.85fr;
+      gap:28px;
       align-items:center;
-      text-align:center;
-      padding:140px 8% 80px;
-      background:linear-gradient(to right,#0f172a,#111827,#1e293b);
     }
 
-    .hero h1{
-      font-size:65px;
-      margin-bottom:20px;
+    .hero-left{
+      animation:fadeUp 0.8s ease both;
     }
 
-    .hero span{
-      color:#38bdf8;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,0.1);
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:18px;
+    }
+
+    .pill i{
+      color:var(--accent);
+    }
+
+    .hero h2{
+      font-size:clamp(42px, 6vw, 72px);
+      line-height:1.03;
+      margin-bottom:18px;
+      letter-spacing:-0.03em;
+    }
+
+    .hero h2 span{
+      color:var(--accent);
+      text-shadow:0 0 24px rgba(56,189,248,0.28);
+    }
+
+    .typing{
+      min-height:52px;
+      font-size:clamp(18px, 2.2vw, 22px);
+      color:#cbd5e1;
+      line-height:1.8;
+      margin-bottom:22px;
     }
 
     .hero p{
-      color:#cbd5e1;
-      max-width:700px;
+      color:var(--muted);
+      font-size:16px;
       line-height:1.9;
-      margin:auto;
+      max-width:620px;
+      margin-bottom:28px;
     }
 
-    /* CONTACT SECTION */
-
-    .contact-section{
-      padding:100px 8%;
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:28px;
     }
 
-    .contact-container{
+    .btn{
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:13px 20px;
+      border-radius:999px;
+      font-weight:600;
+      transition:0.3s ease;
+      border:1px solid transparent;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--accent), #0ea5e9);
+      color:#00111f;
+      box-shadow:0 12px 30px rgba(56,189,248,0.25);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-3px);
+      box-shadow:0 18px 35px rgba(56,189,248,0.32);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.06);
+      border-color:rgba(255,255,255,0.1);
+      color:#fff;
+    }
+
+    .btn-secondary:hover{
+      transform:translateY(-3px);
+      background:rgba(255,255,255,0.1);
+    }
+
+    .hero-stats{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:30px;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      max-width:620px;
+    }
+
+    .stat{
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.09);
+      backdrop-filter:blur(12px);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:24px;
+      margin-bottom:6px;
+      color:#fff;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .hero-right{
+      position:relative;
+      animation:fadeUp 1s ease both;
+    }
+
+    .profile-card{
+      position:relative;
+      border-radius:30px;
+      padding:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.11), rgba(255,255,255,0.05));
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+      overflow:hidden;
+    }
+
+    .profile-card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:linear-gradient(135deg, rgba(56,189,248,0.25), rgba(34,197,94,0.12), transparent 70%);
+      z-index:-1;
+      filter:blur(18px);
+      opacity:0.8;
+    }
+
+    .profile-top{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .avatar{
+      width:72px;
+      height:72px;
+      border-radius:22px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, rgba(56,189,248,0.25), rgba(34,197,94,0.2));
+      border:1px solid rgba(255,255,255,0.1);
+      font-size:30px;
+      color:#fff;
+    }
+
+    .profile-top h3{
+      font-size:24px;
+      line-height:1.2;
+    }
+
+    .profile-top p{
+      color:var(--muted);
+      margin-top:4px;
+      font-size:14px;
+    }
+
+    .mini-info{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .info-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:14px 16px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+    }
+
+    .info-row span{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .info-row strong{
+      font-size:14px;
+      font-weight:600;
+      text-align:right;
+    }
+
+    .section{
+      padding:20px 8% 90px;
+    }
+
+    .section-head{
+      max-width:900px;
+      margin:0 auto 30px;
+      text-align:center;
+    }
+
+    .section-head h3{
+      font-size:clamp(28px, 4vw, 44px);
+      margin-bottom:12px;
+    }
+
+    .section-head p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:700px;
+      margin:0 auto;
+    }
+
+    .contact-grid{
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:22px;
     }
 
     .contact-card{
-      background:rgba(255,255,255,0.05);
-      padding:35px;
-      border-radius:25px;
-      text-align:center;
-      transition:0.4s;
+      position:relative;
+      padding:28px;
+      border-radius:var(--radius);
+      background:rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      transition:0.35s ease;
+      min-height:260px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
     }
 
     .contact-card:hover{
       transform:translateY(-10px);
-      background:rgba(56,189,248,0.1);
+      border-color:rgba(56,189,248,0.3);
+      box-shadow:0 22px 60px rgba(0,0,0,0.42);
     }
 
-    .contact-card i{
-      font-size:55px;
-      margin-bottom:20px;
-      color:#38bdf8;
+    .contact-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -40px -40px auto;
+      width:130px;
+      height:130px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(56,189,248,0.25), transparent 70%);
+      pointer-events:none;
     }
 
-    .contact-card h2{
-      margin-bottom:10px;
+    .contact-icon{
+      width:64px;
+      height:64px;
+      border-radius:20px;
+      display:grid;
+      place-items:center;
+      font-size:28px;
+      margin-bottom:18px;
+      color:#fff;
+      background:linear-gradient(135deg, rgba(56,189,248,0.2), rgba(255,255,255,0.08));
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .contact-card h4{
+      font-size:22px;
+      margin-bottom:8px;
     }
 
     .contact-card p{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .contact-meta{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
       color:#cbd5e1;
-      margin-bottom:20px;
+      font-size:13px;
     }
 
-    .contact-btn{
-      display:inline-block;
+    .badge{
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .contact-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:22px;
+    }
+
+    .small-btn{
       text-decoration:none;
-      background:#38bdf8;
-      color:black;
-      padding:12px 24px;
-      border-radius:40px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:11px 14px;
+      border-radius:14px;
+      font-size:14px;
       font-weight:600;
-      transition:0.3s;
+      transition:0.25s ease;
     }
 
-    .contact-btn:hover{
-      transform:translateY(-5px);
-      background:white;
+    .small-btn:hover{
+      transform:translateY(-2px);
     }
 
-    /* FOOTER */
+    .small-btn.primary{
+      background:var(--accent);
+      color:#00111f;
+    }
 
-    footer{
-      text-align:center;
-      padding:30px;
-      border-top:1px solid rgba(255,255,255,0.1);
+    .small-btn.ghost{
+      background:rgba(255,255,255,0.06);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .form-wrap{
+      max-width:1200px;
+      margin:28px auto 0;
+      display:grid;
+      grid-template-columns:0.95fr 1.05fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .form-card,
+    .side-card{
+      border-radius:var(--radius);
+      background:rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .form-card h4,
+    .side-card h4{
+      font-size:26px;
+      margin-bottom:10px;
+    }
+
+    .form-card p,
+    .side-card p{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:14px;
+      margin-bottom:18px;
+    }
+
+    .form-group{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+
+    .form-card input,
+    .form-card textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,0.1);
+      outline:none;
+      background:rgba(15,23,42,0.55);
+      color:#fff;
+      transition:0.25s ease;
+      font-size:14px;
+    }
+
+    .form-card input::placeholder,
+    .form-card textarea::placeholder{
       color:#94a3b8;
     }
 
-    /* MOBILE */
+    .form-card input:focus,
+    .form-card textarea:focus{
+      border-color:rgba(56,189,248,0.45);
+      box-shadow:0 0 0 4px rgba(56,189,248,0.12);
+    }
 
-    @media(max-width:768px){
+    .form-card textarea{
+      min-height:140px;
+      resize:vertical;
+    }
 
+    .submit-btn{
+      width:100%;
+      justify-content:center;
+      border:none;
+      margin-top:6px;
+      font-size:15px;
+    }
+
+    .contact-list{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .contact-item{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding:14px 16px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+    }
+
+    .contact-item i{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      background:rgba(56,189,248,0.14);
+      color:var(--accent);
+      flex-shrink:0;
+    }
+
+    .contact-item strong{
+      display:block;
+      font-size:14px;
+      margin-bottom:2px;
+    }
+
+    .contact-item span{
+      color:var(--muted);
+      font-size:13px;
+      word-break:break-word;
+    }
+
+    footer{
+      padding:26px 8%;
+      text-align:center;
+      color:#94a3b8;
+      border-top:1px solid rgba(255,255,255,0.08);
+      background:rgba(2,6,23,0.35);
+    }
+
+    .back-top{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      width:52px;
+      height:52px;
+      border:none;
+      border-radius:16px;
+      background:linear-gradient(135deg, var(--accent), #0ea5e9);
+      color:#00111f;
+      font-size:18px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 16px 30px rgba(56,189,248,0.28);
+      opacity:0;
+      pointer-events:none;
+      transform:translateY(10px);
+      transition:0.3s ease;
+      z-index:1000;
+    }
+
+    .back-top.show{
+      opacity:1;
+      pointer-events:auto;
+      transform:translateY(0);
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:28px;
+      transform:translateX(-50%) translateY(20px);
+      background:rgba(15,23,42,0.95);
+      color:white;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.12);
+      box-shadow:var(--shadow);
+      opacity:0;
+      pointer-events:none;
+      transition:0.3s ease;
+      z-index:1200;
+      font-size:14px;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(30px);
+      transition:0.7s ease;
+    }
+
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(18px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .form-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:130px;
+      }
+    }
+
+    @media (max-width: 768px){
       nav{
+        padding:16px 5%;
+        gap:12px;
         flex-direction:column;
-        gap:15px;
       }
 
       nav ul{
         justify-content:center;
+        gap:8px;
       }
 
-      .hero h1{
-        font-size:45px;
+      nav a{
+        padding:9px 12px;
       }
 
+      .hero,
+      .section{
+        padding-left:5%;
+        padding-right:5%;
+      }
+
+      .hero h2{
+        font-size:40px;
+      }
+
+      .typing{
+        min-height:72px;
+      }
+
+      .hero-stats{
+        grid-template-columns:1fr;
+      }
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .profile-card,
+      .form-card,
+      .side-card{
+        padding:22px;
+      }
+
+      .contact-card{
+        min-height:auto;
+      }
     }
-
   </style>
-
 </head>
-
 <body>
-
-  <!-- NAVBAR -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+  </div>
+  <div class="grid-lines" aria-hidden="true"></div>
 
   <nav>
-
-    <h1>Shubham</h1>
+    <div class="brand">
+      <div class="brand-badge"><i class="fa-solid fa-sparkles"></i></div>
+      <h1>Shubham <span>Contact</span></h1>
+    </div>
 
     <ul>
-
-      <li><a href="index.html">Home</a></li>
-
-      <li><a href="travel.html">Travel</a></li>
-
-      <li><a href="contact.html">Contact</a></li>
-
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="#social">Social</a></li>
+      <li><a href="#message">Message</a></li>
+      <li><a href="#footer">Footer</a></li>
     </ul>
-
   </nav>
 
-  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> HELLO EVERYONE</div>
+        <h2>Let's <span>Connect</span> and build something great.</h2>
+        <div class="typing" id="typingText"></div>
+        <p>
+          You can reach me on social platforms, send a message, or check my updated contact details below.
+          This page is designed to look clean, modern, and attractive on mobile and desktop.
+        </p>
 
-  <section class="hero">
+        <div class="hero-actions">
+          <a href="#social" class="btn btn-primary"><i class="fa-solid fa-arrow-down"></i> Explore Links</a>
+          <a href="#message" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Send Message</a>
+        </div>
 
-    <div>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong id="visitorCount">1</strong>
+            <span>Page visits</span>
+          </div>
+          <div class="stat">
+            <strong id="liveClock">--:--:--</strong>
+            <span>Live time</span>
+          </div>
+          <div class="stat">
+            <strong id="dayName">---</strong>
+            <span>Today</span>
+          </div>
+        </div>
+      </div>
 
-      <h1>Let's <span>Connect</span> ✨</h1>
+      <div class="hero-right">
+        <div class="profile-card reveal">
+          <div class="profile-top">
+            <div class="avatar">S</div>
+            <div>
+              <h3>Shubham Maurya</h3>
+              <p>Student • Developer • Creator</p>
+            </div>
+          </div>
 
+          <p>
+            A simple social contact hub with direct links, message form, and useful quick actions.
+          </p>
+
+          <div class="mini-info">
+            <div class="info-row">
+              <span>Location</span>
+              <strong>India</strong>
+            </div>
+            <div class="info-row">
+              <span>Email</span>
+              <strong>shubham32maurya@gmail.com</strong>
+            </div>
+            <div class="info-row">
+              <span>Status</span>
+              <strong style="color:#86efac;">Available to connect</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal" id="social">
+    <div class="section-head">
+      <h3>My Social Links</h3>
       <p>
-        You can connect with me on different social media platforms.
-        Let's share ideas, memories and good vibes together 🌍
+        Tap any card to open the platform. Each block has quick actions so the page feels more interactive and useful.
       </p>
-
     </div>
 
+    <div class="contact-grid">
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-brands fa-instagram"></i></div>
+          <h4>Instagram</h4>
+          <p>@okshubham32</p>
+          <div class="contact-meta">
+            <span class="badge">Photos</span>
+            <span class="badge">Reels</span>
+            <span class="badge">Stories</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://instagram.com/okshubham32" target="_blank" class="small-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open</a>
+          <button class="small-btn ghost copy-btn" data-copy="@okshubham32"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-brands fa-youtube"></i></div>
+          <h4>YouTube</h4>
+          <p>@jaihindshubham</p>
+          <div class="contact-meta">
+            <span class="badge">Videos</span>
+            <span class="badge">Shorts</span>
+            <span class="badge">Live</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://youtube.com/@jaihindshubham" target="_blank" class="small-btn primary"><i class="fa-solid fa-play"></i> Open</a>
+          <button class="small-btn ghost copy-btn" data-copy="@jaihindshubham"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-brands fa-telegram"></i></div>
+          <h4>Telegram</h4>
+          <p>@okshubham32</p>
+          <div class="contact-meta">
+            <span class="badge">Fast chat</span>
+            <span class="badge">Updates</span>
+            <span class="badge">Groups</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://t.me/okshubham32" target="_blank" class="small-btn primary"><i class="fa-solid fa-paper-plane"></i> Open</a>
+          <button class="small-btn ghost copy-btn" data-copy="@okshubham32"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-brands fa-x-twitter"></i></div>
+          <h4>X / Twitter</h4>
+          <p>@ok_shubham_32</p>
+          <div class="contact-meta">
+            <span class="badge">Posts</span>
+            <span class="badge">News</span>
+            <span class="badge">Ideas</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://x.com/ok_shubham_32" target="_blank" class="small-btn primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open</a>
+          <button class="small-btn ghost copy-btn" data-copy="@ok_shubham_32"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-brands fa-linkedin"></i></div>
+          <h4>LinkedIn</h4>
+          <p>@okshubham32</p>
+          <div class="contact-meta">
+            <span class="badge">Profile</span>
+            <span class="badge">Network</span>
+            <span class="badge">Jobs</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://linkedin.com/in/okshubham32" target="_blank" class="small-btn primary"><i class="fa-solid fa-user-group"></i> Open</a>
+          <button class="small-btn ghost copy-btn" data-copy="@okshubham32"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+          <h4>Gmail</h4>
+          <p>shubham32maurya@gmail.com</p>
+          <div class="contact-meta">
+            <span class="badge">Email</span>
+            <span class="badge">Support</span>
+            <span class="badge">Business</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="mailto:shubham32maurya@gmail.com" class="small-btn primary"><i class="fa-solid fa-paper-plane"></i> Send Mail</a>
+          <button class="small-btn ghost copy-btn" data-copy="shubham32maurya@gmail.com"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div class="contact-card reveal">
+        <div>
+          <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+          <h4>GitHub</h4>
+          <p>@okshubham30</p>
+          <div class="contact-meta">
+            <span class="badge">Code</span>
+            <span class="badge">Projects</span>
+            <span class="badge">Open Source</span>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://github.com/okshubham30" target="_blank" class="small-btn primary"><i class="fa-brands fa-github"></i> Open</a>
+          <button class="small-btn ghost copy-btn" data-copy="@okshubham30"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- CONTACT SECTION -->
-
-  <section class="contact-section">
-
-    <div class="contact-container">
-
-      <!-- INSTAGRAM -->
-
-      <div class="contact-card">
-
-        <i class="fa-brands fa-instagram"></i>
-
-        <h2>Instagram</h2>
-
-        <p>@okshubham32</p>
-
-        <a href="https://instagram.com/okshubham32"
-        target="_blank"
-        class="contact-btn">
-
-          Open Instagram
-
-        </a>
-
-      </div>
-
-      <!-- YOUTUBE -->
-
-      <div class="contact-card">
-
-        <i class="fa-brands fa-youtube"></i>
-
-        <h2>YouTube</h2>
-
-        <p>@jaihindshubham</p>
-
-        <a href="https://youtube.com/@jaihindshubham"
-        target="_blank"
-        class="contact-btn">
-
-          Open YouTube
-
-        </a>
-
-      </div>
-
-      <!-- TELEGRAM -->
-
-      <div class="contact-card">
-
-        <i class="fa-brands fa-telegram"></i>
-
-        <h2>Telegram</h2>
-
-        <p>@okshubham32</p>
-
-        <a href="https://t.me/okshubham32"
-        target="_blank"
-        class="contact-btn">
-
-          Open Telegram
-
-        </a>
-
-      </div>
-
-      <!-- X / TWITTER -->
-
-      <div class="contact-card">
-
-        <i class="fa-brands fa-x-twitter"></i>
-
-        <h2>X / Twitter</h2>
-
-        <p>@ok_shubham_32</p>
-
-        <a href="https://x.com/ok_shubham_32"
-        target="_blank"
-        class="contact-btn">
-
-          Open X
-
-        </a>
-
-      </div>
-
-      <!-- LINKEDIN -->
-
-      <div class="contact-card">
-
-        <i class="fa-brands fa-linkedin"></i>
-
-        <h2>LinkedIn</h2>
-
-        <p>@okshubham32</p>
-
-        <a href="https://linkedin.com/in/okshubham32"
-        target="_blank"
-        class="contact-btn">
-
-          Open LinkedIn
-
-        </a>
-
-      </div>
-
-      <!-- GMAIL -->
-
-      <div class="contact-card">
-
-        <i class="fa-solid fa-envelope"></i>
-
-        <h2>Gmail</h2>
-
-        <p>shubham32maurya@gmail.com</p>
-
-        <a href="mailto:shubham32maurya@gmail.com"
-        class="contact-btn">
-
-          Send Mail
-
-        </a>
-
-      </div>
-
-      <!-- GITHUB -->
-
-      <div class="contact-card">
-
-        <i class="fa-brands fa-github"></i>
-
-        <h2>GitHub</h2>
-
-        <p>@okshubham32</p>
-
-        <a href="https://github.com/okshubham30"
-        target="_blank"
-        class="contact-btn">
-
-          Open GitHub
-
-        </a>
-
-      </div>
-
+  <section class="section reveal" id="message">
+    <div class="section-head">
+      <h3>Send Me a Message</h3>
+      <p>
+        This form uses a simple frontend validation and a nice UI. You can connect it later with email service or backend.
+      </p>
     </div>
 
+    <div class="form-wrap">
+      <div class="side-card">
+        <h4>Quick Contact</h4>
+        <p>
+          Here are some direct details. You can edit this part anytime and keep it updated.
+        </p>
+
+        <div class="contact-list">
+          <div class="contact-item">
+            <i class="fa-solid fa-user"></i>
+            <div>
+              <strong>Name</strong>
+              <span>Shubham Maurya</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <strong>Location</strong>
+              <span>Uttar Pradesh, India</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <strong>Best Time</strong>
+              <span>Evening and Night</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <i class="fa-solid fa-bolt"></i>
+            <div>
+              <strong>Reply Style</strong>
+              <span>Fast and friendly</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h4>Contact Form</h4>
+        <p>Fill the form and press send. For now it will show a popup message.</p>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <div class="form-grid">
+              <input type="text" id="name" placeholder="Your Name" required>
+              <input type="email" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-grid">
+              <input type="text" id="subject" placeholder="Subject" required>
+              <input type="text" id="phone" placeholder="Phone Number">
+            </div>
+            <textarea id="messageBox" placeholder="Write your message here..." required></textarea>
+            <button type="submit" class="btn btn-primary submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-
-  <footer>
-
-    © 2026 Shubham | Connect With Me 🌍
-
+  <footer id="footer">
+    © 2026 Shubham | Designed with ❤️ and smooth UI
   </footer>
 
-  <!-- JAVASCRIPT -->
+  <button class="back-top" id="backTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+  <div class="toast" id="toast">Copied!</div>
 
   <script>
+    const typingText = document.getElementById("typingText");
+    const message = "You can connect with me on Instagram, YouTube, Telegram, X, LinkedIn, GitHub, or email. Let's stay connected and build something amazing together.";
+    let idx = 0;
 
-    console.log("Welcome to Shubham's Contact Page ✨");
+    function typeWriter() {
+      if (idx < message.length) {
+        typingText.textContent += message.charAt(idx);
+        idx++;
+        setTimeout(typeWriter, 28);
+      }
+    }
+    typeWriter();
 
-    // BUTTON CLICK EFFECT
+    const visitorCount = document.getElementById("visitorCount");
+    let visits = Number(localStorage.getItem("shubham_contact_visits") || 0);
+    visits += 1;
+    localStorage.setItem("shubham_contact_visits", visits);
+    visitorCount.textContent = visits;
 
-    const buttons = document.querySelectorAll(".contact-btn");
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("liveClock").textContent = now.toLocaleTimeString();
+      document.getElementById("dayName").textContent = now.toLocaleDateString(undefined, { weekday: "short" });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
 
-    buttons.forEach(button => {
-
-      button.addEventListener("click", () => {
-
-        console.log("Opening Social Link 🚀");
-
-      });
-
+    const backTop = document.getElementById("backTop");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) backTop.classList.add("show");
+      else backTop.classList.remove("show");
     });
 
-  </script>
+    backTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
 
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const value = btn.getAttribute("data-copy");
+        try {
+          await navigator.clipboard.writeText(value);
+          showToast("Copied: " + value);
+        } catch (e) {
+          showToast("Copy failed");
+        }
+      });
+    });
+
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealItems.forEach(item => revealObserver.observe(item));
+
+    document.querySelectorAll("nav a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.querySelectorAll("nav a").forEach(a => a.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const messageBox = document.getElementById("messageBox").value.trim();
+
+      if (!name || !email || !subject || !messageBox) {
+        showToast("Please fill all required fields");
+        return;
+      }
+
+      const mailto = `mailto:shubham32maurya@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "N/A"}\n\nMessage:\n${messageBox}`
+      )}`;
+
+      window.location.href = mailto;
+      showToast("Opening mail app...");
+      this.reset();
+    });
+  </script>
 </body>
 </html>
