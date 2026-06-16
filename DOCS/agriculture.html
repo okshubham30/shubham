@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agriculture Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs Agriculture notes with basics, examples, and clear study-friendly sections." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(244,114,182,.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#40e65c;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #72f490, #fb7185);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(244,114,182,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(244,114,182,.12);
+      color:#21dc4d;
+      border:1px solid rgba(244,114,182,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(244,114,182,.32);
+      background:rgba(244,114,182,.08);
+    }
+
+    h2,h3{
+      color:#10ae1d;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(244,114,182,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(244,114,182,.08);
+      border-color:rgba(244,114,182,.2);
+      color:#fbcfe8;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#4af05a;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#f472b6;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#228b22;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #f472b6, #fb7185);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(244,114,182,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .hero-card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .hero-card h4{
+      color:#228b22;
+      margin-bottom:8px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>Agriculture Notes</h1>
+        <p>Simple English notes from basics to farm management, soil testing, pests, and crop production.</p>
+      </div>
+      <a class="back-home" href="index.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#importance">Importance</a>
+      <a href="#history">History</a>
+      <a href="#types">Types</a>
+      <a href="#seasons">Seasons</a>
+      <a href="#production">Crop Production</a>
+      <a href="#soil">Soil</a>
+      <a href="#testing">Soil Testing</a>
+      <a href="#fertility">Fertility</a>
+      <a href="#irrigation">Irrigation</a>
+      <a href="#weeds">Weed Management</a>
+      <a href="#ipm">IPM</a>
+      <a href="#organic">Organic Farming</a>
+      <a href="#diseases">Plant Diseases</a>
+      <a href="#identify">Disease Identification</a>
+      <a href="#survey">Field Survey</a>
+      <a href="#management">Farm Management</a>
+      <a href="#harvest">Harvesting</a>
+      <a href="#storage">Storage</a>
+      <a href="#tools">Tools</a>
+      <a href="#importance2">Importance</a>
+      <a href="#questions">Interview</a>
+      <a href="#example">Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to Agriculture</h2>
+      <p>
+        Agriculture is the science and practice of growing crops and raising animals for food, fiber, fuel, and other useful products.
+      </p>
+
+      <div class="box">
+        <p><strong>Simple meaning:</strong> Agriculture means farming.</p>
+        <p><strong>It includes:</strong> crop growing, animal rearing, soil care, water use, pest control, and farm planning.</p>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-card">
+          <h4>Crop farming</h4>
+          <p>Growing plants like wheat, rice, vegetables, and fruits.</p>
+        </div>
+        <div class="hero-card">
+          <h4>Animal husbandry</h4>
+          <p>Raising cows, goats, buffaloes, chickens, and other animals.</p>
+        </div>
+        <div class="hero-card">
+          <h4>Farm support</h4>
+          <p>Using soil, water, tools, seeds, fertilizers, and machines properly.</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        Agriculture is the base of food supply in every country.
+      </div>
+    </section>
+
+    <section id="importance" class="section-anchor">
+      <h2>2. Importance of Agriculture</h2>
+      <p>Agriculture is important because it supports life, jobs, and the economy.</p>
+
+      <ul>
+        <li>Provides food for people</li>
+        <li>Provides employment in villages and towns</li>
+        <li>Supplies raw materials to industries</li>
+        <li>Supports transport, storage, and food businesses</li>
+        <li>Contributes to national income</li>
+      </ul>
+
+      <div class="note">
+        Without agriculture, there would be less food, fewer jobs, and weaker economic growth.
+      </div>
+    </section>
+
+    <section id="history" class="section-anchor">
+      <h2>3. History of Agriculture</h2>
+      <p>
+        Long ago, humans depended on hunting and gathering. Later, they learned how to grow crops and keep animals.
+      </p>
+
+      <table>
+        <tr>
+          <th>Stage</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Hunting and gathering</td>
+          <td>Early humans collected wild food and hunted animals</td>
+        </tr>
+        <tr>
+          <td>Crop growing</td>
+          <td>People started planting seeds and harvesting crops</td>
+        </tr>
+        <tr>
+          <td>Domestication</td>
+          <td>Animals were kept for milk, meat, work, and transport</td>
+        </tr>
+        <tr>
+          <td>Agricultural revolution</td>
+          <td>Big change when farming became a regular human activity</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="types" class="section-anchor">
+      <h2>4. Types of Agriculture</h2>
+      <p>There are different ways of farming depending on purpose, land, money, and technology.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Subsistence Farming</h4>
+          <p>Farmer grows crops mainly for family use. Example: small rice farm for household food.</p>
+        </div>
+        <div class="card">
+          <h4>Commercial Farming</h4>
+          <p>Farmer grows crops for selling in the market. Example: sugarcane farming.</p>
+        </div>
+        <div class="card">
+          <h4>Mixed Farming</h4>
+          <p>Both crops and livestock are kept together. Example: wheat farm with dairy animals.</p>
+        </div>
+        <div class="card">
+          <h4>Organic Farming</h4>
+          <p>Uses natural fertilizers and natural pest control methods.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="seasons" class="section-anchor">
+      <h2>5. Agricultural Seasons in India</h2>
+      <p>Crops are grown in different seasons depending on rainfall and temperature.</p>
+
+      <table>
+        <tr>
+          <th>Season</th>
+          <th>When It Grows</th>
+          <th>Examples</th>
+          <th>Common Time</th>
+        </tr>
+        <tr>
+          <td>Kharif</td>
+          <td>Rainy season</td>
+          <td>Rice, maize, cotton, soybean</td>
+          <td>Sowing: June–July, Harvesting: September–October</td>
+        </tr>
+        <tr>
+          <td>Rabi</td>
+          <td>Winter season</td>
+          <td>Wheat, mustard, pea, gram</td>
+          <td>Sowing: October–November, Harvesting: March–April</td>
+        </tr>
+        <tr>
+          <td>Zaid</td>
+          <td>Between Kharif and Rabi</td>
+          <td>Watermelon, cucumber, muskmelon</td>
+          <td>Hot summer period</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        Kharif crops need more rain, while Rabi crops grow better in cooler weather.
+      </div>
+    </section>
+
+    <section id="production" class="section-anchor">
+      <h2>6. Crop Production and Management</h2>
+      <p>Crop production means growing crops successfully from seed to harvest.</p>
+
+      <table>
+        <tr>
+          <th>Step</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Soil preparation</td>
+          <td>Ploughing and making the land ready</td>
+        </tr>
+        <tr>
+          <td>Seed selection</td>
+          <td>Choosing healthy and high-quality seeds</td>
+        </tr>
+        <tr>
+          <td>Sowing</td>
+          <td>Placing seeds in the soil</td>
+        </tr>
+        <tr>
+          <td>Irrigation</td>
+          <td>Supplying water to crops</td>
+        </tr>
+        <tr>
+          <td>Fertilizer application</td>
+          <td>Adding nutrients to the soil</td>
+        </tr>
+        <tr>
+          <td>Weed control</td>
+          <td>Removing unwanted plants</td>
+        </tr>
+        <tr>
+          <td>Pest management</td>
+          <td>Controlling insects and diseases</td>
+        </tr>
+        <tr>
+          <td>Harvesting</td>
+          <td>Cutting mature crops</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>Keeping grains safe after harvest</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Good crop management gives better yield, healthier plants, and more profit.
+      </div>
+
+      <div class="box">
+        <p><strong>Basic example:</strong> For rice, the farmer prepares the field, sows seeds, waters the crop, adds nutrients, removes weeds, controls pests, and harvests the crop when it matures.</p>
+      </div>
+    </section>
+
+    <section id="soil" class="section-anchor">
+      <h2>7. Soil and Soil Types</h2>
+      <p>Soil is the upper layer of earth where plants grow. It gives support, water, air, and nutrients to plants.</p>
+
+      <table>
+        <tr>
+          <th>Component</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>Minerals</td>
+          <td>Provide nutrients</td>
+        </tr>
+        <tr>
+          <td>Organic matter</td>
+          <td>Improves fertility</td>
+        </tr>
+        <tr>
+          <td>Water</td>
+          <td>Helps plants absorb nutrients</td>
+        </tr>
+        <tr>
+          <td>Air</td>
+          <td>Needed for root breathing</td>
+        </tr>
+        <tr>
+          <td>Microorganisms</td>
+          <td>Help decompose matter and improve soil health</td>
+        </tr>
+      </table>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Sandy Soil</h4>
+          <p>Large particles, fast drainage, and less water holding capacity.</p>
+        </div>
+        <div class="card">
+          <h4>Clay Soil</h4>
+          <p>Very small particles, holds water well, but drainage is slow.</p>
+        </div>
+        <div class="card">
+          <h4>Loamy Soil</h4>
+          <p>Best for farming because it has balanced water, air, and nutrients.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="testing" class="section-anchor">
+      <h2>8. Soil Testing</h2>
+      <p>Soil testing means checking the nutrient level and condition of soil before adding fertilizers.</p>
+
+      <table>
+        <tr>
+          <th>Why Soil Testing?</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Determine fertilizer need</td>
+          <td>Find what nutrients are missing</td>
+        </tr>
+        <tr>
+          <td>Check soil health</td>
+          <td>Understand if soil is good or weak</td>
+        </tr>
+        <tr>
+          <td>Improve yield</td>
+          <td>Help crops grow better</td>
+        </tr>
+        <tr>
+          <td>Save money</td>
+          <td>Avoid wasting fertilizers</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <th>Parameter</th>
+          <th>Importance</th>
+        </tr>
+        <tr>
+          <td>pH</td>
+          <td>Shows acidity or alkalinity</td>
+        </tr>
+        <tr>
+          <td>Nitrogen</td>
+          <td>Helps plant growth and green leaves</td>
+        </tr>
+        <tr>
+          <td>Phosphorus</td>
+          <td>Helps root growth and flowering</td>
+        </tr>
+        <tr>
+          <td>Potassium</td>
+          <td>Improves disease resistance and plant strength</td>
+        </tr>
+        <tr>
+          <td>Organic carbon</td>
+          <td>Shows soil fertility and organic matter level</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        If soil is low in nitrogen, farmers may use urea or organic manure carefully.
+      </div>
+    </section>
+
+    <section id="fertility" class="section-anchor">
+      <h2>9. Soil Fertility Management</h2>
+      <p>Soil fertility is the ability of soil to provide enough nutrients for plant growth.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Organic Manure</h4>
+          <p>Natural fertilizers like cow dung, compost, and vermicompost.</p>
+        </div>
+        <div class="card">
+          <h4>Chemical Fertilizers</h4>
+          <p>Manufactured fertilizers such as urea, DAP, and MOP.</p>
+        </div>
+        <div class="card">
+          <h4>Biofertilizers</h4>
+          <p>Beneficial microbes like Rhizobium and Azotobacter.</p>
+        </div>
+      </div>
+
+      <div class="tip">
+        A balanced mix of organic matter and proper nutrients keeps soil healthy for a long time.
+      </div>
+    </section>
+
+    <section id="irrigation" class="section-anchor">
+      <h2>10. Irrigation</h2>
+      <p>Irrigation means supplying water to crops when rainfall is not enough.</p>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Meaning</th>
+          <th>Best Use</th>
+        </tr>
+        <tr>
+          <td>Surface irrigation</td>
+          <td>Water flows through channels</td>
+          <td>Traditional crop fields</td>
+        </tr>
+        <tr>
+          <td>Sprinkler irrigation</td>
+          <td>Water sprayed like rain</td>
+          <td>Uneven land and many crops</td>
+        </tr>
+        <tr>
+          <td>Drip irrigation</td>
+          <td>Water drops directly near roots</td>
+          <td>Vegetables, fruits, and water-saving farming</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        Drip irrigation saves water and gives water only where the plant needs it.
+      </div>
+    </section>
+
+    <section id="weeds" class="section-anchor">
+      <h2>11. Weed Management</h2>
+      <p>Weeds are unwanted plants that grow with crops and compete for water, nutrients, sunlight, and space.</p>
+
+      <table>
+        <tr>
+          <th>Example Weeds</th>
+          <th>Problem</th>
+        </tr>
+        <tr>
+          <td>Parthenium</td>
+          <td>Spreads fast and harms crops</td>
+        </tr>
+        <tr>
+          <td>Wild grass</td>
+          <td>Takes nutrients from crop plants</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <th>Control Method</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Manual</td>
+          <td>Hand weeding or using simple tools</td>
+        </tr>
+        <tr>
+          <td>Mechanical</td>
+          <td>Using machines or farm tools</td>
+        </tr>
+        <tr>
+          <td>Chemical</td>
+          <td>Using herbicides carefully</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="ipm" class="section-anchor">
+      <h2>12. Integrated Pest Management (IPM)</h2>
+      <p>IPM means controlling pests using different safe and smart methods instead of depending only on pesticides.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Cultural Control</h4>
+          <p>Crop rotation, clean field, proper sowing time, healthy seeds.</p>
+        </div>
+        <div class="card">
+          <h4>Mechanical Control</h4>
+          <p>Traps, hand picking insects, removing infected parts.</p>
+        </div>
+        <div class="card">
+          <h4>Biological Control</h4>
+          <p>Using natural enemies like ladybird beetles and parasitoids.</p>
+        </div>
+        <div class="card">
+          <h4>Chemical Control</h4>
+          <p>Using pesticides only when truly needed.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        IPM helps reduce pesticide use, protect the environment, and improve crop safety.
+      </div>
+
+      <div class="box">
+        Basic example: using pheromone traps to catch insects before spraying pesticides.
+      </div>
+    </section>
+
+    <section id="organic" class="section-anchor">
+      <h2>13. Organic Farming</h2>
+      <p>Organic farming avoids synthetic chemicals and focuses on natural farming methods.</p>
+
+      <table>
+        <tr>
+          <th>Uses</th>
+          <th>Examples</th>
+        </tr>
+        <tr>
+          <td>Natural fertilizers</td>
+          <td>Compost, green manure, vermicompost</td>
+        </tr>
+        <tr>
+          <td>Biofertilizers</td>
+          <td>Rhizobium, Azotobacter</td>
+        </tr>
+        <tr>
+          <td>Natural pest control</td>
+          <td>Biological control and traps</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        Organic farming is good for soil health, food quality, and environmental protection.
+      </div>
+    </section>
+
+    <section id="diseases" class="section-anchor">
+      <h2>14. Plant Diseases</h2>
+      <p>Plant diseases reduce crop growth, lower yield, and may damage the whole plant.</p>
+
+      <table>
+        <tr>
+          <th>Cause</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Fungi</td>
+          <td>Rust disease in wheat</td>
+        </tr>
+        <tr>
+          <td>Bacteria</td>
+          <td>Bacterial blight</td>
+        </tr>
+        <tr>
+          <td>Viruses</td>
+          <td>Leaf curl disease</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        A disease can spread quickly if infected plants are not checked early.
+      </div>
+    </section>
+
+    <section id="identify" class="section-anchor">
+      <h2>15. Plant Disease Identification</h2>
+      <p>Identifying a disease means finding the problem by looking at symptoms on the plant.</p>
+
+      <table>
+        <tr>
+          <th>Symptom</th>
+          <th>Possible Reason</th>
+        </tr>
+        <tr>
+          <td>Yellow leaves</td>
+          <td>Nutrient deficiency or disease</td>
+        </tr>
+        <tr>
+          <td>Spots on leaves</td>
+          <td>Fungal or bacterial infection</td>
+        </tr>
+        <tr>
+          <td>Wilting</td>
+          <td>Water stress, root damage, or disease</td>
+        </tr>
+        <tr>
+          <td>Stunted growth</td>
+          <td>Nutrient problem or root disease</td>
+        </tr>
+      </table>
+
+      <ol>
+        <li>Observe the symptoms.</li>
+        <li>Check leaves, stems, roots, and fruits.</li>
+        <li>Compare with a healthy plant.</li>
+        <li>Ask an expert if needed.</li>
+      </ol>
+    </section>
+
+    <section id="survey" class="section-anchor">
+      <h2>16. Agriculture Field Survey</h2>
+      <p>Field survey means collecting information from farms to understand crop and soil conditions.</p>
+
+      <table>
+        <tr>
+          <th>Purpose</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Crop condition assessment</td>
+          <td>Check how crops are growing</td>
+        </tr>
+        <tr>
+          <td>Soil analysis</td>
+          <td>Study soil quality and nutrients</td>
+        </tr>
+        <tr>
+          <td>Pest observation</td>
+          <td>Find insects and diseases in the field</td>
+        </tr>
+        <tr>
+          <td>Yield estimation</td>
+          <td>Estimate production before harvest</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        Example: surveying 50 farms to understand wheat productivity in one village.
+      </div>
+    </section>
+
+    <section id="management" class="section-anchor">
+      <h2>17. Farm Management</h2>
+      <p>Farm management means planning, organizing, and controlling all farm activities.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Planning</h4>
+          <p>Choosing crops, deciding area, and arranging inputs.</p>
+        </div>
+        <div class="card">
+          <h4>Organizing</h4>
+          <p>Managing labor, tools, machines, and time.</p>
+        </div>
+        <div class="card">
+          <h4>Monitoring</h4>
+          <p>Checking crop growth, water, fertilizer, and pests.</p>
+        </div>
+        <div class="card">
+          <h4>Marketing</h4>
+          <p>Selling crops in the right market at the right time.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        Good farm management helps increase profit and reduce waste.
+      </div>
+    </section>
+
+    <section id="harvest" class="section-anchor">
+      <h2>18. Harvesting</h2>
+      <p>Harvesting means collecting mature crops from the field.</p>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Manual</td>
+          <td>Using sickles or hand tools</td>
+        </tr>
+        <tr>
+          <td>Mechanical</td>
+          <td>Using harvesters and machines</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        Wheat and rice are often harvested when grains are fully mature and dry enough.
+      </div>
+    </section>
+
+    <section id="storage" class="section-anchor">
+      <h2>19. Post-Harvest Management and Storage</h2>
+      <p>After harvesting, crops must be handled carefully so they do not spoil or lose quality.</p>
+
+      <table>
+        <tr>
+          <th>Post-harvest step</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Cleaning</td>
+          <td>Remove dust and unwanted material</td>
+        </tr>
+        <tr>
+          <td>Drying</td>
+          <td>Reduce moisture in grains</td>
+        </tr>
+        <tr>
+          <td>Grading</td>
+          <td>Separate good quality produce</td>
+        </tr>
+        <tr>
+          <td>Packaging</td>
+          <td>Pack produce safely</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>Keep produce in safe places</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <th>Storage Structure</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>Warehouse</td>
+          <td>Large storage building</td>
+        </tr>
+        <tr>
+          <td>Silo</td>
+          <td>Stores grains safely</td>
+        </tr>
+        <tr>
+          <td>Cold storage</td>
+          <td>Keeps fruits and vegetables fresh</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        Moisture, insects, rodents, and fungi can damage stored crops.
+      </div>
+    </section>
+
+    <section id="tools" class="section-anchor">
+      <h2>20. Agricultural Tools and Equipment</h2>
+      <p>Farm tools help farmers do work faster and more effectively.</p>
+
+      <table>
+        <tr>
+          <th>Traditional Tools</th>
+          <th>Modern Equipment</th>
+        </tr>
+        <tr>
+          <td>Plough</td>
+          <td>Tractor</td>
+        </tr>
+        <tr>
+          <td>Hoe</td>
+          <td>Seed drill</td>
+        </tr>
+        <tr>
+          <td>Sickle</td>
+          <td>Cultivator</td>
+        </tr>
+        <tr>
+          <td>Hand tools</td>
+          <td>Combine harvester</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        Modern machines save time, labor, and cost in large farms.
+      </div>
+    </section>
+
+    <section id="importance2" class="section-anchor">
+      <h2>21. More Importance of Agriculture</h2>
+      <p>Agriculture affects the economy, society, and environment.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Economic importance</h4>
+          <p>Employment generation, income source, and industrial support.</p>
+        </div>
+        <div class="card">
+          <h4>Social importance</h4>
+          <p>Food security and rural development.</p>
+        </div>
+        <div class="card">
+          <h4>Environmental importance</h4>
+          <p>Green cover, biodiversity support, and healthy ecosystem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="questions" class="section-anchor">
+      <h2>22. Agriculture Interview Questions</h2>
+
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>What is agriculture?</td>
+          <td>Agriculture is the cultivation of crops and rearing of animals.</td>
+        </tr>
+        <tr>
+          <td>What is soil testing?</td>
+          <td>It is the analysis of soil nutrients and properties.</td>
+        </tr>
+        <tr>
+          <td>What is organic farming?</td>
+          <td>Farming without synthetic fertilizers and pesticides.</td>
+        </tr>
+        <tr>
+          <td>What is IPM?</td>
+          <td>Integrated Pest Management.</td>
+        </tr>
+        <tr>
+          <td>What is soil fertility?</td>
+          <td>The ability of soil to supply nutrients to plants.</td>
+        </tr>
+        <tr>
+          <td>What is crop rotation?</td>
+          <td>Growing different crops in sequence to improve soil health.</td>
+        </tr>
+        <tr>
+          <td>What is irrigation?</td>
+          <td>The artificial supply of water to crops.</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>23. Complete Agriculture Example</h2>
+      <p>This example shows how a wheat farmer may work through the whole season.</p>
+
+      <pre>1. Tests soil
+2. Prepares the field
+3. Selects quality seeds
+4. Sows wheat
+5. Applies fertilizers
+6. Irrigates the field
+7. Controls weeds
+8. Uses IPM for pest control
+9. Harvests the crop
+10. Stores grain safely</pre>
+
+      <div class="box">
+        <p><strong>Quick recap:</strong> Agriculture is about growing crops and raising animals. Crop production starts from soil preparation and ends with storage. Soil testing, fertility management, irrigation, IPM, organic farming, field survey, and farm management all help farmers get better results.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • Agriculture Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>

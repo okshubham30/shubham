@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitHub Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs GitHub notes with complete theory, examples, and clickable topic navigation." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(244,114,182,.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#f472b6;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #f472b6, #fb7185);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(244,114,182,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(244,114,182,.12);
+      color:#f472b6;
+      border:1px solid rgba(244,114,182,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(244,114,182,.32);
+      background:rgba(244,114,182,.08);
+    }
+
+    h2,h3{
+      color:#f472b6;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(244,114,182,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(244,114,182,.08);
+      border-color:rgba(244,114,182,.2);
+      color:#fbcfe8;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#f472b6;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#f472b6;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#f9a8d4;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #f472b6, #fb7185);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(244,114,182,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>GitHub Notes</h1>
+        <p>Complete GitHub theory with examples, collaboration topics, and quick jump links.</p>
+      </div>
+      <a class="back-home" href="../docs.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#git-vs-github">Git vs GitHub</a>
+      <a href="#account">Account</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#repo">Repository</a>
+      <a href="#create-repo">Create Repo</a>
+      <a href="#readme">README</a>
+      <a href="#profile-readme">Profile README</a>
+      <a href="#clone">Clone</a>
+      <a href="#fork">Fork</a>
+      <a href="#star">Star</a>
+      <a href="#watch">Watch</a>
+      <a href="#branch">Branches</a>
+      <a href="#pr">Pull Request</a>
+      <a href="#issues">Issues</a>
+      <a href="#labels">Labels</a>
+      <a href="#milestones">Milestones</a>
+      <a href="#projects">Projects</a>
+      <a href="#discussions">Discussions</a>
+      <a href="#actions">Actions</a>
+      <a href="#pages">Pages</a>
+      <a href="#releases">Releases</a>
+      <a href="#security">Security</a>
+      <a href="#teams">Organizations</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#opensource">Open Source</a>
+      <a href="#best">Best Practices</a>
+      <a href="#interview">Interview</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to GitHub</h2>
+      <p>
+        GitHub is a cloud-based platform used to host Git repositories, collaborate with developers, manage code,
+        review changes, and build software projects online.
+      </p>
+
+      <div class="box">
+        <p><strong>GitHub</strong> stores code online</p>
+        <p><strong>Repository</strong> is a project space on GitHub</p>
+        <p><strong>Collaboration</strong> happens through branches, pull requests, and issues</p>
+      </div>
+
+      <div class="tip">
+        GitHub is not Git itself. Git is the version control tool, and GitHub is a hosting and collaboration platform built around Git.
+      </div>
+    </section>
+
+    <section id="git-vs-github" class="section-anchor">
+      <h2>2. Git vs GitHub</h2>
+      <p>Many beginners confuse Git and GitHub, but they are different.</p>
+
+      <table>
+        <tr>
+          <th>Git</th>
+          <th>GitHub</th>
+        </tr>
+        <tr>
+          <td>Version control system</td>
+          <td>Online platform for Git repositories</td>
+        </tr>
+        <tr>
+          <td>Installed on your computer</td>
+          <td>Used through browser or Git tools</td>
+        </tr>
+        <tr>
+          <td>Tracks file changes</td>
+          <td>Stores projects, issues, pull requests, and more</td>
+        </tr>
+        <tr>
+          <td>Works locally</td>
+          <td>Supports team collaboration and sharing</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Git manages history. GitHub helps you share that history with others.
+      </div>
+    </section>
+
+    <section id="account" class="section-anchor">
+      <h2>3. Creating a GitHub Account</h2>
+      <p>To start using GitHub, create an account first.</p>
+
+      <ol>
+        <li>Go to GitHub in your browser.</li>
+        <li>Click Sign Up.</li>
+        <li>Enter email, password, and username.</li>
+        <li>Verify your email address.</li>
+        <li>Set up your profile picture and bio.</li>
+      </ol>
+
+      <div class="box">
+        Important profile details include your username, bio, location, website link, and pinned repositories.
+      </div>
+    </section>
+
+    <section id="dashboard" class="section-anchor">
+      <h2>4. GitHub Dashboard</h2>
+      <p>The dashboard is the home screen after login. It helps you access repositories and activity quickly.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Repositories</h4>
+          <p>All your projects in one place.</p>
+        </div>
+        <div class="card">
+          <h4>Pull Requests</h4>
+          <p>Review and manage code changes.</p>
+        </div>
+        <div class="card">
+          <h4>Issues</h4>
+          <p>Track bugs, tasks, and feature requests.</p>
+        </div>
+        <div class="card">
+          <h4>Actions</h4>
+          <p>Automate testing and deployment workflows.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="repo" class="section-anchor">
+      <h2>5. Repository</h2>
+      <p>A repository is a project folder on GitHub that stores code, files, commits, branches, and documentation.</p>
+
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Public Repository</td>
+          <td>Anyone can view it</td>
+        </tr>
+        <tr>
+          <td>Private Repository</td>
+          <td>Only invited users can access it</td>
+        </tr>
+        <tr>
+          <td>Forked Repository</td>
+          <td>Copy of another repository in your account</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        A good repository usually has a README, license, .gitignore file, and clear folder structure.
+      </div>
+    </section>
+
+    <section id="create-repo" class="section-anchor">
+      <h2>6. Creating a Repository</h2>
+      <p>To create a new repository on GitHub, click the New button and fill in the details.</p>
+
+      <ol>
+        <li>Enter repository name.</li>
+        <li>Add optional description.</li>
+        <li>Select public or private.</li>
+        <li>Choose whether to add README.</li>
+        <li>Click Create repository.</li>
+      </ol>
+
+      <div class="note">
+        For beginners, enabling README and .gitignore is usually helpful.
+      </div>
+    </section>
+
+    <section id="readme" class="section-anchor">
+      <h2>7. README.md</h2>
+      <p>The README file explains what the project is, how to use it, and how to install it.</p>
+
+      <pre># Portfolio Website
+
+A responsive personal portfolio built using HTML, CSS, and JavaScript.
+
+## Features
+- Responsive design
+- Dark mode
+- Contact section
+
+## Installation
+1. Clone the repository
+2. Open index.html in browser</pre>
+
+      <div class="box">
+        A strong README makes your project easy to understand for others, including recruiters and teammates.
+      </div>
+    </section>
+
+    <section id="profile-readme" class="section-anchor">
+      <h2>8. GitHub Profile README</h2>
+      <p>You can create a special repository with the same name as your username to show a profile README on your profile page.</p>
+
+      <pre>username/username</pre>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>What to include</h4>
+          <p>Introduction, skills, projects, contact links, and achievements.</p>
+        </div>
+        <div class="card">
+          <h4>Why it matters</h4>
+          <p>It helps your profile look professional and personal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="clone" class="section-anchor">
+      <h2>9. Clone Repository</h2>
+      <p>Clone downloads a repository from GitHub to your local computer.</p>
+
+      <pre>git clone https://github.com/user/repository.git</pre>
+
+      <div class="note">
+        Cloning is useful when you want to work on a project locally.
+      </div>
+    </section>
+
+    <section id="fork" class="section-anchor">
+      <h2>10. Fork</h2>
+      <p>Fork creates your own copy of someone else's repository inside your GitHub account.</p>
+
+      <div class="box">
+        Fork is commonly used in open source contribution when you want to modify a project without changing the original repository directly.
+      </div>
+
+      <table>
+        <tr>
+          <th>Fork</th>
+          <th>Clone</th>
+        </tr>
+        <tr>
+          <td>Creates a copy on GitHub</td>
+          <td>Downloads a copy to your local machine</td>
+        </tr>
+        <tr>
+          <td>Used for contribution</td>
+          <td>Used for local development</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="star" class="section-anchor">
+      <h2>11. Star</h2>
+      <p>Star is like bookmarking a repository so you can find it later and show appreciation.</p>
+
+      <div class="tip">
+        Starring a repository does not copy it. It only saves it to your starred list.
+      </div>
+    </section>
+
+    <section id="watch" class="section-anchor">
+      <h2>12. Watch</h2>
+      <p>Watch lets you follow updates from a repository.</p>
+
+      <div class="box">
+        When you watch a repository, you can receive notifications about issues, pull requests, and new activity.
+      </div>
+    </section>
+
+    <section id="branch" class="section-anchor">
+      <h2>13. Branches on GitHub</h2>
+      <p>Branches help teams work on different features at the same time without disturbing the main code.</p>
+
+      <pre>git branch feature-login
+git switch feature-login
+git push origin feature-login</pre>
+
+      <table>
+        <tr>
+          <th>Branch</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td>main</td>
+          <td>Stable production code</td>
+        </tr>
+        <tr>
+          <td>dev</td>
+          <td>Development work</td>
+        </tr>
+        <tr>
+          <td>feature/*</td>
+          <td>New features</td>
+        </tr>
+        <tr>
+          <td>hotfix/*</td>
+          <td>Urgent bug fixes</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="pr" class="section-anchor">
+      <h2>14. Pull Request</h2>
+      <p>A pull request is a request to merge your changes into another branch, usually main or dev.</p>
+
+      <ol>
+        <li>Create a branch.</li>
+        <li>Make changes and commit them.</li>
+        <li>Push the branch to GitHub.</li>
+        <li>Open a pull request.</li>
+        <li>Review, discuss, and merge.</li>
+      </ol>
+
+      <div class="note">
+        Pull requests are used for code review, collaboration, and quality control.
+      </div>
+    </section>
+
+    <section id="issues" class="section-anchor">
+      <h2>15. Issues</h2>
+      <p>Issues are used to track bugs, tasks, improvements, and feature requests.</p>
+
+      <pre>Title: Navbar not responsive
+Description: Navbar breaks on mobile screens.</pre>
+
+      <div class="box">
+        Issues help teams organize work and discuss problems clearly.
+      </div>
+    </section>
+
+    <section id="labels" class="section-anchor">
+      <h2>16. Labels</h2>
+      <p>Labels help classify issues and pull requests.</p>
+
+      <table>
+        <tr>
+          <th>Label</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>bug</td>
+          <td>Something is broken</td>
+        </tr>
+        <tr>
+          <td>enhancement</td>
+          <td>Improvement request</td>
+        </tr>
+        <tr>
+          <td>documentation</td>
+          <td>Docs-related changes</td>
+        </tr>
+        <tr>
+          <td>good first issue</td>
+          <td>Easy for beginners</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="milestones" class="section-anchor">
+      <h2>17. Milestones</h2>
+      <p>Milestones group issues and pull requests into a bigger goal, such as a release version.</p>
+
+      <div class="tip">
+        Example milestone: Version 1.0 Release
+      </div>
+    </section>
+
+    <section id="projects" class="section-anchor">
+      <h2>18. GitHub Projects</h2>
+      <p>Projects help you manage tasks in a visual board format like Kanban.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Todo</h4>
+          <p>Tasks not started yet.</p>
+        </div>
+        <div class="card">
+          <h4>In Progress</h4>
+          <p>Tasks currently being worked on.</p>
+        </div>
+        <div class="card">
+          <h4>Review</h4>
+          <p>Tasks waiting for feedback.</p>
+        </div>
+        <div class="card">
+          <h4>Done</h4>
+          <p>Completed tasks.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="discussions" class="section-anchor">
+      <h2>19. Discussions</h2>
+      <p>Discussions are used for questions, ideas, and community communication.</p>
+
+      <div class="box">
+        Discussions are helpful when you want a more open conversation than issues and pull requests.
+      </div>
+    </section>
+
+    <section id="actions" class="section-anchor">
+      <h2>20. GitHub Actions</h2>
+      <p>GitHub Actions is GitHub's automation tool for building, testing, and deploying code.</p>
+
+      <pre>name: Build
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm test</pre>
+
+      <div class="note">
+        Actions are often used for CI/CD workflows, linting, tests, and deployment.
+      </div>
+    </section>
+
+    <section id="pages" class="section-anchor">
+      <h2>21. GitHub Pages</h2>
+      <p>GitHub Pages is a free hosting service for static websites directly from a repository.</p>
+
+      <table>
+        <tr>
+          <th>Supports</th>
+          <th>Does not support</th>
+        </tr>
+        <tr>
+          <td>HTML, CSS, JavaScript</td>
+          <td>Server-side code like PHP or Node.js backend</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        GitHub Pages is great for portfolios, documentation sites, and small static projects.
+      </div>
+    </section>
+
+    <section id="releases" class="section-anchor">
+      <h2>22. Releases and Tags</h2>
+      <p>Releases are published versions of your software. Tags mark important points in the repository history.</p>
+
+      <pre>git tag v1.0
+git push origin v1.0</pre>
+
+      <div class="box">
+        Releases are useful when you want to distribute a stable version of your project.
+      </div>
+    </section>
+
+    <section id="security" class="section-anchor">
+      <h2>23. Security</h2>
+      <p>GitHub provides tools to keep repositories and code safer.</p>
+
+      <table>
+        <tr>
+          <th>Security Feature</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Secret Scanning</td>
+          <td>Detects passwords and tokens accidentally committed</td>
+        </tr>
+        <tr>
+          <td>Dependabot</td>
+          <td>Helps update dependencies</td>
+        </tr>
+        <tr>
+          <td>Code Scanning</td>
+          <td>Finds security issues in code</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        Never commit API keys, passwords, or private credentials to public repositories.
+      </div>
+    </section>
+
+    <section id="teams" class="section-anchor">
+      <h2>24. Organizations and Teams</h2>
+      <p>Organizations are used by companies, communities, and groups to manage multiple repositories and members.</p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Organizations</h4>
+          <p>Central place for shared repositories.</p>
+        </div>
+        <div class="card">
+          <h4>Teams</h4>
+          <p>Groups with specific permissions and responsibilities.</p>
+        </div>
+        <div class="card">
+          <h4>Permissions</h4>
+          <p>Control who can read, write, or admin a repository.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section-anchor">
+      <h2>25. GitHub Workflow</h2>
+      <p>A simple workflow used in real projects.</p>
+
+      <pre>1. Create repository
+2. Clone repository
+3. Create a new branch
+4. Make changes
+5. Commit changes
+6. Push branch to GitHub
+7. Create pull request
+8. Review code
+9. Merge pull request
+10. Pull latest changes</pre>
+
+      <div class="box">
+        This workflow keeps code organized and reduces mistakes in teamwork.
+      </div>
+    </section>
+
+    <section id="opensource" class="section-anchor">
+      <h2>26. Open Source Contribution</h2>
+      <p>GitHub is widely used for open source, where people contribute to public projects.</p>
+
+      <pre>1. Fork repository
+2. Clone your fork
+3. Create branch
+4. Make changes
+5. Commit and push
+6. Open pull request</pre>
+
+      <div class="note">
+        Open source contribution is one of the most important skills for new developers to learn.
+      </div>
+    </section>
+
+    <section id="best" class="section-anchor">
+      <h2>27. GitHub Best Practices</h2>
+      <ul>
+        <li>Write clear README files.</li>
+        <li>Use branches for features and fixes.</li>
+        <li>Open pull requests for review.</li>
+        <li>Use meaningful commit messages.</li>
+        <li>Never commit secrets or passwords.</li>
+        <li>Add a .gitignore file.</li>
+        <li>Use issues and projects to track work.</li>
+        <li>Keep repository names simple and clear.</li>
+        <li>Protect important branches like main.</li>
+        <li>Enable two-factor authentication for security.</li>
+      </ul>
+    </section>
+
+    <section id="interview" class="section-anchor">
+      <h2>28. Important GitHub Interview Questions</h2>
+
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>What is GitHub?</td>
+          <td>GitHub is an online platform for hosting Git repositories and collaborating on code.</td>
+        </tr>
+        <tr>
+          <td>What is a repository?</td>
+          <td>A project folder stored on GitHub.</td>
+        </tr>
+        <tr>
+          <td>What is a pull request?</td>
+          <td>A request to merge changes from one branch into another.</td>
+        </tr>
+        <tr>
+          <td>What is a fork?</td>
+          <td>A copy of someone else's repository in your account.</td>
+        </tr>
+        <tr>
+          <td>What is the difference between fork and clone?</td>
+          <td>Fork creates a copy on GitHub, clone downloads a copy locally.</td>
+        </tr>
+        <tr>
+          <td>What is GitHub Actions?</td>
+          <td>An automation service for CI/CD and workflows.</td>
+        </tr>
+        <tr>
+          <td>What is GitHub Pages?</td>
+          <td>A free hosting service for static websites.</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Learn repository, fork, clone, branch, pull request, issue, actions, pages, security, and workflow basics.
+      </div>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>29. Full GitHub Example</h2>
+      <p>This is a simple end-to-end workflow for a GitHub project.</p>
+
+      <pre>git init
+git add .
+git commit -m "Initial commit"
+
+git branch dev
+git switch dev
+
+git add .
+git commit -m "Added home page"
+
+git push origin dev
+
+Open Pull Request on GitHub
+
+Merge Pull Request
+
+git switch main
+git pull origin main</pre>
+
+      <div class="box">
+        <p><strong>Quick recap:</strong> GitHub hosts repositories online, helps teams collaborate through pull requests and issues, and supports automation, hosting, and project management.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • GitHub Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>
