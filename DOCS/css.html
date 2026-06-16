@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs CSS notes with complete theory, examples, and clickable topic navigation." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#38bdf8;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(56,189,248,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(56,189,248,.12);
+      color:#38bdf8;
+      border:1px solid rgba(56,189,248,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(56,189,248,.28);
+      background:rgba(56,189,248,.08);
+    }
+
+    h2,h3{
+      color:#38bdf8;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(56,189,248,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(56,189,248,.08);
+      border-color:rgba(56,189,248,.2);
+      color:#dbeafe;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#facc15;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#38bdf8;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#7dd3fc;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(56,189,248,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>CSS Notes</h1>
+        <p>Full CSS theory with examples, topics, and quick jump links.</p>
+      </div>
+      <a class="back-home" href="index.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#syntax">Syntax</a>
+      <a href="#selectors">Selectors</a>
+      <a href="#colors">Colors</a>
+      <a href="#backgrounds">Backgrounds</a>
+      <a href="#text">Text Styling</a>
+      <a href="#boxmodel">Box Model</a>
+      <a href="#dimensions">Width & Height</a>
+      <a href="#display">Display</a>
+      <a href="#position">Position</a>
+      <a href="#flexbox">Flexbox</a>
+      <a href="#grid">Grid</a>
+      <a href="#units">Units</a>
+      <a href="#responsive">Responsive</a>
+      <a href="#variables">Variables</a>
+      <a href="#pseudo">Pseudo Classes</a>
+      <a href="#pseudo-elements">Pseudo Elements</a>
+      <a href="#transitions">Transitions</a>
+      <a href="#animations">Animations</a>
+      <a href="#transform">Transform</a>
+      <a href="#shadow">Shadow & Overflow</a>
+      <a href="#best">Best Practices</a>
+      <a href="#interview">Interview</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to CSS</h2>
+      <p>
+        CSS means <strong>Cascading Style Sheets</strong>. It is used to style HTML elements and control the visual appearance of a web page.
+      </p>
+      <div class="box">
+        <p><strong>HTML</strong> gives structure</p>
+        <p><strong>CSS</strong> gives style</p>
+        <p><strong>JavaScript</strong> gives behavior</p>
+      </div>
+      <div class="tip">
+        CSS controls colors, fonts, spacing, layout, animations, responsiveness, and much more.
+      </div>
+    </section>
+
+    <section id="syntax" class="section-anchor">
+      <h2>2. CSS Syntax</h2>
+      <p>CSS follows a simple pattern: selector, property, and value.</p>
+      <pre>selector{
+  property: value;
+}</pre>
+
+      <pre>p{
+  color: red;
+  font-size: 20px;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Selector</td>
+          <td>Targets HTML element</td>
+        </tr>
+        <tr>
+          <td>Property</td>
+          <td>What you want to change</td>
+        </tr>
+        <tr>
+          <td>Value</td>
+          <td>The new setting</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="selectors" class="section-anchor">
+      <h2>3. CSS Selectors</h2>
+      <p>Selectors are used to target HTML elements for styling.</p>
+
+      <pre>*{
+  margin: 0;
+  padding: 0;
+}
+
+h1{
+  color: red;
+}
+
+.box{
+  background: black;
+}
+
+#hero{
+  color: white;
+}
+
+h1,p{
+  color: blue;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Selector</th>
+          <th>Meaning</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Universal</td>
+          <td>All elements</td>
+          <td><code class="inline">*</code></td>
+        </tr>
+        <tr>
+          <td>Element</td>
+          <td>By tag name</td>
+          <td><code class="inline">h1</code></td>
+        </tr>
+        <tr>
+          <td>Class</td>
+          <td>By class</td>
+          <td><code class="inline">.box</code></td>
+        </tr>
+        <tr>
+          <td>ID</td>
+          <td>By unique id</td>
+          <td><code class="inline">#hero</code></td>
+        </tr>
+        <tr>
+          <td>Group</td>
+          <td>Multiple selectors</td>
+          <td><code class="inline">h1,p</code></td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="colors" class="section-anchor">
+      <h2>4. Colors</h2>
+      <p>CSS supports many color formats.</p>
+
+      <pre>color: red;
+color: #38bdf8;
+color: rgb(255, 0, 0);
+color: rgba(255, 0, 0, 0.5);
+color: hsl(200, 100%, 50%);</pre>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Named color</h4>
+          <p>Example: red, blue, green</p>
+        </div>
+        <div class="card">
+          <h4>HEX</h4>
+          <p>Example: #38bdf8</p>
+        </div>
+        <div class="card">
+          <h4>RGB / RGBA</h4>
+          <p>Red, Green, Blue values with optional alpha</p>
+        </div>
+        <div class="card">
+          <h4>HSL</h4>
+          <p>Hue, Saturation, Lightness</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="backgrounds" class="section-anchor">
+      <h2>5. Backgrounds</h2>
+      <p>Background properties control the background of an element.</p>
+
+      <pre>background: red;
+background-image: url(bg.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;</pre>
+
+      <div class="box">
+        <p><strong>cover</strong> makes the image fit the whole box.</p>
+        <p><strong>center</strong> centers the background image.</p>
+      </div>
+    </section>
+
+    <section id="text" class="section-anchor">
+      <h2>6. Text Styling</h2>
+      <p>CSS gives full control over text appearance.</p>
+
+      <pre>font-size: 20px;
+font-weight: bold;
+font-family: Arial, sans-serif;
+text-align: center;
+text-transform: uppercase;
+letter-spacing: 2px;
+line-height: 1.6;</pre>
+
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>font-size</td>
+          <td>Controls text size</td>
+        </tr>
+        <tr>
+          <td>font-weight</td>
+          <td>Controls boldness</td>
+        </tr>
+        <tr>
+          <td>text-align</td>
+          <td>Left, center, right</td>
+        </tr>
+        <tr>
+          <td>text-transform</td>
+          <td>Uppercase or lowercase</td>
+        </tr>
+        <tr>
+          <td>letter-spacing</td>
+          <td>Space between letters</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="boxmodel" class="section-anchor">
+      <h2>7. Box Model</h2>
+      <p>Every element is a box in CSS.</p>
+
+      <pre>.box{
+  width: 300px;
+  padding: 20px;
+  border: 2px solid white;
+  margin: 30px;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Content</td>
+          <td>Actual text or image</td>
+        </tr>
+        <tr>
+          <td>Padding</td>
+          <td>Space inside border</td>
+        </tr>
+        <tr>
+          <td>Border</td>
+          <td>Line around content</td>
+        </tr>
+        <tr>
+          <td>Margin</td>
+          <td>Space outside border</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Box model is one of the most important CSS concepts.
+      </div>
+    </section>
+
+    <section id="dimensions" class="section-anchor">
+      <h2>8. Width and Height</h2>
+      <p>Width and height control the size of elements.</p>
+
+      <pre>width: 300px;
+height: 200px;
+max-width: 1200px;
+min-height: 100vh;</pre>
+
+      <div class="box">
+        <p><strong>max-width</strong> helps responsive design.</p>
+        <p><strong>min-height</strong> is useful for full-screen sections.</p>
+      </div>
+    </section>
+
+    <section id="display" class="section-anchor">
+      <h2>9. Display Property</h2>
+      <p>The display property defines how an element behaves in layout.</p>
+
+      <pre>display: block;
+display: inline;
+display: inline-block;
+display: none;
+display: flex;
+display: grid;</pre>
+
+      <table>
+        <tr>
+          <th>Value</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>block</td>
+          <td>Takes full width</td>
+        </tr>
+        <tr>
+          <td>inline</td>
+          <td>Stays in line</td>
+        </tr>
+        <tr>
+          <td>inline-block</td>
+          <td>Inline but supports size</td>
+        </tr>
+        <tr>
+          <td>none</td>
+          <td>Hidden</td>
+        </tr>
+        <tr>
+          <td>flex</td>
+          <td>Flexible 1D layout</td>
+        </tr>
+        <tr>
+          <td>grid</td>
+          <td>Grid 2D layout</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="position" class="section-anchor">
+      <h2>10. Position Property</h2>
+      <p>Position controls how an element is placed on the page.</p>
+
+      <pre>position: static;
+position: relative;
+position: absolute;
+position: fixed;
+position: sticky;</pre>
+
+      <pre>.navbar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>static</td>
+          <td>Default position</td>
+        </tr>
+        <tr>
+          <td>relative</td>
+          <td>Moves from its normal place</td>
+        </tr>
+        <tr>
+          <td>absolute</td>
+          <td>Moves relative to nearest positioned parent</td>
+        </tr>
+        <tr>
+          <td>fixed</td>
+          <td>Stays fixed on screen</td>
+        </tr>
+        <tr>
+          <td>sticky</td>
+          <td>Switches between relative and fixed</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="flexbox" class="section-anchor">
+      <h2>11. Flexbox</h2>
+      <p>Flexbox is used for one-dimensional layouts.</p>
+
+      <pre>.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td>justify-content</td>
+          <td>Aligns along main axis</td>
+        </tr>
+        <tr>
+          <td>align-items</td>
+          <td>Aligns along cross axis</td>
+        </tr>
+        <tr>
+          <td>flex-direction</td>
+          <td>Row or column</td>
+        </tr>
+        <tr>
+          <td>gap</td>
+          <td>Space between items</td>
+        </tr>
+        <tr>
+          <td>flex-wrap</td>
+          <td>Allows items to wrap</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        Use Flexbox for navbars, centering, rows of cards, and alignment.
+      </div>
+    </section>
+
+    <section id="grid" class="section-anchor">
+      <h2>12. CSS Grid</h2>
+      <p>Grid is used for two-dimensional layouts.</p>
+
+      <pre>.grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}</pre>
+
+      <pre>.grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}</pre>
+
+      <table>
+        <tr>
+          <th>Grid Feature</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>grid-template-columns</td>
+          <td>Defines columns</td>
+        </tr>
+        <tr>
+          <td>grid-template-rows</td>
+          <td>Defines rows</td>
+        </tr>
+        <tr>
+          <td>gap</td>
+          <td>Space between grid items</td>
+        </tr>
+        <tr>
+          <td>grid-column</td>
+          <td>Span across columns</td>
+        </tr>
+        <tr>
+          <td>grid-row</td>
+          <td>Span across rows</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="units" class="section-anchor">
+      <h2>13. CSS Units</h2>
+      <p>Units are used to define sizes.</p>
+
+      <table>
+        <tr>
+          <th>Unit</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>px</td>
+          <td>Pixels</td>
+        </tr>
+        <tr>
+          <td>%</td>
+          <td>Percentage of parent</td>
+        </tr>
+        <tr>
+          <td>em</td>
+          <td>Relative to parent font-size</td>
+        </tr>
+        <tr>
+          <td>rem</td>
+          <td>Relative to root font-size</td>
+        </tr>
+        <tr>
+          <td>vw</td>
+          <td>Viewport width</td>
+        </tr>
+        <tr>
+          <td>vh</td>
+          <td>Viewport height</td>
+        </tr>
+      </table>
+
+      <pre>font-size: 2rem;
+width: 100%;
+max-width: 1200px;</pre>
+    </section>
+
+    <section id="responsive" class="section-anchor">
+      <h2>14. Responsive Design</h2>
+      <p>Responsive design makes websites look good on all screen sizes.</p>
+
+      <pre>@media (max-width: 768px){
+  .grid{
+    grid-template-columns: 1fr;
+  }
+}</pre>
+
+      <pre>@media (min-width: 768px){
+  .container{
+    padding: 32px;
+  }
+}</pre>
+
+      <div class="box">
+        <p><strong>Mobile first</strong> means designing for small screens first.</p>
+        <p>Then you expand styles for larger screens using media queries.</p>
+      </div>
+    </section>
+
+    <section id="variables" class="section-anchor">
+      <h2>15. CSS Variables</h2>
+      <p>Variables store reusable values.</p>
+
+      <pre>:root{
+  --primary: #38bdf8;
+  --gap: 16px;
+}
+
+h1{
+  color: var(--primary);
+}</pre>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Benefits</h4>
+          <p>Easy theme changes and less repeated code.</p>
+        </div>
+        <div class="card">
+          <h4>Where to use</h4>
+          <p>Colors, spacing, sizes, and layout values.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pseudo" class="section-anchor">
+      <h2>16. Pseudo Classes</h2>
+      <p>Pseudo classes style elements based on state.</p>
+
+      <pre>button:hover{
+  background: red;
+}
+
+input:focus{
+  outline: none;
+}
+
+li:first-child{
+  color: red;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Pseudo Class</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>:hover</td>
+          <td>When mouse is over element</td>
+        </tr>
+        <tr>
+          <td>:focus</td>
+          <td>When element is focused</td>
+        </tr>
+        <tr>
+          <td>:first-child</td>
+          <td>First item inside parent</td>
+        </tr>
+        <tr>
+          <td>:nth-child()</td>
+          <td>Select based on order</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="pseudo-elements" class="section-anchor">
+      <h2>17. Pseudo Elements</h2>
+      <p>Pseudo elements style parts of elements.</p>
+
+      <pre>h1::before{
+  content: "🔥";
+}
+
+h1::after{
+  content: "🚀";
+}</pre>
+
+      <table>
+        <tr>
+          <th>Pseudo Element</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>::before</td>
+          <td>Add content before element</td>
+        </tr>
+        <tr>
+          <td>::after</td>
+          <td>Add content after element</td>
+        </tr>
+        <tr>
+          <td>::first-line</td>
+          <td>First line of text</td>
+        </tr>
+        <tr>
+          <td>::first-letter</td>
+          <td>First letter of text</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="transitions" class="section-anchor">
+      <h2>18. Transitions</h2>
+      <p>Transitions make changes smooth instead of instant.</p>
+
+      <pre>button{
+  transition: .3s;
+}
+
+button:hover{
+  transform: scale(1.1);
+}</pre>
+
+      <div class="tip">
+        Transitions are often used for hover effects and UI interactions.
+      </div>
+    </section>
+
+    <section id="animations" class="section-anchor">
+      <h2>19. Animations</h2>
+      <p>Animations are used for moving or changing elements over time.</p>
+
+      <pre>@keyframes fade{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+.box{
+  animation: fade 1s ease;
+}</pre>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>@keyframes</td>
+          <td>Defines animation steps</td>
+        </tr>
+        <tr>
+          <td>animation-name</td>
+          <td>Animation name</td>
+        </tr>
+        <tr>
+          <td>animation-duration</td>
+          <td>Animation speed</td>
+        </tr>
+        <tr>
+          <td>animation-timing-function</td>
+          <td>Animation style</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="transform" class="section-anchor">
+      <h2>20. Transform</h2>
+      <p>Transform changes the shape or position of an element.</p>
+
+      <pre>transform: translateX(50px);
+transform: rotate(45deg);
+transform: scale(1.2);
+transform: skew(10deg);</pre>
+
+      <div class="box">
+        <p><strong>translate</strong> moves element</p>
+        <p><strong>rotate</strong> rotates element</p>
+        <p><strong>scale</strong> resizes element</p>
+        <p><strong>skew</strong> tilts element</p>
+      </div>
+    </section>
+
+    <section id="shadow" class="section-anchor">
+      <h2>21. Shadow and Overflow</h2>
+      <p>Shadows and overflow improve visuals and control content spill.</p>
+
+      <pre>box-shadow: 0 10px 30px rgba(0,0,0,.2);
+text-shadow: 2px 2px 5px black;
+
+overflow: hidden;
+overflow: auto;
+overflow: scroll;</pre>
+
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>box-shadow</td>
+          <td>Add shadow to boxes</td>
+        </tr>
+        <tr>
+          <td>text-shadow</td>
+          <td>Add shadow to text</td>
+        </tr>
+        <tr>
+          <td>overflow</td>
+          <td>Controls extra content</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="best" class="section-anchor">
+      <h2>22. CSS Best Practices</h2>
+      <ul>
+        <li>Use classes more than IDs for styling.</li>
+        <li>Keep CSS organized and readable.</li>
+        <li>Use Flexbox and Grid for layouts.</li>
+        <li>Use variables for repeated values.</li>
+        <li>Design mobile first.</li>
+        <li>Avoid overusing !important.</li>
+        <li>Use meaningful class names.</li>
+        <li>Write reusable and clean CSS.</li>
+      </ul>
+    </section>
+
+    <section id="interview" class="section-anchor">
+      <h2>23. Important CSS Interview Points</h2>
+
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>What is CSS?</td>
+          <td>CSS is used to style HTML elements.</td>
+        </tr>
+        <tr>
+          <td>Difference between Flexbox and Grid?</td>
+          <td>Flexbox is 1D layout, Grid is 2D layout.</td>
+        </tr>
+        <tr>
+          <td>What is the Box Model?</td>
+          <td>Content + Padding + Border + Margin.</td>
+        </tr>
+        <tr>
+          <td>What is Responsive Design?</td>
+          <td>Making pages work on all screen sizes.</td>
+        </tr>
+        <tr>
+          <td>What are CSS Variables?</td>
+          <td>Reusable custom values in CSS.</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Master selectors, box model, flexbox, grid, responsive design, transitions, and animations to become strong in CSS.
+      </div>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>24. Full CSS Example</h2>
+      <p>This example shows a simple styled webpage using common CSS properties.</p>
+
+      <pre>body{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+.header{
+  background: #111827;
+  padding: 20px;
+  text-align: center;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+}
+
+.card{
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+@media (max-width: 768px){
+  .container{
+    flex-direction: column;
+  }
+}</pre>
+
+      <div class="box">
+        <p><strong>Quick recap:</strong> CSS controls the look, layout, spacing, and responsiveness of a website.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • CSS Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>

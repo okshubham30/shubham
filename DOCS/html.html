@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs HTML notes with complete theory, examples, and clickable topic navigation." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#38bdf8;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(56,189,248,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(56,189,248,.12);
+      color:#38bdf8;
+      border:1px solid rgba(56,189,248,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(56,189,248,.28);
+      background:rgba(56,189,248,.08);
+    }
+
+    h2,h3{
+      color:#38bdf8;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(56,189,248,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(56,189,248,.08);
+      border-color:rgba(56,189,248,.2);
+      color:#dbeafe;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#facc15;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#38bdf8;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#7dd3fc;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(56,189,248,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>HTML Notes</h1>
+        <p>Full HTML theory with examples, topics, and quick jump links.</p>
+      </div>
+      <a class="back-home" href="index.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#structure">Basic Structure</a>
+      <a href="#tags">Tags & Attributes</a>
+      <a href="#text">Text Formatting</a>
+      <a href="#links">Links</a>
+      <a href="#images">Images</a>
+      <a href="#lists">Lists</a>
+      <a href="#tables">Tables</a>
+      <a href="#forms">Forms</a>
+      <a href="#semantic">Semantic HTML</a>
+      <a href="#block-inline">Block vs Inline</a>
+      <a href="#media">Media</a>
+      <a href="#comments">Comments</a>
+      <a href="#entities">Entities</a>
+      <a href="#meta">Head & Meta</a>
+      <a href="#accessibility">Accessibility</a>
+      <a href="#best-practices">Best Practices</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to HTML</h2>
+      <p>
+        HTML means <strong>HyperText Markup Language</strong>. It is used to create the structure of web pages.
+        HTML tells the browser what content should appear on the page.
+      </p>
+      <div class="box">
+        <p><strong>HTML gives structure</strong></p>
+        <p><strong>CSS gives style</strong></p>
+        <p><strong>JavaScript gives behavior</strong></p>
+      </div>
+      <div class="tip">
+        HTML is not a programming language. It is a markup language used to organize content.
+      </div>
+    </section>
+
+    <section id="structure" class="section-anchor">
+      <h2>2. Basic HTML Structure</h2>
+      <p>Every HTML file starts with the standard boilerplate.</p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>&lt;!DOCTYPE html&gt;</h4>
+          <p>Tells the browser to use HTML5 mode.</p>
+        </div>
+        <div class="card">
+          <h4>&lt;html&gt;</h4>
+          <p>The root element of the whole page.</p>
+        </div>
+        <div class="card">
+          <h4>&lt;head&gt;</h4>
+          <p>Contains metadata, title, icons, links, and settings.</p>
+        </div>
+        <div class="card">
+          <h4>&lt;body&gt;</h4>
+          <p>Contains all visible content shown on the page.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tags" class="section-anchor">
+      <h2>3. HTML Tags, Elements, and Attributes</h2>
+      <p>
+        A <strong>tag</strong> is the opening or closing part like <code class="inline">&lt;p&gt;</code>.
+        An <strong>element</strong> is the complete tag plus content.
+        An <strong>attribute</strong> gives extra information.
+      </p>
+
+      <table>
+        <tr>
+          <th>Term</th>
+          <th>Meaning</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Tag</td>
+          <td>Opening or closing marker</td>
+          <td><code class="inline">&lt;p&gt;</code></td>
+        </tr>
+        <tr>
+          <td>Element</td>
+          <td>Full HTML unit</td>
+          <td><code class="inline">&lt;p&gt;Hello&lt;/p&gt;</code></td>
+        </tr>
+        <tr>
+          <td>Attribute</td>
+          <td>Extra information inside tag</td>
+          <td><code class="inline">href="page.html"</code></td>
+        </tr>
+      </table>
+
+      <pre>&lt;a href="https://example.com" target="_blank"&gt;Visit Site&lt;/a&gt;</pre>
+
+      <div class="note">
+        Attributes always go inside the opening tag.
+      </div>
+    </section>
+
+    <section id="text" class="section-anchor">
+      <h2>4. Headings, Paragraphs, and Text Formatting</h2>
+
+      <h3>Headings</h3>
+      <p>HTML has six heading levels from <code class="inline">&lt;h1&gt;</code> to <code class="inline">&lt;h6&gt;</code>.</p>
+      <pre>&lt;h1&gt;Main Heading&lt;/h1&gt;
+&lt;h2&gt;Sub Heading&lt;/h2&gt;
+&lt;h3&gt;Section Heading&lt;/h3&gt;
+&lt;h4&gt;Smaller Heading&lt;/h4&gt;
+&lt;h5&gt;Even Smaller&lt;/h5&gt;
+&lt;h6&gt;Smallest Heading&lt;/h6&gt;</pre>
+
+      <h3>Paragraphs and text styles</h3>
+      <pre>&lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;strong&gt;Bold text&lt;/strong&gt;
+&lt;em&gt;Italic text&lt;/em&gt;
+&lt;mark&gt;Highlighted text&lt;/mark&gt;
+&lt;small&gt;Small text&lt;/small&gt;
+&lt;del&gt;Deleted text&lt;/del&gt;
+&lt;ins&gt;Inserted text&lt;/ins&gt;</pre>
+
+      <div class="box">
+        <p><strong>&lt;strong&gt;</strong> means important bold text.</p>
+        <p><strong>&lt;em&gt;</strong> means emphasis and usually appears italic.</p>
+      </div>
+    </section>
+
+    <section id="links" class="section-anchor">
+      <h2>5. Links</h2>
+      <p>
+        Links connect one page to another page, a website, or a section inside the same page.
+      </p>
+
+      <pre>&lt;a href="about.html"&gt;Go to About Page&lt;/a&gt;
+&lt;a href="https://google.com" target="_blank"&gt;Open Google&lt;/a&gt;
+&lt;a href="#contact"&gt;Go to Contact Section&lt;/a&gt;</pre>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>href</h4>
+          <p>Defines the destination link address.</p>
+        </div>
+        <div class="card">
+          <h4>target="_blank"</h4>
+          <p>Opens the link in a new tab.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="images" class="section-anchor">
+      <h2>6. Images</h2>
+      <p>
+        Images are inserted with <code class="inline">&lt;img&gt;</code>. It is a self-closing tag.
+      </p>
+
+      <pre>&lt;img src="photo.jpg" alt="My Photo" width="300" /&gt;</pre>
+
+      <div class="warn">
+        Always use <strong>alt</strong> text. It helps accessibility and SEO.
+      </div>
+    </section>
+
+    <section id="lists" class="section-anchor">
+      <h2>7. Lists</h2>
+      <p>HTML supports ordered lists, unordered lists, and description lists.</p>
+
+      <pre>&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Open file&lt;/li&gt;
+  &lt;li&gt;Write code&lt;/li&gt;
+  &lt;li&gt;Save file&lt;/li&gt;
+&lt;/ol&gt;</pre>
+
+      <table>
+        <tr>
+          <th>List Type</th>
+          <th>Tag</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>Unordered list</td>
+          <td><code class="inline">&lt;ul&gt;</code></td>
+          <td>Bullets</td>
+        </tr>
+        <tr>
+          <td>Ordered list</td>
+          <td><code class="inline">&lt;ol&gt;</code></td>
+          <td>Numbers</td>
+        </tr>
+        <tr>
+          <td>Description list</td>
+          <td><code class="inline">&lt;dl&gt;</code></td>
+          <td>Term and meaning</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="tables" class="section-anchor">
+      <h2>8. Tables</h2>
+      <p>Tables are used for rows and columns. They are useful for structured data.</p>
+
+      <pre>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Shubham&lt;/td&gt;
+    &lt;td&gt;20&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+
+      <table>
+        <tr>
+          <th>Tag</th>
+          <th>Purpose</th>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;table&gt;</code></td>
+          <td>Table container</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;tr&gt;</code></td>
+          <td>Table row</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;th&gt;</code></td>
+          <td>Table header</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;td&gt;</code></td>
+          <td>Table data cell</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="forms" class="section-anchor">
+      <h2>9. Forms</h2>
+      <p>Forms collect user input like name, email, password, and messages.</p>
+
+      <pre>&lt;form action="/submit" method="post"&gt;
+  &lt;label for="name"&gt;Name:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name" required /&gt;
+
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" /&gt;
+
+  &lt;label for="msg"&gt;Message:&lt;/label&gt;
+  &lt;textarea id="msg" name="msg"&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</pre>
+
+      <div class="box">
+        <p><strong>&lt;label&gt;</strong> is used to describe the input.</p>
+        <p><strong>required</strong> makes a field compulsory.</p>
+        <p><strong>action</strong> is where form data goes.</p>
+        <p><strong>method</strong> is usually GET or POST.</p>
+      </div>
+
+      <div class="tip">
+        Use proper labels for better accessibility and better user experience.
+      </div>
+    </section>
+
+    <section id="semantic" class="section-anchor">
+      <h2>10. Semantic HTML</h2>
+      <p>
+        Semantic tags clearly tell the meaning of content. They improve SEO, accessibility, and code readability.
+      </p>
+
+      <pre>&lt;header&gt;Top section&lt;/header&gt;
+&lt;nav&gt;Navigation links&lt;/nav&gt;
+&lt;main&gt;Main content&lt;/main&gt;
+&lt;section&gt;Thematic section&lt;/section&gt;
+&lt;article&gt;Independent content&lt;/article&gt;
+&lt;aside&gt;Sidebar content&lt;/aside&gt;
+&lt;footer&gt;Bottom section&lt;/footer&gt;</pre>
+
+      <table>
+        <tr>
+          <th>Tag</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;header&gt;</code></td>
+          <td>Top area of page or section</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;nav&gt;</code></td>
+          <td>Navigation area</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;main&gt;</code></td>
+          <td>Main content of page</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;section&gt;</code></td>
+          <td>Group of related content</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;article&gt;</code></td>
+          <td>Self-contained content</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;aside&gt;</code></td>
+          <td>Extra or side content</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&lt;footer&gt;</code></td>
+          <td>Bottom area of page or section</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="block-inline" class="section-anchor">
+      <h2>11. Block and Inline Elements</h2>
+      <p>
+        Block elements start on a new line and take full width.
+        Inline elements stay inside a line.
+      </p>
+
+      <table>
+        <tr>
+          <th>Block Elements</th>
+          <th>Inline Elements</th>
+        </tr>
+        <tr>
+          <td>div, p, h1-h6, section, article, ul, ol</td>
+          <td>span, a, strong, em, img, code</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <p><strong>Block example:</strong> <code class="inline">&lt;div&gt;</code>, <code class="inline">&lt;p&gt;</code></p>
+        <p><strong>Inline example:</strong> <code class="inline">&lt;span&gt;</code>, <code class="inline">&lt;a&gt;</code></p>
+      </div>
+    </section>
+
+    <section id="media" class="section-anchor">
+      <h2>12. Media Tags</h2>
+      <p>HTML can also show audio, video, and embedded content.</p>
+
+      <pre>&lt;audio controls&gt;
+  &lt;source src="song.mp3" type="audio/mpeg" /&gt;
+&lt;/audio&gt;
+
+&lt;video controls width="400"&gt;
+  &lt;source src="video.mp4" type="video/mp4" /&gt;
+&lt;/video&gt;
+
+&lt;iframe src="https://example.com"&gt;&lt;/iframe&gt;</pre>
+
+      <div class="warn">
+        Use media carefully because large files can slow down your page.
+      </div>
+    </section>
+
+    <section id="comments" class="section-anchor">
+      <h2>13. Comments</h2>
+      <p>Comments are not shown on the page. They are useful for notes in code.</p>
+      <pre>&lt;!-- This is a comment --&gt;</pre>
+    </section>
+
+    <section id="entities" class="section-anchor">
+      <h2>14. HTML Entities</h2>
+      <p>Entities are used for special characters.</p>
+
+      <table>
+        <tr>
+          <th>Entity</th>
+          <th>Meaning</th>
+          <th>Output</th>
+        </tr>
+        <tr>
+          <td><code class="inline">&amp;lt;</code></td>
+          <td>Less than</td>
+          <td>&lt;</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&amp;gt;</code></td>
+          <td>Greater than</td>
+          <td>&gt;</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&amp;amp;</code></td>
+          <td>Ampersand</td>
+          <td>&amp;</td>
+        </tr>
+        <tr>
+          <td><code class="inline">&amp;nbsp;</code></td>
+          <td>Non-breaking space</td>
+          <td>space</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="meta" class="section-anchor">
+      <h2>15. Head and Meta Tags</h2>
+      <p>
+        The <code class="inline">&lt;head&gt;</code> section contains important page settings.
+      </p>
+
+      <pre>&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;meta name="description" content="HTML notes" /&gt;
+  &lt;title&gt;HTML Notes&lt;/title&gt;
+&lt;/head&gt;</pre>
+
+      <div class="box">
+        <p><strong>charset</strong> defines character encoding.</p>
+        <p><strong>viewport</strong> makes the page responsive on mobile devices.</p>
+        <p><strong>description</strong> helps search engines understand the page.</p>
+      </div>
+    </section>
+
+    <section id="accessibility" class="section-anchor">
+      <h2>16. Accessibility Basics</h2>
+      <p>
+        Accessibility means making web pages easy to use for everyone, including users with screen readers or keyboard navigation.
+      </p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Alt text</h4>
+          <p>Always add alt text to images.</p>
+        </div>
+        <div class="card">
+          <h4>Labels</h4>
+          <p>Use labels for form inputs.</p>
+        </div>
+        <div class="card">
+          <h4>Heading order</h4>
+          <p>Use headings in a proper order.</p>
+        </div>
+        <div class="card">
+          <h4>Semantic tags</h4>
+          <p>Use header, main, section, and footer.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        Accessibility is not optional. It improves usability for all users.
+      </div>
+    </section>
+
+    <section id="best-practices" class="section-anchor">
+      <h2>17. HTML Best Practices</h2>
+      <ul>
+        <li>Use semantic tags instead of only div tags.</li>
+        <li>Keep heading order logical.</li>
+        <li>Always add alt text to images.</li>
+        <li>Use lowercase tag names.</li>
+        <li>Close tags properly.</li>
+        <li>Keep code readable with proper indentation.</li>
+        <li>Use comments only when needed.</li>
+        <li>Make forms clear and simple.</li>
+      </ul>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>18. Full Example Page</h2>
+      <p>This is a complete simple HTML page using many basic tags.</p>
+
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;a href="#home"&gt;Home&lt;/a&gt;
+      &lt;a href="#about"&gt;About&lt;/a&gt;
+      &lt;a href="#contact"&gt;Contact&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="home"&gt;
+      &lt;h2&gt;Welcome&lt;/h2&gt;
+      &lt;p&gt;This is my first web page.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="about"&gt;
+      &lt;h2&gt;About Me&lt;/h2&gt;
+      &lt;p&gt;I am learning HTML.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="contact"&gt;
+      &lt;h2&gt;Contact&lt;/h2&gt;
+      &lt;form&gt;
+        &lt;input type="text" placeholder="Your Name" /&gt;
+        &lt;button type="submit"&gt;Send&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2026 Shubham&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+      <div class="box" id="contact">
+        <p><strong>Quick recap:</strong> HTML is the structure of the page, CSS styles it, and JavaScript makes it interactive.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>19. Important Interview Points</h2>
+      <ul>
+        <li>HTML is a markup language, not a programming language.</li>
+        <li>HTML gives structure to web pages.</li>
+        <li>Semantic tags improve SEO and readability.</li>
+        <li>Always add alt text to images.</li>
+        <li>Forms collect user input.</li>
+        <li>Links are created using anchor tags.</li>
+        <li>The head section contains metadata and settings.</li>
+      </ul>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • HTML Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>

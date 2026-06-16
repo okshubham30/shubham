@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Git Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs Git notes with complete theory, examples, and clickable topic navigation." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(244,114,182,.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#f472b6;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #f472b6, #fb7185);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(244,114,182,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(244,114,182,.12);
+      color:#f472b6;
+      border:1px solid rgba(244,114,182,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(244,114,182,.32);
+      background:rgba(244,114,182,.08);
+    }
+
+    h2,h3{
+      color:#f472b6;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(244,114,182,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(244,114,182,.08);
+      border-color:rgba(244,114,182,.2);
+      color:#fbcfe8;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#f472b6;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#f472b6;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#f9a8d4;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #f472b6, #fb7185);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(244,114,182,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>Git Notes</h1>
+        <p>Full Git theory with examples, topics, and quick jump links.</p>
+      </div>
+      <a class="back-home" href="index.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#install">Installation</a>
+      <a href="#config">Configuration</a>
+      <a href="#repo">Repository</a>
+      <a href="#init">Git Init</a>
+      <a href="#clone">Git Clone</a>
+      <a href="#status">Git Status</a>
+      <a href="#add">Git Add</a>
+      <a href="#commit">Git Commit</a>
+      <a href="#history">Commit History</a>
+      <a href="#branch">Branches</a>
+      <a href="#merge">Merge</a>
+      <a href="#remote">Remote</a>
+      <a href="#push">Push</a>
+      <a href="#pull">Pull</a>
+      <a href="#fetch">Fetch</a>
+      <a href="#stash">Stash</a>
+      <a href="#reset">Reset</a>
+      <a href="#revert">Revert</a>
+      <a href="#ignore">.gitignore</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#best">Best Practices</a>
+      <a href="#interview">Interview</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to Git</h2>
+      <p>
+        Git is a distributed version control system used to track changes in code, recover old versions, and collaborate with other developers.
+      </p>
+      <div class="box">
+        <p><strong>Git</strong> tracks changes</p>
+        <p><strong>GitHub</strong> stores Git repositories online</p>
+        <p><strong>Repository</strong> is your project folder tracked by Git</p>
+      </div>
+      <div class="tip">
+        Git helps you work safely because every commit saves a snapshot of your project.
+      </div>
+    </section>
+
+    <section id="install" class="section-anchor">
+      <h2>2. Installing Git</h2>
+      <p>Install Git from the official Git website, then verify it in terminal or command prompt.</p>
+
+      <pre>git --version</pre>
+
+      <div class="note">
+        If the version number appears, Git is installed correctly.
+      </div>
+    </section>
+
+    <section id="config" class="section-anchor">
+      <h2>3. Git Configuration</h2>
+      <p>Set your name and email once so Git can attach them to every commit.</p>
+
+      <pre>git config --global user.name "Shubham"
+git config --global user.email "youremail@gmail.com"
+git config --list</pre>
+
+      <div class="box">
+        <p>This information is stored in your Git configuration.</p>
+      </div>
+    </section>
+
+    <section id="repo" class="section-anchor">
+      <h2>4. Repository</h2>
+      <p>A repository is a folder where Git tracks files and history.</p>
+
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Local Repository</td>
+          <td>Repository on your own computer</td>
+        </tr>
+        <tr>
+          <td>Remote Repository</td>
+          <td>Repository stored online on GitHub or another service</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="init" class="section-anchor">
+      <h2>5. Git Init</h2>
+      <p>Use <code class="inline">git init</code> to create a new Git repository in a folder.</p>
+
+      <pre>mkdir project
+cd project
+git init</pre>
+
+      <div class="tip">
+        After initialization, Git starts tracking that folder.
+      </div>
+    </section>
+
+    <section id="clone" class="section-anchor">
+      <h2>6. Git Clone</h2>
+      <p>Clone copies an existing repository from GitHub to your computer.</p>
+
+      <pre>git clone https://github.com/user/repo.git</pre>
+
+      <div class="box">
+        Cloning is useful when you want to work on an existing project.
+      </div>
+    </section>
+
+    <section id="status" class="section-anchor">
+      <h2>7. Git Status</h2>
+      <p>Git status shows the current state of your repository.</p>
+
+      <pre>git status</pre>
+
+      <table>
+        <tr>
+          <th>Shows</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Untracked files</td>
+          <td>New files not added yet</td>
+        </tr>
+        <tr>
+          <td>Modified files</td>
+          <td>Files changed after last commit</td>
+        </tr>
+        <tr>
+          <td>Staged files</td>
+          <td>Files ready for commit</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="add" class="section-anchor">
+      <h2>8. Git Add</h2>
+      <p>Git add moves files to the staging area.</p>
+
+      <pre>git add index.html
+git add .
+git add css/</pre>
+
+      <div class="note">
+        Staging means you are preparing files for the next commit.
+      </div>
+    </section>
+
+    <section id="commit" class="section-anchor">
+      <h2>9. Git Commit</h2>
+      <p>Commit saves a snapshot of your staged changes.</p>
+
+      <pre>git commit -m "Initial commit"</pre>
+
+      <div class="box">
+        Write clear commit messages so you can understand changes later.
+      </div>
+    </section>
+
+    <section id="history" class="section-anchor">
+      <h2>10. Commit History</h2>
+      <p>Use history commands to see older commits and project changes.</p>
+
+      <pre>git log
+git log --oneline
+git log --graph</pre>
+
+      <table>
+        <tr>
+          <th>Command</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>git log</td>
+          <td>Shows full commit history</td>
+        </tr>
+        <tr>
+          <td>git log --oneline</td>
+          <td>Compact commit history</td>
+        </tr>
+        <tr>
+          <td>git log --graph</td>
+          <td>Shows branch tree visually in terminal</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="branch" class="section-anchor">
+      <h2>11. Branches</h2>
+      <p>Branches let you work on a new feature without changing the main code directly.</p>
+
+      <pre>git branch
+git branch feature/navbar
+git switch feature/navbar
+git switch -c feature/footer</pre>
+
+      <div class="tip">
+        Create branches for features, fixes, experiments, and collaboration.
+      </div>
+    </section>
+
+    <section id="merge" class="section-anchor">
+      <h2>12. Merge</h2>
+      <p>Merge combines changes from one branch into another branch.</p>
+
+      <pre>git switch main
+git merge feature/navbar</pre>
+
+      <div class="warn">
+        Merge conflicts can happen if two branches change the same part of the same file.
+      </div>
+    </section>
+
+    <section id="remote" class="section-anchor">
+      <h2>13. Remote Repository</h2>
+      <p>Remote repository connects your local project to GitHub.</p>
+
+      <pre>git remote add origin https://github.com/user/repo.git
+git remote -v</pre>
+
+      <table>
+        <tr>
+          <th>Command</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>git remote add origin</td>
+          <td>Adds remote link</td>
+        </tr>
+        <tr>
+          <td>git remote -v</td>
+          <td>Shows remote URLs</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="push" class="section-anchor">
+      <h2>14. Push</h2>
+      <p>Push uploads your commits from local repository to GitHub.</p>
+
+      <pre>git push origin main</pre>
+
+      <div class="note">
+        Push after commit when you want your changes saved online.
+      </div>
+    </section>
+
+    <section id="pull" class="section-anchor">
+      <h2>15. Pull</h2>
+      <p>Pull downloads latest changes from the remote repository and merges them.</p>
+
+      <pre>git pull origin main</pre>
+
+      <div class="box">
+        Pull is commonly used before starting work to stay updated.
+      </div>
+    </section>
+
+    <section id="fetch" class="section-anchor">
+      <h2>16. Fetch</h2>
+      <p>Fetch downloads changes from remote without merging them immediately.</p>
+
+      <pre>git fetch</pre>
+
+      <div class="tip">
+        Use fetch when you want to check updates first.
+      </div>
+    </section>
+
+    <section id="stash" class="section-anchor">
+      <h2>17. Stash</h2>
+      <p>Stash temporarily saves unfinished work without committing it.</p>
+
+      <pre>git stash
+git stash list
+git stash apply</pre>
+
+      <div class="box">
+        Stash is helpful when you need to switch branches quickly.
+      </div>
+    </section>
+
+    <section id="reset" class="section-anchor">
+      <h2>18. Reset</h2>
+      <p>Reset moves the HEAD pointer to a previous commit.</p>
+
+      <pre>git reset HEAD~
+git reset --hard HEAD~</pre>
+
+      <div class="warn">
+        <strong>--hard</strong> can remove changes permanently, so use it carefully.
+      </div>
+    </section>
+
+    <section id="revert" class="section-anchor">
+      <h2>19. Revert</h2>
+      <p>Revert creates a new commit that undoes the effect of a previous commit.</p>
+
+      <pre>git revert COMMIT_ID</pre>
+
+      <div class="note">
+        Revert is safer than reset for shared repositories.
+      </div>
+    </section>
+
+    <section id="ignore" class="section-anchor">
+      <h2>20. .gitignore</h2>
+      <p>The .gitignore file tells Git which files or folders to ignore.</p>
+
+      <pre>node_modules/
+.env
+dist/
+*.log</pre>
+
+      <table>
+        <tr>
+          <th>Use</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Ignore folders</td>
+          <td>node_modules/</td>
+        </tr>
+        <tr>
+          <td>Ignore environment files</td>
+          <td>.env</td>
+        </tr>
+        <tr>
+          <td>Ignore logs</td>
+          <td>*.log</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="workflow" class="section-anchor">
+      <h2>21. Git Workflow</h2>
+      <p>A simple Git workflow for daily development.</p>
+
+      <pre>1. git init
+2. git add .
+3. git commit -m "message"
+4. git push origin main
+5. git pull before new changes</pre>
+
+      <div class="box">
+        A clean workflow keeps your project safe and organized.
+      </div>
+    </section>
+
+    <section id="best" class="section-anchor">
+      <h2>22. Git Best Practices</h2>
+      <ul>
+        <li>Commit frequently.</li>
+        <li>Write meaningful commit messages.</li>
+        <li>Use branches for features.</li>
+        <li>Pull before pushing.</li>
+        <li>Use .gitignore properly.</li>
+        <li>Do not commit sensitive data.</li>
+        <li>Keep repository clean.</li>
+        <li>Review changes before committing.</li>
+      </ul>
+    </section>
+
+    <section id="interview" class="section-anchor">
+      <h2>23. Important Git Interview Questions</h2>
+
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>What is Git?</td>
+          <td>Git is a distributed version control system.</td>
+        </tr>
+        <tr>
+          <td>What is a commit?</td>
+          <td>A saved snapshot of the project.</td>
+        </tr>
+        <tr>
+          <td>What is the difference between pull and fetch?</td>
+          <td>Pull downloads and merges, fetch only downloads.</td>
+        </tr>
+        <tr>
+          <td>What is a branch?</td>
+          <td>An independent line of development.</td>
+        </tr>
+        <tr>
+          <td>What is a merge conflict?</td>
+          <td>Conflict when two changes affect the same file section.</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Learn repository, staging, commits, branches, merge, remote, push, pull, fetch, reset, revert, and .gitignore.
+      </div>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>24. Full Git Example</h2>
+      <p>This is a simple example of a complete Git workflow.</p>
+
+      <pre>mkdir portfolio
+cd portfolio
+git init
+git add .
+git commit -m "Initial commit"
+git branch dev
+git switch dev
+git add .
+git commit -m "Added CSS"
+git switch main
+git merge dev
+git remote add origin https://github.com/user/portfolio.git
+git push -u origin main</pre>
+
+      <div class="box">
+        <p><strong>Quick recap:</strong> Git tracks changes, GitHub stores repositories online, and branches help you work safely on new features.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • Git Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>  

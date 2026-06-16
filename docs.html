@@ -3,2017 +3,563 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dev Docs | Shubham's Study Notes</title>
-  <meta name="description" content="Shubham's personal documentation — HTML, CSS, Git and more, beautifully organized." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <title>Shubham Docs | Study Pages</title>
+  <meta name="description" content="Shubham Docs - Study Pages for HTML, CSS, JavaScript, Git, GitHub and Class 11 Physics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* ─── RESET & BASE ─────────────────────────────────────────────── */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
-    :root {
-      --navy:      #0f172a;
-      --navy2:     #111827;
-      --navy3:     #1e293b;
-      --sky:       #38bdf8;
-      --sky-dim:   rgba(56,189,248,0.15);
-      --sky-glow:  rgba(56,189,248,0.35);
-      --muted:     #94a3b8;
-      --light:     #cbd5e1;
-      --white:     #ffffff;
-      --green:     #4ade80;
-      --orange:    #fb923c;
-      --purple:    #c084fc;
-      --pink:      #f472b6;
-      --sidebar-w: 280px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'Poppins', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ─── SCROLLBAR ────────────────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--navy2); }
-    ::-webkit-scrollbar-thumb { background: var(--sky); border-radius:10px; }
-
-    /* ─── PARTICLES ────────────────────────────────────────────────── */
-    #particle-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.35;
-    }
-
-    /* ─── NAVBAR ───────────────────────────────────────────────────── */
-    nav {
-      width: 100%;
-      padding: 16px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      z-index: 1000;
-      background: rgba(15,23,42,0.85);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(56,189,248,0.12);
-      transition: all 0.4s;
-    }
-
-    nav.scrolled { background: rgba(15,23,42,0.98); padding: 10px 6%; }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-icon {
-      width: 38px; height: 38px;
-      background: linear-gradient(135deg, var(--sky), #0ea5e9);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      box-shadow: 0 0 18px var(--sky-glow);
-    }
-
-    .nav-logo h1 {
-      font-size: 20px;
-      font-weight: 700;
-      background: linear-gradient(to right, var(--sky), #e0f2fe);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(56,189,248,0.07);
-      border: 1px solid rgba(56,189,248,0.2);
-      border-radius: 30px;
-      padding: 8px 16px;
-      transition: all 0.3s;
-    }
-
-    .search-box:focus-within {
-      border-color: var(--sky);
-      background: rgba(56,189,248,0.12);
-      box-shadow: 0 0 20px rgba(56,189,248,0.15);
-    }
-
-    .search-box input {
-      background: none;
-      border: none;
-      outline: none;
-      color: var(--white);
-      font-family: 'Poppins', sans-serif;
-      font-size: 13px;
-      width: 180px;
-    }
-
-    .search-box input::placeholder { color: var(--muted); }
-
-    .search-icon { color: var(--muted); font-size: 15px; }
-
-    .nav-badge {
-      padding: 7px 16px;
-      background: var(--sky-dim);
-      border: 1px solid var(--sky-glow);
-      border-radius: 30px;
-      font-size: 12px;
-      color: var(--sky);
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    /* ─── LAYOUT ───────────────────────────────────────────────────── */
-    .layout {
-      display: flex;
-      min-height: 100vh;
-      padding-top: 70px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ─── SIDEBAR ──────────────────────────────────────────────────── */
-    .sidebar {
-      width: var(--sidebar-w);
-      position: fixed;
-      top: 70px;
-      left: 0;
-      height: calc(100vh - 70px);
-      overflow-y: auto;
-      background: rgba(15,23,42,0.7);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid rgba(56,189,248,0.1);
-      padding: 30px 0 60px;
-      z-index: 100;
-      transition: transform 0.35s cubic-bezier(0.23,1,0.32,1);
-    }
-
-    .sidebar::-webkit-scrollbar { width: 3px; }
-    .sidebar::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); }
-
-    .sidebar-section {
-      margin-bottom: 8px;
-    }
-
-    .sidebar-group-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      color: var(--sky);
-      text-transform: uppercase;
-      padding: 16px 24px 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .sidebar-group-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(56,189,248,0.2);
-    }
-
-    .sidebar-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 24px;
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13.5px;
-      font-weight: 500;
-      border-left: 2px solid transparent;
-      transition: all 0.25s;
-      position: relative;
-    }
-
-    .sidebar-link .s-icon {
-      font-size: 15px;
-      width: 20px;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .sidebar-link:hover {
-      color: var(--white);
-      background: rgba(56,189,248,0.07);
-      border-left-color: rgba(56,189,248,0.5);
-    }
-
-    .sidebar-link.active {
-      color: var(--sky);
-      background: rgba(56,189,248,0.1);
-      border-left-color: var(--sky);
-    }
-
-    .sidebar-link .badge {
-      margin-left: auto;
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 20px;
-      background: rgba(56,189,248,0.15);
-      color: var(--sky);
-      font-weight: 600;
-    }
-
-    .sidebar-link .badge.new {
-      background: rgba(74,222,128,0.15);
-      color: var(--green);
-    }
-
-    /* ─── MAIN CONTENT ─────────────────────────────────────────────── */
-    .main-content {
-      margin-left: var(--sidebar-w);
-      flex: 1;
-      padding: 60px 6% 100px;
-      max-width: calc(100% - var(--sidebar-w));
-    }
-
-    /* ─── HERO SECTION ─────────────────────────────────────────────── */
-    .docs-hero {
-      text-align: center;
-      padding: 60px 0 80px;
-      position: relative;
-    }
-
-    .docs-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(56,189,248,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 22px;
-      background: var(--sky-dim);
-      border: 1px solid var(--sky-glow);
-      border-radius: 30px;
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: var(--sky);
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      animation: fadeDown 0.8s ease both;
-    }
-
-    .hero-badge .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--sky);
-      animation: pulse-dot 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse-dot {
-      0%, 100% { opacity:1; transform:scale(1); }
-      50%       { opacity:0.4; transform:scale(0.7); }
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    html, body{
+      width:100%;
+      min-height:100%;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.18), transparent 30%),
+        radial-gradient(circle at top right, rgba(192,132,252,.16), transparent 28%),
+        linear-gradient(180deg, #020617 0%, #0f172a 50%, #111827 100%);
+      color:#e2e8f0;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      min-height:100vh;
+    }
+
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:24px 18px 40px;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar{
+      position:sticky;
+      top:16px;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      justify-content:space-between;
+      padding:14px 16px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:20px;
+      background:rgba(2,6,23,.62);
+      backdrop-filter:blur(16px);
+      box-shadow:0 18px 50px rgba(0,0,0,.25);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:220px;
+    }
+
+    .logo{
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, #38bdf8, #c084fc);
+      box-shadow:0 10px 28px rgba(56,189,248,.22);
+      font-size:1.2rem;
+      flex-shrink:0;
+    }
+
+    .brand h1{
+      font-size:1.05rem;
+      line-height:1.1;
+      color:#f8fafc;
+    }
+
+    .brand p{
+      font-size:.82rem;
+      color:#94a3b8;
+      margin-top:2px;
+    }
+
+    .searchbox{
+      flex:1;
+      max-width:460px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .searchbox span{
+      color:#94a3b8;
+      flex-shrink:0;
+    }
+
+    .searchbox input{
+      width:100%;
+      border:none;
+      outline:none;
+      background:transparent;
+      color:#e2e8f0;
+      font-size:.95rem;
     }
-
-    .docs-hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(44px, 6vw, 76px);
-      line-height: 1.1;
-      margin-bottom: 20px;
-      animation: fadeUp 0.9s ease 0.2s both;
-    }
-
-    .docs-hero h1 span {
-      background: linear-gradient(135deg, var(--sky) 0%, #bae6fd 50%, var(--sky) 100%);
-      background-size: 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmer 4s linear infinite;
-    }
-
-    @keyframes shimmer {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
-    .docs-hero p {
-      color: var(--light);
-      font-size: 16px;
-      line-height: 1.9;
-      max-width: 620px;
-      margin: 0 auto 50px;
-      animation: fadeUp 0.9s ease 0.4s both;
-    }
-
-    /* Stats row */
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      animation: fadeUp 0.9s ease 0.6s both;
-    }
-
-    .stat-card {
-      background: rgba(56,189,248,0.06);
-      border: 1px solid rgba(56,189,248,0.2);
-      border-radius: 20px;
-      padding: 20px 32px;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .stat-card:hover {
-      background: rgba(56,189,248,0.12);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(56,189,248,0.15);
-    }
-
-    .stat-card .s-num {
-      font-size: 34px;
-      font-weight: 800;
-      color: var(--sky);
-      display: block;
-    }
-
-    .stat-card .s-label {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 1px;
-      margin-top: 4px;
-    }
-
-    /* ─── QUICK ACCESS CARDS ───────────────────────────────────────── */
-    .section-heading {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 32px;
-    }
-
-    .section-heading h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      background: linear-gradient(135deg, var(--white), var(--sky));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .section-heading .sh-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(56,189,248,0.3), transparent);
-    }
-
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 18px;
-      margin-bottom: 80px;
-    }
-
-    .q-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(56,189,248,0.12);
-      border-radius: 20px;
-      padding: 28px 22px;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: all 0.35s cubic-bezier(0.23,1,0.32,1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .q-card::before {
-      content: '';
-      position: absolute;
-      bottom: -60px;
-      right: -60px;
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      opacity: 0.07;
-      transition: all 0.5s;
-    }
-
-    .q-card.html::before  { background: #fb923c; }
-    .q-card.css::before   { background: #38bdf8; }
-    .q-card.git::before   { background: #f472b6; }
-    .q-card.js::before    { background: #facc15; }
-    .q-card.resp::before  { background: #4ade80; }
-    .q-card.term::before  { background: #c084fc; }
-
-    .q-card:hover::before { opacity: 0.18; bottom: -30px; right: -30px; }
-
-    .q-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(56,189,248,0.35);
-      background: rgba(56,189,248,0.06);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 40px rgba(56,189,248,0.07);
-    }
-
-    .q-icon {
-      font-size: 32px;
-      display: block;
-    }
-
-    .q-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .q-desc {
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .q-chip {
-      display: inline-block;
-      font-size: 10px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-top: auto;
-      width: fit-content;
-    }
-
-    .chip-orange { background: rgba(251,146,60,0.15); color:#fb923c; }
-    .chip-sky    { background: rgba(56,189,248,0.15);  color:var(--sky); }
-    .chip-pink   { background: rgba(244,114,182,0.15); color:#f472b6; }
-    .chip-yellow { background: rgba(250,204,21,0.15);  color:#facc15; }
-    .chip-green  { background: rgba(74,222,128,0.15);  color:#4ade80; }
-    .chip-purple { background: rgba(192,132,252,0.15); color:#c084fc; }
-
-    /* ─── TOPIC SECTIONS ───────────────────────────────────────────── */
-    .topic-section {
-      margin-bottom: 100px;
-      scroll-margin-top: 90px;
-    }
-
-    .topic-header {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 36px;
-      padding: 28px 34px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(56,189,248,0.1);
-      border-radius: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .topic-header::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      border-radius: 4px 0 0 4px;
-    }
-
-    .th-orange::before { background: linear-gradient(to bottom, #fb923c, #f97316); }
-    .th-sky::before    { background: linear-gradient(to bottom, #38bdf8, #0ea5e9); }
-    .th-pink::before   { background: linear-gradient(to bottom, #f472b6, #ec4899); }
-    .th-yellow::before { background: linear-gradient(to bottom, #facc15, #eab308); }
-    .th-green::before  { background: linear-gradient(to bottom, #4ade80, #22c55e); }
-    .th-purple::before { background: linear-gradient(to bottom, #c084fc, #a855f7); }
-
-    .topic-header-icon {
-      font-size: 44px;
-      flex-shrink: 0;
-    }
-
-    .topic-header-text h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 30px;
-      background: linear-gradient(135deg, var(--white), var(--sky));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
-    }
-
-    .topic-header-text p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .chapter-badge {
-      margin-left: auto;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      flex-shrink: 0;
-    }
-
-    .cb-orange { background: rgba(251,146,60,0.15); color:#fb923c; border:1px solid rgba(251,146,60,0.3); }
-    .cb-sky    { background: var(--sky-dim); color:var(--sky); border:1px solid var(--sky-glow); }
-    .cb-pink   { background: rgba(244,114,182,0.15); color:#f472b6; border:1px solid rgba(244,114,182,0.3); }
-    .cb-yellow { background: rgba(250,204,21,0.15); color:#facc15; border:1px solid rgba(250,204,21,0.3); }
-    .cb-green  { background: rgba(74,222,128,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.3); }
-    .cb-purple { background: rgba(192,132,252,0.15); color:#c084fc; border:1px solid rgba(192,132,252,0.3); }
-
-    /* ─── CONCEPT CARDS GRID ───────────────────────────────────────── */
-    .concept-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+
+    .searchbox input::placeholder{
+      color:#64748b;
+    }
+
+    .hero{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:1.25fr .9fr;
+      gap:18px;
+    }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(15,23,42,.68);
+      backdrop-filter:blur(16px);
+      border-radius:28px;
+      box-shadow:0 18px 60px rgba(0,0,0,.2);
+    }
+
+    .hero-main{
+      padding:34px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-main::after{
+      content:"";
+      position:absolute;
+      right:-100px;
+      bottom:-100px;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(56,189,248,.18), transparent 70%);
+      pointer-events:none;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:600;
+      letter-spacing:.4px;
+      color:#38bdf8;
+      background:rgba(56,189,248,.1);
+      border:1px solid rgba(56,189,248,.15);
+    }
+
+    .hero-main h2{
+      margin-top:18px;
+      font-size:clamp(2.1rem, 4vw, 4.5rem);
+      line-height:1.02;
+      color:#f8fafc;
+    }
+
+    .hero-main h2 span{
+      background:linear-gradient(135deg, #38bdf8, #bae6fd, #c084fc);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .hero-main p{
+      margin-top:14px;
+      max-width:680px;
+      color:#94a3b8;
+      line-height:1.8;
+      font-size:1rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:600;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      color:#00111d;
+    }
+
+    .btn.secondary{
+      background:rgba(255,255,255,.04);
+      color:#e2e8f0;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .hero-side{
+      padding:22px;
+      display:grid;
+      gap:14px;
+    }
+
+    .mini{
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .mini h3{
+      font-size:.98rem;
+      margin-bottom:6px;
+      color:#f8fafc;
+    }
+
+    .mini p{
+      color:#94a3b8;
+      font-size:.88rem;
+      line-height:1.65;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin:18px 0 10px;
+    }
+
+    .stat{
+      padding:18px;
+      border-radius:22px;
+    }
+
+    .num{
+      font-size:1.7rem;
+      font-weight:800;
+      color:#f8fafc;
+      line-height:1;
+    }
+
+    .label{
+      margin-top:8px;
+      color:#94a3b8;
+      font-size:.82rem;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:12px;
+      margin:32px 2px 14px;
+    }
+
+    .section-head h3{
+      color:#f8fafc;
+      font-size:1.25rem;
+    }
+
+    .section-head p{
+      color:#94a3b8;
+      font-size:.88rem;
+      margin-top:4px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+    }
+
+    .card{
+      text-decoration:none;
+      color:#e2e8f0;
+      padding:22px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(11,18,32,.72);
+      backdrop-filter:blur(16px);
+      box-shadow:0 16px 44px rgba(0,0,0,.18);
+      min-height:188px;
+      position:relative;
+      overflow:hidden;
+      transition:.28s ease;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      right:-38px;
+      bottom:-38px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      opacity:.18;
+      transition:.28s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-7px);
+      border-color:rgba(56,189,248,.35);
+      box-shadow:0 18px 46px rgba(56,189,248,.10);
+    }
+
+    .card:hover::after{
+      opacity:.28;
+      transform:scale(1.15);
+    }
+
+    .icon{
+      width:54px;
+      height:54px;
+      display:grid;
+      place-items:center;
+      border-radius:18px;
+      margin-bottom:16px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:1.55rem;
     }
 
-    .concept-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(56,189,248,0.1);
-      border-radius: 20px;
-      padding: 28px;
-      transition: all 0.3s;
-    }
-
-    .concept-card:hover {
-      background: rgba(56,189,248,0.05);
-      border-color: rgba(56,189,248,0.25);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-    }
-
-    .cc-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .cc-icon {
-      font-size: 24px;
-    }
-
-    .cc-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .cc-subtitle {
-      font-size: 11px;
-      color: var(--muted);
-      font-weight: 400;
-      display: block;
-    }
-
-    .concept-card p {
-      color: var(--light);
-      font-size: 13.5px;
-      line-height: 1.8;
-      margin-bottom: 14px;
-    }
-
-    /* ─── CODE BLOCK ───────────────────────────────────────────────── */
-    .code-block {
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(56,189,248,0.15);
-      border-radius: 14px;
-      overflow: hidden;
-      margin: 14px 0;
-    }
-
-    .code-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: rgba(0,0,0,0.25);
-      border-bottom: 1px solid rgba(56,189,248,0.1);
-    }
-
-    .code-lang {
-      font-size: 11px;
-      color: var(--sky);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .code-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .code-dots span {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-    }
-
-    .dot-red    { background: #ff5f57; }
-    .dot-yellow { background: #febc2e; }
-    .dot-green  { background: #28c840; }
-
-    .code-block pre {
-      padding: 18px 20px;
-      overflow-x: auto;
-      font-family: 'Fira Code', monospace;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-
-    .code-block code {
-      color: var(--light);
-    }
-
-    /* Token colors */
-    .t-tag   { color: #f472b6; }
-    .t-attr  { color: #38bdf8; }
-    .t-val   { color: #4ade80; }
-    .t-prop  { color: #c084fc; }
-    .t-num   { color: #fb923c; }
-    .t-kw    { color: #38bdf8; }
-    .t-str   { color: #4ade80; }
-    .t-cmt   { color: #4b5563; font-style: italic; }
-    .t-fn    { color: #facc15; }
-    .t-cmd   { color: #4ade80; }
-    .t-flag  { color: #fb923c; }
-
-    /* ─── TIP / NOTE BOXES ─────────────────────────────────────────── */
-    .tip-box, .note-box, .warn-box {
-      display: flex;
-      gap: 14px;
-      padding: 16px 20px;
-      border-radius: 14px;
-      margin: 14px 0;
-      font-size: 13.5px;
-      line-height: 1.75;
-    }
+    .card h4{
+      font-size:1.12rem;
+      margin-bottom:8px;
+      color:#f8fafc;
+    }
 
-    .tip-box  { background: rgba(74,222,128,0.08);  border:1px solid rgba(74,222,128,0.25);  color:#86efac; }
-    .note-box { background: rgba(56,189,248,0.08);  border:1px solid rgba(56,189,248,0.25);  color:var(--light); }
-    .warn-box { background: rgba(251,146,60,0.08);  border:1px solid rgba(251,146,60,0.25);  color:#fdba74; }
-
-    .tip-box .tb-icon, .note-box .tb-icon, .warn-box .tb-icon {
-      font-size: 20px;
-      flex-shrink: 0;
-      margin-top: 1px;
+    .card p{
+      color:#94a3b8;
+      line-height:1.6;
+      font-size:.92rem;
     }
 
-    /* ─── TAGS ROW ─────────────────────────────────────────────────── */
-    .tags-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 16px;
+    .tag{
+      display:inline-flex;
+      margin-top:16px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.72rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.6px;
     }
 
-    .tags-row span {
-      font-size: 11.5px;
-      padding: 5px 13px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--muted);
+    .html::after{ background:rgba(251,146,60,.28); }
+    .css::after{ background:rgba(56,189,248,.28); }
+    .js::after{ background:rgba(250,204,21,.28); }
+    .git::after{ background:rgba(244,114,182,.25); }
+    .github::after{ background:rgba(192,132,252,.25); }
+    .physics::after{ background:rgba(74,222,128,.25); }
+
+    .t-html{ color:#fb923c; background:rgba(251,146,60,.12); }
+    .t-css{ color:#38bdf8; background:rgba(56,189,248,.12); }
+    .t-js{ color:#facc15; background:rgba(250,204,21,.12); }
+    .t-git{ color:#f472b6; background:rgba(244,114,182,.12); }
+    .t-gh{ color:#c084fc; background:rgba(192,132,252,.12); }
+    .t-phy{ color:#4ade80; background:rgba(74,222,128,.12); }
+
+    .empty{
+      display:none;
+      margin-top:18px;
+      padding:18px 20px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      color:#94a3b8;
     }
 
-    /* ─── FULL-WIDTH CARD ──────────────────────────────────────────── */
-    .full-card {
-      grid-column: 1 / -1;
-    }
-
-    /* ─── CHEAT-SHEET TABLE ────────────────────────────────────────── */
-    .cheat-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      font-size: 13px;
-    }
-
-    .cheat-table th {
-      padding: 12px 16px;
-      text-align: left;
-      color: var(--sky);
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      background: rgba(56,189,248,0.07);
-      border-bottom: 1px solid rgba(56,189,248,0.2);
-    }
-
-    .cheat-table td {
-      padding: 12px 16px;
-      color: var(--light);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      vertical-align: top;
-    }
-
-    .cheat-table tr:last-child td { border-bottom: none; }
-
-    .cheat-table tr:hover td { background: rgba(56,189,248,0.04); }
+    .footer{
+      text-align:center;
+      margin-top:28px;
+      padding:10px 0 0;
+      color:#64748b;
+      font-size:.88rem;
+    }
 
-    .cheat-table code {
-      font-family: 'Fira Code', monospace;
-      font-size: 12px;
-      color: #fb923c;
-      background: rgba(0,0,0,0.25);
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-
-    /* ─── PROGRESS BAR ─────────────────────────────────────────────── */
-    .progress-row {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 10px;
+    @media (max-width: 920px){
+      .hero{ grid-template-columns:1fr; }
+      .stats{ grid-template-columns:repeat(2,1fr); }
+      .topbar{ flex-wrap:wrap; }
+      .searchbox{ order:3; max-width:none; width:100%; }
     }
 
-    .prog-item {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .prog-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .prog-bar {
-      height: 6px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .prog-fill {
-      height: 100%;
-      border-radius: 6px;
-      animation: fillBar 1.4s cubic-bezier(0.23,1,0.32,1) both;
-    }
-
-    @keyframes fillBar {
-      from { width: 0; }
+    @media (max-width: 520px){
+      .wrap{ padding:16px 12px 28px; }
+      .hero-main{ padding:22px; }
+      .stats{ grid-template-columns:1fr 1fr; }
+      .card{ min-height:auto; }
+      .brand{ min-width:unset; }
     }
-
-    .fill-sky    { background: linear-gradient(to right, var(--sky), #0ea5e9); }
-    .fill-orange { background: linear-gradient(to right, #fb923c, #f97316); }
-    .fill-green  { background: linear-gradient(to right, #4ade80, #22c55e); }
-    .fill-pink   { background: linear-gradient(to right, #f472b6, #ec4899); }
-    .fill-purple { background: linear-gradient(to right, #c084fc, #a855f7); }
-    .fill-yellow { background: linear-gradient(to right, #facc15, #eab308); }
-
-    /* ─── REVEAL ───────────────────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-
-    /* ─── FOOTER ───────────────────────────────────────────────────── */
-    footer {
-      padding: 40px 6%;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .footer-logo {
-      font-size: 18px;
-      font-weight: 700;
-      background: linear-gradient(to right, var(--sky), #e0f2fe);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    footer p { color: var(--muted); font-size: 13px; }
-
-    .footer-links { display:flex; gap:16px; }
-    .footer-links a { color:var(--muted); text-decoration:none; font-size:12px; transition:color 0.3s; }
-    .footer-links a:hover { color:var(--sky); }
-
-    /* ─── KEYFRAMES ────────────────────────────────────────────────── */
-    @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeUp   { from { opacity:0; transform:translateY(30px);  } to { opacity:1; transform:translateY(0); } }
-
-    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
-    @media (max-width: 1024px) {
-      .concept-grid { grid-template-columns: 1fr; }
-      .full-card { grid-column: auto; }
-    }
-
-    @media (max-width: 768px) {
-      :root { --sidebar-w: 0px; }
-      .sidebar { transform: translateX(-280px); width: 280px; }
-      .sidebar.open { transform: translateX(0); }
-      .main-content { margin-left: 0; max-width: 100%; padding: 40px 5% 80px; }
-      .hamburger { display: flex; }
-      .search-box { display:none; }
-      .hero-stats { gap: 14px; }
-      .quick-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 500px) {
-      .quick-grid { grid-template-columns: 1fr; }
-      .stat-card { padding: 14px 20px; }
-    }
-
-    /* ─── HAMBURGER ────────────────────────────────────────────────── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 6px;
-      background: var(--sky-dim);
-      border: 1px solid var(--sky-glow);
-      border-radius: 10px;
-    }
-
-    .hamburger span {
-      width: 20px; height: 2px;
-      background: var(--sky);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 99;
-      backdrop-filter: blur(4px);
-    }
-
-    .sidebar-overlay.active { display: block; }
-
-    /* ─── BACK TO TOP ──────────────────────────────────────────────── */
-    .back-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 46px; height: 46px;
-      background: linear-gradient(135deg, var(--sky), #0ea5e9);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(56,189,248,0.4);
-      z-index: 500;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s;
-      text-decoration: none;
-      color: var(--navy);
-    }
-
-    .back-top.show { opacity: 1; transform: translateY(0); }
-    .back-top:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 14px 30px rgba(56,189,248,0.5); }
   </style>
 </head>
 <body>
 
-<!-- PARTICLES -->
-<canvas id="particle-canvas"></canvas>
-
-<!-- OVERLAY -->
-<div class="sidebar-overlay" id="overlay"></div>
-
-<!-- NAVBAR -->
-<nav id="navbar">
-  <div class="nav-logo">
-    <div class="logo-icon">📚</div>
-    <h1>Dev Docs</h1>
-  </div>
-
-  <div class="nav-right">
-    <div class="search-box">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" placeholder="Search topics…" />
-    </div>
-    <span class="nav-badge">✨ Study Notes</span>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</nav>
-
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-  <div class="sidebar-section">
-    <div class="sidebar-group-label">Getting Started</div>
-    <a class="sidebar-link" href="#overview"><span class="s-icon">🏠</span> Overview</a>
-    <a class="sidebar-link" href="#html"><span class="s-icon">🌐</span> HTML <span class="badge">Core</span></a>
-    <a class="sidebar-link" href="#css"><span class="s-icon">🎨</span> CSS <span class="badge">Core</span></a>
-  </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-group-label">Scripting & Tools</div>
-    <a class="sidebar-link" href="#javascript"><span class="s-icon">⚡</span> JavaScript <span class="badge new">New</span></a>
-    <a class="sidebar-link" href="#git"><span class="s-icon">🔀</span> Git & GitHub</a>
-    <a class="sidebar-link" href="#terminal"><span class="s-icon">💻</span> Terminal</a>
-  </div>
-
-  <div class="sidebar-section">
-    <div class="sidebar-group-label">Advanced</div>
-    <a class="sidebar-link" href="#responsive"><span class="s-icon">📱</span> Responsive Design</a>
-  </div>
-
-</aside>
-
-<!-- LAYOUT -->
-<div class="layout">
-  <div class="main-content">
-
-    <!-- HERO -->
-    <section class="docs-hero" id="overview">
-      <div class="hero-badge"><span class="dot"></span> Personal Study Notes</div>
-      <h1>Dev <span>Docs</span> 📖</h1>
-      <p>
-        A beautifully organized collection of everything I'm learning —
-        from HTML structure and CSS magic, to Git workflows and terminal commands.
-        One place for all my study notes ✨
-      </p>
-      <div class="hero-stats">
-        <div class="stat-card">
-          <span class="s-num">6</span>
-          <span class="s-label">Topics Covered</span>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">📚</div>
+        <div>
+          <h1>Shubham Docs</h1>
+          <p>Study Pages</p>
         </div>
-        <div class="stat-card">
-          <span class="s-num">∞</span>
-          <span class="s-label">Things to Learn</span>
+      </div>
+
+      <div class="searchbox">
+        <span>🔍</span>
+        <input id="searchInput" type="text" placeholder="Search a subject..." />
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="panel hero-main">
+        <span class="pill">● Shubham Docs — Study Pages</span>
+        <h2>One place for <span>all notes</span>, one page for every subject</h2>
+        <p>
+          Keep every topic in its own file like <b>js.html</b>, <b>css.html</b>, <b>git.html</b>,
+          <b>github.html</b>, and <b>class11physics.html</b>. This homepage stays clean,
+          fast, and easy to manage.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn primary" href="#subjects">Open Subjects</a>
+          <a class="btn secondary" href="html.html">Start with HTML</a>
         </div>
-        <div class="stat-card">
-          <span class="s-num">1</span>
-          <span class="s-label">Dedicated Dev</span>
+      </div>
+
+      <div class="panel hero-side">
+        <div class="mini">
+          <h3>Easy editing</h3>
+          <p>Every subject gets its own HTML file, so you can edit content without touching the full homepage.</p>
+        </div>
+        <div class="mini">
+          <h3>Click and open</h3>
+          <p>Just tap a card and go straight to that subject page.</p>
+        </div>
+        <div class="mini">
+          <h3>Clean structure</h3>
+          <p>Homepage for navigation, separate files for actual study notes.</p>
         </div>
       </div>
     </section>
 
-    <!-- QUICK ACCESS -->
-    <div class="section-heading reveal">
-      <h2>Quick Access</h2>
-      <div class="sh-line"></div>
+    <div class="stats">
+      <div class="panel stat">
+        <div class="num">6</div>
+        <div class="label">Subjects</div>
+      </div>
+      <div class="panel stat">
+        <div class="num">1</div>
+        <div class="label">Home page</div>
+      </div>
+      <div class="panel stat">
+        <div class="num">6+</div>
+        <div class="label">Study files</div>
+      </div>
+      <div class="panel stat">
+        <div class="num">∞</div>
+        <div class="label">Add more</div>
+      </div>
     </div>
 
-    <div class="quick-grid reveal">
-      <a class="q-card html" href="#html">
-        <span class="q-icon">🌐</span>
-        <span class="q-title">HTML</span>
-        <span class="q-desc">Structure, semantics, tags, forms, media & accessibility.</span>
-        <span class="q-chip chip-orange">Foundation</span>
+    <div class="section-head" id="subjects">
+      <div>
+        <h3>Subjects</h3>
+        <p>Click any card to open its own page</p>
+      </div>
+    </div>
+
+    <div class="grid" id="cardGrid">
+      <a href="html.html" class="card html">
+        <div class="icon">🌐</div>
+        <h4>HTML</h4>
+        <p>Structure, tags, forms, media, and the full page skeleton.</p>
+        <span class="tag t-html">Foundation</span>
       </a>
-      <a class="q-card css" href="#css">
-        <span class="q-icon">🎨</span>
-        <span class="q-title">CSS</span>
-        <span class="q-desc">Selectors, Flexbox, Grid, animations & responsive design.</span>
-        <span class="q-chip chip-sky">Styling</span>
+
+      <a href="css.html" class="card css">
+        <div class="icon">🎨</div>
+        <h4>CSS</h4>
+        <p>Layouts, selectors, responsive design, animations, and styling.</p>
+        <span class="tag t-css">Styling</span>
       </a>
-      <a class="q-card git" href="#git">
-        <span class="q-icon">🔀</span>
-        <span class="q-title">Git & GitHub</span>
-        <span class="q-desc">Version control, branching, merging, pull requests.</span>
-        <span class="q-chip chip-pink">Version Control</span>
+
+      <a href="js.html" class="card js">
+        <div class="icon">⚡</div>
+        <h4>JavaScript</h4>
+        <p>DOM, events, functions, arrays, and interactive logic.</p>
+        <span class="tag t-js">Scripting</span>
       </a>
-      <a class="q-card js" href="#javascript">
-        <span class="q-icon">⚡</span>
-        <span class="q-title">JavaScript</span>
-        <span class="q-desc">DOM, events, functions, arrays, fetch API and more.</span>
-        <span class="q-chip chip-yellow">Scripting</span>
+
+      <a href="git.html" class="card git">
+        <div class="icon">🔀</div>
+        <h4>Git</h4>
+        <p>Commands, branching, commits, merge flow, and version control.</p>
+        <span class="tag t-git">Version Control</span>
       </a>
-      <a class="q-card resp" href="#responsive">
-        <span class="q-icon">📱</span>
-        <span class="q-title">Responsive Design</span>
-        <span class="q-desc">Media queries, fluid layouts & mobile-first approach.</span>
-        <span class="q-chip chip-green">Design</span>
+
+      <a href="github.html" class="card github">
+        <div class="icon">🐙</div>
+        <h4>GitHub</h4>
+        <p>Repositories, pull requests, deployments, and teamwork.</p>
+        <span class="tag t-gh">Collaboration</span>
       </a>
-      <a class="q-card term" href="#terminal">
-        <span class="q-icon">💻</span>
-        <span class="q-title">Terminal</span>
-        <span class="q-desc">Essential commands for navigating and managing files.</span>
-        <span class="q-chip chip-purple">CLI</span>
+
+      <a href="class11physics.html" class="card physics">
+        <div class="icon">⚛️</div>
+        <h4>Class 11 Physics</h4>
+        <p>Notes, formulas, chapters, and exam preparation content.</p>
+        <span class="tag t-phy">Science</span>
       </a>
     </div>
 
-    <!-- ══════════════════════════════════════════════════ -->
-    <!-- HTML SECTION                                       -->
-    <!-- ══════════════════════════════════════════════════ -->
-    <div class="topic-section reveal" id="html">
-      <div class="topic-header th-orange">
-        <div class="topic-header-icon">🌐</div>
-        <div class="topic-header-text">
-          <h3>HTML</h3>
-          <p>HyperText Markup Language — the skeleton of every web page.</p>
-        </div>
-        <span class="chapter-badge cb-orange">Chapter 01</span>
-      </div>
+    <div class="empty" id="emptyState">No subject found.</div>
 
-      <div class="concept-grid">
-
-        <!-- Basic Structure -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🏗️</span>
-            <div>
-              <span class="cc-title">Basic Document Structure</span>
-              <span class="cc-subtitle">Every HTML page starts here</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">HTML</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">&lt;!-- HTML boilerplate --&gt;</span>
-<span class="t-tag">&lt;!DOCTYPE html&gt;</span>
-<span class="t-tag">&lt;html</span> <span class="t-attr">lang</span>=<span class="t-val">"en"</span><span class="t-tag">&gt;</span>
-<span class="t-tag">&lt;head&gt;</span>
-  <span class="t-tag">&lt;meta</span> <span class="t-attr">charset</span>=<span class="t-val">"UTF-8"</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;meta</span> <span class="t-attr">name</span>=<span class="t-val">"viewport"</span>
-        <span class="t-attr">content</span>=<span class="t-val">"width=device-width"</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;title&gt;</span>Page Title<span class="t-tag">&lt;/title&gt;</span>
-<span class="t-tag">&lt;/head&gt;</span>
-<span class="t-tag">&lt;body&gt;</span>
-  <span class="t-tag">&lt;h1&gt;</span>Hello World 🌍<span class="t-tag">&lt;/h1&gt;</span>
-<span class="t-tag">&lt;/body&gt;</span>
-<span class="t-tag">&lt;/html&gt;</span></code></pre>
-          </div>
-          <div class="note-box">
-            <span class="tb-icon">💡</span>
-            <span><strong>&lt;!DOCTYPE html&gt;</strong> tells the browser to use modern HTML5 standards. Always put it first.</span>
-          </div>
-        </div>
-
-        <!-- Semantic Tags -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🏷️</span>
-            <div>
-              <span class="cc-title">Semantic HTML Tags</span>
-              <span class="cc-subtitle">Meaningful structure for better SEO & accessibility</span>
-            </div>
-          </div>
-          <table class="cheat-table">
-            <thead>
-              <tr><th>Tag</th><th>Purpose</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><code>&lt;header&gt;</code></td><td>Top of the page / section</td></tr>
-              <tr><td><code>&lt;nav&gt;</code></td><td>Navigation links</td></tr>
-              <tr><td><code>&lt;main&gt;</code></td><td>Main unique content</td></tr>
-              <tr><td><code>&lt;section&gt;</code></td><td>Thematic grouping</td></tr>
-              <tr><td><code>&lt;article&gt;</code></td><td>Self-contained content</td></tr>
-              <tr><td><code>&lt;aside&gt;</code></td><td>Sidebar / related info</td></tr>
-              <tr><td><code>&lt;footer&gt;</code></td><td>Bottom of page / section</td></tr>
-            </tbody>
-          </table>
-          <div class="tip-box">
-            <span class="tb-icon">✅</span>
-            <span>Semantic tags help screen readers, search engines, and future developers understand your page structure.</span>
-          </div>
-        </div>
-
-        <!-- Forms -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📝</span>
-            <div>
-              <span class="cc-title">Forms & Inputs</span>
-              <span class="cc-subtitle">Collecting data from users</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">HTML</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-tag">&lt;form</span> <span class="t-attr">action</span>=<span class="t-val">"/submit"</span> <span class="t-attr">method</span>=<span class="t-val">"POST"</span><span class="t-tag">&gt;</span>
-
-  <span class="t-tag">&lt;label</span> <span class="t-attr">for</span>=<span class="t-val">"name"</span><span class="t-tag">&gt;</span>Your Name<span class="t-tag">&lt;/label&gt;</span>
-  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-val">"text"</span> <span class="t-attr">id</span>=<span class="t-val">"name"</span>
-         <span class="t-attr">placeholder</span>=<span class="t-val">"Shubham"</span> <span class="t-attr">required</span> <span class="t-tag">/&gt;</span>
-
-  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-val">"email"</span> <span class="t-attr">placeholder</span>=<span class="t-val">"email"</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-val">"password"</span> <span class="t-tag">/&gt;</span>
-  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-val">"checkbox"</span> <span class="t-tag">/&gt;</span> Remember me
-  <span class="t-tag">&lt;input</span> <span class="t-attr">type</span>=<span class="t-val">"radio"</span> <span class="t-attr">name</span>=<span class="t-val">"g"</span> <span class="t-tag">/&gt;</span> Option A
-
-  <span class="t-tag">&lt;button</span> <span class="t-attr">type</span>=<span class="t-val">"submit"</span><span class="t-tag">&gt;</span>Submit ✉️<span class="t-tag">&lt;/button&gt;</span>
-<span class="t-tag">&lt;/form&gt;</span></code></pre>
-          </div>
-        </div>
-
-        <!-- Media & Links -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🖼️</span>
-            <div>
-              <span class="cc-title">Media & Links</span>
-              <span class="cc-subtitle">Images, videos, audio & hyperlinks</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">HTML</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">&lt;!-- Link --&gt;</span>
-<span class="t-tag">&lt;a</span> <span class="t-attr">href</span>=<span class="t-val">"https://example.com"</span>
-   <span class="t-attr">target</span>=<span class="t-val">"_blank"</span><span class="t-tag">&gt;</span>Visit Site<span class="t-tag">&lt;/a&gt;</span>
-
-<span class="t-cmt">&lt;!-- Image --&gt;</span>
-<span class="t-tag">&lt;img</span> <span class="t-attr">src</span>=<span class="t-val">"photo.jpg"</span>
-     <span class="t-attr">alt</span>=<span class="t-val">"Description"</span>
-     <span class="t-attr">width</span>=<span class="t-val">"400"</span> <span class="t-tag">/&gt;</span>
-
-<span class="t-cmt">&lt;!-- Video --&gt;</span>
-<span class="t-tag">&lt;video</span> <span class="t-attr">src</span>=<span class="t-val">"clip.mp4"</span> <span class="t-attr">controls</span><span class="t-tag">&gt;&lt;/video&gt;</span>
-
-<span class="t-cmt">&lt;!-- Audio --&gt;</span>
-<span class="t-tag">&lt;audio</span> <span class="t-attr">src</span>=<span class="t-val">"song.mp3"</span> <span class="t-attr">controls</span><span class="t-tag">&gt;&lt;/audio&gt;</span></code></pre>
-          </div>
-          <div class="warn-box">
-            <span class="tb-icon">⚠️</span>
-            <span>Always add <strong>alt</strong> text to images — it's essential for accessibility and SEO.</span>
-          </div>
-        </div>
-
-        <!-- HTML Progress -->
-        <div class="concept-card full-card">
-          <div class="cc-header">
-            <span class="cc-icon">📊</span>
-            <div>
-              <span class="cc-title">HTML — My Progress</span>
-              <span class="cc-subtitle">Confidence levels across topics</span>
-            </div>
-          </div>
-          <div class="progress-row">
-            <div class="prog-item">
-              <div class="prog-label"><span>Document Structure</span><span>90%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-orange" style="width:90%"></div></div>
-            </div>
-            <div class="prog-item">
-              <div class="prog-label"><span>Semantic Tags</span><span>80%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-orange" style="width:80%"></div></div>
-            </div>
-            <div class="prog-item">
-              <div class="prog-label"><span>Forms & Inputs</span><span>70%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-orange" style="width:70%"></div></div>
-            </div>
-            <div class="prog-item">
-              <div class="prog-label"><span>Tables & Media</span><span>65%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-orange" style="width:65%"></div></div>
-            </div>
-          </div>
-          <div class="tags-row">
-            <span>🏗️ Structure</span><span>🏷️ Semantic</span><span>📝 Forms</span><span>🖼️ Media</span><span>🔗 Links</span><span>♿ Accessibility</span>
-          </div>
-        </div>
-
-      </div><!-- /concept-grid -->
-    </div><!-- /html -->
-
-    <!-- ══════════════════════════════════════════════════ -->
-    <!-- CSS SECTION                                        -->
-    <!-- ══════════════════════════════════════════════════ -->
-    <div class="topic-section reveal" id="css">
-      <div class="topic-header th-sky">
-        <div class="topic-header-icon">🎨</div>
-        <div class="topic-header-text">
-          <h3>CSS</h3>
-          <p>Cascading Style Sheets — making the web beautiful, one rule at a time.</p>
-        </div>
-        <span class="chapter-badge cb-sky">Chapter 02</span>
-      </div>
-
-      <div class="concept-grid">
-
-        <!-- Selectors -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🎯</span>
-            <div>
-              <span class="cc-title">Selectors</span>
-              <span class="cc-subtitle">Targeting elements precisely</span>
-            </div>
-          </div>
-          <table class="cheat-table">
-            <thead><tr><th>Selector</th><th>Targets</th></tr></thead>
-            <tbody>
-              <tr><td><code>*</code></td><td>All elements</td></tr>
-              <tr><td><code>h1</code></td><td>Element by tag</td></tr>
-              <tr><td><code>.class</code></td><td>Element by class</td></tr>
-              <tr><td><code>#id</code></td><td>Element by ID (unique)</td></tr>
-              <tr><td><code>a:hover</code></td><td>Pseudo-class state</td></tr>
-              <tr><td><code>p::before</code></td><td>Pseudo-element</td></tr>
-              <tr><td><code>div > p</code></td><td>Direct child</td></tr>
-              <tr><td><code>[type="text"]</code></td><td>Attribute selector</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Box Model -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📦</span>
-            <div>
-              <span class="cc-title">The Box Model</span>
-              <span class="cc-subtitle">Every element is a box</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">CSS</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-tag">.box</span> {
-  <span class="t-prop">width</span>:   <span class="t-num">200px</span>;
-  <span class="t-prop">height</span>:  <span class="t-num">100px</span>;
-
-  <span class="t-cmt">/* Space inside the border */</span>
-  <span class="t-prop">padding</span>: <span class="t-num">20px</span>;
-
-  <span class="t-cmt">/* The border itself */</span>
-  <span class="t-prop">border</span>:  <span class="t-num">2px</span> <span class="t-kw">solid</span> <span class="t-val">#38bdf8</span>;
-
-  <span class="t-cmt">/* Space outside the border */</span>
-  <span class="t-prop">margin</span>:  <span class="t-num">16px</span>;
-
-  <span class="t-cmt">/* Include padding in width */</span>
-  <span class="t-prop">box-sizing</span>: <span class="t-kw">border-box</span>;
-}</code></pre>
-          </div>
-        </div>
-
-        <!-- Flexbox -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">↔️</span>
-            <div>
-              <span class="cc-title">Flexbox</span>
-              <span class="cc-subtitle">One-dimensional layout system</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">CSS</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-tag">.container</span> {
-  <span class="t-prop">display</span>:         <span class="t-kw">flex</span>;
-  <span class="t-prop">flex-direction</span>:  <span class="t-kw">row</span>;      <span class="t-cmt">/* or column */</span>
-  <span class="t-prop">justify-content</span>: <span class="t-kw">center</span>;   <span class="t-cmt">/* main axis */</span>
-  <span class="t-prop">align-items</span>:     <span class="t-kw">center</span>;   <span class="t-cmt">/* cross axis */</span>
-  <span class="t-prop">gap</span>:             <span class="t-num">16px</span>;
-  <span class="t-prop">flex-wrap</span>:       <span class="t-kw">wrap</span>;
-}
-
-<span class="t-tag">.child</span> {
-  <span class="t-prop">flex</span>: <span class="t-num">1</span>;          <span class="t-cmt">/* grow & shrink equally */</span>
-}</code></pre>
-          </div>
-          <div class="tip-box">
-            <span class="tb-icon">💡</span>
-            <span>Use Flexbox for navigation bars, card rows, and centring elements — it's perfect for 1D layouts.</span>
-          </div>
-        </div>
-
-        <!-- Grid -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🔲</span>
-            <div>
-              <span class="cc-title">CSS Grid</span>
-              <span class="cc-subtitle">Two-dimensional layout system</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">CSS</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-tag">.grid</span> {
-  <span class="t-prop">display</span>:               <span class="t-kw">grid</span>;
-  <span class="t-prop">grid-template-columns</span>: <span class="t-kw">repeat</span>(<span class="t-num">3</span>, <span class="t-num">1fr</span>);
-  <span class="t-prop">grid-template-rows</span>:    <span class="t-kw">auto</span>;
-  <span class="t-prop">gap</span>:                   <span class="t-num">20px</span>;
-}
-
-<span class="t-cmt">/* Span across columns */</span>
-<span class="t-tag">.wide-item</span> {
-  <span class="t-prop">grid-column</span>: <span class="t-num">1</span> / <span class="t-kw">-1</span>;
-}</code></pre>
-          </div>
-          <div class="tip-box">
-            <span class="tb-icon">💡</span>
-            <span>Grid is perfect for full page layouts, card grids, and anything requiring both rows & columns.</span>
-          </div>
-        </div>
-
-        <!-- Variables & Animations -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🎬</span>
-            <div>
-              <span class="cc-title">Variables & Animations</span>
-              <span class="cc-subtitle">Custom properties & keyframes</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">CSS</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">/* CSS Variables */</span>
-<span class="t-tag">:root</span> {
-  <span class="t-prop">--primary</span>: <span class="t-val">#38bdf8</span>;
-  <span class="t-prop">--gap</span>:     <span class="t-num">16px</span>;
-}
-
-<span class="t-tag">.btn</span> {
-  <span class="t-prop">color</span>: <span class="t-kw">var</span>(--primary);
-  <span class="t-prop">gap</span>:   <span class="t-kw">var</span>(--gap);
-  <span class="t-prop">animation</span>: <span class="t-fn">fadeIn</span> <span class="t-num">0.5s</span> <span class="t-kw">ease</span>;
-}
-
-<span class="t-kw">@keyframes</span> <span class="t-fn">fadeIn</span> {
-  <span class="t-kw">from</span> { <span class="t-prop">opacity</span>: <span class="t-num">0</span>; <span class="t-prop">transform</span>: <span class="t-fn">translateY</span>(<span class="t-num">20px</span>); }
-  <span class="t-kw">to</span>   { <span class="t-prop">opacity</span>: <span class="t-num">1</span>; <span class="t-prop">transform</span>: <span class="t-fn">translateY</span>(<span class="t-num">0</span>); }
-}</code></pre>
-          </div>
-        </div>
-
-        <!-- CSS Progress -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📊</span>
-            <div>
-              <span class="cc-title">CSS — My Progress</span>
-              <span class="cc-subtitle">How comfortable am I?</span>
-            </div>
-          </div>
-          <div class="progress-row">
-            <div class="prog-item">
-              <div class="prog-label"><span>Selectors & Box Model</span><span>85%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-sky" style="width:85%"></div></div>
-            </div>
-            <div class="prog-item">
-              <div class="prog-label"><span>Flexbox</span><span>80%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-sky" style="width:80%"></div></div>
-            </div>
-            <div class="prog-item">
-              <div class="prog-label"><span>CSS Grid</span><span>70%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-sky" style="width:70%"></div></div>
-            </div>
-            <div class="prog-item">
-              <div class="prog-label"><span>Animations & Transitions</span><span>60%</span></div>
-              <div class="prog-bar"><div class="prog-fill fill-sky" style="width:60%"></div></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /css -->
-
-    <!-- ══════════════════════════════════════════════════ -->
-    <!-- GIT SECTION                                        -->
-    <!-- ══════════════════════════════════════════════════ -->
-    <div class="topic-section reveal" id="git">
-      <div class="topic-header th-pink">
-        <div class="topic-header-icon">🔀</div>
-        <div class="topic-header-text">
-          <h3>Git & GitHub</h3>
-          <p>Track changes, collaborate and never lose your work again.</p>
-        </div>
-        <span class="chapter-badge cb-pink">Chapter 03</span>
-      </div>
-
-      <div class="concept-grid">
-
-        <!-- Core Commands -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">⌨️</span>
-            <div>
-              <span class="cc-title">Essential Commands</span>
-              <span class="cc-subtitle">The ones you use every day</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">TERMINAL</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt"># Initialize a new repository</span>
-<span class="t-cmd">git init</span>
-
-<span class="t-cmt"># Clone an existing repo</span>
-<span class="t-cmd">git clone</span> <span class="t-str">https://github.com/user/repo.git</span>
-
-<span class="t-cmt"># Stage changes</span>
-<span class="t-cmd">git add</span> <span class="t-flag">.</span>          <span class="t-cmt"># all files</span>
-<span class="t-cmd">git add</span> index.html  <span class="t-cmt"># specific file</span>
-
-<span class="t-cmt"># Commit with message</span>
-<span class="t-cmd">git commit</span> <span class="t-flag">-m</span> <span class="t-str">"feat: add hero section"</span>
-
-<span class="t-cmt"># Push to remote</span>
-<span class="t-cmd">git push</span> origin main
-
-<span class="t-cmt"># Pull latest changes</span>
-<span class="t-cmd">git pull</span></code></pre>
-          </div>
-        </div>
-
-        <!-- Branching -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🌿</span>
-            <div>
-              <span class="cc-title">Branching & Merging</span>
-              <span class="cc-subtitle">Work on features without breaking main</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">TERMINAL</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt"># List all branches</span>
-<span class="t-cmd">git branch</span>
-
-<span class="t-cmt"># Create a new branch</span>
-<span class="t-cmd">git branch</span> feature/navbar
-
-<span class="t-cmt"># Switch to branch</span>
-<span class="t-cmd">git checkout</span> feature/navbar
-<span class="t-cmt"># Or shorthand (create + switch)</span>
-<span class="t-cmd">git checkout</span> <span class="t-flag">-b</span> feature/navbar
-
-<span class="t-cmt"># Merge branch into main</span>
-<span class="t-cmd">git checkout</span> main
-<span class="t-cmd">git merge</span> feature/navbar
-
-<span class="t-cmt"># Delete a branch</span>
-<span class="t-cmd">git branch</span> <span class="t-flag">-d</span> feature/navbar</code></pre>
-          </div>
-        </div>
-
-        <!-- Status & Logs -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🔍</span>
-            <div>
-              <span class="cc-title">Status & History</span>
-              <span class="cc-subtitle">Understanding your repo state</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">TERMINAL</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt"># Check what's changed</span>
-<span class="t-cmd">git status</span>
-
-<span class="t-cmt"># View commit history</span>
-<span class="t-cmd">git log</span>
-<span class="t-cmd">git log</span> <span class="t-flag">--oneline</span>     <span class="t-cmt"># compact view</span>
-<span class="t-cmd">git log</span> <span class="t-flag">--graph</span>      <span class="t-cmt"># branch tree</span>
-
-<span class="t-cmt"># See what changed in a file</span>
-<span class="t-cmd">git diff</span> index.html
-
-<span class="t-cmt"># Unstage a file</span>
-<span class="t-cmd">git restore</span> <span class="t-flag">--staged</span> index.html
-
-<span class="t-cmt"># Undo last commit (keep changes)</span>
-<span class="t-cmd">git reset</span> <span class="t-flag">--soft</span> HEAD~1</code></pre>
-          </div>
-        </div>
-
-        <!-- GitHub Flow -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🐙</span>
-            <div>
-              <span class="cc-title">GitHub Flow</span>
-              <span class="cc-subtitle">Standard collaboration workflow</span>
-            </div>
-          </div>
-          <p>A clean workflow for working with teams on GitHub:</p>
-          <table class="cheat-table">
-            <thead><tr><th>Step</th><th>Action</th></tr></thead>
-            <tbody>
-              <tr><td>1️⃣</td><td>Create a branch for your feature</td></tr>
-              <tr><td>2️⃣</td><td>Make commits on that branch</td></tr>
-              <tr><td>3️⃣</td><td>Push branch to GitHub</td></tr>
-              <tr><td>4️⃣</td><td>Open a Pull Request (PR)</td></tr>
-              <tr><td>5️⃣</td><td>Code review by teammates</td></tr>
-              <tr><td>6️⃣</td><td>Merge PR into main</td></tr>
-              <tr><td>7️⃣</td><td>Delete the branch 🎉</td></tr>
-            </tbody>
-          </table>
-          <div class="note-box">
-            <span class="tb-icon">💡</span>
-            <span>Never commit directly to <strong>main</strong>. Always use feature branches and Pull Requests.</span>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /git -->
-
-    <!-- ══════════════════════════════════════════════════ -->
-    <!-- JAVASCRIPT SECTION                                 -->
-    <!-- ══════════════════════════════════════════════════ -->
-    <div class="topic-section reveal" id="javascript">
-      <div class="topic-header th-yellow">
-        <div class="topic-header-icon">⚡</div>
-        <div class="topic-header-text">
-          <h3>JavaScript</h3>
-          <p>Bring your pages to life with interactivity and dynamic content.</p>
-        </div>
-        <span class="chapter-badge cb-yellow">Chapter 04</span>
-      </div>
-
-      <div class="concept-grid">
-
-        <!-- Variables & Types -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📦</span>
-            <div>
-              <span class="cc-title">Variables & Data Types</span>
-              <span class="cc-subtitle">Storing and working with data</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">JAVASCRIPT</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">// const — cannot reassign</span>
-<span class="t-kw">const</span> name = <span class="t-str">"Shubham"</span>;
-
-<span class="t-cmt">// let — can reassign</span>
-<span class="t-kw">let</span> age = <span class="t-num">20</span>;
-
-<span class="t-cmt">// Data types</span>
-<span class="t-kw">const</span> str  = <span class="t-str">"Hello"</span>;     <span class="t-cmt">// String</span>
-<span class="t-kw">const</span> num  = <span class="t-num">42</span>;         <span class="t-cmt">// Number</span>
-<span class="t-kw">const</span> bool = <span class="t-kw">true</span>;       <span class="t-cmt">// Boolean</span>
-<span class="t-kw">const</span> arr  = [<span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>];  <span class="t-cmt">// Array</span>
-<span class="t-kw">const</span> obj  = {            <span class="t-cmt">// Object</span>
-  city: <span class="t-str">"Kota"</span>,
-  trips: <span class="t-num">4</span>
-};</code></pre>
-          </div>
-        </div>
-
-        <!-- DOM -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🌳</span>
-            <div>
-              <span class="cc-title">DOM Manipulation</span>
-              <span class="cc-subtitle">Interacting with HTML from JS</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">JAVASCRIPT</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">// Select elements</span>
-<span class="t-kw">const</span> btn = document.<span class="t-fn">querySelector</span>(<span class="t-str">"#myBtn"</span>);
-<span class="t-kw">const</span> all = document.<span class="t-fn">querySelectorAll</span>(<span class="t-str">".card"</span>);
-
-<span class="t-cmt">// Change content</span>
-btn.textContent = <span class="t-str">"Clicked! 🎉"</span>;
-btn.innerHTML   = <span class="t-str">"&lt;strong&gt;Bold&lt;/strong&gt;"</span>;
-
-<span class="t-cmt">// Change styles</span>
-btn.style.color = <span class="t-str">"#38bdf8"</span>;
-
-<span class="t-cmt">// Add / remove class</span>
-btn.<span class="t-fn">classList</span>.<span class="t-fn">add</span>(<span class="t-str">"active"</span>);
-btn.<span class="t-fn">classList</span>.<span class="t-fn">remove</span>(<span class="t-str">"hidden"</span>);
-btn.<span class="t-fn">classList</span>.<span class="t-fn">toggle</span>(<span class="t-str">"dark"</span>);</code></pre>
-          </div>
-        </div>
-
-        <!-- Events -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🖱️</span>
-            <div>
-              <span class="cc-title">Events</span>
-              <span class="cc-subtitle">Listening to user interactions</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">JAVASCRIPT</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-kw">const</span> btn = document.<span class="t-fn">querySelector</span>(<span class="t-str">"#btn"</span>);
-
-<span class="t-cmt">// Click event</span>
-btn.<span class="t-fn">addEventListener</span>(<span class="t-str">"click"</span>, (e) => {
-  console.<span class="t-fn">log</span>(<span class="t-str">"Button clicked!"</span>);
-});
-
-<span class="t-cmt">// Scroll event</span>
-window.<span class="t-fn">addEventListener</span>(<span class="t-str">"scroll"</span>, () => {
-  <span class="t-kw">if</span> (window.scrollY > <span class="t-num">100</span>) {
-    btn.<span class="t-fn">classList</span>.<span class="t-fn">add</span>(<span class="t-str">"visible"</span>);
-  }
-});
-
-<span class="t-cmt">// Keyboard event</span>
-document.<span class="t-fn">addEventListener</span>(<span class="t-str">"keydown"</span>, (e) => {
-  console.<span class="t-fn">log</span>(e.key);
-});</code></pre>
-          </div>
-        </div>
-
-        <!-- Functions & Arrays -->
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">🔧</span>
-            <div>
-              <span class="cc-title">Functions & Arrays</span>
-              <span class="cc-subtitle">Reusable logic & data collections</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">JAVASCRIPT</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">// Arrow function</span>
-<span class="t-kw">const</span> greet = (name) => <span class="t-str">`Hello, ${name}! 👋`</span>;
-
-<span class="t-cmt">// Array methods</span>
-<span class="t-kw">const</span> nums = [<span class="t-num">1</span>, <span class="t-num">2</span>, <span class="t-num">3</span>, <span class="t-num">4</span>, <span class="t-num">5</span>];
-
-nums.<span class="t-fn">map</span>(n => n * <span class="t-num">2</span>);      <span class="t-cmt">// [2,4,6,8,10]</span>
-nums.<span class="t-fn">filter</span>(n => n > <span class="t-num">2</span>);   <span class="t-cmt">// [3,4,5]</span>
-nums.<span class="t-fn">reduce</span>((a,b) => a+b); <span class="t-cmt">// 15</span>
-nums.<span class="t-fn">forEach</span>(n => {
-  console.<span class="t-fn">log</span>(n);           <span class="t-cmt">// logs each</span>
-});
-
-<span class="t-cmt">// Find & includes</span>
-nums.<span class="t-fn">find</span>(n => n > <span class="t-num">3</span>);     <span class="t-cmt">// 4</span>
-nums.<span class="t-fn">includes</span>(<span class="t-num">3</span>);          <span class="t-cmt">// true</span></code></pre>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /javascript -->
-
-    <!-- ══════════════════════════════════════════════════ -->
-    <!-- RESPONSIVE DESIGN                                  -->
-    <!-- ══════════════════════════════════════════════════ -->
-    <div class="topic-section reveal" id="responsive">
-      <div class="topic-header th-green">
-        <div class="topic-header-icon">📱</div>
-        <div class="topic-header-text">
-          <h3>Responsive Design</h3>
-          <p>Build layouts that look perfect on every screen size.</p>
-        </div>
-        <span class="chapter-badge cb-green">Chapter 05</span>
-      </div>
-
-      <div class="concept-grid">
-
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📐</span>
-            <div>
-              <span class="cc-title">Media Queries</span>
-              <span class="cc-subtitle">Style by screen size</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">CSS</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt">/* Mobile first — default styles */</span>
-<span class="t-tag">.container</span> { <span class="t-prop">padding</span>: <span class="t-num">16px</span>; }
-
-<span class="t-cmt">/* Tablet — 600px and up */</span>
-<span class="t-kw">@media</span> (min-width: <span class="t-num">600px</span>) {
-  <span class="t-tag">.container</span> { <span class="t-prop">padding</span>: <span class="t-num">32px</span>; }
-}
-
-<span class="t-cmt">/* Desktop — 900px and up */</span>
-<span class="t-kw">@media</span> (min-width: <span class="t-num">900px</span>) {
-  <span class="t-tag">.container</span> { <span class="t-prop">padding</span>: <span class="t-num">5%</span>; }
-}
-
-<span class="t-cmt">/* Max-width — target small screens */</span>
-<span class="t-kw">@media</span> (max-width: <span class="t-num">480px</span>) {
-  <span class="t-tag">.grid</span> { <span class="t-prop">grid-template-columns</span>: <span class="t-num">1fr</span>; }
-}</code></pre>
-          </div>
-        </div>
-
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📏</span>
-            <div>
-              <span class="cc-title">Fluid Typography & Units</span>
-              <span class="cc-subtitle">Sizes that adapt automatically</span>
-            </div>
-          </div>
-          <table class="cheat-table">
-            <thead><tr><th>Unit</th><th>Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><code>px</code></td><td>Fixed pixels — absolute</td></tr>
-              <tr><td><code>%</code></td><td>Relative to parent element</td></tr>
-              <tr><td><code>em</code></td><td>Relative to parent font-size</td></tr>
-              <tr><td><code>rem</code></td><td>Relative to root font-size (16px)</td></tr>
-              <tr><td><code>vw</code></td><td>% of viewport width</td></tr>
-              <tr><td><code>vh</code></td><td>% of viewport height</td></tr>
-              <tr><td><code>clamp()</code></td><td>Fluid value between min & max</td></tr>
-            </tbody>
-          </table>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">CSS</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-prop">font-size</span>: <span class="t-fn">clamp</span>(<span class="t-num">16px</span>, <span class="t-num">4vw</span>, <span class="t-num">32px</span>);</code></pre>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /responsive -->
-
-    <!-- ══════════════════════════════════════════════════ -->
-    <!-- TERMINAL SECTION                                   -->
-    <!-- ══════════════════════════════════════════════════ -->
-    <div class="topic-section reveal" id="terminal">
-      <div class="topic-header th-purple">
-        <div class="topic-header-icon">💻</div>
-        <div class="topic-header-text">
-          <h3>Terminal & CLI</h3>
-          <p>Navigate your system like a developer with these essential commands.</p>
-        </div>
-        <span class="chapter-badge cb-purple">Chapter 06</span>
-      </div>
-
-      <div class="concept-grid">
-
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📂</span>
-            <div>
-              <span class="cc-title">File & Directory Commands</span>
-              <span class="cc-subtitle">Navigate and manage your filesystem</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">BASH / POWERSHELL</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt"># Print current directory</span>
-<span class="t-cmd">pwd</span>
-
-<span class="t-cmt"># List files in directory</span>
-<span class="t-cmd">ls</span>          <span class="t-cmt"># Mac/Linux</span>
-<span class="t-cmd">dir</span>         <span class="t-cmt"># Windows CMD</span>
-<span class="t-cmd">ls</span> <span class="t-flag">-la</span>      <span class="t-cmt"># with hidden files</span>
-
-<span class="t-cmt"># Change directory</span>
-<span class="t-cmd">cd</span> projects
-<span class="t-cmd">cd</span> ..       <span class="t-cmt"># go up one level</span>
-<span class="t-cmd">cd</span> ~        <span class="t-cmt"># go to home</span>
-
-<span class="t-cmt"># Create directory</span>
-<span class="t-cmd">mkdir</span> my-project
-
-<span class="t-cmt"># Create a file</span>
-<span class="t-cmd">touch</span> index.html
-
-<span class="t-cmt"># Remove file / folder</span>
-<span class="t-cmd">rm</span> file.txt
-<span class="t-cmd">rm</span> <span class="t-flag">-rf</span> folder/  <span class="t-cmt"># ⚠️ be careful!</span></code></pre>
-          </div>
-        </div>
-
-        <div class="concept-card">
-          <div class="cc-header">
-            <span class="cc-icon">📦</span>
-            <div>
-              <span class="cc-title">npm & Node Commands</span>
-              <span class="cc-subtitle">Managing JavaScript packages</span>
-            </div>
-          </div>
-          <div class="code-block">
-            <div class="code-header">
-              <span class="code-lang">TERMINAL</span>
-              <div class="code-dots"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
-            </div>
-            <pre><code><span class="t-cmt"># Check versions</span>
-<span class="t-cmd">node</span> <span class="t-flag">-v</span>
-<span class="t-cmd">npm</span> <span class="t-flag">-v</span>
-
-<span class="t-cmt"># Initialize a project</span>
-<span class="t-cmd">npm init</span> <span class="t-flag">-y</span>
-
-<span class="t-cmt"># Install a package</span>
-<span class="t-cmd">npm install</span> express
-
-<span class="t-cmt"># Install dev dependency</span>
-<span class="t-cmd">npm install</span> <span class="t-flag">-D</span> vite
-
-<span class="t-cmt"># Run a script from package.json</span>
-<span class="t-cmd">npm run</span> dev
-<span class="t-cmd">npm run</span> build
-
-<span class="t-cmt"># Remove a package</span>
-<span class="t-cmd">npm uninstall</span> express</code></pre>
-          </div>
-          <div class="tip-box">
-            <span class="tb-icon">✅</span>
-            <span>Add <strong>node_modules/</strong> to your <strong>.gitignore</strong> file so it's never committed to GitHub.</span>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /terminal -->
-
-  </div><!-- /main-content -->
-</div><!-- /layout -->
-
-<!-- BACK TO TOP -->
-<a href="#overview" class="back-top" id="backTop">↑</a>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Dev Docs 📚</div>
-  <p>© 2026 Shubham — Personal Study Notes 🚀</p>
-  <div class="footer-links">
-    <a href="#html">HTML</a>
-    <a href="#css">CSS</a>
-    <a href="#git">Git</a>
-    <a href="#javascript">JS</a>
-    <a href="#responsive">Responsive</a>
-    <a href="#terminal">Terminal</a>
+    <div class="footer">Shubham Docs • Study Pages</div>
   </div>
-</footer>
 
-<!-- ── JAVASCRIPT ─────────────────────────────────────────────────── -->
-<script>
-/* ── PARTICLES ──────────────────────────────────────── */
-const canvas = document.getElementById('particle-canvas');
-const ctx    = canvas.getContext('2d');
-let W, H, particles = [];
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const emptyState = document.getElementById('emptyState');
 
-function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize();
-window.addEventListener('resize', resize);
+    function filterCards() {
+      const q = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
 
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x     = Math.random() * W;
-    this.y     = Math.random() * H;
-    this.r     = Math.random() * 1.6 + 0.3;
-    this.vx    = (Math.random() - 0.5) * 0.25;
-    this.vy    = (Math.random() - 0.5) * 0.25;
-    this.alpha = Math.random() * 0.5 + 0.15;
-  }
-  update() {
-    this.x += this.vx; this.y += this.vy;
-    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(56,189,248,${this.alpha})`;
-    ctx.fill();
-  }
-}
-for (let i = 0; i < 70; i++) particles.push(new Particle());
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const show = text.includes(q);
+        card.style.display = show ? '' : 'none';
+        if (show) visibleCount++;
+      });
 
-function drawLines() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i+1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d  = Math.sqrt(dx*dx + dy*dy);
-      if (d < 110) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(56,189,248,${0.1*(1-d/110)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
     }
-  }
-}
-(function animate() {
-  ctx.clearRect(0,0,W,H);
-  particles.forEach(p => { p.update(); p.draw(); });
-  drawLines();
-  requestAnimationFrame(animate);
-})();
 
-/* ── NAVBAR SCROLL ───────────────────────────────────── */
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-  // Back to top
-  document.getElementById('backTop').classList.toggle('show', window.scrollY > 300);
-  // Active sidebar link
-  const sects = document.querySelectorAll('.topic-section, #overview');
-  let cur = '';
-  sects.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 120) cur = s.id;
-  });
-  document.querySelectorAll('.sidebar-link').forEach(l => {
-    l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
-  });
-});
-
-/* ── SMOOTH SCROLL ───────────────────────────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const t = document.querySelector(a.getAttribute('href'));
-    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Close sidebar on mobile
-    sidebar.classList.remove('open');
-    overlay.classList.remove('active');
-  });
-});
-
-/* ── REVEAL ON SCROLL ────────────────────────────────── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-/* ── HAMBURGER SIDEBAR ───────────────────────────────── */
-const sidebar    = document.getElementById('sidebar');
-const overlay    = document.getElementById('overlay');
-const hamburger  = document.getElementById('hamburger');
-hamburger.addEventListener('click', () => {
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('active');
-});
-overlay.addEventListener('click', () => {
-  sidebar.classList.remove('open');
-  overlay.classList.remove('active');
-});
-
-/* ── SEARCH FILTER ───────────────────────────────────── */
-document.getElementById('search-input').addEventListener('input', function() {
-  const q = this.value.toLowerCase().trim();
-  document.querySelectorAll('.topic-section').forEach(section => {
-    const text = section.textContent.toLowerCase();
-    section.style.display = (!q || text.includes(q)) ? '' : 'none';
-  });
-});
-</script>
+    searchInput.addEventListener('input', filterCards);
+  </script>
 </body>
 </html>

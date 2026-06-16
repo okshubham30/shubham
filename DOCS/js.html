@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs JavaScript notes with complete theory, examples, and clickable topic navigation." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(250,204,21,.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#facc15;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #facc15, #fde047);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(250,204,21,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(250,204,21,.12);
+      color:#facc15;
+      border:1px solid rgba(250,204,21,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(250,204,21,.32);
+      background:rgba(250,204,21,.08);
+    }
+
+    h2,h3{
+      color:#facc15;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(250,204,21,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(250,204,21,.08);
+      border-color:rgba(250,204,21,.2);
+      color:#fef3c7;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#facc15;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#facc15;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#fde047;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #facc15, #fde047);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(250,204,21,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>JavaScript Notes</h1>
+        <p>Full JavaScript theory with examples, topics</p>
+      </div>
+      <a class="back-home" href="index.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#setup">How JS Works</a>
+      <a href="#syntax">Syntax</a>
+      <a href="#variables">Variables</a>
+      <a href="#datatypes">Data Types</a>
+      <a href="#operators">Operators</a>
+      <a href="#conditions">Conditions</a>
+      <a href="#loops">Loops</a>
+      <a href="#functions">Functions</a>
+      <a href="#arrays">Arrays</a>
+      <a href="#objects">Objects</a>
+      <a href="#strings">Strings</a>
+      <a href="#numbers">Numbers & Math</a>
+      <a href="#scope">Scope</a>
+      <a href="#hoisting">Hoisting</a>
+      <a href="#this">this Keyword</a>
+      <a href="#dom">DOM</a>
+      <a href="#events">Events</a>
+      <a href="#classes">Classes</a>
+      <a href="#json">JSON</a>
+      <a href="#storage">localStorage</a>
+      <a href="#async">Async JS</a>
+      <a href="#fetch">Fetch API</a>
+      <a href="#errors">Error Handling</a>
+      <a href="#modules">Modules</a>
+      <a href="#best">Best Practices</a>
+      <a href="#interview">Interview</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to JavaScript</h2>
+      <p>
+        JavaScript is a programming language used to make web pages interactive and dynamic.
+        It can change HTML, update CSS, handle events, work with APIs, and store data.
+      </p>
+      <div class="box">
+        <p><strong>HTML</strong> gives structure</p>
+        <p><strong>CSS</strong> gives style</p>
+        <p><strong>JavaScript</strong> gives behavior</p>
+      </div>
+      <div class="tip">
+        JavaScript runs in the browser and also on the server using Node.js.
+      </div>
+    </section>
+
+    <section id="setup" class="section-anchor">
+      <h2>2. How JavaScript Works</h2>
+      <p>
+        JavaScript is executed by the browser's JavaScript engine.
+        It can be written directly inside HTML or in an external file.
+      </p>
+
+      <pre>&lt;script&gt;
+  console.log("Hello World");
+&lt;/script&gt;</pre>
+
+      <pre>&lt;script src="app.js"&gt;&lt;/script&gt;</pre>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Inline JS</h4>
+          <p>Written directly in HTML using script tag.</p>
+        </div>
+        <div class="card">
+          <h4>External JS</h4>
+          <p>Written in a separate .js file and linked to HTML.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="syntax" class="section-anchor">
+      <h2>3. JavaScript Syntax</h2>
+      <p>JavaScript statements usually end with semicolons, but they are optional.</p>
+
+      <pre>console.log("Hello");
+alert("Welcome");
+
+let name = "Shubham";
+let age = 20;</pre>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Statement</td>
+          <td>A complete instruction</td>
+        </tr>
+        <tr>
+          <td>Variable</td>
+          <td>Stores data</td>
+        </tr>
+        <tr>
+          <td>Function</td>
+          <td>Reusable block of code</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="variables" class="section-anchor">
+      <h2>4. Variables</h2>
+      <p>Variables store values that can be used later in the program.</p>
+
+      <pre>var x = 10;
+let y = 20;
+const z = 30;</pre>
+
+      <table>
+        <tr>
+          <th>Keyword</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>var</td>
+          <td>Old way, function scoped</td>
+        </tr>
+        <tr>
+          <td>let</td>
+          <td>Modern, block scoped, can change</td>
+        </tr>
+        <tr>
+          <td>const</td>
+          <td>Modern, block scoped, cannot be reassigned</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        Use <strong>let</strong> and <strong>const</strong> instead of <strong>var</strong> in modern JavaScript.
+      </div>
+    </section>
+
+    <section id="datatypes" class="section-anchor">
+      <h2>5. Data Types</h2>
+      <p>JavaScript has different types of values.</p>
+
+      <pre>let str = "Hello";
+let num = 42;
+let bool = true;
+let arr = [1, 2, 3];
+let obj = { name: "Shubham", age: 20 };
+let undef;
+let nul = null;</pre>
+
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Example</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>String</td>
+          <td>"Hello"</td>
+          <td>Text</td>
+        </tr>
+        <tr>
+          <td>Number</td>
+          <td>42</td>
+          <td>Numeric value</td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>true / false</td>
+          <td>Logical value</td>
+        </tr>
+        <tr>
+          <td>Array</td>
+          <td>[1,2,3]</td>
+          <td>List of values</td>
+        </tr>
+        <tr>
+          <td>Object</td>
+          <td>{}</td>
+          <td>Key-value data</td>
+        </tr>
+        <tr>
+          <td>Undefined</td>
+          <td>let x;</td>
+          <td>Variable declared but not assigned</td>
+        </tr>
+        <tr>
+          <td>Null</td>
+          <td>null</td>
+          <td>Intentional empty value</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="operators" class="section-anchor">
+      <h2>6. Operators</h2>
+      <p>Operators are used to perform actions on values.</p>
+
+      <pre>let a = 10;
+let b = 5;
+
+a + b;
+a - b;
+a * b;
+a / b;
+a % b;
+a ** b;</pre>
+
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>+</td>
+          <td>Addition</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>Subtraction</td>
+        </tr>
+        <tr>
+          <td>*</td>
+          <td>Multiplication</td>
+        </tr>
+        <tr>
+          <td>/</td>
+          <td>Division</td>
+        </tr>
+        <tr>
+          <td>%</td>
+          <td>Remainder</td>
+        </tr>
+        <tr>
+          <td>**</td>
+          <td>Power</td>
+        </tr>
+      </table>
+
+      <pre>10 > 5;
+10 < 5;
+10 == 10;
+10 === 10;
+10 != 5;
+10 !== "10";</pre>
+
+      <div class="box">
+        <p><strong>==</strong> checks value only.</p>
+        <p><strong>===</strong> checks value and type.</p>
+      </div>
+    </section>
+
+    <section id="conditions" class="section-anchor">
+      <h2>7. Conditional Statements</h2>
+      <p>Conditions help your code make decisions.</p>
+
+      <pre>let age = 18;
+
+if(age >= 18){
+  console.log("Adult");
+}else{
+  console.log("Minor");
+}</pre>
+
+      <pre>let marks = 75;
+
+if(marks >= 90){
+  console.log("A");
+}else if(marks >= 75){
+  console.log("B");
+}else{
+  console.log("C");
+}</pre>
+
+      <pre>let day = "Monday";
+
+switch(day){
+  case "Monday":
+    console.log("Start of week");
+    break;
+  default:
+    console.log("Other day");
+}</pre>
+    </section>
+
+    <section id="loops" class="section-anchor">
+      <h2>8. Loops</h2>
+      <p>Loops repeat code multiple times.</p>
+
+      <pre>for(let i = 1; i <= 5; i++){
+  console.log(i);
+}</pre>
+
+      <pre>let i = 1;
+while(i <= 5){
+  console.log(i);
+  i++;
+}</pre>
+
+      <pre>let j = 1;
+do{
+  console.log(j);
+  j++;
+}while(j <= 5);</pre>
+
+      <table>
+        <tr>
+          <th>Loop</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>for</td>
+          <td>Known number of repetitions</td>
+        </tr>
+        <tr>
+          <td>while</td>
+          <td>Repeat while condition is true</td>
+        </tr>
+        <tr>
+          <td>do...while</td>
+          <td>Runs at least once</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="functions" class="section-anchor">
+      <h2>9. Functions</h2>
+      <p>Functions are reusable blocks of code.</p>
+
+      <pre>function greet(name){
+  return "Hello " + name;
+}
+
+console.log(greet("Shubham"));</pre>
+
+      <pre>const greet = (name) => {
+  return `Hello ${name}`;
+};</pre>
+
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Function declaration</td>
+          <td>Standard function syntax</td>
+        </tr>
+        <tr>
+          <td>Arrow function</td>
+          <td>Short modern syntax</td>
+        </tr>
+        <tr>
+          <td>Return</td>
+          <td>Sends result back</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        Functions help you avoid repeating code.
+      </div>
+    </section>
+
+    <section id="arrays" class="section-anchor">
+      <h2>10. Arrays</h2>
+      <p>Arrays store multiple values in one variable.</p>
+
+      <pre>let fruits = ["apple", "mango", "banana"];
+
+console.log(fruits[0]);
+fruits.push("orange");
+fruits.pop();
+fruits.shift();
+fruits.unshift("kiwi");</pre>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>push()</td>
+          <td>Add to end</td>
+        </tr>
+        <tr>
+          <td>pop()</td>
+          <td>Remove from end</td>
+        </tr>
+        <tr>
+          <td>shift()</td>
+          <td>Remove from start</td>
+        </tr>
+        <tr>
+          <td>unshift()</td>
+          <td>Add to start</td>
+        </tr>
+        <tr>
+          <td>length</td>
+          <td>Array size</td>
+        </tr>
+      </table>
+
+      <pre>let nums = [1,2,3,4,5];
+nums.map(n => n * 2);
+nums.filter(n => n > 2);
+nums.reduce((a,b) => a + b);</pre>
+    </section>
+
+    <section id="objects" class="section-anchor">
+      <h2>11. Objects</h2>
+      <p>Objects store data in key-value pairs.</p>
+
+      <pre>let person = {
+  name: "Shubham",
+  age: 20,
+  city: "Kota"
+};
+
+console.log(person.name);</pre>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Key</td>
+          <td>Name of the property</td>
+        </tr>
+        <tr>
+          <td>Value</td>
+          <td>Data stored in the key</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <p>Objects are used for real-world data like users, products, settings, and more.</p>
+      </div>
+    </section>
+
+    <section id="strings" class="section-anchor">
+      <h2>12. Strings</h2>
+      <p>Strings are text values.</p>
+
+      <pre>let text = "Hello World";
+let len = text.length;
+let upper = text.toUpperCase();
+let lower = text.toLowerCase();
+let part = text.slice(0, 5);
+let replaced = text.replace("World", "JS");</pre>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>length</td>
+          <td>String size</td>
+        </tr>
+        <tr>
+          <td>toUpperCase()</td>
+          <td>Convert to capital letters</td>
+        </tr>
+        <tr>
+          <td>toLowerCase()</td>
+          <td>Convert to small letters</td>
+        </tr>
+        <tr>
+          <td>slice()</td>
+          <td>Extract part of string</td>
+        </tr>
+        <tr>
+          <td>replace()</td>
+          <td>Replace text</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="numbers" class="section-anchor">
+      <h2>13. Numbers and Math</h2>
+      <p>JavaScript has built-in Math functions.</p>
+
+      <pre>let n = 10.789;
+
+Math.round(n);
+Math.floor(n);
+Math.ceil(n);
+Math.random();
+Math.max(10, 20, 5);
+Math.min(10, 20, 5);
+Math.sqrt(25);</pre>
+
+      <table>
+        <tr>
+          <th>Function</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>round()</td>
+          <td>Nearest integer</td>
+        </tr>
+        <tr>
+          <td>floor()</td>
+          <td>Round down</td>
+        </tr>
+        <tr>
+          <td>ceil()</td>
+          <td>Round up</td>
+        </tr>
+        <tr>
+          <td>random()</td>
+          <td>Random number between 0 and 1</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="scope" class="section-anchor">
+      <h2>14. Scope</h2>
+      <p>Scope tells where a variable can be accessed.</p>
+
+      <pre>let globalVar = "outside";
+
+function test(){
+  let localVar = "inside";
+}</pre>
+
+      <table>
+        <tr>
+          <th>Scope</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Global scope</td>
+          <td>Accessible everywhere</td>
+        </tr>
+        <tr>
+          <td>Local / function scope</td>
+          <td>Accessible only inside function</td>
+        </tr>
+        <tr>
+          <td>Block scope</td>
+          <td>Accessible only inside block with let/const</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="hoisting" class="section-anchor">
+      <h2>15. Hoisting</h2>
+      <p>Hoisting means declarations are moved to the top of their scope before execution.</p>
+
+      <pre>console.log(x);
+var x = 10;</pre>
+
+      <div class="warn">
+        Hoisting works differently for <strong>var</strong>, <strong>let</strong>, and <strong>const</strong>.
+      </div>
+    </section>
+
+    <section id="this" class="section-anchor">
+      <h2>16. this Keyword</h2>
+      <p>The <strong>this</strong> keyword refers to the current object.</p>
+
+      <pre>let person = {
+  name: "Shubham",
+  greet: function(){
+    console.log(this.name);
+  }
+};</pre>
+
+      <div class="box">
+        <p>In object methods, <strong>this</strong> points to the object itself.</p>
+      </div>
+    </section>
+
+    <section id="dom" class="section-anchor">
+      <h2>17. DOM Manipulation</h2>
+      <p>DOM means Document Object Model. It allows JavaScript to interact with HTML.</p>
+
+      <pre>const heading = document.querySelector("h1");
+const allCards = document.querySelectorAll(".card");
+
+heading.textContent = "New Title";
+heading.style.color = "#facc15";
+heading.classList.add("active");</pre>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>querySelector()</td>
+          <td>Select first matching element</td>
+        </tr>
+        <tr>
+          <td>querySelectorAll()</td>
+          <td>Select all matching elements</td>
+        </tr>
+        <tr>
+          <td>textContent</td>
+          <td>Change text</td>
+        </tr>
+        <tr>
+          <td>innerHTML</td>
+          <td>Change HTML inside element</td>
+        </tr>
+        <tr>
+          <td>classList</td>
+          <td>Add, remove, toggle classes</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="events" class="section-anchor">
+      <h2>18. Events</h2>
+      <p>Events happen when users interact with the page.</p>
+
+      <pre>const btn = document.querySelector("#btn");
+
+btn.addEventListener("click", () => {
+  alert("Button clicked!");
+});</pre>
+
+      <pre>document.addEventListener("keydown", (e) => {
+  console.log(e.key);
+});</pre>
+
+      <table>
+        <tr>
+          <th>Event</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>click</td>
+          <td>Mouse click</td>
+        </tr>
+        <tr>
+          <td>keydown</td>
+          <td>Keyboard key pressed</td>
+        </tr>
+        <tr>
+          <td>scroll</td>
+          <td>Page scrolling</td>
+        </tr>
+        <tr>
+          <td>submit</td>
+          <td>Form submitted</td>
+        </tr>
+        <tr>
+          <td>input</td>
+          <td>User types into field</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="classes" class="section-anchor">
+      <h2>19. Classes and Objects</h2>
+      <p>Classes are blueprints for creating objects.</p>
+
+      <pre>class Student{
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+  }
+
+  greet(){
+    return `Hello ${this.name}`;
+  }
+}
+
+const s1 = new Student("Shubham", 20);</pre>
+
+      <div class="box">
+        <p><strong>constructor</strong> runs when object is created.</p>
+        <p><strong>method</strong> is a function inside class.</p>
+      </div>
+    </section>
+
+    <section id="json" class="section-anchor">
+      <h2>20. JSON</h2>
+      <p>JSON stands for JavaScript Object Notation.</p>
+
+      <pre>{
+  "name": "Shubham",
+  "age": 20,
+  "city": "Kota"
+}</pre>
+
+      <pre>let obj = {
+  name: "Shubham"
+};
+
+let jsonText = JSON.stringify(obj);
+let newObj = JSON.parse(jsonText);</pre>
+
+      <table>
+        <tr>
+          <th>Function</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>JSON.stringify()</td>
+          <td>Convert object to JSON text</td>
+        </tr>
+        <tr>
+          <td>JSON.parse()</td>
+          <td>Convert JSON text to object</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="storage" class="section-anchor">
+      <h2>21. localStorage</h2>
+      <p>localStorage stores data in the browser.</p>
+
+      <pre>localStorage.setItem("name", "Shubham");
+let user = localStorage.getItem("name");
+localStorage.removeItem("name");
+localStorage.clear();</pre>
+
+      <div class="tip">
+        localStorage keeps data even after page reload.
+      </div>
+    </section>
+
+    <section id="async" class="section-anchor">
+      <h2>22. Asynchronous JavaScript</h2>
+      <p>Async JavaScript handles tasks that take time, like fetching data or waiting.</p>
+
+      <pre>setTimeout(() => {
+  console.log("After 2 seconds");
+}, 2000);</pre>
+
+      <pre>console.log("1");
+setTimeout(() => console.log("2"), 0);
+console.log("3");</pre>
+
+      <table>
+        <tr>
+          <th>Concept</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>setTimeout</td>
+          <td>Runs code after delay</td>
+        </tr>
+        <tr>
+          <td>setInterval</td>
+          <td>Repeats code at interval</td>
+        </tr>
+        <tr>
+          <td>Promise</td>
+          <td>Represents future result</td>
+        </tr>
+        <tr>
+          <td>async/await</td>
+          <td>Simpler way to work with promises</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="fetch" class="section-anchor">
+      <h2>23. Fetch API</h2>
+      <p>Fetch API is used to get data from servers.</p>
+
+      <pre>fetch("https://api.example.com/data")
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error));</pre>
+
+      <pre>async function loadData(){
+  try{
+    let response = await fetch("https://api.example.com/data");
+    let data = await response.json();
+    console.log(data);
+  }catch(error){
+    console.log(error);
+  }
+}</pre>
+
+      <div class="box">
+        <p>Fetch is very important for API work and real-world applications.</p>
+      </div>
+    </section>
+
+    <section id="errors" class="section-anchor">
+      <h2>24. Error Handling</h2>
+      <p>Use try and catch to handle errors safely.</p>
+
+      <pre>try{
+  let result = x + 10;
+  console.log(result);
+}catch(error){
+  console.log("Error:", error);
+}</pre>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>try</td>
+          <td>Code that may fail</td>
+        </tr>
+        <tr>
+          <td>catch</td>
+          <td>Handle the error</td>
+        </tr>
+        <tr>
+          <td>finally</td>
+          <td>Runs no matter what</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="modules" class="section-anchor">
+      <h2>25. Modules</h2>
+      <p>Modules help split code into separate files.</p>
+
+      <pre>export function greet(){
+  return "Hello";
+}</pre>
+
+      <pre>import { greet } from "./utils.js";</pre>
+
+      <div class="tip">
+        Modules make code cleaner and easier to manage.
+      </div>
+    </section>
+
+    <section id="best" class="section-anchor">
+      <h2>26. JavaScript Best Practices</h2>
+      <ul>
+        <li>Use let and const instead of var.</li>
+        <li>Use meaningful variable names.</li>
+        <li>Keep functions short and focused.</li>
+        <li>Use strict equality === when possible.</li>
+        <li>Handle errors properly.</li>
+        <li>Keep code readable and organized.</li>
+        <li>Use semicolons consistently.</li>
+        <li>Separate HTML, CSS, and JS files when possible.</li>
+      </ul>
+    </section>
+
+    <section id="interview" class="section-anchor">
+      <h2>27. Important JavaScript Interview Points</h2>
+
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>What is JavaScript?</td>
+          <td>JavaScript is a programming language used to make web pages interactive.</td>
+        </tr>
+        <tr>
+          <td>Difference between let, const, and var?</td>
+          <td>let and const are block scoped, var is function scoped.</td>
+        </tr>
+        <tr>
+          <td>What is the DOM?</td>
+          <td>The DOM is the structure of a web page that JavaScript can manipulate.</td>
+        </tr>
+        <tr>
+          <td>What is hoisting?</td>
+          <td>Declarations are moved to the top of scope before execution.</td>
+        </tr>
+        <tr>
+          <td>What is the difference between == and ===?</td>
+          <td>== checks value only, === checks value and type.</td>
+        </tr>
+        <tr>
+          <td>What is async/await?</td>
+          <td>A cleaner way to work with asynchronous code.</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Learn variables, functions, loops, arrays, objects, DOM, events, async code, and APIs to become strong in JavaScript.
+      </div>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>28. Full JavaScript Example</h2>
+      <p>This example shows a simple interactive page using JavaScript.</p>
+
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;JS Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="title"&gt;Hello&lt;/h1&gt;
+  &lt;button id="btn"&gt;Click Me&lt;/button&gt;
+
+  &lt;script&gt;
+    const title = document.getElementById("title");
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", () =&gt; {
+      title.textContent = "Button Clicked!";
+      title.style.color = "gold";
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+      <div class="box">
+        <p><strong>Quick recap:</strong> JavaScript makes websites interactive, dynamic, and powerful.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • JavaScript Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>
