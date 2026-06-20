@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hostinger Tutorial Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs Hostinger tutorial notes from basics to advanced with detailed explanations, examples, and clickable topic navigation." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(168,85,247,.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#a855f7;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#c4b5fd;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #a855f7, #c084fc);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(168,85,247,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(168,85,247,.12);
+      color:#a855f7;
+      border:1px solid rgba(168,85,247,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#ddd6fe;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(168,85,247,.32);
+      background:rgba(168,85,247,.08);
+    }
+
+    h2,h3{
+      color:#a855f7;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(168,85,247,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(168,85,247,.08);
+      border-color:rgba(168,85,247,.2);
+      color:#f3e8ff;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#a855f7;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#a855f7;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#c084fc;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #a855f7, #c084fc);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(168,85,247,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>Hostinger Tutorial Notes</h1>
+        <p>Basics to advanced Hostinger guide with hosting, hPanel, WordPress, DNS, SSL, email, backups, and more</p>
+      </div>
+      <a class="back-home" href="../docs.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#hosting">Hosting Basics</a>
+      <a href="#panel">hPanel</a>
+      <a href="#domain">Domain</a>
+      <a href="#dns">DNS</a>
+      <a href="#website">Create Website</a>
+      <a href="#wordpress">WordPress</a>
+      <a href="#builder">Website Builder</a>
+      <a href="#files">File Manager</a>
+      <a href="#upload">Upload Files</a>
+      <a href="#database">Database</a>
+      <a href="#ssl">SSL</a>
+      <a href="#email">Email</a>
+      <a href="#ftp">FTP / SFTP</a>
+      <a href="#php">PHP</a>
+      <a href="#security">Security</a>
+      <a href="#backup">Backups</a>
+      <a href="#migration">Migration</a>
+      <a href="#seo">SEO & Speed</a>
+      <a href="#trouble">Troubleshooting</a>
+      <a href="#advanced">Advanced</a>
+      <a href="#interview">Interview</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to Hostinger</h2>
+      <p>
+        Hostinger is a web hosting platform used to host websites, manage domains, create email accounts,
+        install WordPress, and control website files through its dashboard. The main control center is hPanel.
+      </p>
+      <div class="box">
+        <p><strong>Web hosting</strong> keeps your website files online.</p>
+        <p><strong>Domain</strong> is the website address.</p>
+        <p><strong>hPanel</strong> is Hostinger’s control panel for managing your services.</p>
+      </div>
+      <div class="tip">
+        Hostinger’s help center currently organizes major tasks around hPanel, DNS, File Manager, backups, SSL, email, and website setup.
+      </div>
+    </section>
+
+    <section id="hosting" class="section-anchor">
+      <h2>2. Hosting Basics</h2>
+      <p>
+        Before building a site, you need hosting space. Your website files, database, images, and scripts are stored on a server.
+        When someone opens your domain, the server sends your site to their browser.
+      </p>
+
+      <table>
+        <tr>
+          <th>Term</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Hosting</td>
+          <td>Online server space for website files</td>
+        </tr>
+        <tr>
+          <td>Server</td>
+          <td>Computer that delivers your website</td>
+        </tr>
+        <tr>
+          <td>Bandwidth</td>
+          <td>Data transferred between server and visitors</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>Space for files, images, and database</td>
+        </tr>
+      </table>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Shared Hosting</h4>
+          <p>Good for beginner websites, blogs, and small projects.</p>
+        </div>
+        <div class="card">
+          <h4>WordPress Hosting</h4>
+          <p>Optimized for WordPress sites and easy installation.</p>
+        </div>
+        <div class="card">
+          <h4>VPS Hosting</h4>
+          <p>More control and power for advanced websites or applications.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel" class="section-anchor">
+      <h2>3. hPanel Overview</h2>
+      <p>
+        hPanel is the Hostinger dashboard where you manage websites, domains, email, databases, backups, files, and security settings.
+      </p>
+
+      <pre>hPanel
+├─ Websites
+├─ Domains
+├─ Emails
+├─ Databases
+├─ Files
+├─ Backups
+├─ SSL
+├─ PHP
+└─ Settings</pre>
+
+      <table>
+        <tr>
+          <th>Area</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>Websites</td>
+          <td>Manage your hosted websites</td>
+        </tr>
+        <tr>
+          <td>Domains</td>
+          <td>Manage domain names and DNS</td>
+        </tr>
+        <tr>
+          <td>Files</td>
+          <td>Upload and edit website files</td>
+        </tr>
+        <tr>
+          <td>Backups</td>
+          <td>Restore old versions of your website</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="domain" class="section-anchor">
+      <h2>4. Domain Basics</h2>
+      <p>
+        A domain is the name people type in a browser, like <code class="inline">example.com</code>.
+        It points to your hosting server through DNS records.
+      </p>
+
+      <table>
+        <tr>
+          <th>Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Domain name</td>
+          <td>Website address</td>
+        </tr>
+        <tr>
+          <td>TLD</td>
+          <td>Extension like .com, .in, .net</td>
+        </tr>
+        <tr>
+          <td>Subdomain</td>
+          <td>Extra part like blog.example.com</td>
+        </tr>
+        <tr>
+          <td>Nameserver</td>
+          <td>Tells where DNS is managed</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        If the domain is not pointing correctly, the site may not open even if hosting is active.
+      </div>
+    </section>
+
+    <section id="dns" class="section-anchor">
+      <h2>5. DNS Management</h2>
+      <p>
+        DNS connects your domain to the correct server. In Hostinger, DNS settings are available from the Domains area in hPanel.
+      </p>
+
+      <pre>Important DNS records:
+- A record
+- CNAME record
+- MX record
+- TXT record
+- NS record</pre>
+
+      <table>
+        <tr>
+          <th>Record</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>Points domain to an IP address</td>
+        </tr>
+        <tr>
+          <td>CNAME</td>
+          <td>Points one name to another name</td>
+        </tr>
+        <tr>
+          <td>MX</td>
+          <td>Handles email delivery</td>
+        </tr>
+        <tr>
+          <td>TXT</td>
+          <td>Used for verification and email security</td>
+        </tr>
+        <tr>
+          <td>NS</td>
+          <td>Nameservers for DNS control</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="website" class="section-anchor">
+      <h2>6. Create a Website</h2>
+      <p>
+        A website can be created in Hostinger by using WordPress, uploading custom files, or using the Website Builder.
+      </p>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Custom HTML Website</h4>
+          <p>Best for simple static websites built with HTML, CSS, and JavaScript.</p>
+        </div>
+        <div class="card">
+          <h4>WordPress Site</h4>
+          <p>Good for blogs, business sites, and dynamic content.</p>
+        </div>
+        <div class="card">
+          <h4>Website Builder</h4>
+          <p>Drag-and-drop option for quick website creation.</p>
+        </div>
+      </div>
+
+      <pre>Basic flow:
+1. Buy hosting
+2. Connect domain
+3. Upload files or install WordPress
+4. Add SSL
+5. Publish your website</pre>
+    </section>
+
+    <section id="wordpress" class="section-anchor">
+      <h2>7. WordPress on Hostinger</h2>
+      <p>
+        WordPress is one of the most common ways to build websites on Hostinger. It lets you create pages, blog posts,
+        menus, plugins, and themes without coding everything from scratch.
+      </p>
+
+      <table>
+        <tr>
+          <th>WordPress Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Theme</td>
+          <td>Controls site design</td>
+        </tr>
+        <tr>
+          <td>Plugin</td>
+          <td>Adds extra features</td>
+        </tr>
+        <tr>
+          <td>Post</td>
+          <td>Blog article</td>
+        </tr>
+        <tr>
+          <td>Page</td>
+          <td>Static content like About or Contact</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <p><strong>WordPress setup tip:</strong> install WordPress first, then choose a theme, add pages, and configure menus.</p>
+      </div>
+    </section>
+
+    <section id="builder" class="section-anchor">
+      <h2>8. Hostinger Website Builder</h2>
+      <p>
+        The Website Builder is useful when you want a visual editor instead of coding. It is simple for landing pages,
+        business websites, and quick portfolio sites.
+      </p>
+
+      <ul>
+        <li>Drag and drop design</li>
+        <li>Ready-made templates</li>
+        <li>Simple section editing</li>
+        <li>Fast publishing workflow</li>
+      </ul>
+
+      <div class="tip">
+        Use the builder when speed matters more than custom coding control.
+      </div>
+    </section>
+
+    <section id="files" class="section-anchor">
+      <h2>9. File Manager</h2>
+      <p>
+        File Manager is where you upload, edit, rename, and delete website files. For custom websites, the main files are usually inside the public directory.
+      </p>
+
+      <pre>Typical web root files:
+index.html
+style.css
+script.js
+assets/
+images/
+DOCS/</pre>
+
+      <table>
+        <tr>
+          <th>File Manager Task</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>Upload</td>
+          <td>Add files to your website</td>
+        </tr>
+        <tr>
+          <td>Edit</td>
+          <td>Change code directly</td>
+        </tr>
+        <tr>
+          <td>Rename</td>
+          <td>Change file or folder name</td>
+        </tr>
+        <tr>
+          <td>Delete</td>
+          <td>Remove unwanted files</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        Always keep a backup before deleting or replacing live website files.
+      </div>
+    </section>
+
+    <section id="upload" class="section-anchor">
+      <h2>10. Uploading Website Files</h2>
+      <p>
+        If your site is made in HTML, CSS, and JavaScript, you can upload the files manually using File Manager or FTP.
+      </p>
+
+      <pre>Example upload flow:
+1. Open hPanel
+2. Go to Websites
+3. Open Dashboard
+4. Open File Manager
+5. Upload ZIP or individual files
+6. Extract ZIP if needed
+7. Make sure index.html is in the root folder</pre>
+
+      <table>
+        <tr>
+          <th>Common Mistake</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>index.html is inside a folder</td>
+          <td>Website may not open correctly</td>
+        </tr>
+        <tr>
+          <td>Wrong file name</td>
+          <td>Server may show default page</td>
+        </tr>
+        <tr>
+          <td>Broken paths</td>
+          <td>CSS or images may not load</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="database" class="section-anchor">
+      <h2>11. Database Basics</h2>
+      <p>
+        Databases store dynamic website data such as users, posts, product information, and form submissions.
+        WordPress usually uses MySQL or MariaDB.
+      </p>
+
+      <table>
+        <tr>
+          <th>Term</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Structured data storage</td>
+        </tr>
+        <tr>
+          <td>Table</td>
+          <td>Collection of rows and columns</td>
+        </tr>
+        <tr>
+          <td>Row</td>
+          <td>One record</td>
+        </tr>
+        <tr>
+          <td>Column</td>
+          <td>Field in a table</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <p>Static sites may not need a database, but WordPress and many apps do.</p>
+      </div>
+    </section>
+
+    <section id="ssl" class="section-anchor">
+      <h2>12. SSL Certificate</h2>
+      <p>
+        SSL protects the connection between the visitor and your website. It also helps with trust and browser security warnings.
+      </p>
+
+      <pre>HTTP  ->  not encrypted
+HTTPS ->  encrypted with SSL</pre>
+
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>HTTPS</td>
+          <td>Secure website connection</td>
+        </tr>
+        <tr>
+          <td>Padlock icon</td>
+          <td>Shows secure status in browser</td>
+        </tr>
+        <tr>
+          <td>Mixed content</td>
+          <td>HTTPS page loading HTTP resources</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        After enabling SSL, update internal links and images so everything loads through HTTPS.
+      </div>
+    </section>
+
+    <section id="email" class="section-anchor">
+      <h2>13. Email Setup</h2>
+      <p>
+        Hostinger also supports email-related setup through hPanel. You can create professional email addresses using your domain name.
+      </p>
+
+      <pre>Example:
+info@yourdomain.com
+support@yourdomain.com
+admin@yourdomain.com</pre>
+
+      <table>
+        <tr>
+          <th>Email Part</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Mailbox</td>
+          <td>Email account inbox</td>
+        </tr>
+        <tr>
+          <td>SMTP</td>
+          <td>Sends emails</td>
+        </tr>
+        <tr>
+          <td>IMAP</td>
+          <td>Syncs mail with server</td>
+        </tr>
+        <tr>
+          <td>POP3</td>
+          <td>Downloads mail to device</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="ftp" class="section-anchor">
+      <h2>14. FTP / SFTP</h2>
+      <p>
+        FTP and SFTP are file transfer methods used to upload or manage website files from an external file manager or code editor.
+      </p>
+
+      <table>
+        <tr>
+          <th>Protocol</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td>FTP</td>
+          <td>Basic file transfer</td>
+        </tr>
+        <tr>
+          <td>SFTP</td>
+          <td>Secure file transfer</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        Use SFTP when possible because it is more secure than plain FTP.
+      </div>
+    </section>
+
+    <section id="php" class="section-anchor">
+      <h2>15. PHP and Website Development</h2>
+      <p>
+        PHP is often used for dynamic websites on Hostinger. It can handle forms, logins, dashboard pages, and database connections.
+      </p>
+
+      <pre>&lt;?php
+echo "Hello from PHP";
+?&gt;</pre>
+
+      <table>
+        <tr>
+          <th>Use Case</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Form handling</td>
+          <td>Contact form submission</td>
+        </tr>
+        <tr>
+          <td>Login system</td>
+          <td>User authentication</td>
+        </tr>
+        <tr>
+          <td>Database connection</td>
+          <td>Read and write records</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="security" class="section-anchor">
+      <h2>16. Security Basics</h2>
+      <p>Website security means protecting files, passwords, forms, and user data from misuse.</p>
+
+      <ul>
+        <li>Use strong passwords</li>
+        <li>Enable SSL</li>
+        <li>Keep plugins and themes updated</li>
+        <li>Use secure file permissions</li>
+        <li>Take regular backups</li>
+      </ul>
+
+      <div class="note">
+        Small security habits prevent big website problems later.
+      </div>
+    </section>
+
+    <section id="backup" class="section-anchor">
+      <h2>17. Backups</h2>
+      <p>
+        Backups are saved copies of your website files and databases. They help you recover from mistakes, broken updates, or accidental deletions.
+      </p>
+
+      <table>
+        <tr>
+          <th>Backup Type</th>
+          <th>What it saves</th>
+        </tr>
+        <tr>
+          <td>Files backup</td>
+          <td>HTML, CSS, JS, images, uploads</td>
+        </tr>
+        <tr>
+          <td>Database backup</td>
+          <td>WordPress data or app data</td>
+        </tr>
+        <tr>
+          <td>Full backup</td>
+          <td>Files + database together</td>
+        </tr>
+      </table>
+
+      <div class="tip">
+        Backup before changing themes, moving files, or editing live code.
+      </div>
+    </section>
+
+    <section id="migration" class="section-anchor">
+      <h2>18. Website Migration</h2>
+      <p>
+        Migration means moving a website from another host to Hostinger. Usually this involves copying files, exporting the database, and connecting the domain.
+      </p>
+
+      <pre>Migration steps:
+1. Download website files
+2. Export database
+3. Upload files to Hostinger
+4. Import database
+5. Update configuration
+6. Point domain to Hostinger
+7. Test the site</pre>
+
+      <table>
+        <tr>
+          <th>Step</th>
+          <th>Goal</th>
+        </tr>
+        <tr>
+          <td>Files</td>
+          <td>Move code and assets</td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Move dynamic content</td>
+        </tr>
+        <tr>
+          <td>DNS</td>
+          <td>Send domain to new server</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="seo" class="section-anchor">
+      <h2>19. SEO and Speed</h2>
+      <p>
+        SEO helps search engines understand your website, while speed improves user experience and page performance.
+      </p>
+
+      <table>
+        <tr>
+          <th>Topic</th>
+          <th>Good Practice</th>
+        </tr>
+        <tr>
+          <td>SEO title</td>
+          <td>Clear and keyword-focused</td>
+        </tr>
+        <tr>
+          <td>Meta description</td>
+          <td>Short summary of page content</td>
+        </tr>
+        <tr>
+          <td>Image size</td>
+          <td>Keep images optimized</td>
+        </tr>
+        <tr>
+          <td>Speed</td>
+          <td>Minimize heavy files and scripts</td>
+        </tr>
+      </table>
+
+      <div class="box">
+        <p>Fast websites usually feel better to users and are easier to manage.</p>
+      </div>
+    </section>
+
+    <section id="trouble" class="section-anchor">
+      <h2>20. Common Troubleshooting</h2>
+      <p>If the website does not work properly, check these common issues first.</p>
+
+      <table>
+        <tr>
+          <th>Problem</th>
+          <th>Possible Cause</th>
+        </tr>
+        <tr>
+          <td>Website not opening</td>
+          <td>Wrong DNS or domain not pointed</td>
+        </tr>
+        <tr>
+          <td>CSS not loading</td>
+          <td>Incorrect file path</td>
+        </tr>
+        <tr>
+          <td>Image missing</td>
+          <td>Wrong filename or folder path</td>
+        </tr>
+        <tr>
+          <td>Login not working</td>
+          <td>Database or PHP issue</td>
+        </tr>
+        <tr>
+          <td>403/404 error</td>
+          <td>Permission or file location issue</td>
+        </tr>
+      </table>
+
+      <div class="warn">
+        Check the browser console and server file paths when debugging a broken page.
+      </div>
+    </section>
+
+    <section id="advanced" class="section-anchor">
+      <h2>21. Advanced Hostinger Topics</h2>
+      <p>Once the basics are clear, these advanced topics help you manage websites like a pro.</p>
+
+      <ul>
+        <li>Custom domain mapping</li>
+        <li>Database import and export</li>
+        <li>Advanced file permissions</li>
+        <li>Cache and performance tuning</li>
+        <li>Security hardening</li>
+        <li>Website restoration from backup</li>
+        <li>Staging and testing workflow</li>
+      </ul>
+
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Performance</h4>
+          <p>Use lightweight code, compressed images, and clean structure.</p>
+        </div>
+        <div class="card">
+          <h4>Maintenance</h4>
+          <p>Keep your website updated, backed up, and tested regularly.</p>
+        </div>
+        <div class="card">
+          <h4>Scaling</h4>
+          <p>Move from simple hosting to stronger plans as your project grows.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="interview" class="section-anchor">
+      <h2>22. Important Hostinger Interview / Viva Points</h2>
+
+      <table>
+        <tr>
+          <th>Question</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>What is Hostinger?</td>
+          <td>A web hosting service used to host websites and manage related tools.</td>
+        </tr>
+        <tr>
+          <td>What is hPanel?</td>
+          <td>Hostinger’s control panel for managing hosting services.</td>
+        </tr>
+        <tr>
+          <td>What is DNS?</td>
+          <td>The system that connects a domain name to the correct server.</td>
+        </tr>
+        <tr>
+          <td>What is SSL?</td>
+          <td>A security certificate that enables HTTPS.</td>
+        </tr>
+        <tr>
+          <td>What is File Manager?</td>
+          <td>A tool to upload and manage website files.</td>
+        </tr>
+        <tr>
+          <td>Why are backups important?</td>
+          <td>They help restore the site after errors or data loss.</td>
+        </tr>
+      </table>
+
+      <div class="note">
+        Learn hosting, hPanel, domain, DNS, File Manager, WordPress, SSL, backups, email, and troubleshooting to become confident with Hostinger.
+      </div>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>23. Full Hostinger Website Flow</h2>
+      <p>This is a simple end-to-end workflow for a website on Hostinger.</p>
+
+      <pre>1. Buy hosting
+2. Connect your domain
+3. Open hPanel
+4. Upload files or install WordPress
+5. Add database if needed
+6. Turn on SSL
+7. Set up email
+8. Test mobile and desktop
+9. Take backup
+10. Publish the site</pre>
+
+      <div class="box">
+        <p><strong>Quick recap:</strong> Hostinger is used to host websites, manage domains, edit files, install WordPress, and control everything from hPanel.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • Hostinger Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>
