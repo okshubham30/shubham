@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHP Notes | Shubham Docs</title>
+  <meta name="description" content="Shubham Docs PHP notes with complete theory, examples, syntax, OOP, database, sessions, security, and advanced topics." />
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(192,132,252,.12), transparent 22%),
+        linear-gradient(180deg, #0f172a 0%, #111827 100%);
+      color:#e2e8f0;
+      line-height:1.8;
+      padding:24px 16px 40px;
+      overflow-x:hidden;
+    }
+
+    .container{
+      max-width:1180px;
+      margin:auto;
+      background:rgba(17,24,39,.82);
+      backdrop-filter: blur(16px);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    .topbar{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .brand h1{
+      font-size:2.4rem;
+      color:#38bdf8;
+      line-height:1.1;
+      margin-bottom:6px;
+    }
+
+    .brand p{
+      color:#94a3b8;
+      font-size:.95rem;
+    }
+
+    .back-home{
+      text-decoration:none;
+      color:#0f172a;
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:700;
+      transition:.25s;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 22px rgba(56,189,248,.18);
+      white-space:nowrap;
+    }
+
+    .back-home:hover{
+      transform:translateY(-2px);
+    }
+
+    .badge{
+      display:inline-block;
+      background:rgba(56,189,248,.12);
+      color:#38bdf8;
+      border:1px solid rgba(56,189,248,.22);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:.82rem;
+      margin-bottom:14px;
+      letter-spacing:.3px;
+    }
+
+    .toc{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 10px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .toc a{
+      text-decoration:none;
+      color:#cbd5e1;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.86rem;
+      transition:.22s;
+    }
+
+    .toc a:hover{
+      color:#ffffff;
+      border-color:rgba(56,189,248,.28);
+      background:rgba(56,189,248,.08);
+    }
+
+    h2,h3{
+      color:#38bdf8;
+      line-height:1.2;
+    }
+
+    h2{
+      margin-top:36px;
+      font-size:1.65rem;
+      border-bottom:1px solid rgba(56,189,248,.2);
+      padding-bottom:10px;
+      scroll-margin-top:18px;
+    }
+
+    h3{
+      margin-top:20px;
+      font-size:1.15rem;
+    }
+
+    p{
+      margin:12px 0;
+      color:#cbd5e1;
+    }
+
+    .box, .note, .warn, .tip{
+      border-radius:16px;
+      padding:16px 18px;
+      margin:14px 0;
+      border:1px solid transparent;
+    }
+
+    .box{
+      background:#0b1220;
+      border-color:rgba(255,255,255,.08);
+    }
+
+    .note{
+      background:rgba(74,222,128,.08);
+      border-color:rgba(74,222,128,.2);
+      color:#bbf7d0;
+    }
+
+    .warn{
+      background:rgba(251,146,60,.08);
+      border-color:rgba(251,146,60,.2);
+      color:#fed7aa;
+    }
+
+    .tip{
+      background:rgba(56,189,248,.08);
+      border-color:rgba(56,189,248,.2);
+      color:#dbeafe;
+    }
+
+    code, pre{
+      font-family:"Courier New", monospace;
+      font-size:.95rem;
+    }
+
+    code.inline{
+      background:rgba(255,255,255,.07);
+      padding:2px 7px;
+      border-radius:7px;
+      color:#facc15;
+    }
+
+    pre{
+      background:#020617;
+      color:#f8fafc;
+      padding:16px;
+      border-radius:16px;
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.08);
+      margin:14px 0;
+      white-space:pre-wrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:14px 0;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      border:1px solid rgba(255,255,255,.08);
+      padding:12px 14px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      background:#0b1220;
+      color:#38bdf8;
+      font-size:.9rem;
+    }
+
+    td{
+      background:#111827;
+      color:#cbd5e1;
+    }
+
+    ul, ol{
+      margin-left:22px;
+      color:#cbd5e1;
+    }
+
+    .mini-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:#0b1220;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .card h4{
+      color:#7dd3fc;
+      margin-bottom:8px;
+      font-size:1rem;
+    }
+
+    .footer{
+      margin-top:30px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#94a3b8;
+      text-align:center;
+      font-size:.92rem;
+    }
+
+    .back-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      background:linear-gradient(135deg, #38bdf8, #7dd3fc);
+      color:#08111f;
+      font-weight:900;
+      box-shadow:0 14px 30px rgba(56,189,248,.25);
+      border:1px solid rgba(255,255,255,.16);
+    }
+
+    .section-anchor{
+      scroll-margin-top:22px;
+    }
+
+    @media (max-width:720px){
+      .container{ padding:20px; }
+      .brand h1{ font-size:2rem; }
+      .toc{ padding:12px; }
+      .toc a{ font-size:.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="top">
+    <div class="topbar">
+      <div class="brand">
+        <span class="badge">Shubham Docs • Study Pages</span>
+        <h1>PHP Notes</h1>
+        <p>Complete PHP theory from basics to advanced with examples and quick jump links.</p>
+      </div>
+      <a class="back-home" href="../docs.html">← Back Home</a>
+    </div>
+
+    <div class="toc">
+      <a href="#intro">Introduction</a>
+      <a href="#setup">Setup</a>
+      <a href="#syntax">Syntax</a>
+      <a href="#variables">Variables</a>
+      <a href="#datatypes">Data Types</a>
+      <a href="#operators">Operators</a>
+      <a href="#conditions">Conditions</a>
+      <a href="#loops">Loops</a>
+      <a href="#functions">Functions</a>
+      <a href="#arrays">Arrays</a>
+      <a href="#forms">Forms</a>
+      <a href="#superglobals">Superglobals</a>
+      <a href="#sessions">Sessions</a>
+      <a href="#cookies">Cookies</a>
+      <a href="#files">File Handling</a>
+      <a href="#upload">File Upload</a>
+      <a href="#mysql">MySQL</a>
+      <a href="#crud">CRUD</a>
+      <a href="#oop">OOP</a>
+      <a href="#security">Security</a>
+      <a href="#advanced">Advanced Topics</a>
+      <a href="#projects">Projects</a>
+      <a href="#example">Full Example</a>
+    </div>
+
+    <section id="intro" class="section-anchor">
+      <h2>1. Introduction to PHP</h2>
+      <p>
+        PHP stands for <strong>Hypertext Preprocessor</strong>. It is a server-side scripting language used to build dynamic websites, forms, login systems, dashboards, and web applications.
+      </p>
+      <div class="box">
+        <p><strong>HTML</strong> gives structure</p>
+        <p><strong>CSS</strong> gives design</p>
+        <p><strong>JavaScript</strong> gives interactivity</p>
+        <p><strong>PHP</strong> works on the server and handles logic, data, and database tasks</p>
+      </div>
+      <div class="tip">
+        PHP is very popular for backend development and is widely used with MySQL.
+      </div>
+    </section>
+
+    <section id="setup" class="section-anchor">
+      <h2>2. PHP Setup</h2>
+      <p>To run PHP code, you need a local server like XAMPP, WAMP, MAMP, or a hosting server like Hostinger.</p>
+      <div class="mini-grid">
+        <div class="card">
+          <h4>XAMPP</h4>
+          <p>Popular local server package with Apache and MySQL.</p>
+        </div>
+        <div class="card">
+          <h4>htdocs folder</h4>
+          <p>Place PHP files here in XAMPP.</p>
+        </div>
+        <div class="card">
+          <h4>localhost</h4>
+          <p>Used to open PHP pages in the browser locally.</p>
+        </div>
+      </div>
+      <pre>C:\xampp\htdocs\project\index.php</pre>
+    </section>
+
+    <section id="syntax" class="section-anchor">
+      <h2>3. PHP Syntax</h2>
+      <p>PHP code is written inside special tags.</p>
+      <pre>&lt;?php
+  echo "Hello PHP";
+?&gt;</pre>
+      <div class="note">
+        Every PHP statement usually ends with a semicolon <code class="inline">;</code>.
+      </div>
+      <p>You can mix PHP with HTML in the same file.</p>
+      <pre>&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;&lt;?php echo "Welcome"; ?&gt;&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </section>
+
+    <section id="variables" class="section-anchor">
+      <h2>4. Variables</h2>
+      <p>Variables are used to store values like names, numbers, and data.</p>
+      <pre>&lt;?php
+$name = "Shubham";
+$age = 20;
+$price = 99.5;
+$isStudent = true;
+?&gt;</pre>
+      <table>
+        <tr>
+          <th>Rule</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>Starts with <code class="inline">$</code></td>
+          <td>All PHP variables begin with dollar sign</td>
+        </tr>
+        <tr>
+          <td>Case-sensitive</td>
+          <td><code class="inline">$name</code> and <code class="inline">$Name</code> are different</td>
+        </tr>
+        <tr>
+          <td>Valid naming</td>
+          <td>Use letters, numbers, and underscore only</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="datatypes" class="section-anchor">
+      <h2>5. Data Types</h2>
+      <p>PHP supports many data types.</p>
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>String</td>
+          <td>Text data</td>
+          <td><code class="inline">"Hello"</code></td>
+        </tr>
+        <tr>
+          <td>Integer</td>
+          <td>Whole number</td>
+          <td><code class="inline">20</code></td>
+        </tr>
+        <tr>
+          <td>Float</td>
+          <td>Decimal number</td>
+          <td><code class="inline">10.5</code></td>
+        </tr>
+        <tr>
+          <td>Boolean</td>
+          <td>True or false</td>
+          <td><code class="inline">true</code></td>
+        </tr>
+        <tr>
+          <td>Array</td>
+          <td>Multiple values in one variable</td>
+          <td><code class="inline">[1,2,3]</code></td>
+        </tr>
+        <tr>
+          <td>NULL</td>
+          <td>No value</td>
+          <td><code class="inline">null</code></td>
+        </tr>
+        <tr>
+          <td>Object</td>
+          <td>Used in OOP</td>
+          <td><code class="inline">new ClassName()</code></td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="operators" class="section-anchor">
+      <h2>6. Operators</h2>
+      <h3>Arithmetic operators</h3>
+      <pre>+  -  *  /  %  **</pre>
+      <h3>Comparison operators</h3>
+      <pre>==  ===  !=  !==  &gt;  &lt;  &gt;=  &lt;=</pre>
+      <h3>Logical operators</h3>
+      <pre>&amp;&amp;  ||  !</pre>
+      <h3>Assignment operators</h3>
+      <pre>=  +=  -=  *=  /=  %=</pre>
+      <div class="box">
+        <p>Use comparison operators in conditions.</p>
+        <p>Use logical operators to combine multiple checks.</p>
+      </div>
+    </section>
+
+    <section id="conditions" class="section-anchor">
+      <h2>7. Conditional Statements</h2>
+      <p>Conditions help PHP make decisions.</p>
+      <pre>&lt;?php
+$age = 18;
+
+if ($age &gt;= 18) {
+    echo "Adult";
+} else {
+    echo "Minor";
+}
+?&gt;</pre>
+      <h3>elseif</h3>
+      <pre>&lt;?php
+$marks = 85;
+
+if ($marks &gt;= 90) {
+    echo "A+";
+} elseif ($marks &gt;= 75) {
+    echo "A";
+} else {
+    echo "B";
+}
+?&gt;</pre>
+      <h3>switch</h3>
+      <pre>&lt;?php
+$day = "Monday";
+
+switch ($day) {
+    case "Monday":
+        echo "Start of week";
+        break;
+    case "Friday":
+        echo "Weekend is near";
+        break;
+    default:
+        echo "Normal day";
+}
+?&gt;</pre>
+    </section>
+
+    <section id="loops" class="section-anchor">
+      <h2>8. Loops</h2>
+      <p>Loops repeat code again and again.</p>
+      <h3>for loop</h3>
+      <pre>&lt;?php
+for ($i = 1; $i &lt;= 5; $i++) {
+    echo $i . "&lt;br&gt;";
+}
+?&gt;</pre>
+      <h3>while loop</h3>
+      <pre>&lt;?php
+$i = 1;
+while ($i &lt;= 5) {
+    echo $i . "&lt;br&gt;";
+    $i++;
+}
+?&gt;</pre>
+      <h3>do while loop</h3>
+      <pre>&lt;?php
+$i = 1;
+do {
+    echo $i . "&lt;br&gt;";
+    $i++;
+} while ($i &lt;= 5);
+?&gt;</pre>
+      <h3>foreach loop</h3>
+      <pre>&lt;?php
+$colors = ["Red", "Blue", "Green"];
+
+foreach ($colors as $color) {
+    echo $color . "&lt;br&gt;";
+}
+?&gt;</pre>
+    </section>
+
+    <section id="functions" class="section-anchor">
+      <h2>9. Functions</h2>
+      <p>Functions help you reuse code and keep your program clean.</p>
+      <pre>&lt;?php
+function greet() {
+    echo "Hello";
+}
+
+greet();
+?&gt;</pre>
+      <h3>Function with parameter</h3>
+      <pre>&lt;?php
+function greet($name) {
+    echo "Hello " . $name;
+}
+
+greet("Shubham");
+?&gt;</pre>
+      <h3>Function with return value</h3>
+      <pre>&lt;?php
+function add($a, $b) {
+    return $a + $b;
+}
+
+echo add(5, 3);
+?&gt;</pre>
+      <div class="tip">
+        Functions make code reusable, easier to read, and easier to debug.
+      </div>
+    </section>
+
+    <section id="arrays" class="section-anchor">
+      <h2>10. Arrays</h2>
+      <p>Arrays store more than one value in a single variable.</p>
+      <h3>Indexed array</h3>
+      <pre>&lt;?php
+$fruits = ["Apple", "Mango", "Banana"];
+echo $fruits[0];
+?&gt;</pre>
+      <h3>Associative array</h3>
+      <pre>&lt;?php
+$student = [
+    "name" =&gt; "Shubham",
+    "age" =&gt; 20
+];
+
+echo $student["name"];
+?&gt;</pre>
+      <h3>Multidimensional array</h3>
+      <pre>&lt;?php
+$students = [
+    ["Shubham", 20],
+    ["Rahul", 21]
+];
+
+echo $students[0][0];
+?&gt;</pre>
+      <table>
+        <tr>
+          <th>Function</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td><code class="inline">count()</code></td>
+          <td>Count array elements</td>
+        </tr>
+        <tr>
+          <td><code class="inline">array_push()</code></td>
+          <td>Add item to end</td>
+        </tr>
+        <tr>
+          <td><code class="inline">array_pop()</code></td>
+          <td>Remove last item</td>
+        </tr>
+        <tr>
+          <td><code class="inline">sort()</code></td>
+          <td>Sort array</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="forms" class="section-anchor">
+      <h2>11. Forms and User Input</h2>
+      <p>Forms are used to collect data from users.</p>
+      <pre>&lt;form method="POST"&gt;
+  &lt;input type="text" name="username" placeholder="Enter name"&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</pre>
+      <pre>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    echo "Hello " . $username;
+}
+?&gt;</pre>
+      <div class="box">
+        <p><strong>GET</strong> sends data through the URL.</p>
+        <p><strong>POST</strong> sends data hidden from the URL.</p>
+        <p><strong>$_POST</strong> receives form data.</p>
+      </div>
+    </section>
+
+    <section id="superglobals" class="section-anchor">
+      <h2>12. Superglobals</h2>
+      <p>Superglobals are built-in arrays available in all scopes.</p>
+      <table>
+        <tr>
+          <th>Variable</th>
+          <th>Use</th>
+        </tr>
+        <tr>
+          <td><code class="inline">$_GET</code></td>
+          <td>Reads data from URL</td>
+        </tr>
+        <tr>
+          <td><code class="inline">$_POST</code></td>
+          <td>Reads form data</td>
+        </tr>
+        <tr>
+          <td><code class="inline">$_SERVER</code></td>
+          <td>Server information</td>
+        </tr>
+        <tr>
+          <td><code class="inline">$_SESSION</code></td>
+          <td>Session values</td>
+        </tr>
+        <tr>
+          <td><code class="inline">$_COOKIE</code></td>
+          <td>Cookie values</td>
+        </tr>
+        <tr>
+          <td><code class="inline">$_FILES</code></td>
+          <td>File upload data</td>
+        </tr>
+      </table>
+      <pre>&lt;?php
+echo $_SERVER['PHP_SELF'];
+?&gt;</pre>
+    </section>
+
+    <section id="sessions" class="section-anchor">
+      <h2>13. Sessions</h2>
+      <p>Sessions store information on the server and are used for login systems.</p>
+      <pre>&lt;?php
+session_start();
+$_SESSION["user"] = "Shubham";
+?&gt;</pre>
+      <pre>&lt;?php
+session_start();
+echo $_SESSION["user"];
+?&gt;</pre>
+      <pre>&lt;?php
+session_start();
+session_destroy();
+?&gt;</pre>
+      <div class="note">
+        Start the session using <code class="inline">session_start()</code> before reading or writing session variables.
+      </div>
+    </section>
+
+    <section id="cookies" class="section-anchor">
+      <h2>14. Cookies</h2>
+      <p>Cookies store small data in the browser.</p>
+      <pre>&lt;?php
+setcookie("user", "Shubham", time() + 3600);
+?&gt;</pre>
+      <pre>&lt;?php
+echo $_COOKIE["user"];
+?&gt;</pre>
+      <div class="warn">
+        Cookies are useful but should not be used for sensitive data like passwords.
+      </div>
+    </section>
+
+    <section id="files" class="section-anchor">
+      <h2>15. File Handling</h2>
+      <p>PHP can read, write, open, and close files.</p>
+      <pre>&lt;?php
+$file = fopen("data.txt", "w");
+fwrite($file, "Hello PHP");
+fclose($file);
+?&gt;</pre>
+      <pre>&lt;?php
+echo file_get_contents("data.txt");
+?&gt;</pre>
+      <table>
+        <tr>
+          <th>Mode</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td><code class="inline">r</code></td>
+          <td>Read</td>
+        </tr>
+        <tr>
+          <td><code class="inline">w</code></td>
+          <td>Write</td>
+        </tr>
+        <tr>
+          <td><code class="inline">a</code></td>
+          <td>Append</td>
+        </tr>
+        <tr>
+          <td><code class="inline">x</code></td>
+          <td>Create new file</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="upload" class="section-anchor">
+      <h2>16. File Upload</h2>
+      <p>File upload is used to upload images, documents, and other files.</p>
+      <pre>&lt;form method="POST" enctype="multipart/form-data"&gt;
+  &lt;input type="file" name="myfile"&gt;
+  &lt;button type="submit"&gt;Upload&lt;/button&gt;
+&lt;/form&gt;</pre>
+      <pre>&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    move_uploaded_file(
+        $_FILES["myfile"]["tmp_name"],
+        "uploads/" . $_FILES["myfile"]["name"]
+    );
+    echo "File uploaded successfully";
+}
+?&gt;</pre>
+      <div class="tip">
+        Always validate file type and size before uploading in real projects.
+      </div>
+    </section>
+
+    <section id="mysql" class="section-anchor">
+      <h2>17. PHP and MySQL</h2>
+      <p>PHP is often used with MySQL to store and manage data.</p>
+      <h3>Database connection</h3>
+      <pre>&lt;?php
+$conn = mysqli_connect("localhost", "root", "", "testdb");
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+?&gt;</pre>
+      <h3>Insert data</h3>
+      <pre>&lt;?php
+$sql = "INSERT INTO students (name, age) VALUES ('Shubham', 20)";
+mysqli_query($conn, $sql);
+?&gt;</pre>
+      <h3>Select data</h3>
+      <pre>&lt;?php
+$sql = "SELECT * FROM students";
+$result = mysqli_query($conn, $sql);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    echo $row["name"] . "&lt;br&gt;";
+}
+?&gt;</pre>
+      <h3>Update data</h3>
+      <pre>&lt;?php
+$sql = "UPDATE students SET name='Rahul' WHERE id=1";
+mysqli_query($conn, $sql);
+?&gt;</pre>
+      <h3>Delete data</h3>
+      <pre>&lt;?php
+$sql = "DELETE FROM students WHERE id=1";
+mysqli_query($conn, $sql);
+?&gt;</pre>
+    </section>
+
+    <section id="crud" class="section-anchor">
+      <h2>18. CRUD</h2>
+      <p>CRUD is one of the most important topics in PHP.</p>
+      <div class="box">
+        <p><strong>C</strong>reate</p>
+        <p><strong>R</strong>ead</p>
+        <p><strong>U</strong>pdate</p>
+        <p><strong>D</strong>elete</p>
+      </div>
+      <p>Examples of CRUD projects: student management system, notes app, blog system, product admin panel.</p>
+    </section>
+
+    <section id="oop" class="section-anchor">
+      <h2>19. Object-Oriented Programming</h2>
+      <p>OOP makes PHP code more organized, reusable, and scalable.</p>
+      <h3>Class and object</h3>
+      <pre>&lt;?php
+class Student {
+    public $name;
+
+    public function sayHello() {
+        echo "Hello from Student";
+    }
+}
+
+$obj = new Student();
+$obj-&gt;name = "Shubham";
+$obj-&gt;sayHello();
+?&gt;</pre>
+      <h3>Constructor</h3>
+      <pre>&lt;?php
+class Person {
+    public $name;
+
+    public function __construct($name) {
+        $this-&gt;name = $name;
+    }
+}
+
+$p = new Person("Shubham");
+echo $p-&gt;name;
+?&gt;</pre>
+      <h3>Inheritance</h3>
+      <pre>&lt;?php
+class ParentClass {
+    public function hello() {
+        echo "Hello Parent";
+    }
+}
+
+class ChildClass extends ParentClass {
+}
+
+$obj = new ChildClass();
+$obj-&gt;hello();
+?&gt;</pre>
+      <h3>Access modifiers</h3>
+      <table>
+        <tr>
+          <th>Modifier</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>public</td>
+          <td>Accessible everywhere</td>
+        </tr>
+        <tr>
+          <td>private</td>
+          <td>Accessible only inside class</td>
+        </tr>
+        <tr>
+          <td>protected</td>
+          <td>Accessible inside class and child class</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="security" class="section-anchor">
+      <h2>20. PHP Security</h2>
+      <p>Security is very important in real websites and applications.</p>
+      <div class="mini-grid">
+        <div class="card">
+          <h4>Input validation</h4>
+          <p>Always check user input before using it.</p>
+        </div>
+        <div class="card">
+          <h4>SQL injection protection</h4>
+          <p>Use prepared statements instead of direct query strings.</p>
+        </div>
+        <div class="card">
+          <h4>Password hashing</h4>
+          <p>Use password_hash() and password_verify().</p>
+        </div>
+        <div class="card">
+          <h4>Output escaping</h4>
+          <p>Use htmlspecialchars() for safe output.</p>
+        </div>
+      </div>
+      <pre>&lt;?php
+$passwordHash = password_hash("123456", PASSWORD_DEFAULT);
+
+if (password_verify("123456", $passwordHash)) {
+    echo "Password matched";
+}
+?&gt;</pre>
+      <div class="warn">
+        Never store plain text passwords in a real project.
+      </div>
+    </section>
+
+    <section id="advanced" class="section-anchor">
+      <h2>21. Advanced PHP Topics</h2>
+      <ul>
+        <li>Namespaces</li>
+        <li>Traits</li>
+        <li>Anonymous functions</li>
+        <li>Closures</li>
+        <li>Composer</li>
+        <li>REST API</li>
+        <li>JSON handling</li>
+        <li>Dependency injection</li>
+        <li>MVC architecture</li>
+        <li>Laravel framework</li>
+      </ul>
+      <div class="box">
+        <p><strong>Composer</strong> is a dependency manager for PHP.</p>
+        <p><strong>MVC</strong> means Model View Controller.</p>
+        <p><strong>Laravel</strong> is a popular PHP framework for modern applications.</p>
+      </div>
+    </section>
+
+    <section id="projects" class="section-anchor">
+      <h2>22. Project Ideas</h2>
+      <p>Practice these projects after learning PHP basics.</p>
+      <ol>
+        <li>Simple calculator</li>
+        <li>Contact form</li>
+        <li>Login and registration system</li>
+        <li>Student management system</li>
+        <li>Notes app</li>
+        <li>Blog website</li>
+        <li>File upload system</li>
+        <li>Admin dashboard</li>
+        <li>E-commerce cart</li>
+      </ol>
+    </section>
+
+    <section id="example" class="section-anchor">
+      <h2>23. Full Example</h2>
+      <p>This is a simple PHP page combining HTML and PHP.</p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+  &lt;title&gt;PHP Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome to PHP&lt;/h1&gt;
+
+  &lt;?php
+  $name = "Shubham";
+  $age = 20;
+
+  echo "&lt;p&gt;Name: $name&lt;/p&gt;";
+  echo "&lt;p&gt;Age: $age&lt;/p&gt;";
+
+  if ($age &gt;= 18) {
+      echo "&lt;p&gt;You are an adult.&lt;/p&gt;";
+  }
+  ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <div class="tip">
+        This type of page is useful for learning how PHP and HTML work together.
+      </div>
+    </section>
+
+    <section>
+      <h2>24. Interview Questions</h2>
+      <ul>
+        <li>What is PHP?</li>
+        <li>Why is PHP called server-side language?</li>
+        <li>Difference between echo and print?</li>
+        <li>Difference between include and require?</li>
+        <li>What are sessions and cookies?</li>
+        <li>What is CRUD?</li>
+        <li>What is OOP in PHP?</li>
+        <li>How do you connect PHP with MySQL?</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>25. Final Summary</h2>
+      <div class="box">
+        <p>PHP is a powerful backend language used for web development.</p>
+        <p>It works with HTML, CSS, JavaScript, and MySQL.</p>
+        <p>It is used to build login systems, forms, dashboards, and complete websites.</p>
+        <p>Learning PHP step by step from basics to advanced will help you build real projects.</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      Shubham Docs • PHP Study Page
+    </div>
+  </div>
+
+  <a href="#top" class="back-top">↑</a>
+</body>
+</html>
