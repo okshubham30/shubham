@@ -1,567 +1,1575 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Structures Notes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time &amp; Space Complexity - Complete Notes</title>
+<style>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08101f;
+  --card:#0d1628;
+  --card2:#111b2e;
+  --border:#22304a;
+  --text:#f4f7ff;
+  --muted:#91a0b9;
+  --blue:#55c7ff;
+  --blue2:#173b58;
+  --green:#55e6a5;
+  --yellow:#ffd34e;
+  --purple:#b87cff;
+  --pink:#ff69b4;
+  --red:#ff7d8a;
+  --code:#07101d;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(39,111,170,.18),transparent 28%),
+    radial-gradient(circle at 12% 82%,rgba(93,62,150,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+a{color:inherit}
+.container{width:min(1180px,92%);margin:auto;padding:35px 0 70px}
 
-    :root {
-      --bg: #08101f;
-      --card: #0d1628;
-      --card2: #111b2e;
-      --border: #22304a;
-      --text: #f4f7ff;
-      --muted: #91a0b9;
-      --blue: #55c7ff;
-      --blue-dark: #173b58;
-      --purple: #b87cff;
-      --green: #55e6a5;
-      --yellow: #ffd34e;
-      --pink: #ff69b4;
-    }
+/* Hero */
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:30px;
+  padding:45px;margin-bottom:28px;
+  background:linear-gradient(110deg,#0c1527,#0d182b 55%,#122b43);
+}
+.hero:after{
+  content:"";position:absolute;width:280px;height:280px;
+  right:-80px;top:-120px;border-radius:50%;
+  background:rgba(85,199,255,.11);filter:blur(4px)
+}
+.hero-content{position:relative;z-index:2}
+.badge{
+  display:inline-block;padding:7px 13px;border-radius:999px;
+  color:var(--blue);background:rgba(85,199,255,.11);
+  border:1px solid rgba(85,199,255,.28);
+  font-size:12px;font-weight:900;letter-spacing:.7px;margin-bottom:15px
+}
+h1{font-size:clamp(36px,5vw,58px);line-height:1.05;letter-spacing:-1.2px}
+.hero p{max-width:850px;color:var(--muted);font-size:17px;margin-top:14px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.meta span{
+  padding:7px 12px;border-radius:999px;background:#121d31;
+  border:1px solid var(--border);color:#cbd5e6;font-size:12px;font-weight:700
+}
 
-    body {
-      font-family: Inter, Arial, sans-serif;
-      background:
-        radial-gradient(circle at 80% 10%, rgba(39, 111, 170, .18), transparent 28%),
-        radial-gradient(circle at 15% 80%, rgba(93, 62, 150, .12), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+/* Layout */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+.toc{
+  position:sticky;top:18px;background:rgba(13,22,40,.9);
+  border:1px solid var(--border);border-radius:22px;padding:20px
+}
+.toc h3{font-size:17px;margin-bottom:12px}
+.toc a{
+  display:block;text-decoration:none;color:var(--muted);
+  padding:8px 10px;border-radius:10px;font-size:13px;
+  transition:.2s
+}
+.toc a:hover{background:#142137;color:var(--blue)}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+/* Content */
+.content{min-width:0}
+.section{
+  background:linear-gradient(145deg,#0c1527,#0d1628);
+  border:1px solid var(--border);border-radius:24px;
+  padding:30px;margin-bottom:20px
+}
+.section h2{
+  font-size:28px;line-height:1.25;margin-bottom:8px
+}
+.section h3{font-size:21px;margin:25px 0 9px;color:#eaf1ff}
+.section h4{font-size:17px;margin:20px 0 7px;color:var(--blue)}
+.section p{color:#c1ccdd;margin:8px 0}
+.section ul,.section ol{padding-left:24px;color:#c1ccdd}
+.section li{margin:7px 0}
+.kicker{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1px}
+.definition{
+  margin:15px 0;padding:17px 18px;border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;background:#101c30;color:#dce7f7
+}
+.tip{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--green);
+  border-radius:0 14px 14px 0;background:rgba(85,230,165,.07);color:#d7f5e7
+}
+.warning{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--yellow);
+  border-radius:0 14px 14px 0;background:rgba(255,211,78,.06);color:#f8edbd
+}
+.example{
+  margin:16px 0;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#0b1424
+}
+.example strong{display:block;color:var(--blue);margin-bottom:6px}
 
-    .container {
-      width: min(1250px, 92%);
-      margin: auto;
-      padding: 45px 0 70px;
-    }
+/* Tables */
+.table-wrap{overflow-x:auto;margin:15px 0}
+table{width:100%;border-collapse:collapse;min-width:580px}
+th,td{border:1px solid var(--border);padding:11px 13px;text-align:left}
+th{background:#142139;color:var(--blue);font-size:13px}
+td{color:#c8d2e1;font-size:14px}
+tr:nth-child(even) td{background:rgba(255,255,255,.015)}
 
-    /* Hero */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      padding: 48px;
-      margin-bottom: 28px;
-      background: linear-gradient(110deg, #0c1527, #0d182b 55%, #122b43);
-    }
+/* Code */
+pre{
+  overflow-x:auto;margin:15px 0;padding:18px;
+  background:var(--code);border:1px solid #1d2d44;
+  border-radius:15px;color:#dce8f8;font-size:13px;line-height:1.65
+}
+code{font-family:Consolas,Monaco,monospace}
+.inline{
+  font-family:Consolas,monospace;color:var(--blue);
+  background:#111d31;padding:2px 6px;border-radius:6px
+}
+.code-title{
+  margin-top:18px;color:#aebbd0;font-size:12px;font-weight:800;
+  letter-spacing:.5px
+}
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      right: -80px;
-      top: -100px;
-      border-radius: 50%;
-      background: rgba(70, 184, 242, .12);
-      filter: blur(5px);
-    }
+/* Formula */
+.formula{
+  padding:17px;text-align:center;margin:15px 0;
+  border:1px dashed #365170;border-radius:15px;
+  background:#0b1728;color:#f1f6ff;font-family:Consolas,monospace
+}
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-    }
+/* Complexity cards */
+.complexity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0}
+.cbox{padding:15px;border:1px solid var(--border);border-radius:16px;background:#101a2c}
+.cbox b{font-size:20px;color:var(--blue);display:block}
+.cbox span{font-size:12px;color:var(--muted)}
 
-    .badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(85, 199, 255, .12);
-      border: 1px solid rgba(85, 199, 255, .28);
-      color: var(--blue);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .6px;
-      margin-bottom: 18px;
-    }
+/* Summary */
+.summary{
+  border:1px solid rgba(85,199,255,.28);
+  background:linear-gradient(145deg,#0c1a2b,#0d1d31);
+}
+.checklist li::marker{color:var(--green)}
 
-    h1 {
-      font-size: clamp(38px, 6vw, 64px);
-      line-height: 1;
-      margin-bottom: 16px;
-      letter-spacing: -1.5px;
-    }
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .toc{position:relative;top:0}
+  .complexity-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .container{width:94%;padding-top:22px}
+  .hero{padding:28px 22px;border-radius:24px}
+  .section{padding:22px 18px;border-radius:20px}
+  .complexity-grid{grid-template-columns:1fr 1fr}
+  h1{font-size:38px}
+  .hero p{font-size:15px}
+}
 
-    .hero p {
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
-      max-width: 720px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .btn {
-      padding: 14px 22px;
-      border-radius: 15px;
-      border: 1px solid var(--border);
-      font-weight: 800;
-      transition: .25s;
-    }
-
-    .btn.primary {
-      background: var(--blue);
-      color: #06101b;
-      border-color: var(--blue);
-    }
-
-    .btn.secondary {
-      background: #121c30;
-      color: var(--text);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Stats */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 50px;
-    }
-
-    .stat {
-      border: 1px solid var(--border);
-      background: rgba(12, 21, 38, .78);
-      border-radius: 22px;
-      padding: 23px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 30px;
-      margin-bottom: 7px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Section */
-    .section-title {
-      margin-bottom: 22px;
-    }
-
-    .section-title h2 {
-      font-size: 29px;
-      margin-bottom: 7px;
-    }
-
-    .section-title p {
-      color: var(--muted);
-    }
-
-    /* Cards */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      position: relative;
-      overflow: hidden;
-      min-height: 245px;
-      padding: 26px;
-      border: 1px solid var(--border);
-      border-radius: 25px;
-      background: linear-gradient(145deg, #0c1527, #0d1628);
-      transition: .25s ease;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 145px;
-      height: 145px;
-      right: -55px;
-      bottom: -60px;
-      border-radius: 50%;
-      background: rgba(85, 199, 255, .08);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(85, 199, 255, .45);
-      box-shadow: 0 18px 45px rgba(0,0,0,.25);
-    }
-
-    .icon {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 18px;
-      background: #182236;
-      border: 1px solid #2a3850;
-      font-size: 28px;
-      margin-bottom: 21px;
-    }
-
-    .card h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 15px;
-      margin-bottom: 19px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .5px;
-    }
-
-    .lecture .tag {
-      color: var(--blue);
-      background: rgba(85, 199, 255, .12);
-    }
-
-    .note .tag {
-      color: var(--green);
-      background: rgba(85, 230, 165, .11);
-    }
-
-    .important .tag {
-      color: var(--yellow);
-      background: rgba(255, 211, 78, .11);
-    }
-
-    /* Notes */
-    .notes {
-      margin-top: 55px;
-    }
-
-    .note {
-      min-height: 215px;
-    }
-
-    .note .icon {
-      font-size: 25px;
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 60px;
-      padding: 25px 0 10px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Mobile */
-    @media (max-width: 950px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 620px) {
-      .container {
-        width: 94%;
-        padding-top: 25px;
-      }
-
-      .hero {
-        padding: 30px 22px;
-        border-radius: 24px;
-      }
-
-      .hero p {
-        font-size: 15px;
-      }
-
-      .stats,
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stat {
-        padding: 19px;
-      }
-
-      .card {
-        min-height: auto;
-      }
-
-      h1 {
-        font-size: 40px;
-      }
-    }
-  </style>
+</style>
 </head>
-
 <body>
+<div class="container">
 
-  <main class="container">
+<header class="hero">
+  <div class="hero-content">
+    <span class="badge">CSE • DATA STRUCTURES • COMPLETE NOTES</span>
+    <h1>Time &amp; Space Complexity</h1>
+    <p>
+      Complete, beginner-friendly and exam-oriented notes covering time complexity,
+      space complexity, asymptotic notations, loops, recursion, Master Theorem,
+      searching, sorting, data structures and advanced complexity analysis.
+    </p>
+    <div class="meta">
+      <span>📘 Detailed Theory</span>
+      <span>💻 C Examples</span>
+      <span>🧠 Concepts + Logic</span>
+      <span>🎯 Exam Preparation</span>
+    </div>
+  </div>
+</header>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-content">
-        <span class="badge">CSE • DSA</span>
+<div class="layout">
 
-        <h1>Data Structures</h1>
+<aside class="toc">
+  <h3>On This Page</h3>
+  <a href="#foundation">Complexity Basics</a>
+<a href="#time">Time Complexity</a>
+<a href="#asymptotic">Asymptotic Notations &amp; Growth</a>
+<a href="#growth">Common Complexity Classes</a>
+<a href="#loops">Loop &amp; Program Analysis</a>
+<a href="#recursion">Recursion &amp; Recurrence</a>
+<a href="#master">Master Theorem</a>
+<a href="#space">Space Complexity</a>
+<a href="#tradeoff">Time-Space Tradeoff &amp; Amortized Analysis</a>
+<a href="#rules">Analysis Rules &amp; Simplification</a>
+<a href="#algorithms">Searching, Sorting &amp; Data Structures</a>
+<a href="#advanced">Advanced Complexity Examples</a>
+<a href="#revision">Exam Notes &amp; Final Cheat Sheet</a>
+</aside>
 
-        <p>
-          Learn Data Structures from the basics to advanced concepts.
-          Study lectures, detailed notes, algorithms, complexity,
-          arrays, linked lists, stacks, queues, trees, graphs and more.
-        </p>
+<main class="content">
 
-        <div class="hero-buttons">
-          <a href="#lectures" class="btn primary">Start Learning</a>
-          <a href="#notes" class="btn secondary">Explore Notes</a>
-        </div>
-      </div>
-    </section>
+<section class="section" id="foundation">
+  <span class="kicker">01 • FOUNDATION</span>
+  <h2>Complexity Basics</h2>
+  <h3>2. Why Do We Need Complexity Analysis?</h3><p>The same problem can have many different solutions.</p>
+<p>For example, searching an element can be performed using:</p>
+<h4>Linear Search</h4>
+<pre><code>10 20 30 40 50
+         ↑
+</code></pre>
+<p>Check elements one by one.</p>
+<p>Time complexity:</p>
+<pre><code>O(n)
+</code></pre>
+<h4>Binary Search</h4>
+<p>If the array is sorted, we repeatedly divide the search area into two.</p>
+<p>Time complexity:</p>
+<pre><code>O(log n)
+</code></pre>
+<div class="formula">For a very large input, <span class="inline">O(log n)</span> is much faster than <span class="inline">O(n)</span>.</div>
+<p>Therefore, complexity analysis helps us choose an efficient algorithm.</p>
+<p>---</p><h3>3. What is Input Size?</h3><p>Input size is usually represented by:</p>
+<pre><code>n
+</code></pre>
+<p>Examples:</p>
+<h4>Array</h4>
+<pre><code>int arr[n];
+</code></pre>
+<div class="formula">Input size = number of elements.</div>
+<pre><code>n = number of elements
+</code></pre>
+<h4>Matrix</h4>
+<div class="formula">For an <span class="inline">n × n</span> matrix:</div>
+<pre><code>Input size ≈ n²
+</code></pre>
+<h4>String</h4>
+<p>For a string:</p>
+<pre><code>&quot;HELLO&quot;
+</code></pre>
+<p>Input size:</p>
+<pre><code>n = length of string
+</code></pre>
+<p>---</p><h3>4. What is an Operation?</h3><p>An operation is a basic unit of work performed by a program.</p>
+<p>Examples:</p>
+<pre><code>a = b + c;
+</code></pre>
+<p>Operations include:</p>
+<ul><li>assignment</li><li>addition</li><li>comparison</li><li>increment</li><li>memory access</li></ul>
+<p>We normally don't count every CPU instruction individually.</p>
+<p>Instead, we analyze how the number of basic operations grows with input size.</p>
+<p>---</p>
+</section>
+<section class="section" id="time">
+  <span class="kicker">02 • TIME ANALYSIS</span>
+  <h2>Time Complexity</h2>
+  <h3>5. Time Complexity</h3><p>Time complexity describes the growth of the number of operations performed by an algorithm as input size increases.</p>
+<p>It does <strong>not necessarily mean actual clock time</strong>.</p>
+<p>For example:</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    printf(&quot;%d&quot;, i);
+}
+</code></pre>
+<p>The loop runs:</p>
+<pre><code>n times
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Time Complexity = O(n)
+</code></pre>
+<p>---</p><h3>6. Best Case, Average Case and Worst Case</h3><p>An algorithm can behave differently for different inputs.</p>
+<p>There are three commonly discussed cases.</p>
+<h3>Best Case</h3>
+<p>Minimum amount of work.</p>
+<p>Example: Linear search.</p>
+<p>Array:</p>
+<pre><code>[10, 20, 30, 40, 50]
+</code></pre>
+<p>Searching for:</p>
+<pre><code>10
+</code></pre>
+<p>The first element matches.</p>
+<p>Only one comparison is required.</p>
+<pre><code>Best Case = O(1)
+</code></pre>
+<p>---</p>
+<h3>Worst Case</h3>
+<p>Maximum amount of work.</p>
+<p>If we search for:</p>
+<pre><code>50
+</code></pre>
+<p>we may need to check every element.</p>
+<pre><code>Worst Case = O(n)
+</code></pre>
+<p>If the element is not present, we also check all <span class="inline">n</span> elements.</p>
+<p>---</p>
+<h3>Average Case</h3>
+<p>Expected amount of work over possible inputs.</p>
+<p>For linear search, if the element is equally likely to be anywhere:</p>
+<pre><code>Average comparisons ≈ n/2
+</code></pre>
+<p>Since constants are ignored in asymptotic analysis:</p>
+<pre><code>O(n/2) = O(n)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Best Case    → O(1)
+Average Case → O(n)
+Worst Case   → O(n)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="asymptotic">
+  <span class="kicker">03 • ASYMPTOTIC ANALYSIS</span>
+  <h2>Asymptotic Notations & Growth</h2>
+  <h3>7. Asymptotic Analysis</h3><p>Asymptotic analysis studies the behavior of an algorithm when the input size becomes very large.</p>
+<p>We are mainly interested in the <strong>growth rate</strong>.</p>
+<p>Suppose an algorithm performs:</p>
+<pre><code>3n² + 5n + 10
+</code></pre>
+<p>operations.</p>
+<p>For very large <span class="inline">n</span>, the <span class="inline">n²</span> term dominates.</p>
+<p>Therefore:</p>
+<pre><code>3n² + 5n + 10 = O(n²)
+</code></pre>
+<p>We ignore:</p>
+<ul><li>constants</li><li>lower-order terms</li></ul>
+<p>---</p><h3>8. Asymptotic Notations</h3><p>The three important asymptotic notations are:</p>
+<pre><code>O
+Ω
+Θ
+</code></pre>
+<p>---</p><h3>9. Big-O Notation — O()</h3><p>Big-O represents an <strong>upper bound</strong> on the growth rate.</p>
+<p>It is commonly used to describe the worst-case growth of an algorithm.</p>
+<p>Example:</p>
+<pre><code>T(n) = 3n² + 2n + 5
+</code></pre>
+<p>The dominant term is:</p>
+<pre><code>n²
+</code></pre>
+<p>Therefore:</p>
+<pre><code>T(n) = O(n²)
+</code></pre>
+<h4>Examples</h4>
+<pre><code>5n + 10       → O(n)
 
-    <!-- STATS -->
-    <section class="stats">
-      <div class="stat">
-        <strong>10+</strong>
-        <span>Lectures</span>
-      </div>
+2n² + 3n + 1  → O(n²)
 
-      <div class="stat">
-        <strong>1</strong>
-        <span>Subject</span>
-      </div>
+10log n + 5   → O(log n)
 
-      <div class="stat">
-        <strong>10+</strong>
-        <span>Study Notes</span>
-      </div>
+100           → O(1)
+</code></pre>
+<p>---</p><h3>10. Big-Omega — Ω()</h3><p>Omega represents a <strong>lower bound</strong>.</p>
+<p>It tells us that an algorithm requires at least a certain growth rate.</p>
+<p>Example:</p>
+<pre><code>T(n) = 3n + 5
+</code></pre>
+<p>The growth is at least proportional to <span class="inline">n</span>.</p>
+<p>Therefore:</p>
+<pre><code>T(n) = Ω(n)
+</code></pre>
+<p>---</p><h3>11. Big-Theta — Θ()</h3><p>Theta represents a <strong>tight bound</strong>.</p>
+<p>If an algorithm grows both:</p>
+<pre><code>O(f(n))
+</code></pre>
+<p>and</p>
+<pre><code>Ω(f(n))
+</code></pre>
+<p>then:</p>
+<pre><code>Θ(f(n))
+</code></pre>
+<p>Example:</p>
+<pre><code>T(n) = 3n + 5
+</code></pre>
+<p>It grows linearly.</p>
+<p>Therefore:</p>
+<pre><code>T(n) = Θ(n)
+</code></pre>
+<p>---</p><h3>12. Difference Between O, Ω and Θ</h3><div class="table-wrap"><table>
+<tr><th>NotationMeaning</th><th></th></tr>
+<tr><td>O(f(n))</td><td>Upper bound</td></tr>
+<tr><td>Ω(f(n))</td><td>Lower bound</td></tr>
+<tr><td>Θ(f(n))</td><td>Tight bound</td></tr>
+</table></div>
+<p>Easy way to remember:</p>
+<pre><code>O  → At most
+Ω  → At least
+Θ  → Exactly the growth class
+</code></pre>
+<p>---</p><h3>13. Common Time Complexities</h3><p>From generally faster to slower growth:</p>
+<pre><code>O(1)
+O(log n)
+O(n)
+O(n log n)
+O(n²)
+O(n³)
+O(2ⁿ)
+O(n!)
+</code></pre>
+<p>This is one of the most important tables in DSA.</p>
+<p>---</p>
+</section>
+<section class="section" id="growth">
+  <span class="kicker">04 • COMPLEXITY CLASSES</span>
+  <h2>Common Complexity Classes</h2>
+  <h3>14. O(1) — Constant Time</h3><p>The amount of work does not depend on <span class="inline">n</span>.</p>
+<p>Example:</p>
+<pre><code>int x = arr[0];
+</code></pre>
+<p>Only one array element is accessed.</p>
+<pre><code>Time Complexity = O(1)
+</code></pre>
+<p>Another example:</p>
+<pre><code>int sum = a + b;
+</code></pre>
+<pre><code>O(1)
+</code></pre>
+<p>---</p><h3>15. O(log n) — Logarithmic Time</h3><p>The input is repeatedly divided into smaller portions.</p>
+<p>Most common example:</p>
+<pre><code>Binary Search
+</code></pre>
+<p>Suppose:</p>
+<pre><code>n = 16
+</code></pre>
+<p>After each step:</p>
+<pre><code>16 → 8 → 4 → 2 → 1
+</code></pre>
+<p>Number of steps:</p>
+<pre><code>log₂(16) = 4
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Binary Search = O(log n)
+</code></pre>
+<p>---</p><h3>16. O(n) — Linear Time</h3><p>Work increases directly with input size.</p>
+<p>Example:</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    printf(&quot;%d&quot;, arr[i]);
+}
+</code></pre>
+<p>The loop executes <span class="inline">n</span> times.</p>
+<p>Therefore:</p>
+<pre><code>O(n)
+</code></pre>
+<p>---</p><h3>17. O(n log n)</h3><p>Common in efficient sorting algorithms.</p>
+<p>Examples:</p>
+<pre><code>Merge Sort
+Heap Sort
+Average-case Quick Sort
+</code></pre>
+<p>Example:</p>
+<pre><code>Divide the input → log n levels
+Process n elements at each level
+</code></pre>
+<p>Therefore:</p>
+<pre><code>n × log n = O(n log n)
+</code></pre>
+<p>---</p><h3>18. O(n²) — Quadratic Time</h3><p>Usually occurs with nested loops.</p>
+<p>Example:</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = 0; j &lt; n; j++)
+    {
+        printf(&quot;*&quot;);
+    }
+}
+</code></pre>
+<p>Outer loop:</p>
+<pre><code>n
+</code></pre>
+<p>Inner loop:</p>
+<pre><code>n
+</code></pre>
+<p>Total:</p>
+<pre><code>n × n = n²
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>Bubble Sort is a common example.</p>
+<p>---</p><h3>19. O(n³) — Cubic Time</h3><p>Three nested loops often produce cubic complexity.</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = 0; j &lt; n; j++)
+    {
+        for(int k = 0; k &lt; n; k++)
+        {
+            // operation
+        }
+    }
+}
+</code></pre>
+<p>Total:</p>
+<pre><code>n × n × n = n³
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n³)
+</code></pre>
+<p>---</p><h3>20. O(2ⁿ) — Exponential Time</h3><p>The amount of work doubles with each additional input element.</p>
+<p>A classic example is naive recursive Fibonacci.</p>
+<pre><code>fib(n)
+{
+    if(n &lt;= 1)
+        return n;
 
-      <div class="stat">
-        <strong>∞</strong>
-        <span>Keep Learning</span>
-      </div>
-    </section>
+    return fib(n-1) + fib(n-2);
+}
+</code></pre>
+<p>Approximate complexity:</p>
+<pre><code>O(2ⁿ)
+</code></pre>
+<p>This becomes extremely slow for large <span class="inline">n</span>.</p>
+<p>---</p><h3>21. O(n!) — Factorial Time</h3><p>Factorial complexity grows extremely quickly.</p>
+<p>Example:</p>
+<pre><code>Generating all permutations
+</code></pre>
+<p>For <span class="inline">n</span> elements:</p>
+<pre><code>Number of permutations = n!
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n!)
+</code></pre>
+<p>This is generally practical only for small input sizes.</p>
+<p>---</p><h3>22. Important Complexity Comparison</h3><div class="table-wrap"><table>
+<tr><th>Complexityn = 10n = 100</th><th></th><th></th></tr>
+<tr><td>O(1)</td><td>1</td><td>1</td></tr>
+<tr><td>O(log n)</td><td>\~3</td><td>\~7</td></tr>
+<tr><td>O(n)</td><td>10</td><td>100</td></tr>
+<tr><td>O(n log n)</td><td>\~33</td><td>\~664</td></tr>
+<tr><td>O(n²)</td><td>100</td><td>10,000</td></tr>
+<tr><td>O(n³)</td><td>1,000</td><td>1,000,000</td></tr>
+<tr><td>O(2ⁿ)</td><td>1,024</td><td>Extremely large</td></tr>
+<tr><td>O(n!)</td><td>3,628,800</td><td>Extremely large</td></tr>
+</table></div>
+<p>This demonstrates why efficient algorithms are important.</p>
+<p>---</p>
+</section>
+<section class="section" id="loops">
+  <span class="kicker">05 • PROBLEM SOLVING</span>
+  <h2>Loop & Program Analysis</h2>
+  <h3>23. How to Calculate Complexity of a Loop</h3><p>Consider:</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    printf(&quot;Hello&quot;);
+}
+</code></pre>
+<p>Number of iterations:</p>
+<pre><code>n
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n)
+</code></pre>
+<p>---</p><h3>24. Two Separate Loops</h3><pre><code>for(int i = 0; i &lt; n; i++)
+{
+    // O(n)
+}
 
-    <!-- LECTURES -->
-    <section id="lectures">
-      <div class="section-title">
-        <h2>Lectures</h2>
-        <p>Choose a lecture and start learning step by step.</p>
-      </div>
+for(int j = 0; j &lt; n; j++)
+{
+    // O(n)
+}
+</code></pre>
+<p>Total:</p>
+<pre><code>O(n) + O(n)
+= O(2n)
+</code></pre>
+<p>Ignore constant:</p>
+<pre><code>O(n)
+</code></pre>
+<h4>Rule</h4>
+<p>Sequential operations are generally <strong>added</strong>.</p>
+<pre><code>O(n) + O(n²)
+= O(n²)
+</code></pre>
+<p>The dominant term wins.</p>
+<p>---</p><h3>25. Nested Loops</h3><pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = 0; j &lt; n; j++)
+    {
+        // operation
+    }
+}
+</code></pre>
+<p>Nested loops are generally multiplied:</p>
+<pre><code>n × n
+= n²
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p><h3>26. Different-Sized Nested Loops</h3><p>Consider:</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = 0; j &lt; m; j++)
+    {
+        // operation
+    }
+}
+</code></pre>
+<p>Outer loop:</p>
+<pre><code>n
+</code></pre>
+<p>Inner loop:</p>
+<pre><code>m
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(nm)
+</code></pre>
+<div class="formula">Do not automatically write <span class="inline">O(n²)</span> unless:</div>
+<pre><code>m = n
+</code></pre>
+<p>---</p><h3>27. Loop That Doubles</h3><p>Consider:</p>
+<pre><code>for(int i = 1; i &lt; n; i = i * 2)
+{
+    printf(&quot;%d&quot;, i);
+}
+</code></pre>
+<p>Values:</p>
+<pre><code>1
+2
+4
+8
+16
+32
+...
+</code></pre>
+<p>The value doubles every iteration.</p>
+<p>Number of iterations:</p>
+<pre><code>log₂ n
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(log n)
+</code></pre>
+<p>---</p><h3>28. Loop That Halves</h3><pre><code>for(int i = n; i &gt; 0; i = i / 2)
+{
+    // operation
+}
+</code></pre>
+<p>Values:</p>
+<pre><code>n
+n/2
+n/4
+n/8
+...
+1
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(log n)
+</code></pre>
+<p>---</p><h3>29. Important Trick — Dependent Loops</h3><p>Consider:</p>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = 0; j &lt; i; j++)
+    {
+        // operation
+    }
+}
+</code></pre>
+<p>The inner loop does not always execute <span class="inline">n</span> times.</p>
+<p>Total operations:</p>
+<pre><code>0 + 1 + 2 + 3 + ... + (n-1)
+</code></pre>
+<p>Using:</p>
+<pre><code>n(n-1)/2
+</code></pre>
+<p>We get:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p><h3>30. Complexity of If-Else</h3><pre><code>if(condition)
+{
+    // O(n)
+}
+else
+{
+    // O(n²)
+}
+</code></pre>
+<p>Worst-case complexity:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>We select the branch with the greater growth rate for worst-case analysis.</p>
+<p>---</p><h3>31. Complexity of Functions</h3><p>Suppose:</p>
+<pre><code>void function1()
+{
+    // O(n)
+}
 
-      <div class="grid">
+void function2()
+{
+    // O(n²)
+}
 
-        <a href="lectures/lecture1.html" class="card lecture">
-          <div class="icon">01</div>
-          <h3>Lecture 1</h3>
-          <p>
-            Introduction to Data Structures, basic terminology,
-            data organization, algorithms and efficiency.
-          </p>
-          <span class="tag">FOUNDATION</span>
-        </a>
+void main()
+{
+    function1();
+    function2();
+}
+</code></pre>
+<p>Total:</p>
+<pre><code>O(n) + O(n²)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="recursion">
+  <span class="kicker">06 • RECURSION</span>
+  <h2>Recursion & Recurrence</h2>
+  <h3>32. Recursion and Time Complexity</h3><p>Recursion requires special analysis.</p>
+<p>Example:</p>
+<pre><code>void fun(int n)
+{
+    if(n == 0)
+        return;
 
-        <a href="lectures/lecture2.html" class="card lecture">
-          <div class="icon">02</div>
-          <h3>Lecture 2</h3>
-          <p>
-            Time complexity, space complexity and asymptotic
-            notations O, Ω and Θ with examples.
-          </p>
-          <span class="tag">COMPLEXITY</span>
-        </a>
+    fun(n-1);
+}
+</code></pre>
+<p>There are <span class="inline">n</span> recursive calls.</p>
+<p>Therefore:</p>
+<pre><code>Time = O(n)
+</code></pre>
+<p>---</p><h3>33. Recursive Binary Search</h3><p>Binary search divides the input by 2 in every recursive call.</p>
+<p>Recurrence:</p>
+<pre><code>T(n) = T(n/2) + O(1)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>T(n) = O(log n)
+</code></pre>
+<p>---</p><h3>34. Merge Sort Recurrence</h3><p>Merge Sort divides the array into two halves.</p>
+<p>Recurrence:</p>
+<pre><code>T(n) = 2T(n/2) + O(n)
+</code></pre>
+<p>Result:</p>
+<pre><code>T(n) = O(n log n)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="master">
+  <span class="kicker">07 • ADVANCED</span>
+  <h2>Master Theorem</h2>
+  <h3>35. Master Theorem</h3><p>The Master Theorem is used to solve many divide-and-conquer recurrences.</p>
+<p>General form:</p>
+<pre><code>T(n) = aT(n/b) + f(n)
+</code></pre>
+<p>Where:</p>
+<ul><li><span class="inline">a</span> = number of recursive subproblems</li><li><span class="inline">n/b</span> = size of each subproblem</li><li><span class="inline">f(n)</span> = work outside recursion</li></ul>
+<p>Define:</p>
+<pre><code>p = log_b(a)
+</code></pre>
+<p>Compare:</p>
+<pre><code>f(n)
+</code></pre>
+<p>with:</p>
+<pre><code>n^p
+</code></pre>
+<p>---</p><h3>36. Master Theorem — Case 1</h3><p>If:</p>
+<pre><code>f(n) = O(n^(p-ε))
+</code></pre>
+<p>for some <span class="inline">ε &gt; 0</span>, then:</p>
+<pre><code>T(n) = Θ(n^p)
+</code></pre>
+<p>Example:</p>
+<pre><code>T(n) = 2T(n/2) + O(1)
+</code></pre>
+<p>Here:</p>
+<pre><code>a = 2
+b = 2
 
-        <a href="lectures/lecture3.html" class="card lecture">
-          <div class="icon">03</div>
-          <h3>Lecture 3</h3>
-          <p>
-            Time-space tradeoff, Abstract Data Types and
-            important ADT concepts.
-          </p>
-          <span class="tag">ADT</span>
-        </a>
+p = log₂2 = 1
+</code></pre>
+<p>So:</p>
+<pre><code>T(n) = Θ(n)
+</code></pre>
+<p>---</p><h3>37. Master Theorem — Case 2</h3><p>If:</p>
+<pre><code>f(n) = Θ(n^p log^k n)
+</code></pre>
+<p>then:</p>
+<pre><code>T(n) = Θ(n^p log^(k+1)n)
+</code></pre>
+<p>Example:</p>
+<pre><code>T(n) = 2T(n/2) + Θ(n)
+</code></pre>
+<p>Here:</p>
+<pre><code>p = 1
+</code></pre>
+<p>and:</p>
+<pre><code>f(n) = Θ(n)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>T(n) = Θ(n log n)
+</code></pre>
+<p>This is the Merge Sort recurrence.</p>
+<p>---</p><h3>38. Master Theorem — Case 3</h3><p>If:</p>
+<pre><code>f(n) = Ω(n^(p+ε))
+</code></pre>
+<p>and the regularity condition holds, then:</p>
+<pre><code>T(n) = Θ(f(n))
+</code></pre>
+<p>This is useful when the non-recursive work dominates the recursive part.</p>
+<p>---</p>
+</section>
+<section class="section" id="space">
+  <span class="kicker">08 • SPACE ANALYSIS</span>
+  <h2>Space Complexity</h2>
+  <h3>39. Space Complexity</h3><p>Space complexity measures how much memory an algorithm requires as the input grows.</p>
+<p>Memory can include:</p>
+<ul><li>variables</li><li>arrays</li><li>objects</li><li>recursion stack</li><li>dynamically allocated memory</li><li>auxiliary data structures</li></ul>
+<p>---</p><h3>40. Input Space vs Auxiliary Space</h3><p>This distinction is very important.</p>
+<h4>Input Space</h4>
+<p>Memory required to store the input itself.</p>
+<p>Example:</p>
+<pre><code>int arr[n];
+</code></pre>
+<p>If the array is part of the input:</p>
+<pre><code>Input Space = O(n)
+</code></pre>
+<h4>Auxiliary Space</h4>
+<p>Extra memory used by the algorithm apart from the input.</p>
+<p>For example, an algorithm may receive an array but use another temporary array of size <span class="inline">n</span>.</p>
+<p>Then:</p>
+<pre><code>Auxiliary Space = O(n)
+</code></pre>
+<p>---</p><h3>41. Constant Space — O(1)</h3><pre><code>int sum = 0;
+int max = 0;
+</code></pre>
+<p>Only a fixed number of variables are used.</p>
+<p>Therefore:</p>
+<pre><code>Space Complexity = O(1)
+</code></pre>
+<p>---</p><h3>42. Linear Space — O(n)</h3><pre><code>int temp[n];
+</code></pre>
+<p>Memory grows with <span class="inline">n</span>.</p>
+<p>Therefore:</p>
+<pre><code>Space Complexity = O(n)
+</code></pre>
+<p>---</p><h3>43. Two-Dimensional Space — O(n²)</h3><p>For:</p>
+<pre><code>int matrix[n][n];
+</code></pre>
+<p>Number of elements:</p>
+<pre><code>n × n = n²
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Space Complexity = O(n²)
+</code></pre>
+<p>---</p><h3>44. Recursion and Space Complexity</h3><p>Consider:</p>
+<pre><code>void fun(int n)
+{
+    if(n == 0)
+        return;
 
-        <a href="lectures/lecture4.html" class="card lecture">
-          <div class="icon">04</div>
-          <h3>Lecture 4</h3>
-          <p>
-            Arrays, array operations, insertion, deletion,
-            searching and memory representation.
-          </p>
-          <span class="tag">ARRAYS</span>
-        </a>
+    fun(n-1);
+}
+</code></pre>
+<p>There can be <span class="inline">n</span> active stack frames.</p>
+<p>Therefore:</p>
+<pre><code>Auxiliary Space = O(n)
+</code></pre>
+<p>Even though the function doesn't create an array, recursion uses the call stack.</p>
+<p>---</p><h3>45. Time vs Space Complexity</h3><div class="table-wrap"><table>
+<tr><th>FeatureTime ComplexitySpace Complexity</th><th></th><th></th></tr>
+<tr><td>Measures</td><td>Running work</td><td>Memory usage</td></tr>
+<tr><td>Main concern</td><td>Speed</td><td>Memory</td></tr>
+<tr><td>Example</td><td>O(n)</td><td>O(n)</td></tr>
+<tr><td>Depends on</td><td>Operations</td><td>Storage</td></tr>
+<tr><td>Includes recursion</td><td>Time of calls</td><td>Call stack</td></tr>
+</table></div>
+<p>---</p>
+</section>
+<section class="section" id="tradeoff">
+  <span class="kicker">09 • DESIGN</span>
+  <h2>Time-Space Tradeoff & Amortized Analysis</h2>
+  <h3>46. Time-Space Tradeoff</h3><p>Sometimes we use extra memory to make an algorithm faster.</p>
+<p>This is called:</p>
+<pre><code>Time-Space Tradeoff
+</code></pre>
+<h4>Example</h4>
+<p>Suppose we repeatedly search for values.</p>
+<p>Using a hash table may require:</p>
+<pre><code>Extra Space = O(n)
+</code></pre>
+<p>but can provide approximately:</p>
+<pre><code>Average Search Time = O(1)
+</code></pre>
+<p>So:</p>
+<pre><code>More memory
+      ↓
+Faster operations
+</code></pre>
+<p>This is a common design principle.</p>
+<p>---</p><h3>47. Array vs Hash Table Example</h3><p>Suppose we need to check whether an element exists.</p>
+<h4>Linear Search</h4>
+<pre><code>Time  = O(n)
+Space = O(1)
+</code></pre>
+<h4>Hash Table</h4>
+<p>Typically:</p>
+<pre><code>Average Time = O(1)
+Space        = O(n)
+</code></pre>
+<p>We traded memory for speed.</p>
+<p>---</p><h3>48. Complexity of Common Data Structures</h3><div class="table-wrap"><table>
+<tr><th>Data Structure / OperationTypical Time</th><th></th></tr>
+<tr><td>Array Access</td><td>O(1)</td></tr>
+<tr><td>Array Search</td><td>O(n)</td></tr>
+<tr><td>Array Insertion at End\*</td><td>O(1)</td></tr>
+<tr><td>Array Insertion at Beginning</td><td>O(n)</td></tr>
+<tr><td>Linked List Access</td><td>O(n)</td></tr>
+<tr><td>Linked List Search</td><td>O(n)</td></tr>
+<tr><td>Linked List Insert at Known Node</td><td>O(1)</td></tr>
+<tr><td>Stack Push</td><td>O(1)</td></tr>
+<tr><td>Stack Pop</td><td>O(1)</td></tr>
+<tr><td>Queue Enqueue</td><td>O(1)</td></tr>
+<tr><td>Queue Dequeue</td><td>O(1)</td></tr>
+<tr><td>Hash Table Search</td><td>O(1) average</td></tr>
+<tr><td>Binary Search</td><td>O(log n)</td></tr>
+</table></div>
+<p><span class="inline">*</span> Assuming there is available capacity / suitable dynamic-array conditions.</p>
+<p>---</p><h3>49. Sorting Complexity</h3><div class="table-wrap"><table>
+<tr><th>AlgorithmBestAverageWorstExtra Space</th><th></th><th></th><th></th><th></th></tr>
+<tr><td>Bubble Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+<tr><td>Selection Sort</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+<tr><td>Insertion Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td></tr>
+<tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td></tr>
+<tr><td>Quick Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n) average stack</td></tr>
+<tr><td>Heap Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(1)</td></tr>
+</table></div>
+<p>---</p><h3>50. Searching Complexity</h3><h4>Linear Search</h4>
+<pre><code>Best  = O(1)
+Average = O(n)
+Worst = O(n)
+</code></pre>
+<h4>Binary Search</h4>
+<p>Requires a sorted collection.</p>
+<pre><code>Best  = O(1)
+Average = O(log n)
+Worst = O(log n)
+</code></pre>
+<p>---</p><h3>51. Amortized Analysis</h3><p>Amortized analysis studies the average cost of operations over a sequence of operations.</p>
+<p>It is different from average-case analysis.</p>
+<h4>Example: Dynamic Array</h4>
+<p>Normally adding an element:</p>
+<pre><code>O(1)
+</code></pre>
+<p>But when the array becomes full, it may resize and copy all elements:</p>
+<pre><code>O(n)
+</code></pre>
+<div class="formula">Although one particular insertion can cost <span class="inline">O(n)</span>, over a long sequence of insertions, the amortized insertion cost is typically:</div>
+<pre><code>O(1)
+</code></pre>
+<p>---</p><h3>52. Aggregate Analysis</h3><p>In aggregate analysis, we calculate the total cost of a sequence of operations and divide by the number of operations.</p>
+<p>Example:</p>
+<pre><code>n insertions
+</code></pre>
+<p>Suppose total cost is proportional to:</p>
+<pre><code>2n
+</code></pre>
+<p>Then:</p>
+<pre><code>2n / n = 2
+</code></pre>
+<p>Therefore amortized cost:</p>
+<pre><code>O(1)
+</code></pre>
+<p>---</p><h3>53. Worst-Case vs Amortized Complexity</h3><p>Do not confuse these.</p>
+<h4>Worst Case</h4>
+<p>Looks at the most expensive individual operation.</p>
+<h4>Amortized</h4>
+<p>Looks at the total cost over a sequence of operations.</p>
+<p>Example:</p>
+<p>Dynamic array:</p>
+<pre><code>One resize → O(n)
+Amortized insertion → O(1)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="rules">
+  <span class="kicker">10 • FUNDAMENTALS</span>
+  <h2>Analysis Rules & Simplification</h2>
+  <h3>54. Logarithm Bases in Complexity</h3><p>You may see:</p>
+<pre><code>log₂ n
+log₁₀ n
+ln n
+</code></pre>
+<p>In Big-O analysis, the base usually doesn't matter.</p>
+<p>Why?</p>
+<p>Using the change-of-base formula:</p>
+<pre><code>log₂ n = log₁₀ n / log₁₀ 2
+</code></pre>
+<p>The denominator is a constant.</p>
+<p>Therefore:</p>
+<pre><code>O(log₂ n) = O(log₁₀ n) = O(log n)
+</code></pre>
+<p>---</p><h3>55. Dropping Constants</h3><p>Suppose:</p>
+<pre><code>T(n) = 5n
+</code></pre>
+<p>We write:</p>
+<pre><code>O(n)
+</code></pre>
+<p>Not:</p>
+<pre><code>O(5n)
+</code></pre>
+<p>Because constant multipliers do not change the asymptotic growth class.</p>
+<p>Similarly:</p>
+<pre><code>O(100n²) = O(n²)
+</code></pre>
+<p>---</p><h3>56. Dropping Lower-Order Terms</h3><p>Suppose:</p>
+<pre><code>T(n) = n² + n + 10
+</code></pre>
+<p>The dominant term is:</p>
+<pre><code>n²
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>Similarly:</p>
+<pre><code>n³ + n² + n + 1
+</code></pre>
+<p>becomes:</p>
+<pre><code>O(n³)
+</code></pre>
+<p>---</p><h3>57. Important Rules for Complexity Analysis</h3><h4>Rule 1 — Sequential Statements</h4>
+<p>Add complexities:</p>
+<pre><code>O(n) + O(n²)
+</code></pre>
+<p>Result:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p>
+<h4>Rule 2 — Nested Loops</h4>
+<p>Usually multiply:</p>
+<pre><code>O(n) × O(n)
+</code></pre>
+<p>Result:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p>
+<h4>Rule 3 — Constants</h4>
+<p>Ignore constants:</p>
+<pre><code>O(5n) → O(n)
+</code></pre>
+<p>---</p>
+<h4>Rule 4 — Lower Terms</h4>
+<p>Ignore lower-order terms:</p>
+<pre><code>O(n² + n) → O(n²)
+</code></pre>
+<p>---</p>
+<h4>Rule 5 — Logarithmic Loops</h4>
+<p>If the variable doubles or halves:</p>
+<pre><code>O(log n)
+</code></pre>
+<p>---</p>
+<h4>Rule 6 — Different Variables</h4>
+<p>Keep independent variables:</p>
+<pre><code>O(nm)
+</code></pre>
+<p>Do not automatically convert it to:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="algorithms">
+  <span class="kicker">11 • ALGORITHMS</span>
+  <h2>Searching, Sorting & Data Structures</h2>
+  <h3>58. Common Mistakes</h3><h4>Mistake 1</h4>
+<p>Thinking:</p>
+<pre><code>for loop = always O(n)
+</code></pre>
+<p>Not always.</p>
+<p>If:</p>
+<pre><code>i = i * 2
+</code></pre>
+<p>then:</p>
+<pre><code>O(log n)
+</code></pre>
+<p>---</p>
+<h4>Mistake 2</h4>
+<div class="formula">Thinking nested loops are always <span class="inline">O(n²)</span>.</div>
+<p>Example:</p>
+<pre><code>for(i = 0; i &lt; n; i++)
+{
+    for(j = 0; j &lt; 10; j++)
+    {
+    }
+}
+</code></pre>
+<p>Inner loop is constant.</p>
+<p>Therefore:</p>
+<pre><code>O(n × 10)
+= O(n)
+</code></pre>
+<p>---</p>
+<h4>Mistake 3</h4>
+<p>Ignoring recursion stack.</p>
+<p>A recursive algorithm may have:</p>
+<pre><code>Time = O(n)
+Space = O(n)
+</code></pre>
+<p>because of recursive calls.</p>
+<p>---</p>
+<h4>Mistake 4</h4>
+<p>Confusing input space with auxiliary space.</p>
+<p>Always identify whether the memory is:</p>
+<pre><code>Input storage
+</code></pre>
+<p>or:</p>
+<pre><code>Extra memory
+</code></pre>
+<p>---</p><h3>59. Advanced Example 1</h3><p>Consider:</p>
+<pre><code>for(int i = 1; i &lt;= n; i++)
+{
+    for(int j = 1; j &lt;= n; j++)
+    {
+        for(int k = 1; k &lt;= n; k++)
+        {
+            printf(&quot;*&quot;);
+        }
+    }
+}
+</code></pre>
+<p>Three nested loops.</p>
+<p>Therefore:</p>
+<pre><code>n × n × n
+= n³
+</code></pre>
+<p>Answer:</p>
+<pre><code>Time = O(n³)
+</code></pre>
+<p>If no additional data structure is used:</p>
+<pre><code>Auxiliary Space = O(1)
+</code></pre>
+<p>---</p><h3>60. Advanced Example 2</h3><pre><code>for(int i = 1; i &lt;= n; i *= 2)
+{
+    for(int j = 0; j &lt; n; j++)
+    {
+        // operation
+    }
+}
+</code></pre>
+<p>Outer loop:</p>
+<pre><code>O(log n)
+</code></pre>
+<p>Inner loop:</p>
+<pre><code>O(n)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n log n)
+</code></pre>
+<p>---</p><h3>61. Advanced Example 3</h3><pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = i; j &lt; n; j++)
+    {
+        // operation
+    }
+}
+</code></pre>
+<p>Number of operations:</p>
+<pre><code>n + (n-1) + (n-2) + ... + 1
+</code></pre>
+<p>This is:</p>
+<pre><code>n(n+1)/2
+</code></pre>
+<p>Ignoring constants and lower terms:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p><h3>62. Advanced Example 4 — Two Independent Inputs</h3><pre><code>void process(int A[], int n, int B[], int m)
+{
+    for(int i = 0; i &lt; n; i++)
+    {
+        // process A
+    }
 
-        <a href="lectures/lecture5.html" class="card lecture">
-          <div class="icon">05</div>
-          <h3>Lecture 5</h3>
-          <p>
-            Multidimensional arrays, row-major and column-major
-            representation with address calculations.
-          </p>
-          <span class="tag">2D ARRAYS</span>
-        </a>
+    for(int j = 0; j &lt; m; j++)
+    {
+        // process B
+    }
+}
+</code></pre>
+<p>Complexity:</p>
+<pre><code>O(n) + O(m)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>O(n + m)
+</code></pre>
+<p>Not:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>---</p><h3>63. Space Complexity Example</h3><pre><code>int sumArray(int arr[], int n)
+{
+    int sum = 0;
 
-        <a href="lectures/lecture6.html" class="card lecture">
-          <div class="icon">06</div>
-          <h3>Lecture 6</h3>
-          <p>
-            Sparse matrices, their representation and triplet
-            form with solved examples.
-          </p>
-          <span class="tag">MATRICES</span>
-        </a>
+    for(int i = 0; i &lt; n; i++)
+    {
+        sum += arr[i];
+    }
 
-        <a href="lectures/lecture7.html" class="card lecture">
-          <div class="icon">07</div>
-          <h3>Lecture 7</h3>
-          <p>
-            Linked list introduction, nodes, pointers and
-            array vs pointer implementation.
-          </p>
-          <span class="tag">LINKED LIST</span>
-        </a>
+    return sum;
+}
+</code></pre>
+<p>Additional variables:</p>
+<pre><code>sum
+i
+</code></pre>
+<p>Only a constant number of variables.</p>
+<p>Therefore:</p>
+<pre><code>Auxiliary Space = O(1)
+</code></pre>
+<p>The input array itself requires:</p>
+<pre><code>O(n)
+</code></pre>
+<p>but that is input space, not auxiliary space.</p>
+<p>---</p><h3>64. Recursive Space Example</h3><pre><code>void print(int n)
+{
+    if(n == 0)
+        return;
 
-        <a href="lectures/lecture8.html" class="card lecture">
-          <div class="icon">08</div>
-          <h3>Lecture 8</h3>
-          <p>
-            Singly linked list, traversal, insertion and
-            deletion operations with C programs.
-          </p>
-          <span class="tag">SINGLY LIST</span>
-        </a>
+    printf(&quot;%d&quot;, n);
+    print(n-1);
+}
+</code></pre>
+<p>There are approximately <span class="inline">n</span> active calls.</p>
+<p>Therefore:</p>
+<pre><code>Time = O(n)
+Space = O(n)
+</code></pre>
+<p>because of the recursion stack.</p>
+<p>---</p><h3>65. Complexity of Binary Search</h3><p>Binary search repeatedly divides the search area by 2.</p>
+<p>Suppose:</p>
+<pre><code>n = 1,000,000
+</code></pre>
+<p>After each step:</p>
+<pre><code>1,000,000
+500,000
+250,000
+125,000
+...
+1
+</code></pre>
+<p>Approximately:</p>
+<pre><code>log₂(1,000,000)
+</code></pre>
+<div class="formula">≈ 20 comparisons.</div>
+<p>This is why binary search is much faster than linear search for large sorted arrays.</p>
+<p>---</p><h3>66. Complexity of Merge Sort</h3><p>Merge Sort follows:</p>
+<pre><code>Divide
+   ↓
+Sort left
+   ↓
+Sort right
+   ↓
+Merge
+</code></pre>
+<p>Recurrence:</p>
+<pre><code>T(n) = 2T(n/2) + O(n)
+</code></pre>
+<p>There are:</p>
+<pre><code>log n
+</code></pre>
+<p>levels.</p>
+<p>At every level, approximately:</p>
+<pre><code>O(n)
+</code></pre>
+<p>work is performed.</p>
+<p>Therefore:</p>
+<pre><code>Time = O(n log n)
+</code></pre>
+<p>Extra array space:</p>
+<pre><code>Space = O(n)
+</code></pre>
+<p>---</p><h3>67. Complexity of Quick Sort</h3><p>Quick Sort selects a pivot.</p>
+<h4>Balanced partition</h4>
+<pre><code>T(n) = 2T(n/2) + O(n)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Average = O(n log n)
+</code></pre>
+<h4>Bad partition</h4>
+<p>If pivot repeatedly becomes the smallest/largest element:</p>
+<pre><code>T(n) = T(n-1) + O(n)
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Worst Case = O(n²)
+</code></pre>
+<p>---</p><h3>68. Complexity of Binary Tree Traversal</h3><p>Suppose a binary tree has <span class="inline">n</span> nodes.</p>
+<p>During traversal:</p>
+<pre><code>Each node is visited once.
+</code></pre>
+<p>Therefore:</p>
+<pre><code>Time = O(n)
+</code></pre>
+<p>Recursive traversal also uses stack space.</p>
+<p>For a skewed tree:</p>
+<pre><code>Space = O(n)
+</code></pre>
+<p>For a balanced tree:</p>
+<pre><code>Space = O(log n)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="advanced">
+  <span class="kicker">12 • ADVANCED EXAMPLES</span>
+  <h2>Advanced Complexity Examples</h2>
+  <h3>69. Graph Complexity</h3><p>For a graph represented using an adjacency list:</p>
+<h4>BFS</h4>
+<pre><code>O(V + E)
+</code></pre>
+<h4>DFS</h4>
+<pre><code>O(V + E)
+</code></pre>
+<p>Where:</p>
+<pre><code>V = number of vertices
+E = number of edges
+</code></pre>
+<p>For an adjacency matrix, scanning neighbors can lead to:</p>
+<pre><code>O(V²)
+</code></pre>
+<p>---</p><h3>70. Complexity of Dijkstra's Algorithm</h3><p>Complexity depends on implementation.</p>
+<p>Using an adjacency matrix / simple implementation:</p>
+<pre><code>O(V²)
+</code></pre>
+<p>Using a binary heap and adjacency list:</p>
+<pre><code>O((V + E) log V)
+</code></pre>
+<p>For sparse graphs, the heap-based implementation is often more efficient.</p>
+<p>---</p><h3>71. Complexity of Common Algorithms — Quick Table</h3><div class="table-wrap"><table>
+<tr><th>AlgorithmTypical Time</th><th></th></tr>
+<tr><td>Linear Search</td><td>O(n)</td></tr>
+<tr><td>Binary Search</td><td>O(log n)</td></tr>
+<tr><td>Bubble Sort</td><td>O(n²)</td></tr>
+<tr><td>Selection Sort</td><td>O(n²)</td></tr>
+<tr><td>Insertion Sort</td><td>O(n²)</td></tr>
+<tr><td>Merge Sort</td><td>O(n log n)</td></tr>
+<tr><td>Quick Sort</td><td>O(n log n) average</td></tr>
+<tr><td>Heap Sort</td><td>O(n log n)</td></tr>
+<tr><td>BFS</td><td>O(V + E)</td></tr>
+<tr><td>DFS</td><td>O(V + E)</td></tr>
+<tr><td>Binary Tree Traversal</td><td>O(n)</td></tr>
+<tr><td>Hash Table Search</td><td>O(1) average</td></tr>
+</table></div>
+<p>---</p><h3>72. Practical Meaning of Complexity</h3><p>Suppose:</p>
+<pre><code>n = 1,000,000
+</code></pre>
+<p>Compare:</p>
+<pre><code>O(n)
+</code></pre>
+<p>and:</p>
+<pre><code>O(n²)
+</code></pre>
+<p>Linear:</p>
+<pre><code>≈ 1,000,000 operations
+</code></pre>
+<p>Quadratic:</p>
+<pre><code>≈ 1,000,000,000,000 operations
+</code></pre>
+<p>That is why choosing the correct algorithm matters enormously.</p>
+<p>---</p><h3>73. Complexity Hierarchy</h3><p>Remember this order:</p>
+<pre><code>                Faster
+                  ↑
+                O(1)
+                  ↓
+              O(log n)
+                  ↓
+                O(n)
+                  ↓
+             O(n log n)
+                  ↓
+               O(n²)
+                  ↓
+               O(n³)
+                  ↓
+               O(2ⁿ)
+                  ↓
+                O(n!)
+                  ↓
+                Slower
+</code></pre>
+<p>For large inputs, algorithms with lower growth rates are generally preferred.</p>
+<p>---</p><h3>74. Exam-Oriented Definitions</h3><h4>Time Complexity</h4>
+<p>Time complexity is the rate at which the running time or number of basic operations of an algorithm grows with respect to input size.</p>
+<h4>Space Complexity</h4>
+<p>Space complexity is the amount of memory required by an algorithm as a function of input size.</p>
+<h4>Big-O</h4>
+<p>Big-O notation represents an asymptotic upper bound on an algorithm's growth rate.</p>
+<h4>Big-Omega</h4>
+<p>Big-Omega represents an asymptotic lower bound.</p>
+<h4>Big-Theta</h4>
+<p>Big-Theta represents a tight asymptotic bound.</p>
+<h4>Time-Space Tradeoff</h4>
+<p>Time-space tradeoff is the technique of using additional memory to reduce computation time, or reducing memory at the cost of additional computation.</p>
+<p>---</p><h3>75. Most Important Formulas</h3><pre><code>1 + 2 + 3 + ... + n
+= n(n+1)/2
+= O(n²)
+</code></pre>
+<pre><code>1 + 2 + 3 + ... + (n-1)
+= n(n-1)/2
+= O(n²)
+</code></pre>
+<pre><code>1 + 2 + 4 + 8 + ... + n
+= O(n)
+</code></pre>
+<p>Number of powers of 2 up to <span class="inline">n</span>:</p>
+<pre><code>O(log n)
+</code></pre>
+<p>---</p>
+</section>
+<section class="section" id="revision">
+  <span class="kicker">13 • REVISION</span>
+  <h2>Exam Notes & Final Cheat Sheet</h2>
+  <h3>76. How to Analyze Any Algorithm</h3><p>Follow these steps:</p>
+<h4>Step 1</h4>
+<p>Identify the input size.</p>
+<pre><code>n = input size
+</code></pre>
+<h4>Step 2</h4>
+<p>Find the basic operation.</p>
+<p>Example:</p>
+<pre><code>comparison
+assignment
+addition
+</code></pre>
+<h4>Step 3</h4>
+<p>Count how many times it executes.</p>
+<h4>Step 4</h4>
+<p>Identify loops.</p>
+<pre><code>One loop → usually O(n)
+Nested loops → usually O(n²)
+Doubling/halving → O(log n)
+</code></pre>
+<h4>Step 5</h4>
+<p>Check recursion.</p>
+<p>Look at:</p>
+<pre><code>Number of recursive calls
+</code></pre>
+<p>and:</p>
+<pre><code>Size of each subproblem
+</code></pre>
+<h4>Step 6</h4>
+<p>For space, count extra memory.</p>
+<p>Check:</p>
+<pre><code>arrays
+objects
+temporary variables
+recursion stack
+</code></pre>
+<h4>Step 7</h4>
+<p>Remove constants.</p>
+<pre><code>O(5n) → O(n)
+</code></pre>
+<h4>Step 8</h4>
+<p>Remove lower-order terms.</p>
+<pre><code>O(n² + n) → O(n²)
+</code></pre>
+<p>---</p><h3>77. Final Cheat Sheet</h3><pre><code>O(1)
+Constant
+Example → Array access
 
-        <a href="lectures/lecture9.html" class="card lecture">
-          <div class="icon">09</div>
-          <h3>Lecture 9</h3>
-          <p>
-            Doubly and circular linked lists with diagrams,
-            operations and implementation.
-          </p>
-          <span class="tag">ADVANCED LIST</span>
-        </a>
+O(log n)
+Logarithmic
+Example → Binary Search
 
-        <a href="lectures/lecture10.html" class="card lecture important">
-          <div class="icon">10</div>
-          <h3>Lecture 10</h3>
-          <p>
-            Polynomial representation and polynomial addition,
-            subtraction and multiplication using linked lists.
-          </p>
-          <span class="tag">POLYNOMIAL</span>
-        </a>
+O(n)
+Linear
+Example → Linear Search
 
-      </div>
-    </section>
+O(n log n)
+Linearithmic
+Example → Merge Sort
 
-    <!-- NOTES -->
-    <section id="notes" class="notes">
-      <div class="section-title">
-        <h2>Study Notes</h2>
-        <p>Quick revision material for exams and practice.</p>
-      </div>
+O(n²)
+Quadratic
+Example → Bubble Sort
 
-      <div class="grid">
+O(n³)
+Cubic
+Example → Three nested loops
 
-        <a href="notes/unit1.html" class="card note">
-          <div class="icon">📘</div>
-          <h3>Unit 1 Notes</h3>
-          <p>
-            Complete Unit 1 notes covering terminology, complexity,
-            arrays, sparse matrices and linked lists.
-          </p>
-          <span class="tag">UNIT 1</span>
-        </a>
+O(2ⁿ)
+Exponential
+Example → Naive recursive Fibonacci
 
-        <a href="notes/time-complexity.html" class="card note">
-          <div class="icon">⏱️</div>
-          <h3>Time Complexity</h3>
-          <p>
-            O(1), O(log n), O(n), O(n log n), O(n²) and other
-            important complexities with examples.
-          </p>
-          <span class="tag">REVISION</span>
-        </a>
+O(n!)
+Factorial
+Example → Generating permutations
+</code></pre>
+<h4>Asymptotic Notations</h4>
+<pre><code>O     → Upper Bound
+Ω     → Lower Bound
+Θ     → Tight Bound
+</code></pre>
+<h4>Loop Rules</h4>
+<pre><code>Sequential → Add
 
-        <a href="notes/arrays.html" class="card note">
-          <div class="icon">🔢</div>
-          <h3>Arrays Notes</h3>
-          <p>
-            Array operations, multidimensional arrays and
-            row-major / column-major address formulas.
-          </p>
-          <span class="tag">ARRAYS</span>
-        </a>
+Nested → Multiply
 
-        <a href="notes/linked-list.html" class="card note">
-          <div class="icon">🔗</div>
-          <h3>Linked List Notes</h3>
-          <p>
-            Singly, doubly and circular linked lists with
-            important diagrams and C code.
-          </p>
-          <span class="tag">LINKED LIST</span>
-        </a>
+Doubling → log n
 
-        <a href="notes/important-questions.html" class="card note important">
-          <div class="icon">⭐</div>
-          <h3>Important Questions</h3>
-          <p>
-            Important theory questions, programming questions
-            and numerical problems for exam preparation.
-          </p>
-          <span class="tag">EXAM PREP</span>
-        </a>
+Halving → log n
 
-        <a href="notes/quick-revision.html" class="card note">
-          <div class="icon">⚡</div>
-          <h3>Quick Revision</h3>
-          <p>
-            Short definitions, formulas, complexity tables and
-            last-minute revision points.
-          </p>
-          <span class="tag">QUICK REVISION</span>
-        </a>
+Dependent loop → Calculate summation
+</code></pre>
+<h4>Space Rules</h4>
+<pre><code>Fixed variables → O(1)
 
-      </div>
-    </section>
+Array of n → O(n)
 
-    <footer>
-      © 2026 Data Structures Notes • Keep Learning & Keep Coding 🚀
-    </footer>
+n × n matrix → O(n²)
 
-  </main>
+n recursive calls → O(n)
+</code></pre>
+<p>---</p><h3>78. Final Takeaway</h3><p>The most important thing to understand is:</p>
+<div class="definition"><strong>Complexity is about growth, not exact running time.</strong></div>
+<p>An algorithm that works perfectly for:</p>
+<pre><code>n = 10
+</code></pre>
+<p>may become unusable for:</p>
+<pre><code>n = 1,000,000
+</code></pre>
+<p>Therefore, in DSA we try to design algorithms with smaller growth rates.</p>
+<p>The most important complexity classes to remember are:</p>
+<pre><code>O(1)
+O(log n)
+O(n)
+O(n log n)
+O(n²)
+O(n³)
+O(2ⁿ)
+O(n!)
+</code></pre>
+<p>And for exams/interviews, always be comfortable analyzing:</p>
+<pre><code>Loops
+Nested loops
+Conditional statements
+Recursion
+Searching
+Sorting
+Trees
+Graphs
+Space usage
+Time-space tradeoffs
+</code></pre>
+</section>
 
+<section class="section summary" id="summary">
+  <span class="kicker">FINAL REVISION</span>
+  <h2>Quick Revision</h2>
+  <div class="complexity-grid">
+    <div class="cbox"><b>O(1)</b><span>Constant</span></div>
+    <div class="cbox"><b>O(log n)</b><span>Logarithmic</span></div>
+    <div class="cbox"><b>O(n)</b><span>Linear</span></div>
+    <div class="cbox"><b>O(n log n)</b><span>Linearithmic</span></div>
+    <div class="cbox"><b>O(n²)</b><span>Quadratic</span></div>
+    <div class="cbox"><b>O(n³)</b><span>Cubic</span></div>
+    <div class="cbox"><b>O(2ⁿ)</b><span>Exponential</span></div>
+    <div class="cbox"><b>O(n!)</b><span>Factorial</span></div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
 </body>
 </html>
