@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures - Unit 1 Detailed Notes</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08101f;
+  --card:#0d1628;
+  --card2:#111b2e;
+  --border:#22304a;
+  --text:#f4f7ff;
+  --muted:#91a0b9;
+  --blue:#55c7ff;
+  --blue2:#173b58;
+  --green:#55e6a5;
+  --yellow:#ffd34e;
+  --purple:#b87cff;
+  --pink:#ff69b4;
+  --red:#ff7d8a;
+  --code:#07101d;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(39,111,170,.18),transparent 28%),
+    radial-gradient(circle at 12% 82%,rgba(93,62,150,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+a{color:inherit}
+.container{width:min(1180px,92%);margin:auto;padding:35px 0 70px}
+
+/* Hero */
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:30px;
+  padding:45px;margin-bottom:28px;
+  background:linear-gradient(110deg,#0c1527,#0d182b 55%,#122b43);
+}
+.hero:after{
+  content:"";position:absolute;width:280px;height:280px;
+  right:-80px;top:-120px;border-radius:50%;
+  background:rgba(85,199,255,.11);filter:blur(4px)
+}
+.hero-content{position:relative;z-index:2}
+.badge{
+  display:inline-block;padding:7px 13px;border-radius:999px;
+  color:var(--blue);background:rgba(85,199,255,.11);
+  border:1px solid rgba(85,199,255,.28);
+  font-size:12px;font-weight:900;letter-spacing:.7px;margin-bottom:15px
+}
+h1{font-size:clamp(36px,5vw,58px);line-height:1.05;letter-spacing:-1.2px}
+.hero p{max-width:850px;color:var(--muted);font-size:17px;margin-top:14px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.meta span{
+  padding:7px 12px;border-radius:999px;background:#121d31;
+  border:1px solid var(--border);color:#cbd5e6;font-size:12px;font-weight:700
+}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+.toc{
+  position:sticky;top:18px;background:rgba(13,22,40,.9);
+  border:1px solid var(--border);border-radius:22px;padding:20px
+}
+.toc h3{font-size:17px;margin-bottom:12px}
+.toc a{
+  display:block;text-decoration:none;color:var(--muted);
+  padding:8px 10px;border-radius:10px;font-size:13px;
+  transition:.2s
+}
+.toc a:hover{background:#142137;color:var(--blue)}
+
+/* Content */
+.content{min-width:0}
+.section{
+  background:linear-gradient(145deg,#0c1527,#0d1628);
+  border:1px solid var(--border);border-radius:24px;
+  padding:30px;margin-bottom:20px
+}
+.section h2{
+  font-size:28px;line-height:1.25;margin-bottom:8px
+}
+.section h3{font-size:21px;margin:25px 0 9px;color:#eaf1ff}
+.section h4{font-size:17px;margin:20px 0 7px;color:var(--blue)}
+.section p{color:#c1ccdd;margin:8px 0}
+.section ul,.section ol{padding-left:24px;color:#c1ccdd}
+.section li{margin:7px 0}
+.kicker{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1px}
+.definition{
+  margin:15px 0;padding:17px 18px;border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;background:#101c30;color:#dce7f7
+}
+.tip{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--green);
+  border-radius:0 14px 14px 0;background:rgba(85,230,165,.07);color:#d7f5e7
+}
+.warning{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--yellow);
+  border-radius:0 14px 14px 0;background:rgba(255,211,78,.06);color:#f8edbd
+}
+.example{
+  margin:16px 0;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#0b1424
+}
+.example strong{display:block;color:var(--blue);margin-bottom:6px}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:15px 0}
+table{width:100%;border-collapse:collapse;min-width:580px}
+th,td{border:1px solid var(--border);padding:11px 13px;text-align:left}
+th{background:#142139;color:var(--blue);font-size:13px}
+td{color:#c8d2e1;font-size:14px}
+tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+
+/* Code */
+pre{
+  overflow-x:auto;margin:15px 0;padding:18px;
+  background:var(--code);border:1px solid #1d2d44;
+  border-radius:15px;color:#dce8f8;font-size:13px;line-height:1.65
+}
+code{font-family:Consolas,Monaco,monospace}
+.inline{
+  font-family:Consolas,monospace;color:var(--blue);
+  background:#111d31;padding:2px 6px;border-radius:6px
+}
+.code-title{
+  margin-top:18px;color:#aebbd0;font-size:12px;font-weight:800;
+  letter-spacing:.5px
+}
+
+/* Formula */
+.formula{
+  padding:17px;text-align:center;margin:15px 0;
+  border:1px dashed #365170;border-radius:15px;
+  background:#0b1728;color:#f1f6ff;font-family:Consolas,monospace
+}
+
+/* Complexity cards */
+.complexity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0}
+.cbox{padding:15px;border:1px solid var(--border);border-radius:16px;background:#101a2c}
+.cbox b{font-size:20px;color:var(--blue);display:block}
+.cbox span{font-size:12px;color:var(--muted)}
+
+/* Summary */
+.summary{
+  border:1px solid rgba(85,199,255,.28);
+  background:linear-gradient(145deg,#0c1a2b,#0d1d31);
+}
+.checklist li::marker{color:var(--green)}
+
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .toc{position:relative;top:0}
+  .complexity-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .container{width:94%;padding-top:22px}
+  .hero{padding:28px 22px;border-radius:24px}
+  .section{padding:22px 18px;border-radius:20px}
+  .complexity-grid{grid-template-columns:1fr 1fr}
+  h1{font-size:38px}
+  .hero p{font-size:15px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="hero-content">
+    <span class="badge">CSE • DATA STRUCTURES • UNIT 1</span>
+    <h1>Unit 1 — Introduction</h1>
+    <p>
+      Complete, beginner-friendly and exam-oriented notes covering basic
+      terminology, data organization, C data types, algorithm efficiency,
+      time and space complexity, asymptotic notations, ADT, arrays,
+      multidimensional arrays, sparse matrices and linked lists.
+    </p>
+    <div class="meta">
+      <span>📘 Detailed Theory</span>
+      <span>💻 C Examples</span>
+      <span>🧠 Concepts + Logic</span>
+      <span>🎯 Exam Preparation</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="toc">
+  <h3>On This Page</h3>
+  <a href="#terminology">1. Basic Terminology</a>
+  <a href="#organization">2. Data Organization</a>
+  <a href="#c-types">3. Built-in C Data Types</a>
+  <a href="#algorithm">4. Algorithm</a>
+  <a href="#efficiency">5. Algorithm Efficiency</a>
+  <a href="#time">6. Time Complexity</a>
+  <a href="#space">7. Space Complexity</a>
+  <a href="#asymptotic">8. O, Ω and Θ</a>
+  <a href="#tradeoff">9. Time-Space Tradeoff</a>
+  <a href="#adt">10. ADT</a>
+  <a href="#arrays">11. Arrays</a>
+  <a href="#multi">12. Multidimensional Arrays</a>
+  <a href="#major">13. Row / Column Major</a>
+  <a href="#sparse">14. Sparse Matrix</a>
+  <a href="#linked">15. Linked Lists</a>
+  <a href="#singly">16. Singly Linked List</a>
+  <a href="#doubly">17. Doubly Linked List</a>
+  <a href="#circular">18. Circular Linked List</a>
+  <a href="#polynomial">19. Polynomial Operations</a>
+  <a href="#summary">Quick Revision</a>
+</aside>
+
+<main class="content">
+
+<section class="section" id="terminology">
+  <span class="kicker">01 • FOUNDATION</span>
+  <h2>Basic Terminology</h2>
+  <p>Before learning data structures, we need to understand the basic terms used to describe data.</p>
+
+  <h3>Data</h3>
+  <div class="definition">
+    <b>Definition:</b> Data means raw facts, values or observations that can be processed by a computer.
+  </div>
+  <div class="example">
+    <strong>Example</strong>
+    10, 20, 30, "Shubham", "Computer Science", 85
+  </div>
+
+  <h3>Information</h3>
+  <div class="definition">
+    <b>Definition:</b> Information is meaningful data obtained after processing or organizing raw data.
+  </div>
+  <div class="example">
+    <strong>Example</strong>
+    Marks = 80, 75, 90 → Average = 81.67%.<br>
+    The marks are data; the calculated average is information.
+  </div>
+
+  <h3>Data Item</h3>
+  <p>A data item is a single meaningful unit of data.</p>
+  <div class="example"><strong>Example</strong>Roll No = 101, Name = Shubham, Marks = 85. Each value is a data item.</div>
+
+  <h3>Field</h3>
+  <p>A field is an individual attribute of a record.</p>
+  <div class="example">
+    <strong>Example</strong>
+    Student record: <span class="inline">Roll No | Name | Marks</span>.
+    Roll No, Name and Marks are fields.
+  </div>
+
+  <h3>Record</h3>
+  <p>A record is a collection of related fields belonging to one entity.</p>
+  <div class="example"><strong>Example</strong><span class="inline">101 | Shubham | CSE | 85</span> is one student record.</div>
+
+  <h3>File</h3>
+  <p>A file is a collection of related records.</p>
+  <div class="example"><strong>Example</strong>A student file may contain records of hundreds of students.</div>
+
+  <div class="tip">
+    <b>Remember:</b> Data → Data Item → Field → Record → File → Database.
+  </div>
+</section>
+
+<section class="section" id="organization">
+  <span class="kicker">02 • ORGANIZATION</span>
+  <h2>Elementary Data Organization</h2>
+  <p>
+    Data organization means arranging data in memory or storage so that it can
+    be accessed, processed and maintained efficiently.
+  </p>
+
+  <div class="formula">
+    Data → Data Item → Field → Record → File → Database
+  </div>
+
+  <p>
+    A good organization method makes searching, insertion, deletion and updating
+    easier. Data structures provide systematic ways to organize data inside a program.
+  </p>
+</section>
+
+<section class="section" id="c-types">
+  <span class="kicker">03 • C PROGRAMMING FOUNDATION</span>
+  <h2>Built-in Data Types in C</h2>
+  <p>
+    C provides predefined data types that are used to store different kinds of values.
+  </p>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Type</th><th>Used For</th><th>Example</th></tr>
+    <tr><td>char</td><td>Character</td><td>'A'</td></tr>
+    <tr><td>int</td><td>Integer values</td><td>10</td></tr>
+    <tr><td>float</td><td>Decimal values</td><td>10.5</td></tr>
+    <tr><td>double</td><td>Higher precision decimal values</td><td>3.141592</td></tr>
+    <tr><td>void</td><td>No value / no return value</td><td>void function</td></tr>
+  </table>
+  </div>
+
+  <div class="code-title">C Example</div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+    int age = 19;
+    float marks = 85.5;
+    char grade = 'A';
+    double pi = 3.141592;
+
+    printf("%d\n", age);
+    printf("%f\n", marks);
+    printf("%c\n", grade);
+    printf("%lf\n", pi);
+
+    return 0;
+}</code></pre>
+
+  <h3>Line-by-line explanation</h3>
+  <ol>
+    <li><span class="inline">#include &lt;stdio.h&gt;</span> includes the standard input/output library.</li>
+    <li><span class="inline">int main()</span> is the starting point of the C program.</li>
+    <li><span class="inline">int age = 19;</span> creates an integer variable and stores 19.</li>
+    <li><span class="inline">float marks = 85.5;</span> stores a decimal value.</li>
+    <li><span class="inline">char grade = 'A';</span> stores one character.</li>
+    <li><span class="inline">double pi = 3.141592;</span> stores a decimal value with higher precision.</li>
+    <li>The <span class="inline">printf()</span> statements display the values.</li>
+    <li><span class="inline">return 0;</span> indicates successful program termination.</li>
+  </ol>
+</section>
+
+<section class="section" id="algorithm">
+  <span class="kicker">04 • PROBLEM SOLVING</span>
+  <h2>Algorithm</h2>
+
+  <div class="definition">
+    <b>Definition:</b> An algorithm is a finite, step-by-step procedure used to solve a particular problem.
+  </div>
+
+  <h3>Example: Addition of Two Numbers</h3>
+  <ol>
+    <li>Start.</li>
+    <li>Read A and B.</li>
+    <li>Calculate Sum = A + B.</li>
+    <li>Display Sum.</li>
+    <li>Stop.</li>
+  </ol>
+
+  <div class="code-title">C Implementation</div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+    int a, b, sum;
+
+    scanf("%d %d", &amp;a, &amp;b);
+
+    sum = a + b;
+
+    printf("%d", sum);
+
+    return 0;
+}</code></pre>
+
+  <h3>Characteristics of a Good Algorithm</h3>
+  <ul>
+    <li><b>Input:</b> It may have zero or more inputs.</li>
+    <li><b>Output:</b> It should produce at least one meaningful result.</li>
+    <li><b>Definiteness:</b> Every step should be clear and unambiguous.</li>
+    <li><b>Finiteness:</b> It must terminate after a finite number of steps.</li>
+    <li><b>Effectiveness:</b> Each operation should be practical and executable.</li>
+  </ul>
+</section>
+
+<section class="section" id="efficiency">
+  <span class="kicker">05 • PERFORMANCE</span>
+  <h2>Algorithm Efficiency</h2>
+
+  <div class="definition">
+    Algorithm efficiency describes how much computational <b>time</b> and <b>memory</b>
+    an algorithm needs as the input size increases.
+  </div>
+
+  <p>
+    Two algorithms may solve the same problem but may require very different
+    amounts of time or memory. We therefore compare algorithms using complexity.
+  </p>
+
+  <div class="example">
+    <strong>Example: Searching</strong>
+    Searching 100 values one-by-one may require up to 100 checks.
+    A binary-search approach on sorted data can reduce the number of checks dramatically.
+  </div>
+</section>
+
+<section class="section" id="time">
+  <span class="kicker">06 • COMPLEXITY</span>
+  <h2>Time Complexity</h2>
+
+  <div class="definition">
+    <b>Definition:</b> Time complexity describes how the number of basic operations
+    performed by an algorithm grows with input size n.
+  </div>
+
+  <p>
+    Time complexity does not mean exact clock time. It describes the growth of computational work.
+  </p>
+
+  <h3>O(1) — Constant Time</h3>
+<pre><code>int x = arr[5];</code></pre>
+  <p>Accessing a particular array index takes approximately constant time, independent of n.</p>
+  <p><b>Complexity: O(1)</b></p>
+
+  <h3>O(n) — Linear Time</h3>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    printf("%d", i);
+}</code></pre>
+  <p>The loop executes n times.</p>
+  <p><b>Complexity: O(n)</b></p>
+
+  <h3>O(n²) — Quadratic Time</h3>
+<pre><code>for(int i = 0; i &lt; n; i++)
+{
+    for(int j = 0; j &lt; n; j++)
+    {
+        printf("%d %d", i, j);
+    }
+}</code></pre>
+  <p>The outer loop runs n times and the inner loop runs n times for each outer iteration.</p>
+  <div class="formula">n × n = n² → O(n²)</div>
+
+  <h3>Common Complexities</h3>
+  <div class="complexity-grid">
+    <div class="cbox"><b>O(1)</b><span>Constant</span></div>
+    <div class="cbox"><b>O(log n)</b><span>Logarithmic</span></div>
+    <div class="cbox"><b>O(n)</b><span>Linear</span></div>
+    <div class="cbox"><b>O(n log n)</b><span>Linearithmic</span></div>
+    <div class="cbox"><b>O(n²)</b><span>Quadratic</span></div>
+    <div class="cbox"><b>O(n³)</b><span>Cubic</span></div>
+    <div class="cbox"><b>O(2ⁿ)</b><span>Exponential</span></div>
+    <div class="cbox"><b>O(n!)</b><span>Factorial</span></div>
+  </div>
+
+  <div class="warning">
+    <b>Exam point:</b> When finding asymptotic complexity, lower-order terms and constant
+    multipliers are ignored. For example, 3n² + 5n + 10 has order n².
+  </div>
+</section>
+
+<section class="section" id="space">
+  <span class="kicker">07 • MEMORY</span>
+  <h2>Space Complexity</h2>
+
+  <div class="definition">
+    <b>Definition:</b> Space complexity describes how much memory an algorithm requires
+    as the input size increases.
+  </div>
+
+  <h3>Constant Extra Space — O(1)</h3>
+<pre><code>int x;
+int y;
+int sum = x + y;</code></pre>
+  <p>Only a fixed number of variables are used, so the extra space is O(1).</p>
+
+  <h3>Linear Space — O(n)</h3>
+<pre><code>int arr[n];</code></pre>
+  <p>The required storage grows with n, so the space complexity is O(n).</p>
+
+  <div class="tip">
+    <b>Remember:</b> Time asks “How much work?” and space asks “How much extra memory?”
+  </div>
+</section>
+
+<section class="section" id="asymptotic">
+  <span class="kicker">08 • MATHEMATICAL ANALYSIS</span>
+  <h2>Asymptotic Notations — O, Ω and Θ</h2>
+
+  <h3>Big O — O()</h3>
+  <div class="definition">
+    Big O represents an asymptotic <b>upper bound</b>. It describes an upper growth limit
+    for the running time or resource usage.
+  </div>
+
+  <div class="example">
+    <strong>Example</strong>
+    f(n) = 3n² + 5n + 10<br>
+    For large n, n² dominates n and constants, so the order is O(n²).
+  </div>
+
+  <h3>Omega — Ω()</h3>
+  <div class="definition">
+    Omega represents an asymptotic <b>lower bound</b>.
+  </div>
+
+  <div class="example">
+    <strong>Example</strong>
+    In linear search, if the required element is found at the first position,
+    only one comparison may be required. This gives a best-case lower-bound order of Ω(1).
+  </div>
+
+  <h3>Theta — Θ()</h3>
+  <div class="definition">
+    Theta represents a <b>tight asymptotic bound</b>, meaning the growth is bounded
+    above and below by the same order.
+  </div>
+
+  <div class="example">
+    <strong>Example</strong>
+    3n² + 5n + 10 = Θ(n²).
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th>Notation</th><th>Meaning</th><th>Easy Memory Trick</th></tr>
+    <tr><td>O</td><td>Upper bound</td><td>Maximum growth / upper limit</td></tr>
+    <tr><td>Ω</td><td>Lower bound</td><td>Minimum growth / lower limit</td></tr>
+    <tr><td>Θ</td><td>Tight bound</td><td>Same asymptotic order</td></tr>
+  </table>
+  </div>
+
+  <div class="tip">
+    <b>Important:</b> In introductory DSA, O is often associated with worst-case,
+    Ω with best-case and Θ with exact/tight order. Technically, these notations
+    describe mathematical bounds, not merely cases.
+  </div>
+</section>
+
+<section class="section" id="tradeoff">
+  <span class="kicker">09 • DESIGN CONCEPT</span>
+  <h2>Time-Space Tradeoff</h2>
+
+  <div class="definition">
+    Time-space tradeoff means using additional memory to reduce execution time,
+    or saving memory at the cost of additional computation.
+  </div>
+
+  <div class="formula">More Space ↔ Less Time &nbsp;&nbsp; | &nbsp;&nbsp; Less Space ↔ More Time</div>
+
+  <h3>Example</h3>
+  <p>
+    Suppose we repeatedly search for values. A hash table may use extra memory
+    but provide much faster lookup than repeatedly scanning an array.
+  </p>
+
+  <div class="example">
+    <strong>Simple comparison</strong>
+    Method 1: Less extra space, repeated searching → more time.<br>
+    Method 2: Extra lookup structure → more space, faster searching.
+  </div>
+</section>
+
+<section class="section" id="adt">
+  <span class="kicker">10 • ABSTRACTION</span>
+  <h2>Abstract Data Type (ADT)</h2>
+
+  <div class="definition">
+    <b>Definition:</b> An Abstract Data Type defines what data operations are available
+    and what those operations should do, without specifying the internal implementation.
+  </div>
+
+  <h3>Example: Stack ADT</h3>
+  <p>A stack may provide these operations:</p>
+  <ul>
+    <li><span class="inline">push()</span> — insert an element.</li>
+    <li><span class="inline">pop()</span> — remove the top element.</li>
+    <li><span class="inline">peek()</span> — inspect the top element.</li>
+    <li><span class="inline">isEmpty()</span> — check whether the stack is empty.</li>
+  </ul>
+
+  <div class="formula">ADT = WHAT operations are available<br>Implementation = HOW those operations are performed</div>
+
+  <p>
+    A stack can be implemented using an array or a linked list. The ADT remains
+    conceptually the same.
+  </p>
+</section>
+
+<section class="section" id="arrays">
+  <span class="kicker">11 • LINEAR DATA STRUCTURE</span>
+  <h2>Arrays</h2>
+
+  <div class="definition">
+    <b>Definition:</b> An array is a collection of elements of the same data type
+    stored in contiguous memory locations.
+  </div>
+
+  <h3>Declaration</h3>
+<pre><code>int marks[5];</code></pre>
+
+  <h3>Initialization</h3>
+<pre><code>int arr[5] = {10, 20, 30, 40, 50};</code></pre>
+
+  <div class="example">
+    <strong>Indexing</strong>
+    arr[0] = 10<br>
+    arr[1] = 20<br>
+    arr[2] = 30<br>
+    arr[3] = 40<br>
+    arr[4] = 50
+  </div>
+
+  <div class="warning">
+    C array indexing starts from <b>0</b>, not 1.
+  </div>
+
+  <h3>Array Access</h3>
+<pre><code>printf("%d", arr[2]);</code></pre>
+  <p>The value at index 2 is 30. Direct index access is O(1).</p>
+
+  <h3>Insertion</h3>
+  <p>
+    If an element is inserted in the middle, later elements must be shifted.
+  </p>
+  <div class="example">
+    10 20 30 40 → insert 25 at index 2 → 10 20 25 30 40
+  </div>
+  <p>Middle insertion is generally O(n).</p>
+
+  <h3>Deletion</h3>
+  <div class="example">
+    10 20 30 40 50 → delete 30 → 10 20 40 50
+  </div>
+  <p>Elements after the deleted element may need to shift left, so deletion is generally O(n).</p>
+
+  <h3>Advantages</h3>
+  <ul>
+    <li>Fast random access using an index.</li>
+    <li>Simple representation.</li>
+    <li>Good cache locality because elements are contiguous.</li>
+  </ul>
+
+  <h3>Limitations</h3>
+  <ul>
+    <li>Insertion and deletion in the middle can be expensive.</li>
+    <li>Traditional fixed-size arrays have a fixed capacity.</li>
+  </ul>
+</section>
+
+<section class="section" id="multi">
+  <span class="kicker">12 • MULTIDIMENSIONAL DATA</span>
+  <h2>Multidimensional Arrays</h2>
+
+  <p>
+    A two-dimensional array can be viewed as rows and columns, similar to a matrix.
+  </p>
+
+<pre><code>int a[2][3] =
+{
+    {1, 2, 3},
+    {4, 5, 6}
+};</code></pre>
+
+  <div class="example">
+    <strong>Logical representation</strong>
+    <pre><code>1  2  3
+4  5  6</code></pre>
+  </div>
+
+  <p>
+    <span class="inline">a[2][3]</span> means 2 rows and 3 columns.
+  </p>
+</section>
+
+<section class="section" id="major">
+  <span class="kicker">13 • MEMORY REPRESENTATION</span>
+  <h2>Row-Major and Column-Major Representation</h2>
+
+  <h3>Row-Major Order</h3>
+  <p>
+    In row-major order, all elements of the first row are stored first,
+    followed by all elements of the second row, and so on.
+  </p>
+
+<pre><code>1  2  3
+4  5  6
+7  8  9
+
+Memory:
+1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9</code></pre>
+
+  <p>C language uses row-major order for multidimensional arrays.</p>
+
+  <h3>Row-Major Address Formula</h3>
+  <div class="formula">
+    Address(A[i][j]) = Base + [(i × Number of Columns) + j] × W
+  </div>
+
+  <p>Where Base = starting address, i = row index, j = column index, and W = size of each element in bytes.</p>
+
+  <h3>Solved Example</h3>
+  <p>
+    Suppose A[3][4], Base = 1000, W = 4 bytes. Find the address of A[2][1].
+  </p>
+  <div class="formula">
+    Address = 1000 + [(2 × 4) + 1] × 4<br>
+    = 1000 + 9 × 4<br>
+    = 1036
+  </div>
+
+  <h3>Column-Major Order</h3>
+  <p>
+    Column-major stores the complete first column, then the second column, then the third column.
+  </p>
+
+<pre><code>1  2  3
+4  5  6
+7  8  9
+
+Memory:
+1 → 4 → 7 → 2 → 5 → 8 → 3 → 6 → 9</code></pre>
+
+  <div class="formula">
+    Column-major Address(A[i][j]) = Base + [(j × Number of Rows) + i] × W
+  </div>
+</section>
+
+<section class="section" id="sparse">
+  <span class="kicker">14 • MEMORY OPTIMIZATION</span>
+  <h2>Sparse Matrix</h2>
+
+  <div class="definition">
+    A sparse matrix is a matrix in which most of the elements are zero.
+  </div>
+
+  <h3>Example</h3>
+<pre><code>0  0  5  0
+0  0  0  0
+3  0  0  0
+0  0  0  7</code></pre>
+
+  <p>
+    This 4 × 4 matrix has 16 total positions but only 3 non-zero values.
+    Storing every zero wastes memory.
+  </p>
+
+  <h3>Triplet Representation</h3>
+  <p>
+    A common representation stores only row, column and value of each non-zero element.
+  </p>
+
+<pre><code>Rows  Columns  Non-zero
+ 4       4          3
+
+Row  Column  Value
+ 0      2      5
+ 2      0      3
+ 3      3      7</code></pre>
+
+  <div class="tip">
+    <b>Why use it?</b> Sparse representation reduces storage when the number of
+    non-zero elements is much smaller than the total number of matrix positions.
+  </div>
+</section>
+
+<section class="section" id="linked">
+  <span class="kicker">15 • DYNAMIC DATA STRUCTURE</span>
+  <h2>Linked Lists</h2>
+
+  <div class="definition">
+    A linked list is a dynamic collection of nodes where each node contains data
+    and one or more links to other nodes.
+  </div>
+
+  <h3>Basic Node</h3>
+<pre><code>struct Node
+{
+    int data;
+    struct Node *next;
+};</code></pre>
+
+  <p>The first field stores the value. The pointer stores the address of the next node.</p>
+
+  <div class="example">
+    <strong>Singly linked-list structure</strong>
+    <pre><code>[10 | next] → [20 | next] → [30 | NULL]</code></pre>
+  </div>
+
+  <h3>Array vs Linked List</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Feature</th><th>Array</th><th>Linked List</th></tr>
+    <tr><td>Memory</td><td>Contiguous</td><td>Non-contiguous nodes</td></tr>
+    <tr><td>Size</td><td>Fixed capacity in basic arrays</td><td>Dynamic</td></tr>
+    <tr><td>Index access</td><td>O(1)</td><td>O(n)</td></tr>
+    <tr><td>Beginning insertion</td><td>Usually O(n)</td><td>O(1)</td></tr>
+    <tr><td>Extra pointer memory</td><td>No</td><td>Yes</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="section" id="singly">
+  <span class="kicker">16 • LINKED LIST TYPE</span>
+  <h2>Singly Linked List</h2>
+
+  <p>
+    Each node has two parts: data and a pointer to the next node.
+    Traversal normally happens in the forward direction.
+  </p>
+
+  <h3>Complete C Example</h3>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+int main()
+{
+    struct Node *head;
+    struct Node *second;
+    struct Node *third;
+
+    head = (struct Node*)malloc(sizeof(struct Node));
+    second = (struct Node*)malloc(sizeof(struct Node));
+    third = (struct Node*)malloc(sizeof(struct Node));
+
+    head-&gt;data = 10;
+    head-&gt;next = second;
+
+    second-&gt;data = 20;
+    second-&gt;next = third;
+
+    third-&gt;data = 30;
+    third-&gt;next = NULL;
+
+    struct Node *temp = head;
+
+    while(temp != NULL)
+    {
+        printf("%d ", temp-&gt;data);
+        temp = temp-&gt;next;
+    }
+
+    free(third);
+    free(second);
+    free(head);
+
+    return 0;
+}</code></pre>
+
+  <h3>Line-by-line Explanation</h3>
+  <ol>
+    <li><span class="inline">#include &lt;stdio.h&gt;</span> provides <span class="inline">printf()</span>.</li>
+    <li><span class="inline">#include &lt;stdlib.h&gt;</span> provides <span class="inline">malloc()</span> and <span class="inline">free()</span>.</li>
+    <li><span class="inline">struct Node</span> defines the structure of one node.</li>
+    <li><span class="inline">int data;</span> stores the node's actual value.</li>
+    <li><span class="inline">struct Node *next;</span> stores the address of the next node.</li>
+    <li><span class="inline">head</span> will point to the first node.</li>
+    <li><span class="inline">malloc(sizeof(struct Node))</span> dynamically allocates memory for a node.</li>
+    <li><span class="inline">head-&gt;data = 10</span> stores 10 in the first node.</li>
+    <li><span class="inline">head-&gt;next = second</span> connects the first node to the second node.</li>
+    <li>The same process connects the second node to the third node.</li>
+    <li><span class="inline">third-&gt;next = NULL</span> marks the end of the list.</li>
+    <li><span class="inline">temp = head</span> starts traversal from the first node.</li>
+    <li>The <span class="inline">while</span> loop continues until temp becomes NULL.</li>
+    <li><span class="inline">temp = temp-&gt;next</span> moves to the next node.</li>
+    <li><span class="inline">free()</span> releases dynamically allocated memory.</li>
+  </ol>
+
+  <h3>Traversal Complexity</h3>
+  <p>To visit all n nodes, we process each node once.</p>
+  <div class="formula">Traversal = O(n)</div>
+
+  <h3>Insertion at Beginning</h3>
+<pre><code>newNode-&gt;next = head;
+head = newNode;</code></pre>
+
+  <p>
+    First, the new node points to the current head. Then head is changed to the new node.
+  </p>
+  <div class="formula">Insertion at beginning = O(1)</div>
+
+  <h3>Insertion at End</h3>
+  <p>
+    Without a tail pointer, we traverse until the last node and then attach the new node.
+  </p>
+  <div class="formula">Typical complexity without tail pointer = O(n)</div>
+
+  <h3>Deletion</h3>
+  <p>
+    To delete a middle node, the previous node is connected to the node after the deleted node.
+  </p>
+<pre><code>previous-&gt;next = current-&gt;next;
+free(current);</code></pre>
+</section>
+
+<section class="section" id="doubly">
+  <span class="kicker">17 • LINKED LIST TYPE</span>
+  <h2>Doubly Linked List</h2>
+
+  <div class="definition">
+    A doubly linked-list node contains three parts: previous pointer, data and next pointer.
+  </div>
+
+<pre><code>struct Node
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};</code></pre>
+
+  <div class="example">
+    <strong>Structure</strong>
+    <pre><code>NULL ← 10 ⇄ 20 ⇄ 30 → NULL</code></pre>
+  </div>
+
+  <p>
+    The <span class="inline">prev</span> pointer allows backward traversal,
+    while <span class="inline">next</span> allows forward traversal.
+  </p>
+
+  <h3>Advantages</h3>
+  <ul>
+    <li>Forward and backward traversal.</li>
+    <li>Deletion can be convenient when a node reference is available.</li>
+    <li>Useful for navigation structures such as browser history.</li>
+  </ul>
+
+  <h3>Disadvantage</h3>
+  <p>Each node needs an additional pointer, so more memory is required.</p>
+</section>
+
+<section class="section" id="circular">
+  <span class="kicker">18 • LINKED LIST TYPE</span>
+  <h2>Circular Linked List</h2>
+
+  <div class="definition">
+    In a circular linked list, the last node points back to the first node instead of pointing to NULL.
+  </div>
+
+  <div class="example">
+    <strong>Structure</strong>
+    <pre><code>10 → 20 → 30
+↑         ↓
+└─────────┘</code></pre>
+  </div>
+
+  <p>The connection is commonly created using:</p>
+<pre><code>last-&gt;next = head;</code></pre>
+
+  <p>
+    Because there is no NULL at the end, traversal must be controlled carefully,
+    often by stopping when we reach the starting node again.
+  </p>
+</section>
+
+<section class="section" id="polynomial">
+  <span class="kicker">19 • APPLICATION OF LINKED LIST</span>
+  <h2>Polynomial Operations</h2>
+
+  <div class="definition">
+    A polynomial can be represented using linked-list nodes where every node stores
+    a coefficient and an exponent/power.
+  </div>
+
+  <h3>Example</h3>
+  <p>Polynomial:</p>
+  <div class="formula">5x³ + 4x² + 2x + 7</div>
+
+  <p>Linked-list representation:</p>
+  <pre><code>[5,3] → [4,2] → [2,1] → [7,0] → NULL</code></pre>
+
+  <p>
+    Here [5,3] means coefficient = 5 and power = 3, representing 5x³.
+  </p>
+
+  <h3>Node Structure</h3>
+<pre><code>struct Node
+{
+    int coeff;
+    int power;
+    struct Node *next;
+};</code></pre>
+
+  <h3>Polynomial Addition</h3>
+  <p>Suppose:</p>
+  <div class="formula">
+    P1 = 5x² + 4x + 3<br>
+    P2 = 3x² + 2x + 1
+  </div>
+
+  <p>Terms having the same power are added:</p>
+  <div class="example">
+    5x² + 3x² = 8x²<br>
+    4x + 2x = 6x<br>
+    3 + 1 = 4
+  </div>
+
+  <div class="formula">Result = 8x² + 6x + 4</div>
+
+  <h3>Polynomial Addition Logic</h3>
+  <ol>
+    <li>Compare the powers of the current terms.</li>
+    <li>If both powers are equal, add their coefficients.</li>
+    <li>If power of P1 is greater, copy P1's term to the result.</li>
+    <li>If power of P2 is greater, copy P2's term to the result.</li>
+    <li>Continue until both lists are processed.</li>
+  </ol>
+
+  <h3>Polynomial Multiplication</h3>
+  <p>Example:</p>
+  <div class="formula">(2x + 3)(x + 4)</div>
+
+  <p>Multiply every term of the first polynomial by every term of the second:</p>
+  <div class="example">
+    2x × x = 2x²<br>
+    2x × 4 = 8x<br>
+    3 × x = 3x<br>
+    3 × 4 = 12
+  </div>
+
+  <p>Combine like terms:</p>
+  <div class="formula">2x² + 8x + 3x + 12 = 2x² + 11x + 12</div>
+</section>
+
+<section class="section summary" id="summary">
+  <span class="kicker">FINAL REVISION</span>
+  <h2>Unit 1 — Quick Revision</h2>
+
+  <h3>Most Important Definitions</h3>
+  <ul class="checklist">
+    <li><b>Data:</b> Raw facts or values.</li>
+    <li><b>Information:</b> Processed meaningful data.</li>
+    <li><b>Algorithm:</b> Finite step-by-step problem-solving procedure.</li>
+    <li><b>Time Complexity:</b> Growth of computational work with input size.</li>
+    <li><b>Space Complexity:</b> Growth of memory requirement with input size.</li>
+    <li><b>ADT:</b> Defines operations without specifying implementation details.</li>
+    <li><b>Array:</b> Same-type elements stored in contiguous memory.</li>
+    <li><b>Sparse Matrix:</b> Matrix containing mostly zero values.</li>
+    <li><b>Linked List:</b> Collection of connected nodes.</li>
+  </ul>
+
+  <h3>Important Complexity Table</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Operation / Concept</th><th>Typical Complexity</th></tr>
+    <tr><td>Array direct access</td><td>O(1)</td></tr>
+    <tr><td>Array search</td><td>O(n)</td></tr>
+    <tr><td>Array middle insertion/deletion</td><td>O(n)</td></tr>
+    <tr><td>Linked-list traversal</td><td>O(n)</td></tr>
+    <tr><td>Linked-list insertion at beginning</td><td>O(1)</td></tr>
+    <tr><td>Linear loop</td><td>O(n)</td></tr>
+    <tr><td>Nested n × n loops</td><td>O(n²)</td></tr>
+  </table>
+  </div>
+
+  <h3>Exam Questions to Practice</h3>
+  <ol>
+    <li>Define data structure and explain basic terminology.</li>
+    <li>Explain algorithm efficiency.</li>
+    <li>Define time and space complexity with examples.</li>
+    <li>Explain O, Ω and Θ notation.</li>
+    <li>Explain time-space tradeoff.</li>
+    <li>What is ADT? Explain with Stack as an example.</li>
+    <li>Explain arrays and their operations.</li>
+    <li>Derive the row-major address formula and solve a numerical.</li>
+    <li>Explain sparse matrix and triplet representation.</li>
+    <li>Explain singly, doubly and circular linked lists.</li>
+    <li>Write C code for singly linked-list traversal.</li>
+    <li>Explain polynomial representation and polynomial addition.</li>
+  </ol>
+
+  <div class="tip">
+    <b>Study Strategy:</b> First understand the definitions and diagrams,
+    then practice complexity numericals, then write the C programs without looking
+    at the code. This will make Unit 1 much easier for exams.
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer style="text-align:center;color:#91a0b9;padding:25px 0;border-top:1px solid #22304a">
+  © 2026 Data Structures Notes • Learn • Practice • Code 🚀
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Structures Notes</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #08101f;
+      --card: #0d1628;
+      --card2: #111b2e;
+      --border: #22304a;
+      --text: #f4f7ff;
+      --muted: #91a0b9;
+      --blue: #55c7ff;
+      --blue-dark: #173b58;
+      --purple: #b87cff;
+      --green: #55e6a5;
+      --yellow: #ffd34e;
+      --pink: #ff69b4;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(39, 111, 170, .18), transparent 28%),
+        radial-gradient(circle at 15% 80%, rgba(93, 62, 150, .12), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1250px, 92%);
+      margin: auto;
+      padding: 45px 0 70px;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 48px;
+      margin-bottom: 28px;
+      background: linear-gradient(110deg, #0c1527, #0d182b 55%, #122b43);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -80px;
+      top: -100px;
+      border-radius: 50%;
+      background: rgba(70, 184, 242, .12);
+      filter: blur(5px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(85, 199, 255, .12);
+      border: 1px solid rgba(85, 199, 255, .28);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .6px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 720px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      padding: 14px 22px;
+      border-radius: 15px;
+      border: 1px solid var(--border);
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      color: #06101b;
+      border-color: var(--blue);
+    }
+
+    .btn.secondary {
+      background: #121c30;
+      color: var(--text);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 50px;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      background: rgba(12, 21, 38, .78);
+      border-radius: 22px;
+      padding: 23px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Section */
+    .section-title {
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      font-size: 29px;
+      margin-bottom: 7px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    /* Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 245px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      background: linear-gradient(145deg, #0c1527, #0d1628);
+      transition: .25s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 145px;
+      height: 145px;
+      right: -55px;
+      bottom: -60px;
+      border-radius: 50%;
+      background: rgba(85, 199, 255, .08);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(85, 199, 255, .45);
+      box-shadow: 0 18px 45px rgba(0,0,0,.25);
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: #182236;
+      border: 1px solid #2a3850;
+      font-size: 28px;
+      margin-bottom: 21px;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 15px;
+      margin-bottom: 19px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .5px;
+    }
+
+    .lecture .tag {
+      color: var(--blue);
+      background: rgba(85, 199, 255, .12);
+    }
+
+    .note .tag {
+      color: var(--green);
+      background: rgba(85, 230, 165, .11);
+    }
+
+    .important .tag {
+      color: var(--yellow);
+      background: rgba(255, 211, 78, .11);
+    }
+
+    /* Notes */
+    .notes {
+      margin-top: 55px;
+    }
+
+    .note {
+      min-height: 215px;
+    }
+
+    .note .icon {
+      font-size: 25px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 60px;
+      padding: 25px 0 10px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Mobile */
+    @media (max-width: 950px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: 94%;
+        padding-top: 25px;
+      }
+
+      .hero {
+        padding: 30px 22px;
+        border-radius: 24px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .stats,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        padding: 19px;
+      }
+
+      .card {
+        min-height: auto;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">CSE • DSA</span>
+
+        <h1>Data Structures</h1>
+
+        <p>
+          Learn Data Structures from the basics to advanced concepts.
+          Study lectures, detailed notes, algorithms, complexity,
+          arrays, linked lists, stacks, queues, trees, graphs and more.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#lectures" class="btn primary">Start Learning</a>
+          <a href="#notes" class="btn secondary">Explore Notes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+      <div class="stat">
+        <strong>10+</strong>
+        <span>Lectures</span>
+      </div>
+
+      <div class="stat">
+        <strong>1</strong>
+        <span>Subject</span>
+      </div>
+
+      <div class="stat">
+        <strong>10+</strong>
+        <span>Study Notes</span>
+      </div>
+
+      <div class="stat">
+        <strong>∞</strong>
+        <span>Keep Learning</span>
+      </div>
+    </section>
+
+    <!-- LECTURES -->
+    <section id="lectures">
+      <div class="section-title">
+        <h2>Lectures</h2>
+        <p>Choose a lecture and start learning step by step.</p>
+      </div>
+
+      <div class="grid">
+
+        <a href="lectures/lecture1.html" class="card lecture">
+          <div class="icon">01</div>
+          <h3>Lecture 1</h3>
+          <p>
+            Introduction to Data Structures, basic terminology,
+            data organization, algorithms and efficiency.
+          </p>
+          <span class="tag">FOUNDATION</span>
+        </a>
+
+        <a href="lectures/lecture2.html" class="card lecture">
+          <div class="icon">02</div>
+          <h3>Lecture 2</h3>
+          <p>
+            Time complexity, space complexity and asymptotic
+            notations O, Ω and Θ with examples.
+          </p>
+          <span class="tag">COMPLEXITY</span>
+        </a>
+
+        <a href="lectures/lecture3.html" class="card lecture">
+          <div class="icon">03</div>
+          <h3>Lecture 3</h3>
+          <p>
+            Time-space tradeoff, Abstract Data Types and
+            important ADT concepts.
+          </p>
+          <span class="tag">ADT</span>
+        </a>
+
+        <a href="lectures/lecture4.html" class="card lecture">
+          <div class="icon">04</div>
+          <h3>Lecture 4</h3>
+          <p>
+            Arrays, array operations, insertion, deletion,
+            searching and memory representation.
+          </p>
+          <span class="tag">ARRAYS</span>
+        </a>
+
+        <a href="lectures/lecture5.html" class="card lecture">
+          <div class="icon">05</div>
+          <h3>Lecture 5</h3>
+          <p>
+            Multidimensional arrays, row-major and column-major
+            representation with address calculations.
+          </p>
+          <span class="tag">2D ARRAYS</span>
+        </a>
+
+        <a href="lectures/lecture6.html" class="card lecture">
+          <div class="icon">06</div>
+          <h3>Lecture 6</h3>
+          <p>
+            Sparse matrices, their representation and triplet
+            form with solved examples.
+          </p>
+          <span class="tag">MATRICES</span>
+        </a>
+
+        <a href="lectures/lecture7.html" class="card lecture">
+          <div class="icon">07</div>
+          <h3>Lecture 7</h3>
+          <p>
+            Linked list introduction, nodes, pointers and
+            array vs pointer implementation.
+          </p>
+          <span class="tag">LINKED LIST</span>
+        </a>
+
+        <a href="lectures/lecture8.html" class="card lecture">
+          <div class="icon">08</div>
+          <h3>Lecture 8</h3>
+          <p>
+            Singly linked list, traversal, insertion and
+            deletion operations with C programs.
+          </p>
+          <span class="tag">SINGLY LIST</span>
+        </a>
+
+        <a href="lectures/lecture9.html" class="card lecture">
+          <div class="icon">09</div>
+          <h3>Lecture 9</h3>
+          <p>
+            Doubly and circular linked lists with diagrams,
+            operations and implementation.
+          </p>
+          <span class="tag">ADVANCED LIST</span>
+        </a>
+
+        <a href="lectures/lecture10.html" class="card lecture important">
+          <div class="icon">10</div>
+          <h3>Lecture 10</h3>
+          <p>
+            Polynomial representation and polynomial addition,
+            subtraction and multiplication using linked lists.
+          </p>
+          <span class="tag">POLYNOMIAL</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- NOTES -->
+    <section id="notes" class="notes">
+      <div class="section-title">
+        <h2>Study Notes</h2>
+        <p>Quick revision material for exams and practice.</p>
+      </div>
+
+      <div class="grid">
+
+        <a href="notes/unit1.html" class="card note">
+          <div class="icon">📘</div>
+          <h3>Unit 1 Notes</h3>
+          <p>
+            Complete Unit 1 notes covering terminology, complexity,
+            arrays, sparse matrices and linked lists.
+          </p>
+          <span class="tag">UNIT 1</span>
+        </a>
+
+        <a href="notes/time-complexity.html" class="card note">
+          <div class="icon">⏱️</div>
+          <h3>Time Complexity</h3>
+          <p>
+            O(1), O(log n), O(n), O(n log n), O(n²) and other
+            important complexities with examples.
+          </p>
+          <span class="tag">REVISION</span>
+        </a>
+
+        <a href="notes/arrays.html" class="card note">
+          <div class="icon">🔢</div>
+          <h3>Arrays Notes</h3>
+          <p>
+            Array operations, multidimensional arrays and
+            row-major / column-major address formulas.
+          </p>
+          <span class="tag">ARRAYS</span>
+        </a>
+
+        <a href="notes/linked-list.html" class="card note">
+          <div class="icon">🔗</div>
+          <h3>Linked List Notes</h3>
+          <p>
+            Singly, doubly and circular linked lists with
+            important diagrams and C code.
+          </p>
+          <span class="tag">LINKED LIST</span>
+        </a>
+
+        <a href="notes/important-questions.html" class="card note important">
+          <div class="icon">⭐</div>
+          <h3>Important Questions</h3>
+          <p>
+            Important theory questions, programming questions
+            and numerical problems for exam preparation.
+          </p>
+          <span class="tag">EXAM PREP</span>
+        </a>
+
+        <a href="notes/quick-revision.html" class="card note">
+          <div class="icon">⚡</div>
+          <h3>Quick Revision</h3>
+          <p>
+            Short definitions, formulas, complexity tables and
+            last-minute revision points.
+          </p>
+          <span class="tag">QUICK REVISION</span>
+        </a>
+
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Data Structures Notes • Keep Learning & Keep Coding 🚀
+    </footer>
+
+  </main>
+
+</body>
+</html>
