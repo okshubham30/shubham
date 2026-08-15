@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures - Unit 2 Detailed Notes</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08101f;
+  --card:#0d1628;
+  --card2:#111b2e;
+  --border:#22304a;
+  --text:#f4f7ff;
+  --muted:#91a0b9;
+  --blue:#55c7ff;
+  --blue2:#173b58;
+  --green:#55e6a5;
+  --yellow:#ffd34e;
+  --purple:#b87cff;
+  --pink:#ff69b4;
+  --red:#ff7d8a;
+  --code:#07101d;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(39,111,170,.18),transparent 28%),
+    radial-gradient(circle at 12% 82%,rgba(93,62,150,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+a{color:inherit}
+.container{width:min(1180px,92%);margin:auto;padding:35px 0 70px}
+
+/* Hero */
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:30px;
+  padding:45px;margin-bottom:28px;
+  background:linear-gradient(110deg,#0c1527,#0d182b 55%,#122b43);
+}
+.hero:after{
+  content:"";position:absolute;width:280px;height:280px;
+  right:-80px;top:-120px;border-radius:50%;
+  background:rgba(85,199,255,.11);filter:blur(4px)
+}
+.hero-content{position:relative;z-index:2}
+.badge{
+  display:inline-block;padding:7px 13px;border-radius:999px;
+  color:var(--blue);background:rgba(85,199,255,.11);
+  border:1px solid rgba(85,199,255,.28);
+  font-size:12px;font-weight:900;letter-spacing:.7px;margin-bottom:15px
+}
+h1{font-size:clamp(36px,5vw,58px);line-height:1.05;letter-spacing:-1.2px}
+.hero p{max-width:850px;color:var(--muted);font-size:17px;margin-top:14px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.meta span{
+  padding:7px 12px;border-radius:999px;background:#121d31;
+  border:1px solid var(--border);color:#cbd5e6;font-size:12px;font-weight:700
+}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+.toc{
+  position:sticky;top:18px;background:rgba(13,22,40,.9);
+  border:1px solid var(--border);border-radius:22px;padding:20px
+}
+.toc h3{font-size:17px;margin-bottom:12px}
+.toc a{
+  display:block;text-decoration:none;color:var(--muted);
+  padding:8px 10px;border-radius:10px;font-size:13px;
+  transition:.2s
+}
+.toc a:hover{background:#142137;color:var(--blue)}
+
+/* Content */
+.content{min-width:0}
+.section{
+  background:linear-gradient(145deg,#0c1527,#0d1628);
+  border:1px solid var(--border);border-radius:24px;
+  padding:30px;margin-bottom:20px
+}
+.section h2{
+  font-size:28px;line-height:1.25;margin-bottom:8px
+}
+.section h3{font-size:21px;margin:25px 0 9px;color:#eaf1ff}
+.section h4{font-size:17px;margin:20px 0 7px;color:var(--blue)}
+.section p{color:#c1ccdd;margin:8px 0}
+.section ul,.section ol{padding-left:24px;color:#c1ccdd}
+.section li{margin:7px 0}
+.kicker{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1px}
+.definition{
+  margin:15px 0;padding:17px 18px;border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;background:#101c30;color:#dce7f7
+}
+.tip{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--green);
+  border-radius:0 14px 14px 0;background:rgba(85,230,165,.07);color:#d7f5e7
+}
+.warning{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--yellow);
+  border-radius:0 14px 14px 0;background:rgba(255,211,78,.06);color:#f8edbd
+}
+.example{
+  margin:16px 0;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#0b1424
+}
+.example strong{display:block;color:var(--blue);margin-bottom:6px}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:15px 0}
+table{width:100%;border-collapse:collapse;min-width:580px}
+th,td{border:1px solid var(--border);padding:11px 13px;text-align:left}
+th{background:#142139;color:var(--blue);font-size:13px}
+td{color:#c8d2e1;font-size:14px}
+tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+
+/* Code */
+pre{
+  overflow-x:auto;margin:15px 0;padding:18px;
+  background:var(--code);border:1px solid #1d2d44;
+  border-radius:15px;color:#dce8f8;font-size:13px;line-height:1.65
+}
+code{font-family:Consolas,Monaco,monospace}
+.inline{
+  font-family:Consolas,monospace;color:var(--blue);
+  background:#111d31;padding:2px 6px;border-radius:6px
+}
+.code-title{
+  margin-top:18px;color:#aebbd0;font-size:12px;font-weight:800;
+  letter-spacing:.5px
+}
+
+/* Formula */
+.formula{
+  padding:17px;text-align:center;margin:15px 0;
+  border:1px dashed #365170;border-radius:15px;
+  background:#0b1728;color:#f1f6ff;font-family:Consolas,monospace
+}
+
+/* Complexity cards */
+.complexity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0}
+.cbox{padding:15px;border:1px solid var(--border);border-radius:16px;background:#101a2c}
+.cbox b{font-size:20px;color:var(--blue);display:block}
+.cbox span{font-size:12px;color:var(--muted)}
+
+/* Summary */
+.summary{
+  border:1px solid rgba(85,199,255,.28);
+  background:linear-gradient(145deg,#0c1a2b,#0d1d31);
+}
+.checklist li::marker{color:var(--green)}
+
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .toc{position:relative;top:0}
+  .complexity-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .container{width:94%;padding-top:22px}
+  .hero{padding:28px 22px;border-radius:24px}
+  .section{padding:22px 18px;border-radius:20px}
+  .complexity-grid{grid-template-columns:1fr 1fr}
+  h1{font-size:38px}
+  .hero p{font-size:15px}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="hero">
+  <div class="hero-content">
+    <span class="badge">CSE • DATA STRUCTURES • UNIT 2</span>
+    <h1>Unit 2 — Stacks, Recursion & Queues</h1>
+    <p>Complete, beginner-friendly and exam-oriented notes covering stacks, stack implementation, expression conversion and evaluation, recursion, Tower of Hanoi, queues, circular queues, deques and priority queues.</p>
+    <div class="meta">
+      <span>📘 Detailed Theory</span>
+      <span>💻 C Programs</span>
+      <span>🧠 Algorithms + Logic</span>
+      <span>🎯 AKTU Exam Preparation</span>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+<aside class="toc">
+  <h3>On This Page</h3>
+  <a href="#stack">1. Stack</a>
+  <a href="#stack-array">2. Stack Using Array</a>
+  <a href="#stack-linked">3. Stack Using Linked List</a>
+  <a href="#applications">4. Applications of Stack</a>
+  <a href="#infix-postfix">5. Infix → Postfix</a>
+  <a href="#infix-prefix">6. Infix → Prefix</a>
+  <a href="#postfix">7. Postfix Evaluation</a>
+  <a href="#recursion">8. Recursion</a>
+  <a href="#tail">9. Tail Recursion</a>
+  <a href="#hanoi">10. Tower of Hanoi</a>
+  <a href="#queue">11. Queue</a>
+  <a href="#queue-array">12. Queue Using Array</a>
+  <a href="#queue-linked">13. Queue Using Linked List</a>
+  <a href="#circular">14. Circular Queue</a>
+  <a href="#deque">15. Deque</a>
+  <a href="#priority">16. Priority Queue</a>
+  <a href="#comparison">17. Stack vs Queue</a>
+  <a href="#complexity">18. Complexity Table</a>
+  <a href="#summary">Quick Revision</a>
+  <a href="#questions">Exam Questions</a>
+</aside>
+
+<main class="content">
+
+<section class="section" id="stack">
+  <span class="kicker">01 • LIFO DATA STRUCTURE</span>
+  <h2>Stack</h2>
+  <div class="definition"><b>Definition:</b> A stack is a linear data structure in which insertion and deletion take place only at one end called the <b>TOP</b>. It follows the <b>LIFO (Last In, First Out)</b> principle.</div>
+
+  <h3>LIFO Concept</h3>
+  <p>The element inserted last is removed first.</p>
+  <div class="example"><strong>Real-life example</strong>A stack of plates: the last plate placed on top is the first plate removed.</div>
+
+  <h3>Basic Terminology</h3>
+  <ul>
+    <li><b>TOP:</b> Points to the element currently at the top of the stack.</li>
+    <li><b>Push:</b> Inserts an element at the top.</li>
+    <li><b>Pop:</b> Removes the top element.</li>
+    <li><b>Peek/Top:</b> Reads the top element without deleting it.</li>
+    <li><b>Overflow:</b> Trying to push into a full stack.</li>
+    <li><b>Underflow:</b> Trying to pop from an empty stack.</li>
+  </ul>
+
+  <h3>Stack Representation</h3>
+  <pre><code>TOP
+ ↓
+[40]
+[30]
+[20]
+[10]
+─────
+Bottom</code></pre>
+
+  <div class="tip"><b>Remember:</b> Stack = LIFO = insertion/deletion from the same end.</div>
+</section>
+
+<section class="section" id="stack-array">
+  <span class="kicker">02 • ARRAY IMPLEMENTATION</span>
+  <h2>Stack Using Array</h2>
+  <p>A stack can be implemented using a one-dimensional array and an integer variable <span class="inline">top</span>.</p>
+
+  <h3>Initial Condition</h3>
+  <div class="formula">top = -1</div>
+  <p>When <span class="inline">top = -1</span>, the stack is empty.</p>
+
+  <h3>Push Operation</h3>
+  <ol>
+    <li>Check whether <span class="inline">top == MAX-1</span>.</li>
+    <li>If true, report <b>Stack Overflow</b>.</li>
+    <li>Otherwise increment <span class="inline">top</span>.</li>
+    <li>Store the new item at <span class="inline">stack[top]</span>.</li>
+  </ol>
+
+  <h3>Pop Operation</h3>
+  <ol>
+    <li>Check whether <span class="inline">top == -1</span>.</li>
+    <li>If true, report <b>Stack Underflow</b>.</li>
+    <li>Otherwise read <span class="inline">stack[top]</span>.</li>
+    <li>Decrement <span class="inline">top</span>.</li>
+  </ol>
+
+  <h3>Peek Operation</h3>
+  <p>If the stack is not empty, <span class="inline">stack[top]</span> gives the top element without removing it.</p>
+
+  <div class="code-title">C Program — Stack Using Array</div>
+  <pre><code>#include &lt;stdio.h&gt;
+#define MAX 5
+
+int stack[MAX];
+int top = -1;
+
+void push(int value)
+{
+    if (top == MAX - 1)
+        printf("Stack Overflow\n");
+    else
+    {
+        top++;
+        stack[top] = value;
+    }
+}
+
+void pop()
+{
+    if (top == -1)
+        printf("Stack Underflow\n");
+    else
+    {
+        printf("Deleted: %d\n", stack[top]);
+        top--;
+    }
+}
+
+void peek()
+{
+    if (top == -1)
+        printf("Stack is Empty\n");
+    else
+        printf("Top: %d\n", stack[top]);
+}
+
+int main()
+{
+    push(10);
+    push(20);
+    push(30);
+
+    peek();
+    pop();
+    peek();
+
+    return 0;
+}</code></pre>
+
+  <h3>Complexity</h3>
+  <div class="complexity-grid">
+    <div class="cbox"><b>Push</b><span>O(1)</span></div>
+    <div class="cbox"><b>Pop</b><span>O(1)</span></div>
+    <div class="cbox"><b>Peek</b><span>O(1)</span></div>
+    <div class="cbox"><b>Space</b><span>O(n)</span></div>
+  </div>
+</section>
+
+<section class="section" id="stack-linked">
+  <span class="kicker">03 • LINKED IMPLEMENTATION</span>
+  <h2>Stack Using Linked List</h2>
+  <div class="definition">A linked-list stack uses nodes. The <b>top</b> pointer points to the first node, and insertion/deletion are performed at the beginning.</div>
+
+  <pre><code>TOP
+ ↓
+[30 | next] → [20 | next] → [10 | NULL]</code></pre>
+
+  <h3>Push in Linked-List Stack</h3>
+  <ol>
+    <li>Create a new node.</li>
+    <li>Store the value in the node.</li>
+    <li>Make <span class="inline">newNode-&gt;next = top</span>.</li>
+    <li>Set <span class="inline">top = newNode</span>.</li>
+  </ol>
+
+  <h3>Pop in Linked-List Stack</h3>
+  <ol>
+    <li>Check whether <span class="inline">top == NULL</span>.</li>
+    <li>Store the current top node in a temporary pointer.</li>
+    <li>Move <span class="inline">top = top-&gt;next</span>.</li>
+    <li>Free the old top node.</li>
+  </ol>
+
+  <div class="code-title">C Program — Stack Using Linked List</div>
+  <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node *top = NULL;
+
+void push(int value)
+{
+    struct Node *newNode =
+        (struct Node*)malloc(sizeof(struct Node));
+
+    newNode-&gt;data = value;
+    newNode-&gt;next = top;
+    top = newNode;
+}
+
+void pop()
+{
+    if (top == NULL)
+        printf("Stack Underflow\n");
+    else
+    {
+        struct Node *temp = top;
+        printf("Deleted: %d\n", temp-&gt;data);
+        top = top-&gt;next;
+        free(temp);
+    }
+}
+
+void peek()
+{
+    if (top == NULL)
+        printf("Stack is Empty\n");
+    else
+        printf("Top: %d\n", top-&gt;data);
+}
+
+int main()
+{
+    push(10);
+    push(20);
+    push(30);
+
+    peek();
+    pop();
+    peek();
+
+    return 0;
+}</code></pre>
+
+  <div class="tip"><b>Advantage:</b> A linked-list stack does not need a fixed array capacity. It grows dynamically until available memory is exhausted.</div>
+</section>
+
+<section class="section" id="applications">
+  <span class="kicker">04 • STACK APPLICATIONS</span>
+  <h2>Applications of Stack</h2>
+  <ul>
+    <li>Expression conversion: infix, prefix and postfix.</li>
+    <li>Postfix/prefix expression evaluation.</li>
+    <li>Function calls and recursion.</li>
+    <li>Undo/redo operations.</li>
+    <li>Browser backtracking.</li>
+    <li>Parentheses matching.</li>
+    <li>Backtracking algorithms.</li>
+  </ul>
+
+  <h3>Expression Types</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Type</th><th>Example</th><th>Operator Position</th></tr>
+    <tr><td>Infix</td><td>A + B</td><td>Between operands</td></tr>
+    <tr><td>Prefix</td><td>+ A B</td><td>Before operands</td></tr>
+    <tr><td>Postfix</td><td>A B +</td><td>After operands</td></tr>
+  </table>
+  </div>
+
+  <div class="warning"><b>Exam point:</b> Learn operator precedence and associativity before solving infix/prefix/postfix problems.</div>
+</section>
+
+<section class="section" id="infix-postfix">
+  <span class="kicker">05 • EXPRESSION CONVERSION</span>
+  <h2>Infix to Postfix</h2>
+  <div class="definition">In postfix notation, operators are written after their operands. A stack is used to temporarily hold operators.</div>
+
+  <h3>Operator Precedence</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Operator</th><th>Meaning</th><th>Priority</th></tr>
+    <tr><td>()</td><td>Parentheses</td><td>Highest</td></tr>
+    <tr><td>^</td><td>Power</td><td>High</td></tr>
+    <tr><td>*, /, %</td><td>Multiplication / Division / Modulus</td><td>Medium</td></tr>
+    <tr><td>+, -</td><td>Addition / Subtraction</td><td>Low</td></tr>
+  </table>
+  </div>
+
+  <h3>Algorithm</h3>
+  <ol>
+    <li>Scan the infix expression from left to right.</li>
+    <li>If the symbol is an operand, add it to the output.</li>
+    <li>If the symbol is <span class="inline">(</span>, push it onto the stack.</li>
+    <li>If the symbol is <span class="inline">)</span>, pop until <span class="inline">(</span> is found.</li>
+    <li>If the symbol is an operator, pop operators having higher or equal precedence as appropriate, then push the current operator.</li>
+    <li>After scanning, pop all remaining operators.</li>
+  </ol>
+
+  <h3>Solved Example</h3>
+  <div class="example"><strong>Infix</strong>A + B * C</div>
+  <p><b>Step 1:</b> A → output</p>
+  <p><b>Step 2:</b> + → stack</p>
+  <p><b>Step 3:</b> B → output</p>
+  <p><b>Step 4:</b> * has higher precedence → stack</p>
+  <p><b>Step 5:</b> C → output</p>
+  <p><b>Step 6:</b> Pop * and +.</p>
+  <div class="formula">Postfix = ABC*+</div>
+
+  <div class="example"><strong>Another Example</strong>(A + B) * C → AB+C*</div>
+</section>
+
+<section class="section" id="infix-prefix">
+  <span class="kicker">06 • EXPRESSION CONVERSION</span>
+  <h2>Infix to Prefix</h2>
+  <div class="definition">In prefix notation, the operator is written before its operands.</div>
+
+  <h3>General Method</h3>
+  <ol>
+    <li>Reverse the infix expression.</li>
+    <li>Replace <span class="inline">(</span> with <span class="inline">)</span> and vice versa.</li>
+    <li>Convert the modified expression to postfix using a stack.</li>
+    <li>Reverse the resulting postfix expression.</li>
+  </ol>
+
+  <h3>Example</h3>
+  <div class="example">
+    <strong>Infix</strong>A + B * C<br>
+    First apply precedence: B*C<br>
+    Prefix result:
+  </div>
+  <div class="formula">+ A * B C</div>
+</section>
+
+<section class="section" id="postfix">
+  <span class="kicker">07 • STACK APPLICATION</span>
+  <h2>Postfix Expression Evaluation</h2>
+  <div class="definition">A postfix expression can be evaluated using a stack because no parentheses are required.</div>
+
+  <h3>Algorithm</h3>
+  <ol>
+    <li>Scan the postfix expression from left to right.</li>
+    <li>If the symbol is an operand, push it.</li>
+    <li>If the symbol is an operator, pop the required operands.</li>
+    <li>Apply the operator and push the result.</li>
+    <li>After the complete scan, the stack top is the final answer.</li>
+  </ol>
+
+  <h3>Solved Example</h3>
+  <div class="example"><strong>Expression</strong>23*54*+</div>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Symbol</th><th>Action</th><th>Stack</th></tr>
+    <tr><td>2</td><td>Push</td><td>2</td></tr>
+    <tr><td>3</td><td>Push</td><td>2, 3</td></tr>
+    <tr><td>*</td><td>2 × 3 = 6</td><td>6</td></tr>
+    <tr><td>5</td><td>Push</td><td>6, 5</td></tr>
+    <tr><td>4</td><td>Push</td><td>6, 5, 4</td></tr>
+    <tr><td>*</td><td>5 × 4 = 20</td><td>6, 20</td></tr>
+    <tr><td>+</td><td>6 + 20 = 26</td><td>26</td></tr>
+  </table>
+  </div>
+  <div class="formula">Answer = 26</div>
+</section>
+
+<section class="section" id="recursion">
+  <span class="kicker">08 • SELF-CALLING FUNCTION</span>
+  <h2>Recursion</h2>
+  <div class="definition"><b>Definition:</b> Recursion is a technique in which a function calls itself to solve a smaller version of the same problem.</div>
+
+  <h3>Two Essential Parts</h3>
+  <ul>
+    <li><b>Base Case:</b> Condition that stops recursion.</li>
+    <li><b>Recursive Case:</b> Function calls itself with a smaller/simpler input.</li>
+  </ul>
+
+  <h3>Example: Factorial</h3>
+  <div class="formula">n! = n × (n−1)! &nbsp;&nbsp; and &nbsp;&nbsp; 0! = 1</div>
+
+  <pre><code>int factorial(int n)
+{
+    if (n == 0)
+        return 1;
+
+    return n * factorial(n - 1);
+}</code></pre>
+
+  <h3>Working of factorial(4)</h3>
+  <pre><code>factorial(4)
+= 4 × factorial(3)
+= 4 × 3 × factorial(2)
+= 4 × 3 × 2 × factorial(1)
+= 4 × 3 × 2 × 1
+= 24</code></pre>
+
+  <h3>Advantages</h3>
+  <ul>
+    <li>Can make some algorithms shorter and easier to understand.</li>
+    <li>Natural for tree traversal, divide-and-conquer and backtracking.</li>
+  </ul>
+
+  <h3>Limitations</h3>
+  <ul>
+    <li>Recursive calls use call-stack memory.</li>
+    <li>Too many calls can cause stack overflow.</li>
+    <li>May be slower than an iterative solution because of function-call overhead.</li>
+  </ul>
+</section>
+
+<section class="section" id="tail">
+  <span class="kicker">09 • RECURSION TYPE</span>
+  <h2>Tail Recursion</h2>
+  <div class="definition">A recursive function is tail-recursive when the recursive call is the last major operation performed by the function.</div>
+
+  <pre><code>void print(int n)
+{
+    if (n == 0)
+        return;
+
+    printf("%d ", n);
+    print(n - 1);
+}</code></pre>
+
+  <h3>Recursion vs Iteration</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Recursion</th><th>Iteration</th></tr>
+    <tr><td>Uses function calls</td><td>Uses loops</td></tr>
+    <tr><td>Uses call stack</td><td>Usually uses less extra memory</td></tr>
+    <tr><td>Needs a base case</td><td>Needs loop condition</td></tr>
+    <tr><td>Often elegant for recursive problems</td><td>Often efficient for repeated simple operations</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="section" id="hanoi">
+  <span class="kicker">10 • IMPORTANT RECURSIVE PROBLEM</span>
+  <h2>Tower of Hanoi</h2>
+  <div class="definition">Tower of Hanoi is a recursive problem involving three rods and n disks. The objective is to move all disks from the source rod to the destination rod while following the rules.</div>
+
+  <h3>Rules</h3>
+  <ol>
+    <li>Only one disk can be moved at a time.</li>
+    <li>Only the top disk of a rod can be moved.</li>
+    <li>A larger disk cannot be placed on a smaller disk.</li>
+  </ol>
+
+  <div class="formula">Minimum moves = 2ⁿ − 1</div>
+
+  <h3>Recursive Algorithm</h3>
+  <ol>
+    <li>Move n−1 disks from Source to Auxiliary.</li>
+    <li>Move the largest disk from Source to Destination.</li>
+    <li>Move n−1 disks from Auxiliary to Destination.</li>
+  </ol>
+
+  <pre><code>void towerOfHanoi(int n, char source,
+                  char auxiliary, char destination)
+{
+    if (n == 1)
+    {
+        printf("Move disk 1 from %c to %c\n",
+               source, destination);
+        return;
+    }
+
+    towerOfHanoi(n - 1, source, destination, auxiliary);
+
+    printf("Move disk %d from %c to %c\n",
+           n, source, destination);
+
+    towerOfHanoi(n - 1, auxiliary, source, destination);
+}</code></pre>
+
+  <div class="example"><strong>For n = 3</strong>Minimum moves = 2³ − 1 = <b>7</b></div>
+</section>
+
+<section class="section" id="queue">
+  <span class="kicker">11 • FIFO DATA STRUCTURE</span>
+  <h2>Queue</h2>
+  <div class="definition"><b>Definition:</b> A queue is a linear data structure in which insertion is performed at the <b>REAR</b> and deletion is performed at the <b>FRONT</b>. It follows the <b>FIFO (First In, First Out)</b> principle.</div>
+
+  <pre><code>Insertion → REAR
+[10][20][30][40]
+ ↑
+FRONT
+Deletion ←</code></pre>
+
+  <h3>Basic Operations</h3>
+  <ul>
+    <li><b>Enqueue:</b> Insert an element at rear.</li>
+    <li><b>Dequeue:</b> Remove an element from front.</li>
+    <li><b>Front/Peek:</b> View the front element.</li>
+    <li><b>isEmpty:</b> Check whether queue is empty.</li>
+    <li><b>isFull:</b> Check whether an array queue is full.</li>
+  </ul>
+
+  <h3>Applications</h3>
+  <ul>
+    <li>CPU scheduling.</li>
+    <li>Printer queues.</li>
+    <li>Network packet handling.</li>
+    <li>Customer-service systems.</li>
+    <li>Breadth First Search (BFS).</li>
+  </ul>
+</section>
+
+<section class="section" id="queue-array">
+  <span class="kicker">12 • ARRAY IMPLEMENTATION</span>
+  <h2>Queue Using Array</h2>
+
+  <h3>Initial Condition</h3>
+  <div class="formula">front = rear = -1</div>
+
+  <h3>Enqueue</h3>
+  <ol>
+    <li>Check whether the queue is full.</li>
+    <li>If the first insertion, set <span class="inline">front = 0</span>.</li>
+    <li>Increment <span class="inline">rear</span>.</li>
+    <li>Store the item at <span class="inline">queue[rear]</span>.</li>
+  </ol>
+
+  <h3>Dequeue</h3>
+  <ol>
+    <li>Check whether the queue is empty.</li>
+    <li>Read <span class="inline">queue[front]</span>.</li>
+    <li>Increment <span class="inline">front</span>.</li>
+    <li>If the queue becomes empty, reset <span class="inline">front</span> and <span class="inline">rear</span> appropriately.</li>
+  </ol>
+
+  <div class="code-title">C Program — Linear Queue</div>
+  <pre><code>#include &lt;stdio.h&gt;
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue(int value)
+{
+    if (rear == MAX - 1)
+        printf("Queue Overflow\n");
+    else
+    {
+        if (front == -1)
+            front = 0;
+
+        rear++;
+        queue[rear] = value;
+    }
+}
+
+void dequeue()
+{
+    if (front == -1 || front &gt; rear)
+        printf("Queue Underflow\n");
+    else
+    {
+        printf("Deleted: %d\n", queue[front]);
+        front++;
+
+        if (front &gt; rear)
+            front = rear = -1;
+    }
+}
+
+void display()
+{
+    if (front == -1)
+        printf("Queue is Empty\n");
+    else
+        for (int i = front; i &lt;= rear; i++)
+            printf("%d ", queue[i]);
+}
+
+int main()
+{
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+
+    display();
+    dequeue();
+
+    return 0;
+}</code></pre>
+</section>
+
+<section class="section" id="queue-linked">
+  <span class="kicker">13 • LINKED IMPLEMENTATION</span>
+  <h2>Queue Using Linked List</h2>
+  <p>A linked-list queue uses two pointers: <b>front</b> and <b>rear</b>.</p>
+
+  <pre><code>FRONT                         REAR
+  ↓                             ↓
+[10 | next] → [20 | next] → [30 | NULL]</code></pre>
+
+  <h3>Enqueue</h3>
+  <p>Create a node and attach it after the current rear. Then move rear to the new node.</p>
+
+  <h3>Dequeue</h3>
+  <p>Remove the node pointed to by front and move front to the next node.</p>
+
+  <div class="tip"><b>Key idea:</b> Enqueue happens at rear; dequeue happens at front.</div>
+</section>
+
+<section class="section" id="circular">
+  <span class="kicker">14 • IMPROVED QUEUE</span>
+  <h2>Circular Queue</h2>
+  <div class="definition">A circular queue connects the last position of the array back to the first position, allowing previously unused positions to be reused.</div>
+
+  <pre><code>        ┌──────────────────────┐
+        ↓                      │
+[0] [1] [2] [3] [4] ──────────┘</code></pre>
+
+  <h3>Why Circular Queue?</h3>
+  <p>In a simple linear array queue, after deletions, free spaces may appear at the beginning while rear reaches the last index. Circular queue reuses these spaces.</p>
+
+  <h3>Important Conditions</h3>
+  <div class="formula">Empty: front == -1</div>
+  <div class="formula">Full: (rear + 1) % MAX == front</div>
+
+  <h3>Enqueue Logic</h3>
+  <ol>
+    <li>If full, report overflow.</li>
+    <li>If empty, set front = rear = 0.</li>
+    <li>Otherwise set <span class="inline">rear = (rear + 1) % MAX</span>.</li>
+    <li>Insert the value at rear.</li>
+  </ol>
+
+  <h3>Dequeue Logic</h3>
+  <ol>
+    <li>If empty, report underflow.</li>
+    <li>Save/remove the front element.</li>
+    <li>If front == rear, reset both to -1.</li>
+    <li>Otherwise set <span class="inline">front = (front + 1) % MAX</span>.</li>
+  </ol>
+
+  <div class="code-title">Core Circular Queue Conditions</div>
+  <pre><code>if ((rear + 1) % MAX == front)
+    printf("Queue Full");
+
+rear = (rear + 1) % MAX;
+
+front = (front + 1) % MAX;</code></pre>
+</section>
+
+<section class="section" id="deque">
+  <span class="kicker">15 • DOUBLE ENDED QUEUE</span>
+  <h2>Deque — Double Ended Queue</h2>
+  <div class="definition">A deque is a queue in which insertion and deletion can be performed at both the front and rear ends.</div>
+
+  <pre><code>Front ⇄ [10][20][30][40] ⇄ Rear</code></pre>
+
+  <h3>Operations</h3>
+  <ul>
+    <li>Insert at front.</li>
+    <li>Insert at rear.</li>
+    <li>Delete from front.</li>
+    <li>Delete from rear.</li>
+  </ul>
+
+  <h3>Types of Deque</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Type</th><th>Restriction</th></tr>
+    <tr><td>Input Restricted Deque</td><td>Insertion allowed at only one end; deletion at both ends.</td></tr>
+    <tr><td>Output Restricted Deque</td><td>Deletion allowed at only one end; insertion at both ends.</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="section" id="priority">
+  <span class="kicker">16 • PRIORITY-BASED QUEUE</span>
+  <h2>Priority Queue</h2>
+  <div class="definition">A priority queue is a queue in which elements are processed according to their priority rather than simply according to arrival order.</div>
+
+  <h3>Example</h3>
+  <p>In a hospital emergency system, a critical patient may be served before a less critical patient even if the latter arrived earlier.</p>
+
+  <h3>Basic Operations</h3>
+  <ul>
+    <li><b>Insert:</b> Add an element with its priority.</li>
+    <li><b>Delete:</b> Remove the element having the highest/required priority.</li>
+    <li><b>Peek:</b> View the highest-priority element.</li>
+  </ul>
+
+  <h3>Types</h3>
+  <ul>
+    <li>Ascending priority queue.</li>
+    <li>Descending priority queue.</li>
+  </ul>
+
+  <div class="warning"><b>Exam point:</b> Clearly mention that priority determines service order. If two elements have the same priority, their order may be handled according to the implementation's tie rule.</div>
+</section>
+
+<section class="section" id="comparison">
+  <span class="kicker">17 • COMPARISON</span>
+  <h2>Stack vs Queue</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Feature</th><th>Stack</th><th>Queue</th></tr>
+    <tr><td>Principle</td><td>LIFO</td><td>FIFO</td></tr>
+    <tr><td>Insertion</td><td>Top</td><td>Rear</td></tr>
+    <tr><td>Deletion</td><td>Top</td><td>Front</td></tr>
+    <tr><td>Main pointers</td><td>Top</td><td>Front and Rear</td></tr>
+    <tr><td>Example</td><td>Stack of plates</td><td>Line of people</td></tr>
+    <tr><td>Major applications</td><td>Recursion, expression processing</td><td>Scheduling, BFS, buffering</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="section" id="complexity">
+  <span class="kicker">18 • EXAM REVISION</span>
+  <h2>Complexity Table</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Operation</th><th>Array Implementation</th><th>Linked Implementation</th></tr>
+    <tr><td>Stack Push</td><td>O(1)</td><td>O(1)</td></tr>
+    <tr><td>Stack Pop</td><td>O(1)</td><td>O(1)</td></tr>
+    <tr><td>Stack Peek</td><td>O(1)</td><td>O(1)</td></tr>
+    <tr><td>Queue Enqueue</td><td>O(1)</td><td>O(1)</td></tr>
+    <tr><td>Queue Dequeue</td><td>O(1)</td><td>O(1)</td></tr>
+    <tr><td>Queue Peek</td><td>O(1)</td><td>O(1)</td></tr>
+    <tr><td>Postfix Evaluation</td><td colspan="2">O(n)</td></tr>
+    <tr><td>Infix → Postfix</td><td colspan="2">O(n)</td></tr>
+    <tr><td>Tower of Hanoi</td><td colspan="2">O(2ⁿ) moves</td></tr>
+  </table>
+  </div>
+</section>
+
+<section class="section summary" id="summary">
+  <span class="kicker">FINAL REVISION</span>
+  <h2>Unit 2 — Quick Revision</h2>
+
+  <h3>Most Important Definitions</h3>
+  <ul class="checklist">
+    <li><b>Stack:</b> Linear structure following LIFO.</li>
+    <li><b>Push:</b> Insert an item into a stack.</li>
+    <li><b>Pop:</b> Remove the top item from a stack.</li>
+    <li><b>Overflow:</b> Insertion into a full structure.</li>
+    <li><b>Underflow:</b> Deletion from an empty structure.</li>
+    <li><b>Recursion:</b> A function calling itself.</li>
+    <li><b>Queue:</b> Linear structure following FIFO.</li>
+    <li><b>Enqueue:</b> Insert at the rear of a queue.</li>
+    <li><b>Dequeue:</b> Delete from the front of a queue.</li>
+    <li><b>Circular Queue:</b> Queue whose last position connects back to the first.</li>
+    <li><b>Deque:</b> Double-ended queue.</li>
+    <li><b>Priority Queue:</b> Queue where service order depends on priority.</li>
+  </ul>
+
+  <h3>Must Remember Formulas / Conditions</h3>
+  <div class="formula">Tower of Hanoi = 2ⁿ − 1 moves</div>
+  <div class="formula">Circular Queue Full = (rear + 1) % MAX == front</div>
+  <div class="formula">Stack Empty = top == -1 (array implementation)</div>
+  <div class="formula">Queue Empty = front == -1 (common array implementation)</div>
+
+  <div class="tip"><b>Study Strategy:</b> First understand Stack and Queue diagrams. Then practice Push/Pop and Enqueue/Dequeue C programs. After that solve 4–5 infix-to-postfix and postfix-evaluation questions, and finally practice recursion and Tower of Hanoi.</div>
+</section>
+
+<section class="section" id="questions">
+  <span class="kicker">EXAM PRACTICE</span>
+  <h2>Important Questions</h2>
+  <ol>
+    <li>Define stack. Explain LIFO with a suitable example.</li>
+    <li>Explain push, pop and peek operations with algorithms.</li>
+    <li>Write a C program to implement stack using an array.</li>
+    <li>Implement stack using a linked list.</li>
+    <li>Explain stack overflow and stack underflow.</li>
+    <li>Convert an infix expression into postfix using a stack.</li>
+    <li>Convert an infix expression into prefix using a stack.</li>
+    <li>Evaluate a postfix expression using a stack.</li>
+    <li>Define recursion and explain base case and recursive case.</li>
+    <li>Write a recursive program for factorial and Fibonacci series.</li>
+    <li>Explain Tower of Hanoi and derive the minimum number of moves.</li>
+    <li>Define queue and explain FIFO with an example.</li>
+    <li>Write algorithms/programs for enqueue and dequeue.</li>
+    <li>Explain circular queue and its full/empty conditions.</li>
+    <li>Implement circular queue using an array.</li>
+    <li>Explain deque and its types.</li>
+    <li>Explain priority queue with applications.</li>
+    <li>Differentiate between stack and queue.</li>
+  </ol>
+
+  <div class="warning"><b>AKTU focus:</b> Give special attention to C programs, algorithms, expression-conversion numericals, postfix evaluation, recursion/Tower of Hanoi, and circular queue conditions.</div>
+</section>
+
+</main>
+</div>
+<footer style="text-align:center;color:#91a0b9;padding:25px 0;border-top:1px solid #22304a">
+© 2026 Data Structures Notes • Unit 2 • Learn • Practice • Code 🚀
+</footer>
+</div>
+</body>
+</html>
