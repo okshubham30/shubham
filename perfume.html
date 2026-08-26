@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Fragrance Collection | Shubham</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080706; --card:#12100e; --gold:#d6ad63; --gold2:#f2d18e;
+  --cream:#f7f1e6; --muted:#aaa198; --line:rgba(214,173,99,.20);
+}
+*{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth}
+body{
+  font-family:Inter,sans-serif;color:var(--cream);background:var(--bg);
+  background-image:radial-gradient(circle at 15% 10%,rgba(214,173,99,.10),transparent 30%),
+                   radial-gradient(circle at 90% 70%,rgba(120,70,20,.10),transparent 32%);
+}
+nav{
+  position:fixed;top:0;width:100%;z-index:20;padding:18px 7%;
+  display:flex;justify-content:space-between;align-items:center;
+  background:rgba(8,7,6,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)
+}
+.logo{font-family:"Playfair Display";font-size:25px;color:var(--gold2)}
+nav ul{display:flex;gap:25px;list-style:none}
+nav a{color:#ddd2c3;text-decoration:none;font-size:13px} nav a:hover{color:var(--gold2)}
+.hero{
+  min-height:100vh;display:grid;place-items:center;text-align:center;padding:150px 7% 90px;
+  background:linear-gradient(rgba(8,7,6,.48),rgba(8,7,6,.96)),
+  url("https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?q=85&w=1800&auto=format&fit=crop") center/cover;
+}
+.hero-inner{max-width:900px}
+.eyebrow{color:var(--gold2);letter-spacing:5px;text-transform:uppercase;font-size:12px;margin-bottom:22px}
+h1{font-family:"Playfair Display";font-size:clamp(55px,8vw,105px);line-height:.98;font-weight:600}
+.hero h1 span{color:var(--gold2)}
+.hero p{max-width:680px;margin:28px auto 35px;color:#c9c0b5;line-height:1.9;font-size:17px}
+.btn{display:inline-block;padding:14px 27px;border:1px solid var(--gold);border-radius:30px;color:#17120b;background:var(--gold2);text-decoration:none;font-weight:700;font-size:13px}
+section{padding:100px 7%}
+.section-head{text-align:center;max-width:700px;margin:0 auto 55px}
+.section-head small{color:var(--gold);letter-spacing:3px;text-transform:uppercase}
+.section-head h2{font-family:"Playfair Display";font-size:48px;margin:12px 0}
+.section-head p{color:var(--muted);line-height:1.8}
+.grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.card{
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;
+  transition:.4s;position:relative
+}
+.card:hover{transform:translateY(-9px);border-color:var(--line);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.bottle{
+  height:290px;display:grid;place-items:center;
+  background:radial-gradient(circle,rgba(214,173,99,.14),transparent 58%),#0d0b09;
+  position:relative
+}
+.bottle .emoji{font-size:110px;filter:drop-shadow(0 18px 20px #000);transition:.4s}
+.bottle img{width:78%;height:255px;object-fit:contain;filter:drop-shadow(0 20px 22px rgba(0,0,0,.65));transition:.4s}
+.card:hover .bottle img{transform:scale(1.08) translateY(-5px)}
+.card:hover .emoji{transform:scale(1.08) translateY(-5px)}
+.badge{position:absolute;top:16px;left:16px;padding:7px 11px;border-radius:20px;background:rgba(214,173,99,.13);color:var(--gold2);font-size:11px}
+.content{padding:25px}
+.content h3{font-family:"Playfair Display";font-size:27px;margin-bottom:8px}
+.brand{font-size:12px;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+.content p{color:var(--muted);line-height:1.7;font-size:14px;margin:16px 0}
+.meta{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.08);padding-top:15px;color:#d7cec3;font-size:12px}
+.feature{
+  max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr 1fr;
+  background:linear-gradient(135deg,#17120c,#0d0b09);border:1px solid var(--line);border-radius:30px;overflow:hidden
+}
+.feature-visual{min-height:500px;display:grid;place-items:center;background:radial-gradient(circle,rgba(214,173,99,.22),transparent 45%),#0c0a08}
+.feature-visual img{width:75%;height:390px;object-fit:contain;filter:drop-shadow(0 30px 35px rgba(0,0,0,.75))}
+.feature-copy{padding:65px}
+.feature-copy small{color:var(--gold);letter-spacing:3px}
+.feature-copy h2{font-family:"Playfair Display";font-size:52px;margin:15px 0}
+.feature-copy p{color:var(--muted);line-height:1.9;margin-bottom:25px}
+.stars{color:var(--gold2);letter-spacing:3px}
+.notes{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 30px}
+.notes span{padding:8px 12px;border:1px solid var(--line);border-radius:20px;font-size:11px;color:#d9c9b3}
+.guide{max-width:950px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.guide div{padding:25px;border:1px solid rgba(255,255,255,.08);border-radius:20px;background:#100e0c}
+.guide b{display:block;color:var(--gold2);margin-bottom:8px}.guide p{font-size:13px;color:var(--muted);line-height:1.6}
+.quote{text-align:center;max-width:850px;margin:auto;padding:80px 25px}
+.quote blockquote{font-family:"Playfair Display";font-size:36px;line-height:1.45;color:#e9dfd1}
+.quote span{display:block;color:var(--gold);margin-top:20px;font-size:12px;letter-spacing:3px}
+footer{text-align:center;padding:35px;color:#756e67;border-top:1px solid rgba(255,255,255,.07);font-size:12px}
+@media(max-width:800px){
+ nav{padding:15px 5%;} nav ul{display:none}
+ .feature{grid-template-columns:1fr}.feature-copy{padding:40px 28px}
+ .guide{grid-template-columns:1fr 1fr}.section-head h2{font-size:38px}
+}
+@media(max-width:480px){section{padding:75px 5%}.guide{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Fragrance Journal</div>
+  <ul>
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#favorite">Favorite</a></li>
+    <li><a href="#guide">How I Use It</a></li>
+    <li><a href="#opinion">My Opinion</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">A personal fragrance collection</div>
+    <h1>My World of <span>Fragrance</span></h1>
+    <p>
+      The perfumes I actually use, the ones I enjoy the most, and my personal
+      notes on when I like to wear them. This isn't a perfume store — it's my
+      own fragrance journal.
+    </p>
+    <a class="btn" href="#collection">Explore My Collection</a>
+  </div>
+</header>
+
+<section id="collection">
+  <div class="section-head">
+    <small>My Collection</small>
+    <h2>Fragrances I Use</h2>
+    <p>A personal selection from my everyday rotation and the fragrances I keep coming back to.</p>
+  </div>
+
+  <div class="grid">
+    <article class="card">
+      <div class="bottle"><span class="badge">MY FAVORITE</span><img src="images/whisky.png" alt="Beardo Whisky Smoke"></div>
+      <div class="content">
+        <span class="brand">Beardo</span><h3>Whisky Smoke</h3>
+        <p>My current favorite fragrance. A bold, warm choice that stands out in my collection.</p>
+        <div class="meta"><span>⭐ Personal Favorite</span><span>🔥 Signature Pick</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="bottle"><img src="images/godfather.png" alt="Beardo Godfather"></div>
+      <div class="content">
+        <span class="brand">Beardo</span><h3>Godfather</h3>
+        <p>One of the fragrances I use as part of my regular rotation.</p>
+        <div class="meta"><span>Daily Rotation</span><span>Beardo</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="bottle"><img src="images/don.png" alt="Beardo Don"></div>
+      <div class="content">
+        <span class="brand">Beardo</span><h3>Don</h3>
+        <p>Another fragrance from my collection that I enjoy using depending on the mood.</p>
+        <div class="meta"><span>Rotation</span><span>Beardo</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="bottle"><img src="images/marine.png" alt="Beardo Marine"></div>
+      <div class="content">
+        <span class="brand">Beardo</span><h3>Marine</h3>
+        <p>A fresher option in my collection for days when I want a cleaner fragrance feel.</p>
+        <div class="meta"><span>Fresh Pick</span><span>Beardo</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="bottle"><img src="images/bindass.png" alt="Bindass Perfume"></div>
+      <div class="content">
+        <span class="brand">Bindass</span><h3>Bindass</h3>
+        <p>Part of the fragrances I have used and included in my personal collection.</p>
+        <div class="meta"><span>My Collection</span><span>Bindass</span></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="bottle"><img src="images/wildstone.png" alt="Wild Stone Perfume"></div>
+      <div class="content">
+        <span class="brand">Wild Stone</span><h3>Wild Stone</h3>
+        <p>A familiar fragrance in my rotation and part of my personal perfume journey.</p>
+        <div class="meta"><span>My Collection</span><span>Wild Stone</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="favorite">
+  <div class="feature">
+    <div class="feature-visual"><img src="images/whisky.png" alt="Beardo Whisky Smoke"></div>
+    <div class="feature-copy">
+      <small>MY #1 PICK</small>
+      <h2>Whisky Smoke</h2>
+      <div class="stars">★★★★★</div>
+      <div class="notes">
+        <span>Warm</span><span>Bold</span><span>Smoky</span><span>My Favorite</span>
+      </div>
+      <p>
+        Beardo Whisky Smoke is my favorite perfume in my current collection.
+        It has that distinctive character that makes me reach for it again.
+      </p>
+      <p>
+        <strong>My personal note:</strong> This is the one I would put at the top
+        whenever someone asks which fragrance I personally like the most.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="guide">
+  <div class="section-head">
+    <small>My Routine</small>
+    <h2>How I Use Perfume</h2>
+    <p>A simple personal guide. You can edit these details later according to your actual routine.</p>
+  </div>
+  <div class="guide">
+    <div><b>01 · Skin</b><p>I prefer applying fragrance to clean, dry skin.</p></div>
+    <div><b>02 · Pulse Points</b><p>Neck and other pulse points are my main application areas.</p></div>
+    <div><b>03 · Don't Rub</b><p>I let the fragrance settle instead of aggressively rubbing it into the skin.</p></div>
+    <div><b>04 · Match The Mood</b><p>I choose between my fragrances depending on the occasion and mood.</p></div>
+  </div>
+</section>
+
+<section id="opinion">
+  <div class="quote">
+    <blockquote>
+      “A fragrance is not just something I wear — it's part of the mood, the memory, and the moment.”
+    </blockquote>
+    <span>— SHUBHAM · MY PERSONAL FRAGRANCE JOURNAL</span>
+  </div>
+</section>
+
+<footer>
+  © 2026 Shubham · My Personal Fragrance Journal
+</footer>
+
+</body>
+</html>
