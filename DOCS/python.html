@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Complete Notes | Shubham Docs</title>
+<meta name="description" content="Complete Python notes from basics to advanced with theory, examples, tables, interview questions and projects.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at top left,rgba(59,130,246,.16),transparent 28%),
+    radial-gradient(circle at top right,rgba(16,185,129,.12),transparent 24%),
+    linear-gradient(180deg,#0f172a 0%,#111827 100%);
+  color:#e2e8f0;line-height:1.8;padding:24px 16px 40px;overflow-x:hidden
+}
+.container{max-width:1180px;margin:auto;background:rgba(17,24,39,.84);backdrop-filter:blur(16px);
+border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+.topbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand h1{font-size:2.4rem;color:#60a5fa;line-height:1.1;margin-bottom:6px}
+.brand p{color:#94a3b8;font-size:.95rem}
+.back-home{text-decoration:none;color:#07111f;background:linear-gradient(135deg,#60a5fa,#93c5fd);
+padding:10px 16px;border-radius:14px;font-weight:700;transition:.25s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 10px 22px rgba(96,165,250,.18)}
+.back-home:hover{transform:translateY(-2px)}
+.badge{display:inline-block;background:rgba(96,165,250,.12);color:#60a5fa;border:1px solid rgba(96,165,250,.22);
+padding:6px 12px;border-radius:999px;font-size:.82rem;margin-bottom:14px;letter-spacing:.3px}
+.toc{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 10px;padding:16px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.toc a{text-decoration:none;color:#cbd5e1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+padding:8px 12px;border-radius:999px;font-size:.86rem;transition:.22s}
+.toc a:hover{color:#fff;border-color:rgba(96,165,250,.4);background:rgba(96,165,250,.08)}
+h2,h3{color:#60a5fa;line-height:1.2}
+h2{margin-top:36px;font-size:1.65rem;border-bottom:1px solid rgba(96,165,250,.2);padding-bottom:10px;scroll-margin-top:18px}
+h3{margin-top:20px;font-size:1.15rem}
+p{margin:12px 0;color:#cbd5e1}
+.box,.note,.warn,.tip{border-radius:16px;padding:16px 18px;margin:14px 0;border:1px solid transparent}
+.box{background:#0b1220;border-color:rgba(255,255,255,.08)}
+.note{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.2);color:#bbf7d0}
+.warn{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.2);color:#fed7aa}
+.tip{background:rgba(96,165,250,.08);border-color:rgba(96,165,250,.2);color:#dbeafe}
+code,pre{font-family:"Courier New",monospace;font-size:.94rem}
+code.inline{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:7px;color:#93c5fd}
+pre{background:#020617;color:#f8fafc;padding:16px;border-radius:16px;overflow:auto;border:1px solid rgba(255,255,255,.08);margin:14px 0;white-space:pre-wrap}
+table{width:100%;border-collapse:collapse;margin:14px 0;overflow:hidden;border-radius:14px}
+th,td{border:1px solid rgba(255,255,255,.08);padding:12px 14px;text-align:left;vertical-align:top}
+th{background:#0b1220;color:#60a5fa;font-size:.9rem} td{background:#111827;color:#cbd5e1}
+ul,ol{margin-left:22px;color:#cbd5e1}
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:14px}
+.card{background:#0b1220;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px}
+.card h4{color:#93c5fd;margin-bottom:8px;font-size:1rem}
+.footer{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);color:#94a3b8;text-align:center;font-size:.92rem}
+.back-top{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;text-decoration:none;
+background:linear-gradient(135deg,#60a5fa,#93c5fd);color:#08111f;font-weight:900;box-shadow:0 14px 30px rgba(96,165,250,.25);border:1px solid rgba(255,255,255,.16)}
+@media(max-width:720px){.container{padding:20px}.brand h1{font-size:2rem}.toc{padding:12px}.toc a{font-size:.8rem}}
+</style>
+</head>
+<body>
+<div class="container" id="top">
+
+<div class="topbar">
+  <div class="brand">
+    <span class="badge">Shubham Docs • Study Pages</span>
+    <h1>🐍 Python Complete Notes</h1>
+    <p>From absolute basics to advanced Python with examples, tables and interview points</p>
+  </div>
+  <a class="back-home" href="../docs.html">← Back Home</a>
+</div>
+
+<div class="toc">
+<a href="#intro">Introduction</a><a href="#setup">Setup</a><a href="#syntax">Syntax</a><a href="#variables">Variables</a>
+<a href="#datatypes">Data Types</a><a href="#input">Input/Output</a><a href="#operators">Operators</a><a href="#conditions">Conditions</a>
+<a href="#loops">Loops</a><a href="#strings">Strings</a><a href="#lists">Lists</a><a href="#tuples">Tuples</a><a href="#sets">Sets</a>
+<a href="#dict">Dictionaries</a><a href="#functions">Functions</a><a href="#scope">Scope</a><a href="#comprehensions">Comprehensions</a>
+<a href="#lambda">Lambda</a><a href="#modules">Modules</a><a href="#files">Files</a><a href="#exceptions">Exceptions</a><a href="#oop">OOP</a>
+<a href="#inheritance">Inheritance</a><a href="#magic">Magic Methods</a><a href="#iterators">Iterators</a><a href="#generators">Generators</a>
+<a href="#decorators">Decorators</a><a href="#regex">Regex</a><a href="#json">JSON</a><a href="#api">APIs</a><a href="#venv">PIP & Venv</a>
+<a href="#database">Database</a><a href="#threading">Threading</a><a href="#multiprocessing">Multiprocessing</a><a href="#async">Async</a>
+<a href="#typing">Type Hints</a><a href="#testing">Testing</a><a href="#best">Best Practices</a><a href="#interview">Interview</a><a href="#project">Full Project</a>
+</div>
+
+<section id="intro"><h2>1. Introduction to Python</h2>
+<p>Python is a high-level, general-purpose programming language known for readable syntax and a large ecosystem. It is widely used in web development, automation, data analysis, AI/ML, scripting and backend development.</p>
+<div class="box"><p><strong>Python philosophy:</strong> readable code, simple syntax and reusable components.</p></div>
+<div class="mini-grid">
+<div class="card"><h4>Web Development</h4><p>Django, Flask and FastAPI are popular Python web frameworks.</p></div>
+<div class="card"><h4>Automation</h4><p>Python can automate repetitive file, browser, data and system tasks.</p></div>
+<div class="card"><h4>Data & AI</h4><p>Python has a huge ecosystem for data analysis, scientific computing and machine learning.</p></div>
+</div>
+</section>
+
+<section id="setup"><h2>2. Installing and Running Python</h2>
+<p>Python programs are commonly saved with the <code class="inline">.py</code> extension.</p>
+<pre>print("Hello, Python!")</pre>
+<p>Run a file from a terminal:</p>
+<pre>python app.py</pre>
+<p>Check the installed Python version:</p>
+<pre>python --version</pre>
+<div class="tip"><strong>Tip:</strong> Use a code editor such as VS Code and create a separate virtual environment for each project.</div>
+</section>
+
+<section id="syntax"><h2>3. Python Syntax and Indentation</h2>
+<p>Python uses indentation to define blocks of code. Curly braces are not required.</p>
+<pre>age = 20
+
+if age >= 18:
+    print("Adult")
+    print("Eligible")</pre>
+<table><tr><th>Concept</th><th>Meaning</th></tr>
+<tr><td>Indentation</td><td>Whitespace used to define code blocks.</td></tr>
+<tr><td>Comment</td><td>Text ignored by the interpreter.</td></tr>
+<tr><td>Statement</td><td>An instruction executed by Python.</td></tr></table>
+<pre># This is a comment
+print("Hello")</pre>
+</section>
+
+<section id="variables"><h2>4. Variables</h2>
+<p>Variables are names bound to objects. Python does not require a separate variable-type declaration.</p>
+<pre>name = "Shubham"
+age = 19
+height = 5.8
+
+print(name)
+print(age)</pre>
+<h3>Multiple Assignment</h3>
+<pre>a, b, c = 10, 20, 30
+x = y = z = 100</pre>
+<h3>Variable Naming Rules</h3>
+<ul><li>Can contain letters, digits and underscore.</li><li>Cannot start with a digit.</li><li>Names are case-sensitive.</li><li>Do not use Python keywords as variable names.</li></ul>
+</section>
+
+<section id="datatypes"><h2>5. Data Types</h2>
+<table><tr><th>Type</th><th>Example</th><th>Purpose</th></tr>
+<tr><td>int</td><td>10</td><td>Whole numbers</td></tr>
+<tr><td>float</td><td>10.5</td><td>Decimal numbers</td></tr>
+<tr><td>complex</td><td>2 + 3j</td><td>Complex numbers</td></tr>
+<tr><td>str</td><td>"Hello"</td><td>Text</td></tr>
+<tr><td>bool</td><td>True</td><td>Logical values</td></tr>
+<tr><td>list</td><td>[1,2,3]</td><td>Mutable sequence</td></tr>
+<tr><td>tuple</td><td>(1,2,3)</td><td>Immutable sequence</td></tr>
+<tr><td>set</td><td>{1,2,3}</td><td>Unique elements</td></tr>
+<tr><td>dict</td><td>{"name":"A"}</td><td>Key-value mapping</td></tr>
+<tr><td>None</td><td>None</td><td>No value / absence of value</td></tr></table>
+<pre>x = 10
+print(type(x))
+
+name = "Python"
+print(type(name))</pre>
+</section>
+
+<section id="input"><h2>6. Input and Output</h2>
+<h3>print()</h3><pre>print("Hello")
+print("Age:", 19)</pre>
+<h3>input()</h3>
+<p><code class="inline">input()</code> returns text, so convert it when numeric input is required.</p>
+<pre>name = input("Enter name: ")
+age = int(input("Enter age: "))
+
+print(f"Hello {name}, you are {age} years old.")</pre>
+<h3>Type Conversion</h3>
+<pre>x = "100"
+print(int(x))
+print(float(x))
+print(str(50))
+print(bool(1))</pre>
+</section>
+
+<section id="operators"><h2>7. Operators</h2>
+<pre>a = 10
+b = 3
+
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+print(a // b)
+print(a % b)
+print(a ** b)</pre>
+<table><tr><th>Operator</th><th>Meaning</th></tr>
+<tr><td>+</td><td>Addition</td></tr><tr><td>-</td><td>Subtraction</td></tr><tr><td>*</td><td>Multiplication</td></tr>
+<tr><td>/</td><td>Division</td></tr><tr><td>//</td><td>Floor division</td></tr><tr><td>%</td><td>Remainder</td></tr><tr><td>**</td><td>Power</td></tr></table>
+<h3>Comparison and Logical Operators</h3>
+<pre>a = 10
+b = 20
+
+print(a == b)
+print(a != b)
+print(a < b)
+print(a >= b)
+
+print(a < b and b > 10)
+print(a > b or b > 10)
+print(not (a == b))</pre>
+<div class="tip"><strong>Remember:</strong> <code class="inline">==</code> compares values, while <code class="inline">is</code> checks object identity.</div>
+</section>
+
+<section id="conditions"><h2>8. Conditional Statements</h2>
+<pre>marks = 78
+
+if marks >= 90:
+    grade = "A+"
+elif marks >= 75:
+    grade = "A"
+elif marks >= 60:
+    grade = "B"
+else:
+    grade = "C"
+
+print(grade)</pre>
+<h3>Ternary Expression</h3>
+<pre>age = 20
+status = "Adult" if age >= 18 else "Minor"
+print(status)</pre>
+</section>
+
+<section id="loops"><h2>9. Loops</h2>
+<h3>for Loop</h3><pre>for i in range(1, 6):
+    print(i)</pre>
+<h3>while Loop</h3><pre>i = 1
+while i <= 5:
+    print(i)
+    i += 1</pre>
+<h3>break, continue, pass</h3>
+<pre>for i in range(1, 10):
+    if i == 5:
+        break
+    print(i)
+
+for i in range(1, 6):
+    if i == 3:
+        continue
+    print(i)
+
+if True:
+    pass</pre>
+<h3>range()</h3><pre>range(stop)
+range(start, stop)
+range(start, stop, step)</pre>
+</section>
+
+<section id="strings"><h2>10. Strings</h2>
+<p>Strings are immutable sequences of Unicode characters.</p>
+<pre>text = "Python"
+
+print(text[0])
+print(text[-1])
+print(text[1:4])
+print(text[::-1])</pre>
+<h3>Useful Methods</h3>
+<pre>text = "  hello python  "
+
+print(text.upper())
+print(text.lower())
+print(text.strip())
+print(text.replace("python", "world"))
+print(text.split())
+print(len(text))</pre>
+<h3>f-Strings</h3>
+<pre>name = "Shubham"
+marks = 85
+
+print(f"{name} scored {marks} marks.")</pre>
+<div class="warn"><strong>Important:</strong> Strings cannot be changed in place. Methods such as <code class="inline">upper()</code> return a new string.</div>
+</section>
+
+<section id="lists"><h2>11. Lists</h2>
+<p>Lists are ordered, mutable collections and can contain duplicate values.</p>
+<pre>fruits = ["apple", "banana", "mango"]
+
+print(fruits[0])
+fruits[1] = "orange"
+fruits.append("grapes")
+print(fruits)</pre>
+<table><tr><th>Method</th><th>Use</th></tr>
+<tr><td>append()</td><td>Add one item at the end</td></tr>
+<tr><td>extend()</td><td>Add multiple items</td></tr>
+<tr><td>insert()</td><td>Add item at an index</td></tr>
+<tr><td>remove()</td><td>Remove first matching value</td></tr>
+<tr><td>pop()</td><td>Remove and return an item</td></tr>
+<tr><td>sort()</td><td>Sort the list in place</td></tr>
+<tr><td>reverse()</td><td>Reverse the list in place</td></tr></table>
+<h3>Slicing</h3><pre>numbers = [10,20,30,40,50]
+print(numbers[1:4])
+print(numbers[::-1])</pre>
+</section>
+
+<section id="tuples"><h2>12. Tuples</h2>
+<p>Tuples are ordered and immutable sequences.</p>
+<pre>point = (10, 20)
+
+print(point[0])
+print(len(point))
+
+x, y = point
+print(x, y)</pre>
+<div class="note"><strong>Use tuples</strong> when a collection should not be modified as part of normal program logic.</div>
+</section>
+
+<section id="sets"><h2>13. Sets</h2>
+<p>Sets store unique elements. They are useful for membership tests and mathematical set operations.</p>
+<pre>a = {1, 2, 3}
+b = {3, 4, 5}
+
+print(a | b)  # union
+print(a & b)  # intersection
+print(a - b)  # difference
+print(a ^ b)  # symmetric difference</pre>
+<pre>numbers = {1, 2, 2, 3}
+print(numbers)  # duplicates removed</pre>
+</section>
+
+<section id="dict"><h2>14. Dictionaries</h2>
+<p>Dictionaries store key-value pairs.</p>
+<pre>student = {
+    "name": "Shubham",
+    "age": 19,
+    "course": "B.Tech"
+}
+
+print(student["name"])
+print(student.get("city", "Not found"))
+
+student["age"] = 20
+student["city"] = "Noida"</pre>
+<h3>Useful Methods</h3>
+<pre>student.keys()
+student.values()
+student.items()
+student.get("name")
+student.pop("age")</pre>
+<h3>Looping</h3><pre>for key, value in student.items():
+    print(key, value)</pre>
+</section>
+
+<section id="functions"><h2>15. Functions</h2>
+<p>Functions package reusable logic into a named block.</p>
+<pre>def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print(result)</pre>
+<h3>Default and Keyword Arguments</h3>
+<pre>def greet(name="User"):
+    print(f"Hello {name}")
+
+greet()
+greet(name="Shubham")</pre>
+<h3>*args and **kwargs</h3>
+<pre>def total(*numbers):
+    return sum(numbers)
+
+print(total(10, 20, 30))
+
+def info(**data):
+    print(data)
+
+info(name="Shubham", age=19)</pre>
+<div class="tip"><strong>Key idea:</strong> <code class="inline">*args</code> collects extra positional arguments; <code class="inline">**kwargs</code> collects extra keyword arguments.</div>
+</section>
+
+<section id="scope"><h2>16. Scope and LEGB</h2>
+<p>Python resolves names using the LEGB rule: Local, Enclosing, Global, Built-in.</p>
+<pre>x = "global"
+
+def outer():
+    x = "enclosing"
+
+    def inner():
+        x = "local"
+        print(x)
+
+    inner()
+
+outer()</pre>
+<h3>global and nonlocal</h3>
+<pre>x = 10
+
+def change():
+    global x
+    x = 20
+
+change()
+print(x)</pre>
+</section>
+
+<section id="comprehensions"><h2>17. Comprehensions</h2>
+<h3>List Comprehension</h3><pre>squares = [x ** 2 for x in range(1, 6)]
+print(squares)
+
+even = [x for x in range(1, 11) if x % 2 == 0]
+print(even)</pre>
+<h3>Dictionary and Set Comprehensions</h3><pre>square_dict = {x: x*x for x in range(1, 5)}
+square_set = {x*x for x in range(1, 5)}</pre>
+<div class="tip">Comprehensions are concise, but avoid making them so complex that readability suffers.</div>
+</section>
+
+<section id="lambda"><h2>18. Lambda, map, filter and reduce</h2>
+<pre>square = lambda x: x * x
+print(square(5))</pre>
+<pre>numbers = [1,2,3,4,5]
+
+doubled = list(map(lambda x: x*2, numbers))
+even = list(filter(lambda x: x % 2 == 0, numbers))
+
+print(doubled)
+print(even)</pre>
+<p><code class="inline">reduce()</code> is available from <code class="inline">functools</code>.</p>
+<pre>from functools import reduce
+
+numbers = [1,2,3,4]
+total = reduce(lambda a,b: a+b, numbers)
+print(total)</pre>
+</section>
+
+<section id="modules"><h2>19. Modules and Packages</h2>
+<p>A module is a Python file containing reusable code. Packages organize modules into directories.</p>
+<pre>import math
+
+print(math.sqrt(25))
+print(math.pi)</pre>
+<pre>from math import sqrt
+
+print(sqrt(36))</pre>
+<h3>__name__</h3>
+<pre>def main():
+    print("Program started")
+
+if __name__ == "__main__":
+    main()</pre>
+</section>
+
+<section id="files"><h2>20. File Handling</h2>
+<h3>Reading</h3><pre>with open("data.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+
+print(content)</pre>
+<h3>Writing and Appending</h3><pre>with open("data.txt", "w", encoding="utf-8") as file:
+    file.write("Hello Python")
+
+with open("data.txt", "a", encoding="utf-8") as file:
+    file.write("\nNew line")</pre>
+<table><tr><th>Mode</th><th>Meaning</th></tr><tr><td>r</td><td>Read</td></tr><tr><td>w</td><td>Write/overwrite</td></tr><tr><td>a</td><td>Append</td></tr><tr><td>x</td><td>Create new file</td></tr><tr><td>b</td><td>Binary mode</td></tr></table>
+</section>
+
+<section id="exceptions"><h2>21. Exception Handling</h2>
+<pre>try:
+    number = int(input("Enter number: "))
+    result = 100 / number
+
+except ValueError:
+    print("Invalid number")
+
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+else:
+    print(result)
+
+finally:
+    print("Finished")</pre>
+<h3>Raising Exceptions</h3><pre>age = 15
+
+if age < 18:
+    raise ValueError("Age must be 18 or above")</pre>
+<div class="warn">Avoid using a bare <code class="inline">except:</code> unless you have a specific reason. Catch the exceptions you actually expect.</div>
+</section>
+
+<section id="oop"><h2>22. Object-Oriented Programming</h2>
+<p>OOP organizes software around objects containing data and behavior.</p>
+<pre>class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def introduce(self):
+        return f"I am {self.name}, age {self.age}"
+
+s1 = Student("Shubham", 19)
+print(s1.introduce())</pre>
+<table><tr><th>Concept</th><th>Meaning</th></tr>
+<tr><td>Class</td><td>Blueprint for objects</td></tr><tr><td>Object</td><td>Instance of a class</td></tr>
+<tr><td>Attribute</td><td>Data associated with an object/class</td></tr><tr><td>Method</td><td>Function defined in a class</td></tr>
+<tr><td>__init__</td><td>Initializer called during object creation</td></tr></table>
+</section>
+
+<section id="inheritance"><h2>23. Inheritance and Polymorphism</h2>
+<pre>class Animal:
+    def speak(self):
+        print("Some sound")
+
+class Dog(Animal):
+    def speak(self):
+        print("Bark")
+
+dog = Dog()
+dog.speak()</pre>
+<h3>super()</h3><pre>class Parent:
+    def __init__(self):
+        print("Parent")
+
+class Child(Parent):
+    def __init__(self):
+        super().__init__()
+        print("Child")
+
+Child()</pre>
+<h3>Multiple Inheritance</h3><pre>class A:
+    pass
+
+class B:
+    pass
+
+class C(A, B):
+    pass</pre>
+</section>
+
+<section id="magic"><h2>24. Magic / Dunder Methods</h2>
+<p>Special methods use double underscores and integrate classes with Python's data model.</p>
+<pre>class Book:
+    def __init__(self, title):
+        self.title = title
+
+    def __str__(self):
+        return self.title
+
+    def __len__(self):
+        return len(self.title)
+
+book = Book("Python")
+print(book)
+print(len(book))</pre>
+<p>Common examples include <code class="inline">__init__</code>, <code class="inline">__str__</code>, <code class="inline">__repr__</code>, <code class="inline">__len__</code>, <code class="inline">__eq__</code> and arithmetic special methods.</p>
+</section>
+
+<section id="iterators"><h2>25. Iterators</h2>
+<p>An iterator implements the iterator protocol and supplies values through <code class="inline">__next__()</code>.</p>
+<pre>numbers = [10, 20, 30]
+
+it = iter(numbers)
+
+print(next(it))
+print(next(it))
+print(next(it))</pre>
+<p>When there are no more values, <code class="inline">StopIteration</code> is raised internally by normal iteration.</p>
+</section>
+
+<section id="generators"><h2>26. Generators</h2>
+<p>Generators use <code class="inline">yield</code> to produce values lazily.</p>
+<pre>def count_up_to(n):
+    i = 1
+    while i <= n:
+        yield i
+        i += 1
+
+for value in count_up_to(5):
+    print(value)</pre>
+<div class="note">Generators are especially useful when processing large or streaming data because values can be produced one at a time.</div>
+</section>
+
+<section id="decorators"><h2>27. Decorators</h2>
+<p>A decorator wraps a function or callable to add behavior without changing its core implementation.</p>
+<pre>def logger(func):
+    def wrapper(*args, **kwargs):
+        print("Calling function...")
+        result = func(*args, **kwargs)
+        print("Done")
+        return result
+    return wrapper
+
+@logger
+def greet(name):
+    print(f"Hello {name}")
+
+greet("Shubham")</pre>
+<p>Decorators are common in frameworks for authentication, logging, caching and routing.</p>
+</section>
+
+<section id="regex"><h2>28. Regular Expressions</h2>
+<p>The <code class="inline">re</code> module provides regular-expression operations.</p>
+<pre>import re
+
+text = "My phone is 9876543210"
+
+match = re.search(r"\d{10}", text)
+
+if match:
+    print(match.group())</pre>
+<table><tr><th>Pattern</th><th>Meaning</th></tr><tr><td>\d</td><td>Digit</td></tr><tr><td>\w</td><td>Word character</td></tr>
+<tr><td>\s</td><td>Whitespace</td></tr><tr><td>+</td><td>One or more</td></tr><tr><td>*</td><td>Zero or more</td></tr>
+<tr><td>^</td><td>Start of string</td></tr><tr><td>$</td><td>End of string</td></tr></table>
+</section>
+
+<section id="json"><h2>29. JSON</h2>
+<p>JSON is commonly used to exchange structured data between applications.</p>
+<pre>import json
+
+data = {
+    "name": "Shubham",
+    "age": 19
+}
+
+text = json.dumps(data)
+print(text)
+
+new_data = json.loads(text)
+print(new_data["name"])</pre>
+<table><tr><th>Function</th><th>Purpose</th></tr><tr><td>json.dumps()</td><td>Python object → JSON string</td></tr>
+<tr><td>json.loads()</td><td>JSON string → Python object</td></tr><tr><td>json.dump()</td><td>Write JSON to a file</td></tr>
+<tr><td>json.load()</td><td>Read JSON from a file</td></tr></table>
+</section>
+
+<section id="api"><h2>30. Working with APIs</h2>
+<p>A REST API commonly returns JSON data. The third-party <code class="inline">requests</code> package is frequently used for HTTP requests.</p>
+<pre>import requests
+
+response = requests.get("https://example.com")
+
+print(response.status_code)
+print(response.text)</pre>
+<p>For a JSON API:</p>
+<pre>response = requests.get("https://api.example.com/data")
+response.raise_for_status()
+
+data = response.json()
+print(data)</pre>
+<div class="warn">Always validate URLs, handle errors/timeouts, and never expose API keys or passwords in source code.</div>
+</section>
+
+<section id="venv"><h2>31. PIP and Virtual Environments</h2>
+<p>Virtual environments isolate project dependencies.</p>
+<pre>python -m venv venv</pre>
+<p>Windows activation:</p>
+<pre>venv\Scripts\activate</pre>
+<p>Install a package:</p>
+<pre>python -m pip install requests</pre>
+<p>Save dependencies:</p>
+<pre>python -m pip freeze > requirements.txt</pre>
+<p>Install dependencies later:</p>
+<pre>python -m pip install -r requirements.txt</pre>
+</section>
+
+<section id="database"><h2>32. SQLite Database</h2>
+<p>Python includes the <code class="inline">sqlite3</code> module for working with SQLite databases.</p>
+<pre>import sqlite3
+
+connection = sqlite3.connect("students.db")
+cursor = connection.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    age INTEGER
+)
+""")
+
+cursor.execute(
+    "INSERT INTO students (name, age) VALUES (?, ?)",
+    ("Shubham", 19)
+)
+
+connection.commit()
+connection.close()</pre>
+<div class="tip">Use parameterized SQL queries rather than string concatenation for values supplied by users.</div>
+</section>
+
+<section id="threading"><h2>33. Multithreading</h2>
+<p>Threads are useful for many I/O-bound tasks where work spends time waiting.</p>
+<pre>import threading
+
+def task():
+    print("Task running")
+
+t = threading.Thread(target=task)
+t.start()
+t.join()</pre>
+<p>In standard CPython, the GIL limits simultaneous execution of Python bytecode across threads, so threads are not generally the first choice for CPU-bound Python code.</p>
+</section>
+
+<section id="multiprocessing"><h2>34. Multiprocessing</h2>
+<p>Multiprocessing uses separate processes and can provide true parallelism for CPU-heavy work.</p>
+<pre>from multiprocessing import Process
+
+def task():
+    print("Process running")
+
+if __name__ == "__main__":
+    p = Process(target=task)
+    p.start()
+    p.join()</pre>
+<div class="warn">Protect process-starting code with <code class="inline">if __name__ == "__main__":</code>, especially on platforms that use spawn-based process creation.</div>
+</section>
+
+<section id="async"><h2>35. Async Python</h2>
+<p>Async programming is useful for high-concurrency I/O such as network requests and sockets.</p>
+<pre>import asyncio
+
+async def hello():
+    print("Start")
+    await asyncio.sleep(1)
+    print("Done")
+
+asyncio.run(hello())</pre>
+<table><tr><th>Concept</th><th>Meaning</th></tr><tr><td>async def</td><td>Defines a coroutine function</td></tr>
+<tr><td>await</td><td>Suspends a coroutine until an awaitable completes</td></tr>
+<tr><td>event loop</td><td>Schedules and runs asynchronous tasks</td></tr></table>
+</section>
+
+<section id="typing"><h2>36. Type Hints and Dataclasses</h2>
+<h3>Type Hints</h3><pre>def add(a: int, b: int) -> int:
+    return a + b</pre>
+<p>Type hints improve readability and tooling but are not, by themselves, runtime type enforcement.</p>
+<h3>Dataclass</h3><pre>from dataclasses import dataclass
+
+@dataclass
+class Student:
+    name: str
+    age: int
+
+student = Student("Shubham", 19)
+print(student)</pre>
+</section>
+
+<section id="testing"><h2>37. Testing</h2>
+<p>Testing checks whether code behaves as expected.</p>
+<pre>import unittest
+
+def add(a, b):
+    return a + b
+
+class TestAdd(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(2, 3), 5)
+
+if __name__ == "__main__":
+    unittest.main()</pre>
+<div class="note">For larger projects, also learn a testing framework such as pytest, along with mocking, fixtures and test organization.</div>
+</section>
+
+<section id="best"><h2>38. Python Best Practices</h2>
+<ul>
+<li>Use meaningful variable and function names.</li>
+<li>Follow consistent formatting and indentation.</li>
+<li>Keep functions focused on one responsibility.</li>
+<li>Prefer readable code over clever code.</li>
+<li>Use virtual environments for projects.</li>
+<li>Handle expected exceptions specifically.</li>
+<li>Keep secrets out of source code.</li>
+<li>Write tests for important logic.</li>
+<li>Use version control such as Git.</li>
+<li>Document public APIs and complex decisions.</li>
+</ul>
+</section>
+
+<section id="interview"><h2>39. Important Python Interview Questions</h2>
+<table><tr><th>Question</th><th>Short Answer</th></tr>
+<tr><td>What is Python?</td><td>A high-level general-purpose programming language with a large ecosystem and readable syntax.</td></tr>
+<tr><td>Is Python dynamically typed?</td><td>Yes. Names are bound to objects and types are associated with values at runtime.</td></tr>
+<tr><td>List vs tuple?</td><td>Lists are mutable; tuples are immutable sequences.</td></tr>
+<tr><td>List vs set?</td><td>Lists preserve sequence semantics and allow duplicates; sets contain unique elements.</td></tr>
+<tr><td>What is a dictionary?</td><td>A mapping of keys to values.</td></tr>
+<tr><td>What is a decorator?</td><td>A callable that wraps another callable to modify or extend behavior.</td></tr>
+<tr><td>What is a generator?</td><td>A lazy iterator-producing function that uses yield.</td></tr>
+<tr><td>What is exception handling?</td><td>A mechanism using try/except and related constructs to handle runtime errors.</td></tr>
+<tr><td>What is OOP?</td><td>A programming approach centered around objects, classes, attributes and methods.</td></tr>
+<tr><td>Threading vs multiprocessing?</td><td>Threads share a process and are often useful for I/O; processes provide separate execution contexts and can suit CPU-bound work.</td></tr>
+<tr><td>What is async/await?</td><td>Syntax for writing cooperative asynchronous code around awaitable operations.</td></tr>
+</table>
+<div class="tip"><strong>Placement focus:</strong> master data types, mutability, functions, OOP, exceptions, comprehensions, iterators/generators, modules, APIs, SQL and problem solving.</div>
+</section>
+
+<section id="project"><h2>40. Full Python Example — Expense Tracker</h2>
+<p>This small project combines input, functions, lists/dictionaries, loops and file handling.</p>
+<pre>import json
+from pathlib import Path
+
+FILE = Path("expenses.json")
+
+def load_expenses():
+    if not FILE.exists():
+        return []
+    return json.loads(FILE.read_text(encoding="utf-8"))
+
+def save_expenses(expenses):
+    FILE.write_text(
+        json.dumps(expenses, indent=2),
+        encoding="utf-8"
+    )
+
+def add_expense(expenses):
+    title = input("Title: ")
+    amount = float(input("Amount: "))
+
+    expenses.append({
+        "title": title,
+        "amount": amount
+    })
+
+def show_expenses(expenses):
+    if not expenses:
+        print("No expenses found.")
+        return
+
+    total = 0
+
+    for item in expenses:
+        print(f"{item['title']}: ₹{item['amount']:.2f}")
+        total += item["amount"]
+
+    print(f"Total: ₹{total:.2f}")
+
+def main():
+    expenses = load_expenses()
+
+    while True:
+        print("\n1. Add expense")
+        print("2. Show expenses")
+        print("3. Exit")
+
+        choice = input("Choose: ")
+
+        if choice == "1":
+            add_expense(expenses)
+            save_expenses(expenses)
+
+        elif choice == "2":
+            show_expenses(expenses)
+
+        elif choice == "3":
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid choice.")
+
+if __name__ == "__main__":
+    main()</pre>
+
+<div class="box">
+<p><strong>What this project teaches:</strong></p>
+<ul>
+<li>Functions and modular design</li>
+<li>Lists and dictionaries</li>
+<li>Loops and conditions</li>
+<li>Input validation basics</li>
+<li>JSON file storage</li>
+<li><code class="inline">pathlib</code></li>
+<li><code class="inline">if __name__ == "__main__"</code></li>
+</ul>
+</div>
+</section>
+
+<div class="footer">Shubham Docs • Python Complete Study Page • Basics → Advanced</div>
+</div>
+<a href="#top" class="back-top">↑</a>
+</body>
+</html>
