@@ -1,295 +1,1053 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures - Unit 3 Detailed Notes</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+:root{
+  --bg:#08101f;
+  --card:#0d1628;
+  --card2:#111b2e;
+  --border:#22304a;
+  --text:#f4f7ff;
+  --muted:#91a0b9;
+  --blue:#55c7ff;
+  --blue2:#173b58;
+  --green:#55e6a5;
+  --yellow:#ffd34e;
+  --purple:#b87cff;
+  --pink:#ff69b4;
+  --red:#ff7d8a;
+  --code:#07101d;
+}
 
-    body {
-      min-height: 100vh;
-      font-family: "Outfit", sans-serif;
-      background:
-        radial-gradient(circle at 20% 30%, #003f5c 0%, transparent 35%),
-        radial-gradient(circle at 80% 70%, #001f3f 0%, transparent 35%),
-        #02060d;
-      color: #fff;
-      overflow: hidden;
+html{scroll-behavior:smooth}
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(39,111,170,.18),transparent 28%),
+    radial-gradient(circle at 12% 82%,rgba(93,62,150,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
 
-    /* Background grid */
-    body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+a{color:inherit}
+.container{width:min(1180px,92%);margin:auto;padding:35px 0 70px}
 
-      background-image:
-        linear-gradient(rgba(0,191,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,191,255,.04) 1px, transparent 1px);
+/* Hero */
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:30px;
+  padding:45px;margin-bottom:28px;
+  background:linear-gradient(110deg,#0c1527,#0d182b 55%,#122b43);
+}
 
-      background-size: 45px 45px;
-      mask-image: linear-gradient(to bottom, black, transparent);
-    }
+.hero:after{
+  content:"";position:absolute;width:280px;height:280px;
+  right:-80px;top:-120px;border-radius:50%;
+  background:rgba(85,199,255,.11);filter:blur(4px)
+}
 
-    /* Glow */
-    .glow {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      background: #00bfff;
-      filter: blur(180px);
-      opacity: .12;
-      border-radius: 50%;
-      animation: moveGlow 8s ease-in-out infinite alternate;
-    }
+.hero-content{position:relative;z-index:2}
 
-    @keyframes moveGlow {
-      from {
-        transform: translate(-180px, -100px);
-      }
+.badge{
+  display:inline-block;padding:7px 13px;border-radius:999px;
+  color:var(--blue);background:rgba(85,199,255,.11);
+  border:1px solid rgba(85,199,255,.28);
+  font-size:12px;font-weight:900;letter-spacing:.7px;margin-bottom:15px
+}
 
-      to {
-        transform: translate(200px, 120px);
-      }
-    }
+h1{font-size:clamp(36px,5vw,58px);line-height:1.05;letter-spacing:-1.2px}
+.hero p{max-width:850px;color:var(--muted);font-size:17px;margin-top:14px}
 
-    .container {
-      position: relative;
-      z-index: 10;
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.meta span{
+  padding:7px 12px;border-radius:999px;background:#121d31;
+  border:1px solid var(--border);color:#cbd5e6;font-size:12px;font-weight:700
+}
 
-      width: min(90%, 850px);
-      padding: 70px 40px;
+/* Layout */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
 
-      text-align: center;
+.toc{
+  position:sticky;top:18px;background:rgba(13,22,40,.9);
+  border:1px solid var(--border);border-radius:22px;padding:20px
+}
 
-      background: rgba(255,255,255,.035);
-      border: 1px solid rgba(255,255,255,.12);
+.toc h3{font-size:17px;margin-bottom:12px}
 
-      border-radius: 28px;
+.toc a{
+  display:block;text-decoration:none;color:var(--muted);
+  padding:8px 10px;border-radius:10px;font-size:13px;
+  transition:.2s
+}
 
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+.toc a:hover,.toc a.active{background:#142137;color:var(--blue)}
 
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.5),
-        inset 0 1px 0 rgba(255,255,255,.08);
-    }
+/* Content */
+.content{min-width:0}
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+.section{
+  background:linear-gradient(145deg,#0c1527,#0d1628);
+  border:1px solid var(--border);border-radius:24px;
+  padding:30px;margin-bottom:20px
+}
 
-      padding: 8px 16px;
-      margin-bottom: 25px;
+.section h2{font-size:28px;line-height:1.25;margin-bottom:8px}
+.section h3{font-size:21px;margin:25px 0 9px;color:#eaf1ff}
+.section h4{font-size:17px;margin:20px 0 7px;color:var(--blue)}
+.section p{color:#c1ccdd;margin:8px 0}
+.section ul,.section ol{padding-left:24px;color:#c1ccdd}
+.section li{margin:7px 0}
 
-      border: 1px solid rgba(0,191,255,.3);
-      border-radius: 50px;
+.kicker{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1px}
 
-      background: rgba(0,191,255,.08);
+.definition{
+  margin:15px 0;padding:17px 18px;border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;background:#101c30;color:#dce7f7
+}
 
-      color: #67d9ff;
-      font-size: 13px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+.tip{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--green);
+  border-radius:0 14px 14px 0;background:rgba(85,230,165,.07);color:#d7f5e7
+}
 
-    .dot {
-      width: 7px;
-      height: 7px;
-      background: #00bfff;
-      border-radius: 50%;
+.warning{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--yellow);
+  border-radius:0 14px 14px 0;background:rgba(255,211,78,.06);color:#f8edbd
+}
 
-      box-shadow: 0 0 12px #00bfff;
+.example{
+  margin:16px 0;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#0b1424
+}
 
-      animation: blink 1.5s infinite;
-    }
+.example strong{display:block;color:var(--blue);margin-bottom:6px}
 
-    @keyframes blink {
-      50% {
-        opacity: .3;
-      }
-    }
+/* Tables */
+.table-wrap{overflow-x:auto;margin:15px 0}
+table{width:100%;border-collapse:collapse;min-width:580px}
+th,td{border:1px solid var(--border);padding:11px 13px;text-align:left}
+th{background:#142139;color:var(--blue);font-size:13px}
+td{color:#c8d2e1;font-size:14px}
+tr:nth-child(even) td{background:rgba(255,255,255,.015)}
 
-    h1 {
-      font-size: clamp(55px, 10vw, 105px);
-      line-height: .95;
-      font-weight: 800;
-      letter-spacing: -4px;
+/* Code */
+pre{
+  overflow-x:auto;margin:15px 0;padding:18px;
+  background:var(--code);border:1px solid #1d2d44;
+  border-radius:15px;color:#dce8f8;font-size:13px;line-height:1.65
+}
+code{font-family:Consolas,Monaco,monospace}
+.inline{
+  font-family:Consolas,monospace;color:var(--blue);
+  background:#111d31;padding:2px 6px;border-radius:6px
+}
+.code-title{
+  margin-top:18px;color:#aebbd0;font-size:12px;font-weight:800;
+  letter-spacing:.5px
+}
 
-      background: linear-gradient(
-        135deg,
-        #ffffff 10%,
-        #8de6ff 45%,
-        #00bfff 75%,
-        #ffffff 100%
-      );
+/* Formula */
+.formula{
+  padding:17px;text-align:center;margin:15px 0;
+  border:1px dashed #365170;border-radius:15px;
+  background:#0b1728;color:#f1f6ff;font-family:Consolas,monospace
+}
 
-      background-size: 200% auto;
+/* Complexity cards */
+.complexity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0}
+.cbox{padding:15px;border:1px solid var(--border);border-radius:16px;background:#101a2c}
+.cbox b{font-size:20px;color:var(--blue);display:block}
+.cbox span{font-size:12px;color:var(--muted)}
 
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+/* Summary */
+.summary{
+  border:1px solid rgba(85,199,255,.28);
+  background:linear-gradient(145deg,#0c1a2b,#0d1d31);
+}
+.checklist li::marker{color:var(--green)}
 
-      animation: shine 5s linear infinite;
-    }
+.back-top{
+  position:fixed;right:20px;bottom:20px;
+  width:44px;height:44px;border:none;border-radius:50%;
+  background:#122b43;color:var(--blue);
+  border:1px solid rgba(85,199,255,.35);
+  cursor:pointer;font-size:18px;display:none;
+}
+.back-top.show{display:block}
 
-    @keyframes shine {
-      to {
-        background-position: 200% center;
-      }
-    }
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .toc{position:relative;top:0}
+  .complexity-grid{grid-template-columns:repeat(2,1fr)}
+}
 
-    .subtitle {
-      max-width: 550px;
-      margin: 25px auto 35px;
-
-      color: #9ba8b5;
-      font-size: 18px;
-      font-weight: 300;
-      line-height: 1.7;
-    }
-
-    .line {
-      width: 100px;
-      height: 2px;
-
-      margin: 0 auto 30px;
-
-      background: linear-gradient(
-        90deg,
-        transparent,
-        #00bfff,
-        transparent
-      );
-
-      box-shadow: 0 0 15px #00bfff;
-    }
-
-    .status {
-      font-size: 14px;
-      color: #6d7c8a;
-      letter-spacing: 1px;
-    }
-
-    .status span {
-      color: #00bfff;
-    }
-
-    /* Floating particles */
-    .particle {
-      position: absolute;
-
-      width: 4px;
-      height: 4px;
-
-      background: #00bfff;
-      border-radius: 50%;
-
-      box-shadow: 0 0 10px #00bfff;
-
-      animation: float 7s infinite ease-in-out;
-    }
-
-    .p1 {
-      left: 10%;
-      top: 20%;
-    }
-
-    .p2 {
-      right: 12%;
-      top: 25%;
-      animation-delay: 2s;
-    }
-
-    .p3 {
-      left: 20%;
-      bottom: 15%;
-      animation-delay: 4s;
-    }
-
-    .p4 {
-      right: 20%;
-      bottom: 12%;
-      animation-delay: 1s;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-        opacity: .3;
-      }
-
-      50% {
-        transform: translateY(-35px);
-        opacity: 1;
-      }
-    }
-
-    @media (max-width: 600px) {
-
-      .container {
-        padding: 55px 20px;
-        border-radius: 22px;
-      }
-
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      .subtitle {
-        font-size: 16px;
-      }
-    }
-  </style>
+@media(max-width:600px){
+  .container{width:94%;padding-top:22px}
+  .hero{padding:28px 22px;border-radius:24px}
+  .section{padding:22px 18px;border-radius:20px}
+  .complexity-grid{grid-template-columns:1fr 1fr}
+  h1{font-size:38px}
+  .hero p{font-size:15px}
+}
+</style>
 </head>
 
 <body>
 
-  <div class="glow"></div>
+<div class="container">
 
-  <div class="particle p1"></div>
-  <div class="particle p2"></div>
-  <div class="particle p3"></div>
-  <div class="particle p4"></div>
+<header class="hero">
+  <div class="hero-content">
+    <span class="badge">CSE • DATA STRUCTURES • UNIT 3</span>
+    <h1>Unit 3 — Trees</h1>
+    <p>
+      Complete, beginner-friendly and exam-oriented notes covering tree terminology,
+      binary trees, tree representation, complete and extended binary trees,
+      expression trees, inorder/preorder/postorder traversal, threaded binary trees
+      and Huffman algorithm.
+    </p>
 
-  <main class="container">
-
-    <div class="badge">
-      <div class="dot"></div>
-      Something new is coming
+    <div class="meta">
+      <span>📘 Detailed Theory</span>
+      <span>💻 C Concepts</span>
+      <span>🧠 Algorithms + Logic</span>
+      <span>🌳 Tree Diagrams</span>
+      <span>🎯 AKTU Exam Preparation</span>
     </div>
+  </div>
+</header>
 
-    <h1>
-      COMING<br>SOON
-    </h1>
+<div class="layout">
 
-    <p class="subtitle">
-      We're working behind the scenes to create something
-      special. A new experience is on its way.
-    </p>
+<aside class="toc">
+  <h3>On This Page</h3>
+  <a href="#terminology">1. Tree Terminology</a>
+  <a href="#binary">2. Binary Tree</a>
+  <a href="#representation">3. Tree Representation</a>
+  <a href="#types">4. Types of Binary Trees</a>
+  <a href="#complete">5. Complete Binary Tree</a>
+  <a href="#extended">6. Extended Binary Tree</a>
+  <a href="#expression">7. Expression Tree</a>
+  <a href="#traversal">8. Tree Traversal</a>
+  <a href="#inorder">9. Inorder</a>
+  <a href="#preorder">10. Preorder</a>
+  <a href="#postorder">11. Postorder</a>
+  <a href="#construction">12. Tree Construction</a>
+  <a href="#threaded">13. Threaded Binary Tree</a>
+  <a href="#huffman">14. Huffman Algorithm</a>
+  <a href="#complexity">15. Complexity</a>
+  <a href="#summary">Quick Revision</a>
+  <a href="#questions">Exam Questions</a>
+</aside>
 
-    <div class="line"></div>
+<main class="content">
 
-    <p class="status">
-      STATUS — <span>BUILDING SOMETHING AMAZING</span>
-    </p>
+<!-- 01 -->
+<section class="section" id="terminology">
+  <span class="kicker">01 • BASICS</span>
+  <h2>Tree Terminology</h2>
 
-  </main>
+  <div class="definition">
+    <b>Definition:</b> A tree is a non-linear hierarchical data structure made of
+    nodes connected by edges. It has a root node and zero or more child nodes.
+  </div>
+
+  <h3>Simple Example</h3>
+  <pre><code>              A
+            /   \
+           B     C
+         /  \     \
+        D    E     F</code></pre>
+
+  <h3>Important Terms</h3>
+
+  <ul>
+    <li><b>Node:</b> Each element of a tree is called a node.</li>
+    <li><b>Root:</b> The topmost node. Here, <span class="inline">A</span> is the root.</li>
+    <li><b>Edge:</b> The connection between two nodes. A-B is an edge.</li>
+    <li><b>Parent:</b> A node that has one or more children.</li>
+    <li><b>Child:</b> A node directly connected below a parent.</li>
+    <li><b>Siblings:</b> Nodes having the same parent.</li>
+    <li><b>Leaf:</b> A node having no children.</li>
+    <li><b>Internal Node:</b> A node having at least one child.</li>
+    <li><b>Degree of Node:</b> Number of children of that node.</li>
+    <li><b>Degree of Tree:</b> Maximum degree of any node in the tree.</li>
+    <li><b>Depth:</b> Number of edges from root to a node.</li>
+    <li><b>Height:</b> Maximum depth of any node, when height is measured in edges.</li>
+    <li><b>Subtree:</b> A tree formed by a node and all of its descendants.</li>
+  </ul>
+
+  <h3>Example Analysis</h3>
+  <div class="example">
+    <strong>For the tree above</strong>
+    A = root<br>
+    B and C = children of A<br>
+    D and E = children of B<br>
+    F = child of C<br>
+    D, E and F = leaf nodes<br>
+    B and C = siblings
+  </div>
+
+  <div class="formula">For a tree with n nodes: Number of edges = n − 1</div>
+
+  <div class="warning">
+    <b>Exam note:</b> Some books count the root as level 0 while others count it as level 1.
+    Follow the convention given in the question or your class notes.
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="section" id="binary">
+  <span class="kicker">02 • MOST IMPORTANT</span>
+  <h2>Binary Tree</h2>
+
+  <div class="definition">
+    <b>Definition:</b> A binary tree is a tree in which every node has at most
+    two children. These children are called the <b>left child</b> and
+    <b>right child</b>.
+  </div>
+
+  <pre><code>          10
+        /    \
+       20     30
+      /  \
+     40   50</code></pre>
+
+  <p>
+    Notice that a node may have 0, 1 or 2 children. It does <b>not</b> have to
+    have exactly two children.
+  </p>
+
+  <h3>Maximum Nodes</h3>
+  <p>If root is at level 0, maximum nodes at level <span class="inline">i</span> are:</p>
+  <div class="formula">Maximum nodes at level i = 2ⁱ</div>
+
+  <p>Maximum nodes in a binary tree of height <span class="inline">h</span>:</p>
+  <div class="formula">Maximum nodes = 2^(h+1) − 1</div>
+
+  <div class="example">
+    <strong>Example</strong>
+    If h = 2:<br>
+    Maximum nodes = 2³ − 1 = 7
+  </div>
+
+  <h3>Binary Tree Node in C</h3>
+  <div class="code-title">Basic Node Structure</div>
+  <pre><code>struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+};</code></pre>
+
+  <div class="tip">
+    <b>Remember:</b> Binary Tree = maximum 2 children = Left + Right.
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="section" id="representation">
+  <span class="kicker">03 • REPRESENTATION</span>
+  <h2>Tree Representation</h2>
+
+  <p>Binary trees can commonly be represented using:</p>
+
+  <ul>
+    <li>Array representation</li>
+    <li>Linked representation</li>
+  </ul>
+
+  <h3>Array Representation</h3>
+
+  <pre><code>          A
+        /   \
+       B     C
+      / \
+     D   E</code></pre>
+
+  <p>Using 1-based indexing:</p>
+
+  <pre><code>Index:  1  2  3  4  5
+Data:   A  B  C  D  E</code></pre>
+
+  <div class="formula">
+    Left Child = 2i<br>
+    Right Child = 2i + 1<br>
+    Parent = floor(i / 2)
+  </div>
+
+  <h3>Linked Representation</h3>
+
+  <pre><code>struct Node
+{
+    int data;
+    struct Node *left;
+    struct Node *right;
+};</code></pre>
+
+  <p>Each node stores data and two pointers:</p>
+
+  <pre><code>       +---------+
+       |  data   |
+       +---------+
+       |  left   | ----> left child
+       +---------+
+       |  right  | ----> right child
+       +---------+</code></pre>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>Array</th>
+        <th>Linked Representation</th>
+      </tr>
+      <tr>
+        <td>Uses indexes</td>
+        <td>Uses pointers</td>
+      </tr>
+      <tr>
+        <td>Very suitable for complete trees</td>
+        <td>Suitable for irregular trees</td>
+      </tr>
+      <tr>
+        <td>Can waste space for sparse trees</td>
+        <td>Dynamic memory allocation</td>
+      </tr>
+      <tr>
+        <td>Parent/child positions are calculated</td>
+        <td>Connections are stored through pointers</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="section" id="types">
+  <span class="kicker">04 • TREE TYPES</span>
+  <h2>Important Types of Binary Trees</h2>
+
+  <h3>Full / Strict Binary Tree</h3>
+
+  <div class="definition">
+    Every node has either <b>0 children</b> or <b>2 children</b>.
+    A node cannot have exactly one child.
+  </div>
+
+  <pre><code>        A
+       / \
+      B   C
+     / \
+    D   E</code></pre>
+
+  <h3>Perfect Binary Tree</h3>
+
+  <p>
+    Every internal node has exactly two children and all leaf nodes are at the
+    same level.
+  </p>
+
+  <pre><code>          A
+        /   \
+       B     C
+      / \   / \
+     D   E F   G</code></pre>
+
+  <h3>Skewed Binary Tree</h3>
+
+  <p>A tree where nodes mostly extend in one direction.</p>
+
+  <pre><code>      A
+       \
+        B
+         \
+          C
+           \
+            D</code></pre>
+</section>
+
+<!-- 05 -->
+<section class="section" id="complete">
+  <span class="kicker">05 • VERY IMPORTANT</span>
+  <h2>Complete Binary Tree</h2>
+
+  <div class="definition">
+    A complete binary tree has every level completely filled except possibly
+    the last level, and the last level is filled from <b>left to right</b>.
+  </div>
+
+  <pre><code>          A
+        /   \
+       B     C
+      / \   /
+     D   E F</code></pre>
+
+  <p>This is complete because the last level is filled from left to right.</p>
+
+  <h3>Not Complete</h3>
+
+  <pre><code>          A
+        /   \
+       B     C
+        \   /
+         E F</code></pre>
+
+  <p>
+    This is not complete because an earlier left position is empty while a
+    later position is occupied.
+  </p>
+
+  <div class="tip">
+    <b>Shortcut:</b> Complete Binary Tree = levels filled + last level left to right.
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="section" id="extended">
+  <span class="kicker">06 • EXTENDED TREE</span>
+  <h2>Extended Binary Tree</h2>
+
+  <div class="definition">
+    An extended binary tree represents missing/null children by special
+    external nodes. Thus, each internal node can be viewed as having exactly
+    two children.
+  </div>
+
+  <pre><code>          A
+        /   \
+       B     C
+      / \   / \
+     X   X X   X
+
+X = External / Null node</code></pre>
+
+  <p>
+    The main idea is to replace missing child links with explicit external
+    nodes. This representation is useful in theoretical analysis and
+    expression-tree concepts.
+  </p>
+
+  <div class="warning">
+    <b>Don't confuse:</b> Complete means about how positions are filled.
+    Extended means missing children are represented using external nodes.
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="section" id="expression">
+  <span class="kicker">07 • APPLICATION</span>
+  <h2>Expression Tree</h2>
+
+  <div class="definition">
+    An expression tree is a binary tree used to represent an arithmetic or
+    logical expression. Operators are internal nodes and operands are leaf nodes.
+  </div>
+
+  <h3>Example</h3>
+
+  <p>Expression:</p>
+  <div class="formula">A + B × C</div>
+
+  <p>Because multiplication has higher precedence:</p>
+
+  <div class="formula">A + (B × C)</div>
+
+  <pre><code>          +
+        /   \
+       A     *
+            / \
+           B   C</code></pre>
+
+  <h3>Important Rule</h3>
+  <ul>
+    <li>Operators → internal nodes</li>
+    <li>Operands → leaf nodes</li>
+  </ul>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>Traversal</th>
+        <th>Expression Form</th>
+        <th>Result</th>
+      </tr>
+      <tr>
+        <td>Inorder</td>
+        <td>Infix</td>
+        <td>A + B * C</td>
+      </tr>
+      <tr>
+        <td>Preorder</td>
+        <td>Prefix</td>
+        <td>+ A * B C</td>
+      </tr>
+      <tr>
+        <td>Postorder</td>
+        <td>Postfix</td>
+        <td>A B C * +</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="section" id="traversal">
+  <span class="kicker">08 • CORE CONCEPT</span>
+  <h2>Tree Traversal</h2>
+
+  <div class="definition">
+    Traversal means visiting every node of a tree exactly once in a systematic order.
+  </div>
+
+  <p>The three important depth-first traversals are:</p>
+
+  <ul>
+    <li><b>Inorder</b> → Left, Root, Right → LNR</li>
+    <li><b>Preorder</b> → Root, Left, Right → NLR</li>
+    <li><b>Postorder</b> → Left, Right, Root → LRN</li>
+  </ul>
+
+  <pre><code>             A
+           /   \
+          B     C
+         / \   / \
+        D   E F   G</code></pre>
+
+  <div class="tip">
+    <b>Memory trick:</b><br>
+    Pre = Root first → NLR<br>
+    In = Root in middle → LNR<br>
+    Post = Root last → LRN
+  </div>
+</section>
+
+<!-- 09 -->
+<section class="section" id="inorder">
+  <span class="kicker">09 • TRAVERSAL</span>
+  <h2>Inorder Traversal</h2>
+
+  <div class="definition"><b>Rule:</b> Left → Root → Right (LNR)</div>
+
+  <pre><code>             A
+           /   \
+          B     C
+         / \   / \
+        D   E F   G</code></pre>
+
+  <h3>Step-by-Step</h3>
+  <ol>
+    <li>Go to the left subtree.</li>
+    <li>Visit the root.</li>
+    <li>Go to the right subtree.</li>
+  </ol>
+
+  <div class="formula">Inorder = D B E A F C G</div>
+
+  <div class="tip">
+    <b>Special point:</b> In a Binary Search Tree, inorder traversal gives
+    the keys in sorted order.
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="section" id="preorder">
+  <span class="kicker">10 • TRAVERSAL</span>
+  <h2>Preorder Traversal</h2>
+
+  <div class="definition"><b>Rule:</b> Root → Left → Right (NLR)</div>
+
+  <pre><code>             A
+           /   \
+          B     C
+         / \   / \
+        D   E F   G</code></pre>
+
+  <h3>Step-by-Step</h3>
+  <ol>
+    <li>Visit the root.</li>
+    <li>Traverse the left subtree.</li>
+    <li>Traverse the right subtree.</li>
+  </ol>
+
+  <div class="formula">Preorder = A B D E C F G</div>
+
+  <div class="example">
+    <strong>Expression Tree Connection</strong>
+    Preorder of an expression tree gives its prefix notation.
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="section" id="postorder">
+  <span class="kicker">11 • TRAVERSAL</span>
+  <h2>Postorder Traversal</h2>
+
+  <div class="definition"><b>Rule:</b> Left → Right → Root (LRN)</div>
+
+  <pre><code>             A
+           /   \
+          B     C
+         / \   / \
+        D   E F   G</code></pre>
+
+  <h3>Step-by-Step</h3>
+  <ol>
+    <li>Traverse the left subtree.</li>
+    <li>Traverse the right subtree.</li>
+    <li>Visit the root at the end.</li>
+  </ol>
+
+  <div class="formula">Postorder = D E B F G C A</div>
+
+  <div class="example">
+    <strong>Expression Tree Connection</strong>
+    Postorder of an expression tree gives its postfix notation.
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="section" id="construction">
+  <span class="kicker">12 • PROBLEM SOLVING</span>
+  <h2>Constructing a Binary Tree from Traversals</h2>
+
+  <div class="definition">
+    A binary tree can be constructed when suitable traversal sequences are given,
+    such as preorder + inorder.
+  </div>
+
+  <h3>Example</h3>
+
+  <div class="example">
+    <strong>Given</strong>
+    Preorder = A B D E C F G<br>
+    Inorder = D B E A F C G
+  </div>
+
+  <h3>Step 1 — Find Root</h3>
+  <p>
+    The first element of preorder is the root.
+  </p>
+
+  <div class="formula">Root = A</div>
+
+  <h3>Step 2 — Split Inorder</h3>
+
+  <pre><code>Inorder:
+D B E | A | F C G
+       Left  Root  Right</code></pre>
+
+  <p>
+    So D-B-E belongs to the left subtree and F-C-G belongs to the right subtree.
+  </p>
+
+  <h3>Final Tree</h3>
+
+  <pre><code>             A
+           /   \
+          B     C
+         / \   / \
+        D   E F   G</code></pre>
+
+  <div class="tip">
+    <b>Exam method:</b> Preorder gives the root. Inorder tells which elements
+    belong to the left and right subtrees. Repeat the same process recursively.
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="section" id="threaded">
+  <span class="kicker">13 • ADVANCED TREE</span>
+  <h2>Threaded Binary Tree</h2>
+
+  <div class="definition">
+    A threaded binary tree uses otherwise NULL child pointers to store links
+    called <b>threads</b>. These threads can point to an inorder predecessor
+    or inorder successor.
+  </div>
+
+  <h3>Why Threading?</h3>
+
+  <p>In an ordinary binary tree, many pointers may be NULL:</p>
+
+  <pre><code>        A
+       / \
+      B   C
+
+B.left  = NULL
+B.right = NULL
+C.left  = NULL
+C.right = NULL</code></pre>
+
+  <p>
+    Threading uses some of these NULL links to make traversal easier.
+  </p>
+
+  <h3>Inorder Example</h3>
+
+  <div class="formula">Inorder = B A C</div>
+
+  <p>
+    If B has no right child, its right pointer can be used as a thread to
+    its inorder successor A.
+  </p>
+
+  <h3>Types</h3>
+
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Meaning</th>
+      </tr>
+      <tr>
+        <td>Single Threaded</td>
+        <td>Threads are used in one direction, such as right threads.</td>
+      </tr>
+      <tr>
+        <td>Double Threaded</td>
+        <td>Both left and right NULL links may be used as predecessor/successor threads.</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="tip">
+    <b>Main idea:</b> NULL pointer → useful thread → predecessor or successor.
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="section" id="huffman">
+  <span class="kicker">14 • IMPORTANT ALGORITHM</span>
+  <h2>Huffman Algorithm</h2>
+
+  <div class="definition">
+    Huffman coding is a lossless compression technique that creates variable-length
+    prefix codes. More frequent symbols generally receive shorter codes.
+  </div>
+
+  <h3>Given Frequencies</h3>
+
+  <pre><code>A = 5
+B = 9
+C = 12
+D = 13
+E = 16
+F = 45</code></pre>
+
+  <h3>Step 1 — Pick Two Smallest</h3>
+  <div class="formula">5 + 9 = 14</div>
+
+  <p>New list:</p>
+  <div class="formula">12, 13, 14, 16, 45</div>
+
+  <h3>Step 2</h3>
+  <div class="formula">12 + 13 = 25</div>
+
+  <p>New list:</p>
+  <div class="formula">14, 16, 25, 45</div>
+
+  <h3>Step 3</h3>
+  <div class="formula">14 + 16 = 30</div>
+
+  <p>New list:</p>
+  <div class="formula">25, 30, 45</div>
+
+  <h3>Step 4</h3>
+  <div class="formula">25 + 30 = 55</div>
+
+  <p>New list:</p>
+  <div class="formula">45, 55</div>
+
+  <h3>Step 5 — Final Root</h3>
+  <div class="formula">45 + 55 = 100</div>
+
+  <h3>General Huffman Procedure</h3>
+
+  <ol>
+    <li>Arrange all symbols according to their frequencies.</li>
+    <li>Pick the two symbols/nodes having the smallest frequencies.</li>
+    <li>Combine them into a new node whose frequency is their sum.</li>
+    <li>Insert the new node back into the list.</li>
+    <li>Repeat until only one node remains.</li>
+    <li>Assign binary labels such as 0 and 1 to branches.</li>
+    <li>The path from root to a symbol gives its Huffman code.</li>
+  </ol>
+
+  <h3>Prefix Code</h3>
+
+  <div class="definition">
+    In a prefix code, no complete codeword is the prefix of another codeword.
+    This makes decoding unambiguous.
+  </div>
+
+  <div class="tip">
+    <b>Exam shortcut:</b> Always select the two smallest frequencies first.
+    Combine → reinsert → repeat.
+  </div>
+
+  <div class="warning">
+    <b>Important:</b> If two frequencies are equal, different valid tie choices
+    can produce different-looking trees/codes while maintaining the Huffman
+    optimality property.
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="section" id="complexity">
+  <span class="kicker">15 • EXAM REVISION</span>
+  <h2>Complexity & Key Facts</h2>
+
+  <div class="complexity-grid">
+    <div class="cbox">
+      <b>Traversal</b>
+      <span>O(n)</span>
+    </div>
+    <div class="cbox">
+      <b>Array Child</b>
+      <span>O(1)</span>
+    </div>
+    <div class="cbox">
+      <b>Tree Space</b>
+      <span>O(n)</span>
+    </div>
+    <div class="cbox">
+      <b>Huffman</b>
+      <span>Typically O(n log n)</span>
+    </div>
+  </div>
+
+  <h3>Important Formulas</h3>
+
+  <div class="formula">Edges in a tree = n − 1</div>
+  <div class="formula">Maximum nodes at level i = 2ⁱ</div>
+  <div class="formula">Maximum nodes at height h = 2^(h+1) − 1</div>
+  <div class="formula">Left child in 1-based array = 2i</div>
+  <div class="formula">Right child in 1-based array = 2i + 1</div>
+  <div class="formula">Parent in 1-based array = floor(i/2)</div>
+</section>
+
+<!-- SUMMARY -->
+<section class="section summary" id="summary">
+  <span class="kicker">FINAL REVISION</span>
+  <h2>Unit 3 — Quick Revision</h2>
+
+  <h3>Must Remember</h3>
+
+  <ul class="checklist">
+    <li><b>Tree:</b> Non-linear hierarchical data structure.</li>
+    <li><b>Root:</b> Topmost node.</li>
+    <li><b>Leaf:</b> Node with no children.</li>
+    <li><b>Binary Tree:</b> At most two children per node.</li>
+    <li><b>Complete Binary Tree:</b> Last level filled from left to right.</li>
+    <li><b>Full/Strict Binary Tree:</b> Every node has 0 or 2 children.</li>
+    <li><b>Expression Tree:</b> Operators are internal nodes; operands are leaves.</li>
+    <li><b>Inorder:</b> LNR.</li>
+    <li><b>Preorder:</b> NLR.</li>
+    <li><b>Postorder:</b> LRN.</li>
+    <li><b>Threaded Tree:</b> Uses NULL links as useful threads.</li>
+    <li><b>Huffman:</b> Repeatedly combine the two smallest frequencies.</li>
+  </ul>
+
+  <h3>One-Line Memory Trick</h3>
+
+  <div class="formula">
+    PRE = Root First &nbsp; | &nbsp;
+    IN = Root Middle &nbsp; | &nbsp;
+    POST = Root Last
+  </div>
+
+  <div class="tip">
+    <b>Study Strategy:</b> First learn terminology and binary-tree types.
+    Then practice 10+ traversal problems. After that learn expression trees,
+    tree construction, threaded trees and finally solve Huffman numericals.
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="section" id="questions">
+  <span class="kicker">EXAM PRACTICE</span>
+  <h2>Important Questions</h2>
+
+  <ol>
+    <li>Define a tree and explain root, parent, child, sibling, leaf and degree.</li>
+    <li>Differentiate between tree and binary tree.</li>
+    <li>Explain binary tree with a suitable diagram.</li>
+    <li>Explain array and linked representation of a binary tree.</li>
+    <li>Define complete binary tree with an example.</li>
+    <li>Differentiate between full, perfect and complete binary trees.</li>
+    <li>Explain extended binary tree.</li>
+    <li>What is an expression tree? Construct an expression tree for a given expression.</li>
+    <li>Explain inorder, preorder and postorder traversal with examples.</li>
+    <li>Find all three traversals of a given binary tree.</li>
+    <li>Construct a binary tree from preorder and inorder traversals.</li>
+    <li>What is a threaded binary tree? Explain single and double threading.</li>
+    <li>Explain Huffman algorithm with a suitable frequency example.</li>
+    <li>Construct a Huffman tree for given symbols and frequencies.</li>
+    <li>Explain prefix-free property of Huffman coding.</li>
+    <li>Write the important formulas for a binary tree.</li>
+  </ol>
+
+  <div class="warning">
+    <b>AKTU focus:</b> Give special attention to tree terminology, binary-tree
+    representation, complete/extended trees, traversal numericals, expression
+    trees, construction from traversals, threaded binary trees and Huffman
+    algorithm numericals.
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer style="text-align:center;color:#91a0b9;padding:25px 0;border-top:1px solid #22304a">
+  © 2026 Data Structures Notes • Unit 3 • Learn • Practice • Code 🌳
+</footer>
+
+</div>
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<script>
+const backTop = document.getElementById("backTop");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 500) {
+    backTop.classList.add("show");
+  } else {
+    backTop.classList.remove("show");
+  }
+});
+
+backTop.addEventListener("click", () => {
+  window.scrollTo({top: 0, behavior: "smooth"});
+});
+
+/* Highlight current section in the table of contents */
+const sections = document.querySelectorAll(".section");
+const links = document.querySelectorAll(".toc a");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(link => link.classList.remove("active"));
+      const active = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if (active) active.classList.add("active");
+    }
+  });
+}, {
+  rootMargin: "-15% 0px -70% 0px",
+  threshold: 0
+});
+
+sections.forEach(section => observer.observe(section));
+</script>
 
 </body>
 </html>
