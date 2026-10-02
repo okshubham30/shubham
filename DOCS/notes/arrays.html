@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time &amp; Space Complexity - Complete Notes</title>
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#08101f;
+  --card:#0d1628;
+  --card2:#111b2e;
+  --border:#22304a;
+  --text:#f4f7ff;
+  --muted:#91a0b9;
+  --blue:#55c7ff;
+  --blue2:#173b58;
+  --green:#55e6a5;
+  --yellow:#ffd34e;
+  --purple:#b87cff;
+  --pink:#ff69b4;
+  --red:#ff7d8a;
+  --code:#07101d;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(39,111,170,.18),transparent 28%),
+    radial-gradient(circle at 12% 82%,rgba(93,62,150,.12),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+a{color:inherit}
+.container{width:min(1180px,92%);margin:auto;padding:35px 0 70px}
+
+/* Hero */
+.hero{
+  position:relative;overflow:hidden;
+  border:1px solid var(--border);border-radius:30px;
+  padding:45px;margin-bottom:28px;
+  background:linear-gradient(110deg,#0c1527,#0d182b 55%,#122b43);
+}
+.hero:after{
+  content:"";position:absolute;width:280px;height:280px;
+  right:-80px;top:-120px;border-radius:50%;
+  background:rgba(85,199,255,.11);filter:blur(4px)
+}
+.hero-content{position:relative;z-index:2}
+.badge{
+  display:inline-block;padding:7px 13px;border-radius:999px;
+  color:var(--blue);background:rgba(85,199,255,.11);
+  border:1px solid rgba(85,199,255,.28);
+  font-size:12px;font-weight:900;letter-spacing:.7px;margin-bottom:15px
+}
+h1{font-size:clamp(36px,5vw,58px);line-height:1.05;letter-spacing:-1.2px}
+.hero p{max-width:850px;color:var(--muted);font-size:17px;margin-top:14px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.meta span{
+  padding:7px 12px;border-radius:999px;background:#121d31;
+  border:1px solid var(--border);color:#cbd5e6;font-size:12px;font-weight:700
+}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}
+.toc{
+  position:sticky;top:18px;background:rgba(13,22,40,.9);
+  border:1px solid var(--border);border-radius:22px;padding:20px
+}
+.toc h3{font-size:17px;margin-bottom:12px}
+.toc a{
+  display:block;text-decoration:none;color:var(--muted);
+  padding:8px 10px;border-radius:10px;font-size:13px;
+  transition:.2s
+}
+.toc a:hover{background:#142137;color:var(--blue)}
+
+/* Content */
+.content{min-width:0}
+.section{
+  background:linear-gradient(145deg,#0c1527,#0d1628);
+  border:1px solid var(--border);border-radius:24px;
+  padding:30px;margin-bottom:20px
+}
+.section h2{
+  font-size:28px;line-height:1.25;margin-bottom:8px
+}
+.section h3{font-size:21px;margin:25px 0 9px;color:#eaf1ff}
+.section h4{font-size:17px;margin:20px 0 7px;color:var(--blue)}
+.section p{color:#c1ccdd;margin:8px 0}
+.section ul,.section ol{padding-left:24px;color:#c1ccdd}
+.section li{margin:7px 0}
+.kicker{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1px}
+.definition{
+  margin:15px 0;padding:17px 18px;border-left:4px solid var(--blue);
+  border-radius:0 14px 14px 0;background:#101c30;color:#dce7f7
+}
+.tip{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--green);
+  border-radius:0 14px 14px 0;background:rgba(85,230,165,.07);color:#d7f5e7
+}
+.warning{
+  margin:15px 0;padding:16px 18px;border-left:4px solid var(--yellow);
+  border-radius:0 14px 14px 0;background:rgba(255,211,78,.06);color:#f8edbd
+}
+.example{
+  margin:16px 0;padding:17px;border:1px solid var(--border);
+  border-radius:16px;background:#0b1424
+}
+.example strong{display:block;color:var(--blue);margin-bottom:6px}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:15px 0}
+table{width:100%;border-collapse:collapse;min-width:580px}
+th,td{border:1px solid var(--border);padding:11px 13px;text-align:left}
+th{background:#142139;color:var(--blue);font-size:13px}
+td{color:#c8d2e1;font-size:14px}
+tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+
+/* Code */
+pre{
+  overflow-x:auto;margin:15px 0;padding:18px;
+  background:var(--code);border:1px solid #1d2d44;
+  border-radius:15px;color:#dce8f8;font-size:13px;line-height:1.65
+}
+code{font-family:Consolas,Monaco,monospace}
+.inline{
+  font-family:Consolas,monospace;color:var(--blue);
+  background:#111d31;padding:2px 6px;border-radius:6px
+}
+.code-title{
+  margin-top:18px;color:#aebbd0;font-size:12px;font-weight:800;
+  letter-spacing:.5px
+}
+
+/* Formula */
+.formula{
+  padding:17px;text-align:center;margin:15px 0;
+  border:1px dashed #365170;border-radius:15px;
+  background:#0b1728;color:#f1f6ff;font-family:Consolas,monospace
+}
+
+/* Complexity cards */
+.complexity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0}
+.cbox{padding:15px;border:1px solid var(--border);border-radius:16px;background:#101a2c}
+.cbox b{font-size:20px;color:var(--blue);display:block}
+.cbox span{font-size:12px;color:var(--muted)}
+
+/* Summary */
+.summary{
+  border:1px solid rgba(85,199,255,.28);
+  background:linear-gradient(145deg,#0c1a2b,#0d1d31);
+}
+.checklist li::marker{color:var(--green)}
+
+/* Responsive */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .toc{position:relative;top:0}
+  .complexity-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .container{width:94%;padding-top:22px}
+  .hero{padding:28px 22px;border-radius:24px}
+  .section{padding:22px 18px;border-radius:20px}
+  .complexity-grid{grid-template-columns:1fr 1fr}
+  h1{font-size:38px}
+  .hero p{font-size:15px}
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+<div class="hero-content">
+<span class="badge">CSE • DATA STRUCTURES • COMPLETE NOTES</span>
+<h1>Arrays &amp; Sparse Matrix</h1>
+<p>Complete, beginner-friendly and exam-oriented notes covering one-dimensional and multidimensional arrays, array operations, row-major and column-major representation, address calculation, sparse matrices and triplet representation.</p>
+<div class="meta"><span>📘 Detailed Theory</span><span>💻 C Examples</span><span>🧠 Concepts + Logic</span><span>🎯 AKTU Preparation</span></div>
+</div></header>
+
+<div class="layout">
+<aside class="toc">
+<h3>On This Page</h3>
+<a href="#basics">Array Basics</a>
+<a href="#oneD">One-Dimensional Array</a>
+<a href="#operations">Array Operations</a>
+<a href="#twoD">Multidimensional Array</a>
+<a href="#rowmajor">Row-Major Representation</a>
+<a href="#columnmajor">Column-Major Representation</a>
+<a href="#address">Address Calculation</a>
+<a href="#sparse">Sparse Matrix</a>
+<a href="#triplet">Triplet Representation</a>
+<a href="#transpose">Sparse Matrix Transpose</a>
+<a href="#revision">AKTU Revision</a>
+</aside>
+<main class="content">
+
+<section class="section" id="basics">
+<span class="kicker">01 • FOUNDATION</span><h2>Array Basics</h2>
+<h3>1. What is an Array?</h3>
+<p>An <strong>array</strong> is a collection of elements of the same data type stored in contiguous memory locations. Each element is accessed using an index.</p>
+<div class="definition"><strong>Simple meaning:</strong> An array stores many values of the same type under one variable name.</div>
+<pre><code>int marks[5] = {78, 85, 91, 67, 88};</code></pre>
+<h3>2. Important Terminology</h3>
+<div class="table-wrap"><table><tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Element</td><td>A value stored in the array.</td></tr><tr><td>Index</td><td>Position used to access an element.</td></tr>
+<tr><td>Size</td><td>Number of elements the array can contain.</td></tr><tr><td>Base Address</td><td>Address of the first element.</td></tr><tr><td>Contiguous Memory</td><td>Elements are stored next to each other.</td></tr></table></div>
+<h3>3. Indexing</h3>
+<pre><code>int a[5] = {10,20,30,40,50};
+
+Index:   0   1   2   3   4
+Value:  10  20  30  40  50</code></pre>
+<p>C uses zero-based indexing, so <span class="inline">a[2]</span> is 30.</p>
+<h3>4. Declaration &amp; Initialization</h3>
+<pre><code>int a[5];
+int b[5] = {10,20,30,40,50};
+int c[] = {1,2,3,4};</code></pre>
+</section>
+
+<section class="section" id="oneD">
+<span class="kicker">02 • ONE DIMENSION</span><h2>One-Dimensional Array</h2>
+<h3>5. Concept</h3><p>A 1D array is a linear sequence of elements.</p>
+<pre><code>10  20  30  40  50
+↑   ↑   ↑   ↑   ↑
+0   1   2   3   4</code></pre>
+<h3>6. Traversal</h3>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int a[5] = {10,20,30,40,50};
+    for(int i=0; i&lt;5; i++)
+        printf("%d ", a[i]);
+    return 0;
+}</code></pre>
+<div class="formula">Traversal = O(n)</div>
+<h3>7. 1D Address Formula</h3>
+<div class="formula">LOC(A[i]) = Base + W × (i − LB)</div>
+<p>For zero-based indexing: <span class="inline">LOC(A[i]) = Base + W × i</span></p>
+<h3>8. Example</h3>
+<pre><code>Base = 1000
+W = 4 bytes
+Find A[6]
+
+LOC(A[6]) = 1000 + 4×6
+           = 1024</code></pre>
+<div class="formula">Answer = 1024</div>
+</section>
+
+<section class="section" id="operations">
+<span class="kicker">03 • OPERATIONS</span><h2>Array Operations</h2>
+<p>Main operations: traversal, insertion, deletion, searching, updating, sorting and merging.</p>
+<h3>9. Insertion</h3>
+<pre><code>10 20 30 40
+Insert 25 at index 2
+
+10 20 _ 30 40
+10 20 25 30 40</code></pre>
+<pre><code>for(int i=n; i&gt;pos; i--)
+    a[i] = a[i-1];
+a[pos] = value;
+n++;</code></pre>
+<div class="formula">Worst case = O(n)</div>
+<h3>10. Deletion</h3>
+<pre><code>10 20 30 40 50
+Delete index 2
+
+10 20 40 50</code></pre>
+<pre><code>for(int i=pos; i&lt;n-1; i++)
+    a[i] = a[i+1];
+n--;</code></pre>
+<div class="formula">Worst case = O(n)</div>
+<h3>11. Searching</h3>
+<div class="table-wrap"><table><tr><th>Method</th><th>Requirement</th><th>Typical Complexity</th></tr>
+<tr><td>Linear Search</td><td>None</td><td>O(n)</td></tr><tr><td>Binary Search</td><td>Sorted array</td><td>O(log n)</td></tr></table></div>
+<p>Linear search: best case O(1), average O(n), worst O(n).</p>
+<h3>12. Updating</h3>
+<pre><code>a[2] = 99;</code></pre>
+<div class="formula">Access / Update = O(1)</div>
+</section>
+
+<section class="section" id="twoD">
+<span class="kicker">04 • MULTIDIMENSIONAL</span><h2>Multidimensional Array</h2>
+<h3>13. 2D Array</h3>
+<pre><code>int a[3][4];</code></pre>
+<p>3 rows × 4 columns = 12 elements.</p>
+<pre><code>        C0  C1  C2  C3
+R0      10  20  30  40
+R1      50  60  70  80
+R2      90 100 110 120</code></pre>
+<h3>14. Initialization</h3>
+<pre><code>int a[3][3] = {
+    {1,2,3},
+    {4,5,6},
+    {7,8,9}
+};</code></pre>
+<p><span class="inline">a[1][2]</span> = 6.</p>
+<h3>15. Traversal</h3>
+<pre><code>for(int i=0; i&lt;3; i++)
+    for(int j=0; j&lt;3; j++)
+        printf("%d ", a[i][j]);</code></pre>
+<p>Outer loop handles rows; inner loop handles columns.</p>
+</section>
+
+<section class="section" id="rowmajor">
+<span class="kicker">05 • MEMORY REPRESENTATION</span><h2>Row-Major Representation</h2>
+<h3>16. Concept</h3>
+<p>The complete first row is stored first, then the second row, and so on.</p>
+<pre><code>1 2 3
+4 5 6
+7 8 9
+
+Memory:
+1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9</code></pre>
+<div class="tip"><strong>Important:</strong> C stores multidimensional arrays in row-major order.</div>
+<h3>17. Formula</h3>
+<div class="formula">LOC(A[i][j]) = Base + W × (i × N + j)</div>
+<p><span class="inline">N</span> = number of columns, <span class="inline">W</span> = element size in bytes.</p>
+<h3>18. Numerical</h3>
+<pre><code>A[3][4], Base=1000, W=4
+Find A[2][3]
+
+= 1000 + 4 × (2×4 + 3)
+= 1000 + 44
+= 1044</code></pre>
+<div class="formula">Answer = 1044</div>
+</section>
+
+<section class="section" id="columnmajor">
+<span class="kicker">06 • MEMORY REPRESENTATION</span><h2>Column-Major Representation</h2>
+<h3>19. Concept</h3>
+<p>The complete first column is stored first, then the second column, and so on.</p>
+<pre><code>1 2 3
+4 5 6
+7 8 9
+
+Memory:
+1 → 4 → 7 → 2 → 5 → 8 → 3 → 6 → 9</code></pre>
+<h3>20. Formula</h3>
+<div class="formula">LOC(A[i][j]) = Base + W × (j × M + i)</div>
+<p><span class="inline">M</span> = number of rows.</p>
+<h3>21. Numerical</h3>
+<pre><code>A[3][4], Base=1000, W=4
+Find A[2][3]
+
+= 1000 + 4 × (3×3 + 2)
+= 1000 + 44
+= 1044</code></pre>
+<div class="warning"><strong>Exam Tip:</strong> Do not assume row-major and column-major formulas are the same just because one numerical gives the same answer.</div>
+<div class="table-wrap"><table><tr><th>Feature</th><th>Row Major</th><th>Column Major</th></tr>
+<tr><td>Storage</td><td>Row by row</td><td>Column by column</td></tr><tr><td>Formula</td><td>Base + W(iN+j)</td><td>Base + W(jM+i)</td></tr><tr><td>C</td><td>Yes</td><td>Not normal C layout</td></tr></table></div>
+</section>
+
+<section class="section" id="address">
+<span class="kicker">07 • NUMERICALS</span><h2>Address Calculation</h2>
+<h3>22. Formula Sheet</h3>
+<div class="formula">1D: LOC(A[i]) = Base + W(i − LB)</div>
+<div class="formula">Row Major: LOC(A[i][j]) = Base + W(iN + j)</div>
+<div class="formula">Column Major: LOC(A[i][j]) = Base + W(jM + i)</div>
+<h3>23. Numerical</h3>
+<pre><code>B[4][5], Base=2000, W=2
+Find row-major address of B[3][4]
+
+= 2000 + 2 × (3×5 + 4)
+= 2000 + 38
+= 2038</code></pre>
+<div class="formula">Answer = 2038</div>
+<h3>24. Steps for AKTU Numericals</h3>
+<ol><li>Identify rows and columns.</li><li>Identify base address.</li><li>Identify element size.</li><li>Check lower bound/indexing.</li><li>Choose row-major or column-major.</li><li>Substitute carefully.</li></ol>
+</section>
+
+<section class="section" id="sparse">
+<span class="kicker">08 • SPARSE MATRIX</span><h2>Sparse Matrix</h2>
+<h3>25. Definition</h3>
+<p>A matrix in which most elements are zero is called a <strong>sparse matrix</strong>.</p>
+<pre><code>0 0 0 7
+0 0 0 0
+5 0 0 0
+0 0 9 0</code></pre>
+<p>Total elements = 16; non-zero = 3; zero = 13.</p>
+<div class="definition"><strong>Key idea:</strong> Storing every zero wastes memory. Sparse representations store only significant values.</div>
+<h3>26. Advantages</h3>
+<ul><li>Saves memory.</li><li>Reduces unnecessary processing.</li><li>Useful for large mathematical/scientific data.</li><li>Useful in graphs, images and datasets with many zero values.</li></ul>
+<h3>27. Sparse vs Dense</h3>
+<div class="table-wrap"><table><tr><th>Sparse</th><th>Dense</th></tr><tr><td>Mostly zeros</td><td>Many non-zero values</td></tr><tr><td>Compact representation useful</td><td>Normal matrix often sufficient</td></tr><tr><td>Stores significant values efficiently</td><td>Stores all values</td></tr></table></div>
+</section>
+
+<section class="section" id="triplet">
+<span class="kicker">09 • REPRESENTATION</span><h2>Triplet / 3-Tuple Representation</h2>
+<h3>28. Concept</h3>
+<p>For every non-zero value, store <strong>row, column and value</strong>. The first row commonly stores rows, columns and the number of non-zero elements.</p>
+<pre><code>Original:
+0 0 3
+0 0 0
+4 0 0
+0 5 0
+
+Triplet:
+Row Column Value
+ 4    3      3   ← metadata
+ 0    2      3
+ 2    0      4
+ 3    1      5</code></pre>
+<h3>29. C Structure</h3>
+<pre><code>struct Term {
+    int row;
+    int col;
+    int value;
+};
+
+struct Term sparse[20];</code></pre>
+<h3>30. Conversion Logic</h3>
+<pre><code>for(i=0; i&lt;rows; i++)
+    for(j=0; j&lt;cols; j++)
+        if(matrix[i][j] != 0) {
+            /* store i, j and matrix[i][j] */
+        }</code></pre>
+</section>
+
+<section class="section" id="transpose">
+<span class="kicker">10 • OPERATION</span><h2>Sparse Matrix Transpose</h2>
+<h3>31. Transpose</h3>
+<p>Transpose swaps rows and columns.</p>
+<pre><code>1 2 3        1 4
+4 5 6   →    2 5
+             3 6</code></pre>
+<h3>32. Triplet Transpose</h3>
+<div class="formula">(row, column, value) → (column, row, value)</div>
+<pre><code>(1,3,7) → (3,1,7)</code></pre>
+<h3>33. Example</h3>
+<pre><code>Original:
+(0,2,3)
+(2,0,4)
+(3,1,5)
+
+Transpose:
+(2,0,3)
+(0,2,4)
+(1,3,5)</code></pre>
+<div class="formula">m × n matrix → n × m transpose</div>
+</section>
+
+<section class="section summary" id="revision">
+<span class="kicker">11 • AKTU REVISION</span><h2>Exam Notes &amp; Final Cheat Sheet</h2>
+<h3>34. Must-Remember Definitions</h3>
+<ul class="checklist"><li>Array = same-type elements stored in contiguous memory.</li><li>1D array = linear list.</li><li>2D array = rows and columns.</li><li>Row-major = row by row storage.</li><li>Column-major = column by column storage.</li><li>Sparse matrix = mostly zero elements.</li><li>Triplet = row, column and value of non-zero elements.</li></ul>
+<h3>35. Must-Remember Formulas</h3>
+<div class="formula">1D: LOC(A[i]) = Base + W(i − LB)</div>
+<div class="formula">Row Major: LOC(A[i][j]) = Base + W(iN + j)</div>
+<div class="formula">Column Major: LOC(A[i][j]) = Base + W(jM + i)</div>
+<h3>36. Memory Trick</h3>
+<pre><code>ROW MAJOR    → Row × Columns + Column
+                i × N + j
+
+COLUMN MAJOR → Column × Rows + Row
+                j × M + i</code></pre>
+<h3>37. Important AKTU Questions</h3>
+<ol><li>Define array and explain its representation.</li><li>Explain 1D and multidimensional arrays with examples.</li><li>Explain insertion and deletion.</li><li>Explain row-major and column-major representation.</li><li>Solve address-calculation numericals.</li><li>Define sparse matrix with example.</li><li>Convert a sparse matrix to 3-tuple representation.</li><li>Explain sparse matrix transpose.</li><li>Compare sparse and dense matrices.</li><li>Write C programs for traversal/search/insertion/deletion.</li></ol>
+<h3>38. Quick Revision</h3>
+<pre><code>ARRAY
+├── 1D → access O(1), search O(n)
+├── 2D → rows + columns
+├── Row Major → Base + W(iN+j)
+├── Column Major → Base + W(jM+i)
+└── Sparse Matrix
+    ├── mostly zeros
+    ├── saves memory
+    ├── triplet: row, column, value
+    └── transpose: row ↔ column</code></pre>
+<div class="warning"><strong>Exam strategy:</strong> Practice address-calculation numericals and triplet-conversion questions separately.</div>
+</section>
+
+</main>
+</div>
+<script>
+const links=[...document.querySelectorAll('.toc a')];
+const sections=[...document.querySelectorAll('.section')];
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   links.forEach(a=>a.classList.remove('active'));
+   const active=document.querySelector('.toc a[href="#'+entry.target.id+'"]');
+   if(active) active.classList.add('active');
+  }
+ });
+},{rootMargin:'-20% 0px -70% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+<style>.toc a.active{background:#142137;color:var(--blue);border-left:3px solid var(--blue);padding-left:7px}</style>
+</body>
+</html>
