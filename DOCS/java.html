@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Notes | Shubham Docs</title>
+<meta name="description" content="Complete Java notes from basics to advanced with examples and DSA preparation.">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at top left,rgba(59,130,246,.16),transparent 28%),
+    radial-gradient(circle at top right,rgba(168,85,247,.12),transparent 22%),
+    linear-gradient(180deg,#0f172a 0%,#111827 100%);
+  color:#e2e8f0;line-height:1.8;padding:24px 16px 50px;overflow-x:hidden
+}
+body.light{
+  background:linear-gradient(180deg,#eef6ff,#f8fafc);
+  color:#172033
+}
+.container{
+  max-width:1180px;margin:auto;background:rgba(17,24,39,.86);
+  backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(0,0,0,.28)
+}
+body.light .container{background:rgba(255,255,255,.9);border-color:#dbeafe}
+.topbar{
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+  gap:14px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08)
+}
+.brand h1{font-size:2.4rem;color:#38bdf8;line-height:1.1;margin-bottom:6px}
+.brand p{color:#94a3b8;font-size:.95rem}
+.badge{
+  display:inline-block;background:rgba(56,189,248,.12);color:#38bdf8;
+  border:1px solid rgba(56,189,248,.22);padding:6px 12px;border-radius:999px;
+  font-size:.82rem;margin-bottom:14px;letter-spacing:.3px
+}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+button,.back-home{
+  border:0;text-decoration:none;color:#07111f;background:linear-gradient(135deg,#38bdf8,#60a5fa);
+  padding:10px 15px;border-radius:14px;font-weight:700;cursor:pointer;transition:.25s
+}
+button:hover,.back-home:hover{transform:translateY(-2px)}
+#search{
+  width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.1);
+  background:#020617;color:#e2e8f0;outline:none;font-size:1rem;margin:4px 0 18px
+}
+body.light #search{background:#fff;color:#172033;border-color:#cbd5e1}
+.toc{
+  display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 10px;padding:16px;
+  border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)
+}
+.toc a{
+  text-decoration:none;color:#cbd5e1;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);padding:8px 12px;border-radius:999px;
+  font-size:.84rem;transition:.22s
+}
+.toc a:hover,.toc a.active{color:#fff;border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.12)}
+h2,h3{color:#38bdf8;line-height:1.2}
+h2{margin-top:36px;font-size:1.65rem;border-bottom:1px solid rgba(56,189,248,.2);padding-bottom:10px;scroll-margin-top:18px}
+h3{margin-top:20px;font-size:1.15rem}
+p{margin:12px 0;color:#cbd5e1}
+body.light p,body.light ul,body.light ol{color:#334155}
+.box,.note,.warn,.tip{
+  border-radius:16px;padding:16px 18px;margin:14px 0;border:1px solid transparent
+}
+.box{background:#0b1220;border-color:rgba(255,255,255,.08)}
+.note{background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.2);color:#bbf7d0}
+.warn{background:rgba(251,146,60,.08);border-color:rgba(251,146,60,.2);color:#fed7aa}
+.tip{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2);color:#dbeafe}
+body.light .box{background:#f1f5f9;color:#334155}
+code,pre{font-family:"Courier New",monospace;font-size:.94rem}
+code.inline{background:rgba(255,255,255,.07);padding:2px 7px;border-radius:7px;color:#38bdf8}
+.code-wrap{position:relative}
+pre{
+  background:#020617;color:#f8fafc;padding:17px;border-radius:16px;overflow:auto;
+  border:1px solid rgba(255,255,255,.08);margin:14px 0;white-space:pre-wrap
+}
+.copy{
+  position:absolute;right:10px;top:10px;background:#1e293b;color:#bae6fd;
+  padding:6px 9px;border-radius:8px;font-size:.78rem
+}
+table{width:100%;border-collapse:collapse;margin:14px 0;border-radius:14px;overflow:hidden}
+th,td{border:1px solid rgba(255,255,255,.08);padding:12px 14px;text-align:left;vertical-align:top}
+th{background:#0b1220;color:#38bdf8;font-size:.9rem}
+td{background:#111827;color:#cbd5e1}
+ul,ol{margin-left:22px;color:#cbd5e1}
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px}
+.card{background:#0b1220;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px}
+.card h4{color:#7dd3fc;margin-bottom:8px;font-size:1rem}
+.progress{
+  position:fixed;top:0;left:0;height:4px;background:#38bdf8;width:0;z-index:1000
+}
+.back-top{
+  position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;text-decoration:none;background:linear-gradient(135deg,#38bdf8,#60a5fa);
+  color:#08111f;font-weight:900;box-shadow:0 14px 30px rgba(56,189,248,.25)
+}
+.footer{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);color:#94a3b8;text-align:center;font-size:.92rem}
+.hidden{display:none!important}
+@media(max-width:720px){
+  .container{padding:20px}.brand h1{font-size:2rem}.toc{padding:12px}.toc a{font-size:.78rem}
+  .actions{width:100%}.actions button,.actions a{flex:1;text-align:center}
+}
+</style>
+</head>
+
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="container" id="top">
+<header class="topbar">
+  <div class="brand">
+    <span class="badge">Shubham Docs • Study Pages</span>
+    <h1>Java Programming Notes</h1>
+    <p>Complete Java theory, examples, OOP, Collections, Advanced Java & DSA preparation</p>
+  </div>
+  <div class="actions">
+    <button id="themeBtn">☀ Theme</button>
+    <a class="back-home" href="../docs.html">← Back Home</a>
+  </div>
+</header>
+
+<input id="search" type="search" placeholder="🔎 Search Java topics, methods, keywords...">
+
+<nav class="toc" id="toc">
+<a href="#intro">Introduction</a><a href="#jvm">JDK/JRE/JVM</a><a href="#setup">Setup</a>
+<a href="#syntax">Syntax</a><a href="#variables">Variables</a><a href="#types">Data Types</a>
+<a href="#operators">Operators</a><a href="#input">Input</a><a href="#conditions">Conditions</a>
+<a href="#loops">Loops</a><a href="#methods">Methods</a><a href="#arrays">Arrays</a>
+<a href="#strings">Strings</a><a href="#oop">OOP</a><a href="#inheritance">Inheritance</a>
+<a href="#polymorphism">Polymorphism</a><a href="#abstraction">Abstraction</a><a href="#interface">Interface</a>
+<a href="#exceptions">Exceptions</a><a href="#packages">Packages</a><a href="#collections">Collections</a>
+<a href="#arraylist">ArrayList</a><a href="#linkedlist">LinkedList</a><a href="#stackqueue">Stack/Queue</a>
+<a href="#hashing">Hashing</a><a href="#pq">PriorityQueue</a><a href="#generics">Generics</a>
+<a href="#lambda">Lambda</a><a href="#streams">Streams</a><a href="#files">File Handling</a>
+<a href="#threads">Multithreading</a><a href="#memory">Memory</a><a href="#dsaprep">DSA Prep</a>
+<a href="#interview">Interview</a>
+</nav>
+
+<main id="content">
+
+<section id="intro">
+<h2>1. Introduction to Java</h2>
+<p>Java is a high-level, object-oriented, class-based programming language designed to be portable across platforms.</p>
+<div class="box">
+<p><strong>Core idea:</strong> Java source code is compiled into bytecode, and the JVM executes that bytecode.</p>
+</div>
+<div class="mini-grid">
+<div class="card"><h4>Object-Oriented</h4><p>Programs are organized around classes and objects.</p></div>
+<div class="card"><h4>Platform Independent</h4><p>Java bytecode can run on systems having a compatible JVM.</p></div>
+<div class="card"><h4>Strongly Typed</h4><p>Variables have defined data types.</p></div>
+<div class="card"><h4>DSA Friendly</h4><p>Collections such as ArrayList, HashMap and PriorityQueue are heavily used in DSA.</p></div>
+</div>
+</section>
+
+<section id="jvm">
+<h2>2. JDK, JRE and JVM</h2>
+<table><tr><th>Term</th><th>Meaning</th><th>Purpose</th></tr>
+<tr><td>JDK</td><td>Java Development Kit</td><td>Develop and compile Java programs</td></tr>
+<tr><td>JRE</td><td>Java Runtime Environment</td><td>Run Java applications</td></tr>
+<tr><td>JVM</td><td>Java Virtual Machine</td><td>Executes Java bytecode</td></tr></table>
+<div class="tip"><strong>Remember:</strong> JDK includes tools for development; JRE provides the runtime environment; JVM executes bytecode.</div>
+</section>
+
+<section id="setup">
+<h2>3. First Java Program</h2>
+<p>A Java application commonly starts execution from the <code class="inline">main()</code> method.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}</pre></div>
+<table><tr><th>Part</th><th>Meaning</th></tr>
+<tr><td>class</td><td>Defines a class</td></tr><tr><td>main()</td><td>Common entry point of a Java application</td></tr>
+<tr><td>System.out.println()</td><td>Prints text followed by a new line</td></tr></table>
+</section>
+
+<section id="syntax">
+<h2>4. Java Syntax</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>// Single-line comment
+
+/*
+   Multi-line comment
+*/
+
+public class Main {
+    public static void main(String[] args) {
+        int age = 19;
+        System.out.println(age);
+    }
+}</pre></div>
+<div class="box"><p><strong>Important:</strong> Java is case-sensitive. <code class="inline">Age</code> and <code class="inline">age</code> are different identifiers.</p></div>
+</section>
+
+<section id="variables">
+<h2>5. Variables</h2>
+<p>A variable is a named storage location used to hold a value.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int age = 19;
+double marks = 86.5;
+char grade = 'A';
+boolean passed = true;
+String name = "Shubham";</pre></div>
+<table><tr><th>Type</th><th>Example</th></tr>
+<tr><td>int</td><td>int age = 19;</td></tr><tr><td>double</td><td>double price = 99.50;</td></tr>
+<tr><td>char</td><td>char grade = 'A';</td></tr><tr><td>boolean</td><td>boolean active = true;</td></tr>
+<tr><td>String</td><td>String name = "Shubham";</td></tr></table>
+</section>
+
+<section id="types">
+<h2>6. Data Types</h2>
+<table><tr><th>Type</th><th>Category</th><th>Example</th></tr>
+<tr><td>byte</td><td>Integer</td><td>byte x = 10;</td></tr>
+<tr><td>short</td><td>Integer</td><td>short x = 1000;</td></tr>
+<tr><td>int</td><td>Integer</td><td>int x = 100;</td></tr>
+<tr><td>long</td><td>Integer</td><td>long x = 100000L;</td></tr>
+<tr><td>float</td><td>Decimal</td><td>float x = 5.5f;</td></tr>
+<tr><td>double</td><td>Decimal</td><td>double x = 5.5;</td></tr>
+<tr><td>char</td><td>Character</td><td>char x = 'A';</td></tr>
+<tr><td>boolean</td><td>Logical</td><td>boolean x = true;</td></tr></table>
+<h3>Type Casting</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int a = 10;
+double b = a;          // widening
+
+double x = 10.8;
+int y = (int)x;        // narrowing</pre></div>
+</section>
+
+<section id="operators">
+<h2>7. Operators</h2>
+<table><tr><th>Category</th><th>Operators</th></tr>
+<tr><td>Arithmetic</td><td>+ - * / %</td></tr><tr><td>Relational</td><td>== != &gt; &lt; &gt;= &lt;=</td></tr>
+<tr><td>Logical</td><td>&amp;&amp; || !</td></tr><tr><td>Assignment</td><td>= += -= *= /= %=</td></tr>
+<tr><td>Unary</td><td>++ -- + - !</td></tr><tr><td>Bitwise</td><td>&amp; | ^ ~ &lt;&lt; &gt;&gt; &gt;&gt;&gt;</td></tr></table>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int a = 10, b = 3;
+
+System.out.println(a + b);
+System.out.println(a % b);
+System.out.println(a > b);
+System.out.println(a == b);</pre></div>
+</section>
+
+<section id="input">
+<h2>8. Input using Scanner</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+
+        System.out.println("Age = " + age);
+
+        sc.close();
+    }
+}</pre></div>
+<table><tr><th>Method</th><th>Use</th></tr>
+<tr><td>nextInt()</td><td>Integer input</td></tr><tr><td>nextDouble()</td><td>Decimal input</td></tr>
+<tr><td>next()</td><td>One token</td></tr><tr><td>nextLine()</td><td>Complete line</td></tr></table>
+</section>
+
+<section id="conditions">
+<h2>9. Conditional Statements</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int marks = 82;
+
+if (marks >= 90) {
+    System.out.println("A");
+} else if (marks >= 75) {
+    System.out.println("B");
+} else {
+    System.out.println("C");
+}</pre></div>
+<h3>Switch</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int day = 2;
+
+switch(day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    default:
+        System.out.println("Invalid");
+}</pre></div>
+</section>
+
+<section id="loops">
+<h2>10. Loops</h2>
+<h3>For Loop</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>for(int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}</pre></div>
+<h3>While Loop</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int i = 1;
+while(i <= 5) {
+    System.out.println(i);
+    i++;
+}</pre></div>
+<h3>Do-While</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int i = 1;
+do {
+    System.out.println(i);
+    i++;
+} while(i <= 5);</pre></div>
+<div class="tip"><strong>Enhanced for loop:</strong> useful for traversing arrays and collections.</div>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int[] arr = {10, 20, 30};
+
+for(int x : arr) {
+    System.out.println(x);
+}</pre></div>
+</section>
+
+<section id="methods">
+<h2>11. Methods</h2>
+<p>Methods are reusable blocks of code.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>static int add(int a, int b) {
+    return a + b;
+}
+
+public static void main(String[] args) {
+    int result = add(10, 20);
+    System.out.println(result);
+}</pre></div>
+<h3>Method Overloading</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>static int add(int a, int b) {
+    return a + b;
+}
+
+static double add(double a, double b) {
+    return a + b;
+}</pre></div>
+<div class="note">Java is pass-by-value. For objects, the value passed is the reference value.</div>
+</section>
+
+<section id="arrays">
+<h2>12. Arrays</h2>
+<h3>1D Array</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int[] marks = {90, 80, 70, 85};
+
+System.out.println(marks[0]);
+
+for(int i = 0; i < marks.length; i++) {
+    System.out.println(marks[i]);
+}</pre></div>
+<h3>2D Array</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>int[][] matrix = {
+    {1, 2},
+    {3, 4}
+};
+
+for(int i = 0; i < matrix.length; i++) {
+    for(int j = 0; j < matrix[i].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+    }
+    System.out.println();
+}</pre></div>
+</section>
+
+<section id="strings">
+<h2>13. Strings</h2>
+<p><code class="inline">String</code> objects are immutable. Common operations include length, comparison, searching and extraction.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>String s = "Java Programming";
+
+System.out.println(s.length());
+System.out.println(s.toUpperCase());
+System.out.println(s.charAt(0));
+System.out.println(s.substring(0, 4));
+System.out.println(s.contains("Java"));
+System.out.println(s.equals("Java Programming"));</pre></div>
+<h3>StringBuilder</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>StringBuilder sb = new StringBuilder("Java");
+
+sb.append(" DSA");
+sb.insert(0, "Learn ");
+sb.reverse();
+
+System.out.println(sb);</pre></div>
+<div class="tip">For many string modifications, <strong>StringBuilder</strong> is generally preferred over repeatedly creating new String objects.</div>
+</section>
+
+<section id="oop">
+<h2>14. Classes and Objects</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class Student {
+    String name;
+    int age;
+
+    void display() {
+        System.out.println(name + " " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student();
+
+        s.name = "Shubham";
+        s.age = 19;
+
+        s.display();
+    }
+}</pre></div>
+<h3>Constructor</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class Student {
+    String name;
+    int age;
+
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}</pre></div>
+</section>
+
+<section id="inheritance">
+<h2>15. Inheritance</h2>
+<p>Inheritance allows a class to acquire members and behavior from another class.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class Animal {
+    void eat() {
+        System.out.println("Eating");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Barking");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();
+        d.bark();
+    }
+}</pre></div>
+<div class="box"><p>Java classes support single, multilevel and hierarchical inheritance. Multiple inheritance of classes is not supported; interfaces can provide multiple type inheritance.</p></div>
+</section>
+
+<section id="polymorphism">
+<h2>16. Polymorphism</h2>
+<h3>Compile-Time Polymorphism — Overloading</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}</pre></div>
+<h3>Runtime Polymorphism — Overriding</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+
+Animal a = new Dog();
+a.sound();</pre></div>
+</section>
+
+<section id="abstraction">
+<h2>17. Abstraction</h2>
+<p>Abstraction focuses on essential behavior while hiding implementation details.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>abstract class Vehicle {
+    abstract void start();
+
+    void stop() {
+        System.out.println("Vehicle stopped");
+    }
+}
+
+class Car extends Vehicle {
+    @Override
+    void start() {
+        System.out.println("Car started");
+    }
+}</pre></div>
+</section>
+
+<section id="interface">
+<h2>18. Interfaces</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>interface Printable {
+    void print();
+}
+
+class Document implements Printable {
+    public void print() {
+        System.out.println("Printing...");
+    }
+}</pre></div>
+<div class="tip">Interfaces are heavily useful when designing flexible code and are also important for understanding Java APIs.</div>
+</section>
+
+<section id="exceptions">
+<h2>19. Exception Handling</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>try {
+    int result = 10 / 0;
+    System.out.println(result);
+} catch (ArithmeticException e) {
+    System.out.println("Cannot divide by zero");
+} finally {
+    System.out.println("Finished");
+}</pre></div>
+<table><tr><th>Keyword</th><th>Purpose</th></tr>
+<tr><td>try</td><td>Code that may cause an exception</td></tr>
+<tr><td>catch</td><td>Handles an exception</td></tr><tr><td>finally</td><td>Code that is normally executed after try/catch</td></tr>
+<tr><td>throw</td><td>Explicitly throws an exception</td></tr><tr><td>throws</td><td>Declares possible exceptions in a method signature</td></tr></table>
+</section>
+
+<section id="packages">
+<h2>20. Packages and Access Modifiers</h2>
+<table><tr><th>Modifier</th><th>Access</th></tr>
+<tr><td>private</td><td>Inside declaring class</td></tr>
+<tr><td>default</td><td>Inside same package</td></tr>
+<tr><td>protected</td><td>Same package and accessible through inheritance in other packages</td></tr>
+<tr><td>public</td><td>Accessible wherever the class/member is accessible</td></tr></table>
+<div class="code-wrap"><button class="copy">Copy</button><pre>package myapp;
+
+public class Student {
+    private int marks;
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
+
+    public int getMarks() {
+        return marks;
+    }
+}</pre></div>
+</section>
+
+<section id="collections">
+<h2>21. Java Collections Framework</h2>
+<p>Collections provide ready-made data structures and algorithms. They are extremely important for Java-based DSA.</p>
+<table><tr><th>Collection</th><th>Typical Use</th></tr>
+<tr><td>ArrayList</td><td>Dynamic array</td></tr><tr><td>LinkedList</td><td>List and deque operations</td></tr>
+<tr><td>HashSet</td><td>Unique elements</td></tr><tr><td>TreeSet</td><td>Sorted unique elements</td></tr>
+<tr><td>HashMap</td><td>Key-value mapping</td></tr><tr><td>TreeMap</td><td>Sorted key-value mapping</td></tr>
+<tr><td>PriorityQueue</td><td>Heap-like priority access</td></tr></table>
+</section>
+
+<section id="arraylist">
+<h2>22. ArrayList</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.ArrayList;
+
+ArrayList<Integer> list = new ArrayList<>();
+
+list.add(10);
+list.add(20);
+list.add(30);
+
+System.out.println(list.get(1));
+
+list.set(1, 99);
+list.remove(0);
+
+System.out.println(list);
+System.out.println(list.size());
+System.out.println(list.contains(30));</pre></div>
+<table><tr><th>Method</th><th>Use</th></tr>
+<tr><td>add()</td><td>Add element</td></tr><tr><td>get()</td><td>Read by index</td></tr>
+<tr><td>set()</td><td>Update element</td></tr><tr><td>remove()</td><td>Remove element</td></tr>
+<tr><td>size()</td><td>Number of elements</td></tr><tr><td>contains()</td><td>Check existence</td></tr></table>
+</section>
+
+<section id="linkedlist">
+<h2>23. LinkedList</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.LinkedList;
+
+LinkedList<Integer> list = new LinkedList<>();
+
+list.add(10);
+list.add(20);
+list.addFirst(5);
+list.addLast(30);
+
+System.out.println(list);
+System.out.println(list.peekFirst());
+System.out.println(list.peekLast());</pre></div>
+<div class="note">For DSA, you should also learn how to implement a linked list manually using a Node class.</div>
+</section>
+
+<section id="stackqueue">
+<h2>24. Stack, Queue and Deque</h2>
+<h3>Stack using ArrayDeque</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.ArrayDeque;
+
+ArrayDeque<Integer> stack = new ArrayDeque<>();
+
+stack.push(10);
+stack.push(20);
+stack.push(30);
+
+System.out.println(stack.peek());
+System.out.println(stack.pop());</pre></div>
+<h3>Queue</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>ArrayDeque<Integer> queue = new ArrayDeque<>();
+
+queue.offer(10);
+queue.offer(20);
+queue.offer(30);
+
+System.out.println(queue.peek());
+System.out.println(queue.poll());</pre></div>
+</section>
+
+<section id="hashing">
+<h2>25. HashSet and HashMap</h2>
+<h3>HashSet</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.HashSet;
+
+HashSet<Integer> set = new HashSet<>();
+
+set.add(10);
+set.add(20);
+set.add(10);
+
+System.out.println(set);
+System.out.println(set.contains(20));</pre></div>
+<h3>HashMap</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.HashMap;
+
+HashMap<String, Integer> map = new HashMap<>();
+
+map.put("Apple", 10);
+map.put("Banana", 20);
+
+System.out.println(map.get("Apple"));
+System.out.println(map.containsKey("Banana"));</pre></div>
+<div class="tip">HashMap is one of the most important Java tools for frequency counting, lookup tables and many DSA problems.</div>
+</section>
+
+<section id="pq">
+<h2>26. PriorityQueue</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.PriorityQueue;
+
+PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+pq.offer(30);
+pq.offer(10);
+pq.offer(20);
+
+while(!pq.isEmpty()) {
+    System.out.println(pq.poll());
+}</pre></div>
+<p>By default, Java's PriorityQueue behaves as a min-priority queue.</p>
+<h3>Max Heap</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>PriorityQueue<Integer> maxHeap =
+    new PriorityQueue<>(Collections.reverseOrder());
+
+maxHeap.offer(10);
+maxHeap.offer(30);
+maxHeap.offer(20);</pre></div>
+</section>
+
+<section id="generics">
+<h2>27. Generics</h2>
+<p>Generics allow classes and methods to work with specified types while improving compile-time type safety.</p>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class Box<T> {
+    T value;
+
+    Box(T value) {
+        this.value = value;
+    }
+
+    T getValue() {
+        return value;
+    }
+}
+
+Box<Integer> b1 = new Box<>(100);
+Box<String> b2 = new Box<>("Java");</pre></div>
+</section>
+
+<section id="lambda">
+<h2>28. Lambda Expressions</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>interface Calculator {
+    int add(int a, int b);
+}
+
+Calculator c = (a, b) -> a + b;
+
+System.out.println(c.add(10, 20));</pre></div>
+<p>Lambdas are especially useful with functional interfaces, sorting and the Stream API.</p>
+</section>
+
+<section id="streams">
+<h2>29. Stream API</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.*;
+import java.util.stream.*;
+
+List<Integer> nums = Arrays.asList(1,2,3,4,5,6);
+
+List<Integer> even = nums.stream()
+        .filter(x -> x % 2 == 0)
+        .collect(Collectors.toList());
+
+System.out.println(even);</pre></div>
+<table><tr><th>Operation</th><th>Purpose</th></tr>
+<tr><td>filter()</td><td>Select elements matching a condition</td></tr>
+<tr><td>map()</td><td>Transform elements</td></tr><tr><td>sorted()</td><td>Sort stream elements</td></tr>
+<tr><td>forEach()</td><td>Perform action for each element</td></tr><tr><td>collect()</td><td>Collect stream result</td></tr></table>
+</section>
+
+<section id="files">
+<h2>30. File Handling</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.io.*;
+
+FileWriter writer = new FileWriter("data.txt");
+writer.write("Hello Java");
+writer.close();
+
+BufferedReader reader =
+    new BufferedReader(new FileReader("data.txt"));
+
+String line = reader.readLine();
+System.out.println(line);
+reader.close();</pre></div>
+<div class="warn">For modern applications, prefer structured resource handling such as try-with-resources when working with closeable resources.</div>
+</section>
+
+<section id="threads">
+<h2>31. Multithreading Basics</h2>
+<div class="code-wrap"><button class="copy">Copy</button><pre>class MyTask extends Thread {
+    public void run() {
+        System.out.println("Task running");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyTask t = new MyTask();
+        t.start();
+    }
+}</pre></div>
+<p>Important concepts: Thread, Runnable, synchronization, race conditions, locks and executors.</p>
+</section>
+
+<section id="memory">
+<h2>32. Java Memory Basics</h2>
+<div class="mini-grid">
+<div class="card"><h4>Stack</h4><p>Stores method call frames and local variables.</p></div>
+<div class="card"><h4>Heap</h4><p>Stores objects and arrays.</p></div>
+<div class="card"><h4>Garbage Collection</h4><p>JVM automatically manages unreachable object memory.</p></div>
+</div>
+<div class="code-wrap"><button class="copy">Copy</button><pre>Student s = new Student("Shubham");
+
+s = null;
+
+// The previously referenced object may become
+// eligible for garbage collection if unreachable.</pre></div>
+</section>
+
+<section id="dsaprep">
+<h2>33. Java for DSA — Must Know</h2>
+<table><tr><th>Topic</th><th>What to Learn</th></tr>
+<tr><td>Arrays</td><td>Traversal, prefix sum, two pointers, sliding window</td></tr>
+<tr><td>Strings</td><td>String methods, StringBuilder, frequency arrays</td></tr>
+<tr><td>Searching</td><td>Linear search, binary search</td></tr>
+<tr><td>Sorting</td><td>Bubble, selection, insertion, merge, quick sort</td></tr>
+<tr><td>Recursion</td><td>Base case, recursive tree, backtracking basics</td></tr>
+<tr><td>Linked List</td><td>Node, insertion, deletion, reversal</td></tr>
+<tr><td>Stack</td><td>push/pop, monotonic stack</td></tr>
+<tr><td>Queue</td><td>FIFO, deque, BFS</td></tr>
+<tr><td>Hashing</td><td>HashMap, HashSet, frequency counting</td></tr>
+<tr><td>Heap</td><td>PriorityQueue, min heap, max heap</td></tr>
+<tr><td>Tree</td><td>Traversal, BST, height, recursion</td></tr>
+<tr><td>Graph</td><td>Adjacency list, BFS, DFS</td></tr>
+<tr><td>DP</td><td>State, recurrence, memoization, tabulation</td></tr></table>
+
+<h3>Useful DSA Java Imports</h3>
+<div class="code-wrap"><button class="copy">Copy</button><pre>import java.util.*;
+
+ArrayList<Integer> list = new ArrayList<>();
+HashMap<Integer, Integer> map = new HashMap<>();
+HashSet<Integer> set = new HashSet<>();
+ArrayDeque<Integer> deque = new ArrayDeque<>();
+PriorityQueue<Integer> pq = new PriorityQueue<>();
+Arrays.sort(new int[]{3,1,2});</pre></div>
+</section>
+
+<section id="interview">
+<h2>34. Important Java Interview / Revision Questions</h2>
+<table><tr><th>Question</th><th>Quick Answer</th></tr>
+<tr><td>What is Java?</td><td>A high-level, class-based, object-oriented programming language.</td></tr>
+<tr><td>JDK vs JRE vs JVM?</td><td>JDK is for development, JRE is runtime environment, JVM executes bytecode.</td></tr>
+<tr><td>What is a class?</td><td>A blueprint that defines state and behavior.</td></tr>
+<tr><td>What is an object?</td><td>An instance of a class.</td></tr>
+<tr><td>What is inheritance?</td><td>A mechanism through which a class derives from another class.</td></tr>
+<tr><td>Overloading vs overriding?</td><td>Overloading changes method parameters; overriding redefines inherited behavior.</td></tr>
+<tr><td>What is encapsulation?</td><td>Bundling data and methods while controlling access.</td></tr>
+<tr><td>What is abstraction?</td><td>Showing essential behavior while hiding implementation details.</td></tr>
+<tr><td>ArrayList vs LinkedList?</td><td>Both are lists; their performance characteristics differ for indexed access and insertion/removal patterns.</td></tr>
+<tr><td>HashMap use?</td><td>Fast average-case key-value lookup and frequency counting.</td></tr>
+<tr><td>What is recursion?</td><td>A method solving a problem by calling itself on smaller subproblems.</td></tr>
+<tr><td>What is Big-O?</td><td>A way to describe how time or space requirements grow with input size.</td></tr></table>
+
+<div class="note">
+<strong>Java DSA Revision Order:</strong><br>
+Basics → Conditions → Loops → Methods → Arrays → Strings → OOP → Recursion → Collections → Sorting → Searching → Linked List → Stack → Queue → Hashing → Trees → Heap → Graph → DP.
+</div>
+</section>
+
+<section id="final">
+<h2>35. Final Java Revision Checklist</h2>
+<ol>
+<li>Can you write a Java program without copying syntax?</li>
+<li>Can you use loops and conditions confidently?</li>
+<li>Can you create methods and understand recursion?</li>
+<li>Can you work with 1D and 2D arrays?</li>
+<li>Do you understand String and StringBuilder?</li>
+<li>Can you create classes, objects and constructors?</li>
+<li>Do you understand inheritance, polymorphism, abstraction and interfaces?</li>
+<li>Can you use ArrayList, HashMap, HashSet and PriorityQueue?</li>
+<li>Can you implement Linked List, Stack and Queue yourself?</li>
+<li>Can you analyze time and space complexity?</li>
+</ol>
+<div class="tip"><strong>Goal:</strong> Don't just read these notes. Type every example yourself, modify it, break it, fix it, and then solve practice problems.</div>
+</section>
+
+</main>
+
+<footer class="footer">
+Shubham Docs • Java Programming & DSA Study Page
+</footer>
+</div>
+
+<a href="#top" class="back-top">↑</a>
+
+<script>
+const search = document.getElementById("search");
+const sections = [...document.querySelectorAll("main section")];
+const tocLinks = [...document.querySelectorAll(".toc a")];
+
+search.addEventListener("input", () => {
+  const q = search.value.toLowerCase().trim();
+  sections.forEach(section => {
+    section.classList.toggle("hidden", q && !section.innerText.toLowerCase().includes(q));
+  });
+});
+
+document.querySelectorAll(".copy").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const code = btn.parentElement.querySelector("pre").innerText;
+    try {
+      await navigator.clipboard.writeText(code);
+      const old = btn.innerText;
+      btn.innerText = "Copied!";
+      setTimeout(() => btn.innerText = old, 1200);
+    } catch {
+      btn.innerText = "Select & Copy";
+      setTimeout(() => btn.innerText = "Copy", 1200);
+    }
+  });
+});
+
+document.getElementById("themeBtn").addEventListener("click", () => {
+  document.body.classList.toggle("light");
+  document.getElementById("themeBtn").innerText =
+    document.body.classList.contains("light") ? "🌙 Dark" : "☀ Theme";
+});
+
+window.addEventListener("scroll", () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById("progress").style.width =
+    (window.scrollY / total * 100) + "%";
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      tocLinks.forEach(a => a.classList.remove("active"));
+      const active = document.querySelector('.toc a[href="#' + entry.target.id + '"]');
+      if(active) active.classList.add("active");
+    }
+  });
+},{rootMargin:"-20% 0px -70% 0px"});
+
+sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
